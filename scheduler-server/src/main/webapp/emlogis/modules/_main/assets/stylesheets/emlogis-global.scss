@@ -1,0 +1,1534 @@
+/*  EmLogis global SCSS starts  */
+
+
+//  Here we declare EmLogis global used SCSS
+
+//  All modules and views specific SCSS
+//  should be declared separately
+//  inside their own directories
+
+
+// Import variables
+@import 'bootstrap_variables.scss';
+@import 'emlogis_variables.scss';
+
+.emlogis {
+
+  //--------------------------------------------------------------------
+  // Basics
+  //--------------------------------------------------------------------
+
+  //
+  // Make basic font-weight to be light
+  font-weight: 400;
+
+  h2, h6, h7 {
+    font-family: "Montserrat", "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  h7 {
+    font-size: $font-size-h7;
+  }
+
+  .eml-grey {
+    color: $eml-dark-grey;
+  }
+
+
+  //
+  // SVG icons basic colors
+  // these can be overwritten for any custom style
+
+  .eml-icon-close {
+    fill: $eml-blue-highlight; //fill="#2980B9";
+    &:hover {
+      fill: $eml-blue-highlight-dark;
+    }
+  }
+
+  .eml-icon-mark-read {
+    fill: $eml-green-highlight;
+    &:hover {
+      fill: $eml-green-highlight-dark;
+    }
+  }
+
+
+
+  //--------------------------------------------------------------------
+  // Layout
+  //--------------------------------------------------------------------
+
+  .no-right-padding {
+    padding-right: 0 !important;
+  }
+
+  //
+  // Breadcrumb's right side
+  // its contents are styled by each NG module separately
+
+  .eml-module-breadcrumb {
+    position: absolute;
+    right: $eml-navbar-horiz-padding;
+    height: $eml-el-height;
+
+    .eml-breadcrumb-btn,
+    .eml-breadcrumb-icon {
+      margin-left: 15px;
+    }
+
+    .input-group,
+    .eml-breadcrumb-btn {
+      //margin-top: 2px;
+    }
+
+
+    // All buttons
+    // in breadcrumbs section
+
+    .btn-default {
+      border-color: transparent;
+      background-color: $eml-light-grey;
+      color: $eml-black;
+
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: #eee; // #fff; //$eml-mid-grey;
+      }
+    }
+
+
+    // Input group
+    // for search field with button
+
+    .input-group {
+      width: 260px;
+
+      input {
+        border: transparent;
+        box-shadow: none;
+      }
+
+      .btn {
+        width: 30px;
+        height: $eml-el-height;
+        border-left: 1px solid $eml-mid-grey;
+        z-index: 2;
+
+        img {
+          height: 16px;
+          position: absolute;
+          margin: auto;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: -2px;
+        }
+      }
+    }
+
+
+    // SVG icons
+
+    .eml-breadcrumb-icon {
+      //margin-top: 3px;
+
+      div {
+        height: 31px;
+        width: 31px;
+      }
+
+      svg {
+        overflow: visible;
+      }
+
+      .eml-svg {
+        fill: $eml-light-grey;
+        filter: url(#dropshadow);
+      }
+
+      &:hover {
+        .eml-svg {
+          fill: #eee;
+        }
+      }
+
+      &:focus,
+      &:active {
+        .eml-svg {
+          fill: $eml-dark-blue;
+          filter: none;
+        }
+      }
+    }
+  }
+  
+  
+  
+  //
+  // Action Bar section
+  // that is placed right below Top Tabs navigation
+
+  .eml-action-bar {
+    padding: 15px 0;
+
+    h3 {
+      margin-top: 0;
+      margin-bottom: 0;
+      line-height: $eml-el-height;
+    }
+  }
+
+
+
+  //
+  // Spacing between Buttons
+
+  .eml-action-bar,
+  .space-between-btns {
+    .btn {
+      margin-right: 10px;
+    }
+
+    .text-right,
+    .pull-right,
+    &.text-right,
+    &.pull-right {
+      .btn {
+        margin-right: 0;
+        margin-left: 10px;
+      }
+    }
+  }
+
+
+
+  //
+  // Back to listing element
+
+  .eml-back-to-list,
+  .eml-back {
+
+    a {
+      color: $eml-black;
+
+      &:hover,
+      &:focus,
+      &:active {
+        color: $eml-blue-highlight;
+
+        .fa {
+          box-shadow: $eml-el-shadow-hover;
+        }
+      }
+    }
+
+    .fa {
+      padding: 4px 8px;
+      background-color: $eml-lightest-grey;
+      border-radius: $border-radius-base;
+      position: relative;
+      top: -1px;
+      box-shadow: $eml-el-shadow;
+      margin-right: 5px;
+    }
+  }
+
+  .eml-back-to-list {
+    background-color: #fff;
+    line-height: 35px;
+    height: 35px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .eml-back {
+    line-height: $eml-el-height;
+    height: $eml-el-height;
+  }
+
+
+  //
+  // Custom buttons
+
+  .btn.eml-btn-invisible {
+    padding-right: 0;
+    box-shadow: none;
+    text-shadow: none;
+  }
+
+
+
+  //--------------------------------------------------------------------
+  // Validation
+  //--------------------------------------------------------------------
+
+  //
+  // Validation is based on Angular classes
+  // TODO: refactoring might be needed based on icon + popup message implementation
+  
+  /* TEMP
+  .validate-message:nth-of-type(1) {
+    opacity: 1 !important;
+  }*/
+
+  .emlogis-validate-icon {                                          // valid or error icon for each field
+    color: rgba(0,0,0,.14);
+
+    .validate-message,
+    .fa {
+      position: absolute;
+    }
+
+    .validate-message {
+      background-color: $brand-danger;
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 3px 3px 0;
+      top: -28px;
+      right: 25px; //17px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .validate-message:after {
+      content: '';
+      width: 0;
+      height: 0;
+      border-left: 7px solid transparent;
+      //border-right: 5px solid transparent;
+      border-top: 7px solid $brand-danger;
+      top: 26px; //27px;
+      position: relative;
+      right: -8px;
+    }
+
+
+    // .
+    // If user hovers on error icon
+    // We display the corresponding message for this field
+
+    .fa-times-circle:hover + .validate-message {
+      opacity: 1;
+    }
+
+
+    .fa {
+      top: 3px;
+      right: 15px; //7px;
+    }
+
+    &.right-side .fa {                                              // for icon belongs to the most right field
+      right: 17px;
+    }
+
+    .fa-check-circle,
+    .fa-times-circle {
+      visibility:hidden;
+      opacity:0;
+      transition:visibility 0s linear 0s, opacity 0.2s linear
+    }
+  }
+
+
+  .ng-invalid.ng-touched:not(.ng-pristine),
+  .ng-valid.ng-touched:not(.ng-pristine) {                                            // when user leaves a field that has validation icon
+    & + .emlogis-validate-icon {
+      //opacity: .9;
+
+      .fa-asterisk {
+        display: none;
+      }
+    }
+  }
+
+
+  .ng-invalid.ng-touched:not(.ng-pristine) {                                         // when field is invalid
+    //border: 1px solid $brand-danger;
+
+    & + .emlogis-validate-icon {
+      color: $brand-danger;
+
+      .fa-times-circle {
+        visibility:visible;
+        opacity:1;
+        transition:visibility 0s linear 0s, opacity 0.2s linear;
+      }
+    }
+  }
+
+
+  .ng-valid.ng-touched:not(.ng-pristine) {                                          // when field is valid
+
+    & + .emlogis-validate-icon {
+      color: $brand-success;
+
+      .fa-check-circle {
+        visibility:visible;
+        opacity:1;
+        transition:visibility 0s linear 0s, opacity 0.2s linear;
+      }
+    }
+  }
+
+
+  // Hide error state and icon
+  // when field becomes valid while user is typing
+
+  input.ng-valid.ng-dirty {
+    //border: 1px solid #ccc; TEMP!
+
+    & + .emlogis-validate-icon {
+      .fa-times-circle {
+        visibility:hidden;
+        opacity:0;
+        transition:visibility 0s linear 0s, opacity 0.2s linear
+      }
+    }
+  }
+
+
+  // On form submit
+  // show error for all incorrectly filled fields
+
+  .has-error {
+    .emlogis-validate-icon {
+      .fa-asterisk {
+        display: none;
+      }
+      .fa-times-circle {
+        color: $brand-danger;
+        visibility: visible;
+        opacity: 1;
+        transition: visibility 0s linear 0s, opacity 0.2s linear;
+      }
+    }
+
+    input,
+    select {
+      border-color: $brand-danger;
+
+      &:focus,
+      &:active {
+        border-color: $brand-danger;
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 2px $brand-danger;
+      }
+    }
+  }
+
+  td.form-group {
+    position: relative;
+
+    .emlogis-validate-icon .fa {
+      top: 50%;
+      right: 0;
+      margin-top: -7px;
+    }
+
+    .validate-message {
+      top: -17px;
+      right: 9px;
+    }
+  }
+
+
+
+
+
+
+  //--------------------------------------------------------------------
+  // Custom global components
+  //--------------------------------------------------------------------
+
+
+  //
+  // Tags directive
+  // has .eml-tags and .eml-tag classes
+  
+  .eml-tags {
+    line-height: 2.2em;
+    
+    .btn-group {
+      vertical-align: top;
+    }
+  }
+  
+  .eml-tag {
+    display: inline-block;
+    font-size: .9em;
+    font-weight: 300;
+    border-radius: 14px;
+    background-color: #fff;
+    color: $eml-blue-highlight;
+    text-transform: uppercase;
+    box-shadow: $eml-el-shadow;
+    margin-right: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    border: 1px solid #fff;
+    
+    &.add-tag {
+      padding: 5px 7px;
+    }
+    
+    &.deactive {
+      color: $eml-mid-grey;
+
+      &:hover,
+      &:hover .fa-times {
+        color: $eml-dark-grey;
+      }
+    }
+    
+    &:hover {
+      color: $eml-blue-highlight-dark;
+      box-shadow: $eml-el-shadow-hover;
+
+      .fa-times {
+        color: $eml-blue-highlight-dark;
+      }
+    }
+    
+    .fa-times {
+      position: relative;
+      font-size: .8em;
+      top: -1px;
+      margin-left: 2px;
+      right: -1px;
+      color: #bbb;
+    }
+  }
+
+
+  // Tables
+  .eml-table-striped {
+    background-color: $eml-lightest-grey;
+    tbody > tr:nth-child(odd) {
+      background-color: white;
+    }
+    font-weight: $headings-font-weight;
+    font-size: $font-size-h6;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+
+    .btn {
+      box-shadow: none;
+    }
+  }
+
+  //Sorting & Filtering Components
+  .eml-sorting, .eml-filtering {
+    font-size: 15px;
+    font-weight: 500;
+
+    .title {
+      margin-right: 5px;
+    }
+
+    .btn {
+      font-size: 12px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 5px;
+
+      &.eml-btn-white {
+        color: $eml-light-blue;
+        font-weight: 600;
+        text-shadow: none;
+      }
+    }
+
+    .filters {
+      margin-left: -5px;
+    }
+
+    .vertical-divider {
+      margin-left: -5px;
+      margin-right: 11px;
+      color: #c3cacd;
+      text-shadow: 1px 1px #f2f2f3;
+      font-weight: 100;
+      font-size: 20px;
+      line-height: 15px;
+      vertical-align: text-bottom;
+    }
+
+    .sort-icon {
+      height: 20px;
+      width: 20px;
+      margin-left: -8px;
+      cursor: pointer;
+      vertical-align: bottom;
+
+      &.up {
+        transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        -webkit-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        vertical-align: middle;
+      }
+    }
+  }
+
+
+  // Custom buttons
+  .btn {
+    // White button
+    &.eml-btn-white {
+      color: #333;
+      background-color: #fff;
+      border-color: #ccc;
+
+      &.active,
+      &:active,
+      &:hover {
+        color: #333;
+        background-color: #e6e6e6;
+        border-color: #adadad;
+      }
+
+      &.eml-btn-delete {
+        padding: 5px 10px;
+        background-color: transparent;
+        border-color: #fff transparent transparent;
+        color: $eml-dark-grey;
+        box-shadow: $eml-el-shadow;
+        text-shadow: none;
+
+        &:hover,
+        &:focus,
+        &:active {
+          color: $eml-red-highlight;
+          border-color: transparent;
+          text-shadow: none;
+          background-color: #fff;
+        }
+      }
+    }
+
+    // Light-grey button
+    &.eml-btn-grey-lightest {
+      color: #333;;
+      background-color: $eml-lightest-grey;
+      border-color: #adadad;
+
+      &.active,
+      &:active,
+      &:hover {
+        color: #333;
+        background-color: $eml-light-grey;
+      }
+    }
+
+    // custom look of button for date picker
+    &.eml-calendar-btn {
+      padding: 3px 0 5px;
+      box-shadow: none;
+
+      &.eml-calendar-opened {
+        border-bottom-right-radius: 0;
+        border-bottom: 1px solid $eml-lightest-grey;
+        z-index: 999;
+        position: relative;
+
+        &:hover {
+          background-color: $eml-lightest-grey;
+        }
+      }
+
+      &:focus,
+      &:active {
+        outline: none;
+      }
+
+      img {
+        width: 42px;
+        height: 20px;
+      }
+    }
+  }
+
+
+  // dropdown component
+  .eml-dropdown {
+    display: inline-block;
+    vertical-align: top;
+    white-space: nowrap;
+
+    .dropdown-menu {
+      max-height: 350px;
+      min-width: 100%;
+      overflow-y: auto;
+    }
+
+    .text-block-left {
+      display: inline-block;
+      position: relative;
+      text-align: right;
+      vertical-align: middle;
+      padding-right: 7px;
+      line-height: 15px;
+      font-weight: 300;
+      white-space: normal;
+    }
+
+    .text-block-top {
+      font-weight: 300;
+    }
+
+    .btn-group {
+      vertical-align: middle;
+      .btn {
+        font-size: $font-size-h6;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+        text-shadow: 0 0px 0px rgba(0, 0, 0, 0.35);
+        text-transform: none;
+      }
+    }
+
+    .sort-icon {
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  //month-year-picker component
+  .month-year-picker {
+    .month-year-title {
+      margin: 0 10px;
+      font-size: 15px;
+      font-weight: bold;
+      display: inline-block;
+      position: relative;
+      top: 2px;
+      text-align: center;
+    }
+
+    button {
+      box-shadow: none;
+    }
+  }
+
+  //availability calendar component
+  .availability-calendar {
+    .eml-datepicker-right {
+      display: inline-block;
+      width: 50px;
+      input {
+        display: none;
+      }
+    }
+
+    .month-year-picker {
+      display: inline-block;
+      position: relative;
+      top: -12px;
+      .month-year-title {
+        min-width: 110px;
+      }
+    }
+
+    .availabilty-preference-checker {
+      display: inline-block;
+      position: relative;
+      vertical-align: super;
+      margin-left: 20px;
+      top: -3px;
+      font-size: $font-size-h4;
+
+      .checkbox {
+        margin-left: 10px;
+        display: inline-block;
+
+        &.preference-checkbox label {
+          font-weight: 300;
+        }
+
+        input {
+          margin-top: 5px;
+        }
+      }
+    }
+
+    .select-days-text {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 40px;
+    }
+
+    .couple-weekends {
+      text-align: right;
+
+      .checkbox {
+        display: inline-block;
+        font-size: $font-size-h4;
+        input {
+          margin-top: 5px;
+        }
+      }
+      .action-buttons {
+        display: inline-block;
+        margin-right: 10px;
+        position: relative;
+        top: -3px;
+      }
+    }
+
+    .max-days-header {
+      position: relative;
+      top: 65px;
+      vertical-align: middle;
+      display: table-cell;
+      width: 75px;
+      font-size: 15px;
+    }
+
+    .max-days-body {
+      margin-top: 80px;
+
+      .max-days-container {
+        height: 162px;
+        padding: 60px 0;
+
+        .eml-dropdown {
+          margin-left: -9px;
+        }
+
+        .action-buttons {
+          margin-top: 10px;
+        }
+
+        .max-days-employee-view {
+          font-size: $font-size-h4;
+          margin-left: 25px;
+          margin-top: 15px;
+          padding-right: 9px;
+        }
+      }
+    }
+
+    .calendar {
+      margin-top: -15px;
+
+      .calendar-legend {
+        margin: 20px 0 20px;
+
+        div {
+          display: inline-block;
+        }
+
+        .color-option {
+          margin-right: 40px;
+          .color-box {
+            width: 20px;
+            height: 20px;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+
+            &.white {
+              background-color: #fdfdfd;
+            }
+            &.light-grey {
+              background-color: #ebebeb;
+            }
+            &.dark-grey {
+              background-color: #c7cbce;
+            }
+            &.blue {
+              background-color: #dbe8ee;
+            }
+          }
+
+          .color-label {
+            margin-left: 7px;
+            font-size: 15px;
+            font-weight: 300;
+            vertical-align: top;
+            font-style: italic;
+          }
+        }
+
+      }
+    }
+
+    .fc-view-container {
+      th, td {
+        cursor: pointer;;
+      }
+
+      .fc-row.fc-widget-header {
+        font-size: $font-size-h5;
+
+        tr:first-child {
+          color: #0c85bd;
+
+          .rotation {
+            text-align: right;
+            display: inline-block;
+            float: right;
+          }
+        }
+
+        .ci-header {
+          th {
+            background-color: #fdfdfd;
+            min-height: 75px;
+            text-align: left;
+            font-weight: 500;
+
+            .availability-container {
+              padding: 10px 12px 10px;
+              min-height: 75px;
+
+              .preference {
+                position: static;
+                bottom: inherit;
+              }
+            }
+          }
+        }
+
+        .fc-day-header .availability-container {
+          padding: 10px;
+          text-align: left;
+          text-transform: uppercase;
+          background-color: #ebebeb;
+          border: 1px solid #ebebeb;
+          font-weight: 500;
+        }
+      }
+
+      .fc-widget-content {
+        background-color: #fdfdfd;
+
+        .fc-row {
+          height: 162px;
+        }
+
+        .fc-day-number {
+          text-align: left;
+          font-size: 16px;
+          font-weight: 300;
+          color: #899498;
+          padding: 5px 10px 10px;
+        }
+      }
+
+      .availability-container {
+        height: 100%;
+        padding: 30px 12px 10px;
+        border: 1px solid #fdfdfd;
+
+        .preference {
+          position: absolute;
+          bottom: 5px;
+        }
+
+        &.day-selected {
+          border: 1px solid #3f82ba !important;
+        }
+
+        &.partially-available {
+          background-color: #ebebeb;
+          border: 1px solid #ebebeb;
+        }
+
+        &.not-available {
+          background-color: #c7cbce;
+          border: 1px solid #c7cbce;
+        }
+
+        &.holiday-vacation {
+          background-color: #dbe8ee;
+          border: 1px solid #dbe8ee;
+        }
+
+        .time-frame {
+          margin-bottom: 5px;
+          position: relative;
+          font-size: $font-size-h4;
+        }
+
+        .pref-time-frame {
+          @extend .time-frame;
+          font-weight: 300;
+        }
+
+        .remove-time-frame {
+          text-decoration: line-through;
+          color: #C03926;
+        }
+
+        .add-time-frame {
+          color: #61BDA8;
+        }
+
+      }
+    }
+  }
+
+  // Preview availability change calendar
+  .availability-change-preview {
+    .availability-calendar {
+
+      .fc-view-container {
+        .fc-widget-content .fc-row {
+          height: 124px;
+        }
+
+        .fc-row.fc-widget-header {
+          tr:first-child {
+            color: #4D525E;
+          }
+
+          .ci-header th {
+            min-height: 30px;
+            .availability-container {
+              min-height: 30px;
+            }
+          }
+        }
+      }
+
+      .fc-view-container td {
+        cursor: auto;
+      }
+    }
+
+    .calendar-legend {
+      text-align: center;
+    }
+  }
+
+
+  .edit-availability-modal,
+  .edit-preference-modal,
+  .copy-availability-modal {
+    .modal-body {
+      font-size: $font-size-h5;
+
+      .dates-selected {
+        line-height: 30px;
+      }
+
+      .select-title {
+        margin-bottom: 15px;
+      }
+
+      .radio {
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
+
+      .pto-option {
+        margin-left: 10px;
+      }
+
+      .date-input {
+        width: 125px;
+        position: absolute;
+        top: -20px;
+
+        &:nth-child(2) {
+          left: 150px;
+        }
+
+        .date-input-title {
+          text-transform: uppercase;
+          font-weight: 300;
+        }
+
+      }
+
+      .time-frame {
+        display: inline-block;
+      }
+
+      .time-frame-to {
+        display: inline-block;
+        width: 30px;
+        vertical-align: top;
+        margin-top: 35px;
+        text-align: center;
+      }
+
+      .time-frame-number-btn {
+        display: inline-block;
+        vertical-align: top;
+        margin-top: 31px;
+      }
+
+      .repeat-dropdown {
+        margin-left: -9px;
+        margin-top: 10px;
+
+        .text-block-top {
+          margin-bottom: 10px;
+          font-weight: normal;
+        }
+      }
+    }
+  }
+
+  // Divider element
+
+  .divider {
+    clear: both;
+    height: 1px;
+    background-color: #ccc;;
+  }
+
+
+  // Legacy styling
+  // Needs to be verified
+
+  .top-margin-base {
+    margin-top: $margin-large-vertical;
+  }
+
+  /* hidden for testing
+
+  .frm-entity {
+    label {
+      display: block;
+    }
+
+    .entity-field.ng-invalid.ng-dirty {
+      border: 1px solid #ff0000;
+    }
+
+    .validation-msg {
+      color: #ff0000;
+    }
+
+    &.frm-submit-clicked {
+      .entity-field.ng-invalid {
+        border: 1px solid #ff0000;
+      }
+    }
+  }*/
+
+  .btn-open-date-picker {
+    height: 30px !important;
+  }
+
+  .btn-container {
+    margin-top: $margin-ml-vertical;
+  }
+
+  .dropdown-menu {
+    li {
+      a {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .entity-list-grid,
+  .entity-selection-list-grid {
+    height: 550px;
+    .ui-grid-viewport {
+      overflow: auto !important;
+    }
+  }
+
+  .ui-grid-pager-panel {
+    .ui-grid-pager-container {
+      .ui-grid-pager-row-count-picker {
+        display: none;
+      }
+
+      .ui-grid-pager-control {
+        & > button {
+          border: 1px solid #ddd;
+          background-color: #fff;
+        }
+
+        & > input {
+          border: 1px solid #ddd;
+        }
+
+        & > .ui-grid-pager-max-pages-number {
+          vertical-align: super;
+        }
+      }
+    }
+  }
+
+  .schedules-modal {
+    .schedules-header {
+      .inline-container {
+        float: left;
+
+        &.checkbox {
+          float: left;
+          margin-top: 0;
+          padding: $padding-base-vertical $padding-small-horizontal;
+          margin-right: $margin-base-horizontal;
+          border-radius: 5px;
+
+          &.white-bg {
+            -webkit-box-shadow: 0px 2px 2px 0px rgba(137,148,152,1);
+            -moz-box-shadow: 0px 2px 2px 0px rgba(137,148,152,1);
+            box-shadow: 0px 2px 2px 0px rgba(137,148,152,1);
+          }
+
+          &.dark-grey-bg {
+            -webkit-box-shadow: inset 0px 2px 2px 0px rgba(120,131,135,1);
+            -moz-box-shadow: inset 0px 2px 2px 0px rgba(120,131,135,1);
+            box-shadow: inset 0px 2px 2px 0px rgba(120,131,135,1);
+          }
+        }
+      }
+    }
+
+    .schedules-filter {
+      .btn-filter {
+        padding: 5px 6px;
+        background: #fff;
+        border: 1px solid #ccc;
+        box-shadow: none;
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+      }
+      .inline-container {
+        float: left;
+      }
+      .select-filter {
+        width: 45%;
+        float: left;
+        margin-left: 2.5%;
+        margin-right: 2.5%;
+      }
+
+      .label-schedule-date {
+        margin-right: 6px;
+        margin-top: 5px;
+      }
+
+      .schedule-date-picker-container {
+        width: calc(100% - 105px);
+      }
+    }
+
+    .schedules-list {
+      .ui-grid-cell-contents {
+        color: #808080;
+      }
+    }
+  }
+
+  //
+  // Global Helpers
+
+  .no-border {
+    border: 0 !important;
+  }
+
+  .no-margin-bottom {
+    margin-bottom: 0 !important;
+  }
+
+  .filter-ico {
+    padding: 6px;
+    font-size: 18px;
+    color: #444953;
+  }
+
+  .vertical-delimiter {
+    vertical-align: text-bottom;
+  }
+
+  .white-border {
+    border-color: #fff !important;
+  }
+
+  .black-bg {
+    background-color: #2e3138;
+    border-color: #2e3138;
+  }
+
+  .dark-blue-bg {
+    background-color: #444953;
+    border-color: #444953;
+  }
+
+  .red-bg {
+    background-color: #ff0000;
+    border-color: #ff0000;
+  }
+
+  .grey-bg {
+    background-color: #808080;
+    border-color: #808080;
+  }
+
+  .mid-grey-bg {
+    background-color: #b0bec4;
+    border-color: #b0bec4;
+  }
+
+  .dark-grey-bg {
+    background-color: #899498;
+    border-color: #899498;
+  }
+
+  .light-grey-bg {
+    background-color: #e4e4e5;
+    border-color: #e4e4e5;
+  }
+
+  .white-bg {
+    background-color: #ffffff;
+    border-color: #ffffff;
+  }
+
+  .green-bg {
+    background-color: #16a085;
+    border-color: #16a085;
+  }
+
+
+  .mid-grey-color {
+    color: #b0bec4;
+  }
+  .dark-grey-color {
+    color: #899498;
+  }
+  .white-color {
+    color: #ffffff;
+  }
+  .red-color {
+    color: #ff0000;
+  }
+  .green-color {
+    color: #16a085;
+  }
+  .black-color {
+    color: #2e3138;
+  }
+  .grey-color {
+    color: #899498;
+  }
+  .blue-color {
+    color: #007fb5;
+  }
+  .dark-blue-color {
+    color: #444953;
+  }
+  .orange-color {
+    color: #ee7f00;
+  }
+
+
+  //--------------------------------------------------------------------
+  // Toggle switch based on checkbox
+  //--------------------------------------------------------------------
+
+  $switchTransition: .15s ease-out;
+
+  .eml-switch {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    width: 56px;
+    height: 20px;
+    padding: 3px;
+    background-color: white;
+    border-radius: 18px;
+    box-shadow: inset 0 -1px white, inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    background-image: linear-gradient(to bottom, #eeeeee, white 25px);
+  }
+
+  .eml-switch-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+  }
+
+  .eml-switch-label {
+    position: relative;
+    display: block;
+    height: inherit;
+    font-size: 10px;
+    text-transform: uppercase;
+    background: #eceeef;
+    border-radius: inherit;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12), inset 0 0 2px rgba(0, 0, 0, 0.15);
+    transition: $switchTransition;
+    transition-property: opacity background;
+  }
+  .eml-switch-label:before, .eml-switch-label:after {
+    position: absolute;
+    top: 50%;
+    margin-top: -.5em;
+    line-height: 1;
+    transition: inherit;
+  }
+  .eml-switch-label:before {
+    content: attr(data-off);
+    right: 7px; //9px; //11px;
+    color: #aaa;
+    text-shadow: 0 1px rgba(255, 255, 255, 0.5);
+  }
+  .eml-switch-label:after {
+    content: attr(data-on);
+    left: 8px; //9px; //11px;
+    color: white;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+  }
+  .eml-switch-input:checked ~ .eml-switch-label {
+    background: $eml-blue-highlight;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15), inset 0 0 3px rgba(0, 0, 0, 0.2);
+  }
+  .eml-switch-input:checked ~ .eml-switch-label:before {
+    opacity: 0;
+  }
+  .eml-switch-input:checked ~ .eml-switch-label:after {
+    opacity: 1;
+  }
+
+  .eml-switch-handle {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 18px;
+    height: 18px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+    background-image: linear-gradient(to bottom, white 40%, #f0f0f0);
+    transition: left $switchTransition;
+  }
+  .eml-switch-handle:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -6px 0 0 -6px;
+    width: 12px;
+    height: 12px;
+    background: #f9f9f9;
+    border-radius: 6px;
+    box-shadow: inset 0 1px rgba(0, 0, 0, 0.02);
+    background-image: linear-gradient(to bottom, #eeeeee, white);
+  }
+  .eml-switch-input:checked ~ .eml-switch-handle {
+    left: 34px; //40px;
+    box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  #comments-history {
+    .text {
+      width: 30%;
+    }
+    td {
+      padding: 1px;
+    }
+  }
+
+  //Eml Groups ACL Modal
+  #eml-groups-acl-modal {
+    .all-sites, .all-teams, .team {
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+
+    .site {
+      padding-left: 15px;
+    }
+
+    .all-teams, .team {
+      padding-left: 20px;
+    }
+  }
+
+  .modal-dialog {
+    .modal-content {
+      .modal-header {
+        .modal-title {
+          text-transform: uppercase !important;
+        }
+      }
+    }
+  }
+
+  /* Flexbox Helpers */
+
+  .layout-horizontal {
+    display: flex;
+    -ms-flex-direction: row;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+  }
+
+  .layout-justified {
+    -ms-flex-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+  }
+
+  .layout-center-justified {
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+  }
+
+  .layout-center-center {
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+  }
+
+  .layout-end-justified {
+    -ms-flex-pack: end;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
+  };
+
+  .flex {
+    -ms-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+  }
+
+  .self-start {
+    -ms-align-self: flex-start;
+    -webkit-align-self: flex-start;
+    align-self: flex-start;
+  }
+
+  .self-center {
+    -ms-align-self: center;
+    -webkit-align-self: center;
+    align-self: center;
+  };
+
+  .self-end {
+    -ms-align-self: flex-end;
+    -webkit-align-self: flex-end;
+    align-self: flex-end;
+  }
+
+  .layout-wrap {
+    -ms-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+  }
+}
+
+/* Responsive for global scss */
+
+@media (max-width: $grid-float-breakpoint) {
+  .emlogis .eml-module-breadcrumb .input-group {
+    width: 200px;
+  }
+}
+
+/* EmLogis global ends */

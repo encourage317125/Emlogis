@@ -1,0 +1,43 @@
+url|method|json|response_id
+skills|post|{"name":"Charge Nurse", "abbreviation":"CN", "description":"Charge Nurse"}|#{skillCN}
+skills|post|{"name":"Registered Nurse", "abbreviation":"RN", "description":"Registered Nurse"}|#{skillRN}
+skills|post|{"name":"Simple Skill", "abbreviation":"SS", "description":"Simple Skill"}|#{skillSS}
+sites|post|{"updateDto":{"name":"SiteA", "description":"Site A"}}|#{SiteA}
+sites|post|{"updateDto":{"name":"SiteB", "description":"Site B"}}|#{SiteB}
+sites|post|{"updateDto":{"name":"SiteC", "description":"Site C"}}|#{SiteC}
+sites|post|{"updateDto":{"name":"SiteD", "description":"Site D"}}|#{SiteD}
+teams|post|{"siteId":"#{SiteA}", "updateDto":{"name":"TeamA", "description":"Team A"}}|#{TeamA}
+teams|post|{"siteId":"#{SiteA}", "updateDto":{"name":"TeamB", "description":"Team B"}}|#{TeamB}
+teams|post|{"siteId":"#{SiteA}", "updateDto":{"name":"TeamC", "description":"Team C"}}|#{TeamC}
+employees|post|{"firstName":"Steve", "lastName":"Martin", "employeeIdentifier":"SteveMartin"}|#{employee1}
+employees|post|{"firstName":"John", "lastName":"Smith", "employeeIdentifier":"JohnSmith"}|#{employee2}
+employees|post|{"firstName":"JohnB", "lastName":"SmithB", "employeeIdentifier":"JohnSmithB"}|#{employee3}
+employees/#{employee1}/teams|post|{"teamId":"#{TeamA}", "isFloating":false, "isHomeTeam":true, "isSchedulable":true}|
+employees/#{employee2}/teams|post|{"teamId":"#{TeamA}", "isFloating":false, "isHomeTeam":true, "isSchedulable":true}|
+employees/#{employee3}/teams|post|{"teamId":"#{TeamB}", "isFloating":false, "isHomeTeam":true, "isSchedulable":true}|
+employees/#{employee1}/teams/#{TeamA}|put|{}|
+employees/#{employee2}/teams/#{TeamA}|put|{}|
+employees/#{employee3}/teams/#{TeamB}|put|{}|
+employees/#{employee1}/skills|post|{"skillId":"#{skillCN}", "isPrimarySkill":true, "skillScore":1}|
+employees/#{employee2}/skills|post|{"skillId":"#{skillRN}", "isPrimarySkill":true, "skillScore":1}|
+employees/#{employee2}/skills|post|{"skillId":"#{skillSS}", "isPrimarySkill":true, "skillScore":1}|
+employees/#{employee1}/skills/#{skillCN}|put|{}|
+employees/#{employee2}/skills/#{skillRN}|put|{}|
+shiftlengths|post|{"name":"X", "updateDto":{"lengthInMin":"4", "paidTimeInMin":"4"}}|#{shiftTypeX}
+shiftlengths|post|{"name":"Y", "updateDto":{"lengthInMin":"6", "paidTimeInMin":"5"}}|#{shiftTypeY}
+shiftstructures|post|{"startDate":1404190800000,"teamId":"#{TeamA}"}|#{shiftStructure1}
+shiftstructures/#{shiftStructure1}/shiftreqs|post|{"startTime":8,"durationInMins":240,"employeeCount":1,"dayIndex":1,"skillProficiencyLevel":1,"skillId":"#{skillRN}","shiftLengthId":"#{shiftTypeX}"}|
+shiftstructures/#{shiftStructure1}/shiftreqs|post|{"startTime":8,"durationInMins":240,"employeeCount":1,"dayIndex":1,"skillProficiencyLevel":1,"skillId":"#{skillCN}","shiftLengthId":"#{shiftTypeX}"}|
+shiftstructures/#{shiftStructure1}/shiftreqs|post|{"startTime":8,"durationInMins":360,"employeeCount":2,"dayIndex":3,"skillProficiencyLevel":1,"skillId":"#{skillRN}","shiftLengthId":"#{shiftTypeY}"}|
+shiftstructures/#{shiftStructure1}/shiftreqs|post|{"startTime":8,"durationInMins":360,"employeeCount":1,"dayIndex":3,"skillProficiencyLevel":1,"skillId":"#{skillCN}","shiftLengthId":"#{shiftTypeY}"}|
+shiftstructures/#{shiftStructure1}/shiftreqs|post|{"startTime":8,"durationInMins":360,"employeeCount":1,"dayIndex":4,"skillProficiencyLevel":1,"skillId":"#{skillRN}","shiftLengthId":"#{shiftTypeX}"}|
+shiftstructures/#{shiftStructure1}/shiftreqs|post|{"startTime":8,"durationInMins":360,"employeeCount":1,"dayIndex":5,"skillProficiencyLevel":1,"skillId":"#{skillCN}","shiftLengthId":"#{shiftTypeX}"}|
+shiftstructures/#{shiftStructure1}/shiftreqs|post|{"startTime":14,"durationInMins":240,"employeeCount":1,"dayIndex":5,"skillProficiencyLevel":1,"skillId":"#{skillCN}","shiftLengthId":"#{shiftTypeX}"}|
+schedules|post|{"startDate":1404190800000,"teamIds":["#{TeamA}"]}|#{scheduleId}
+schedules/#{scheduleId}/ops/generateshifts|post||
+schedules/#{scheduleId}/ops/execute?maxcomputationtime=20|post|{}|
+schedules/#{scheduleId}/ops/clone|post||#{scheduleIdClone}
+schedules/#{scheduleId}/ops/duplicate?mode=ALLASSIGNMENT|post|{}|
+schedules/#{scheduleIdClone}/teams|get||
+shiftstructures/#{shiftStructure1}/ops/duplicate?startdate=1409795600000|post||
+shiftstructures/#{shiftStructure1}/ops/duplicateshiftreqs?dayindexfrom=1&&dayindexto=2|post||

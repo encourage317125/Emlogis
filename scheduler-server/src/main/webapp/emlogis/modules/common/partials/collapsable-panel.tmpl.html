@@ -1,0 +1,20 @@
+<div class="panel panel-default">
+  <div class="panel-heading" ng-click="isCollapsable ? isCollapsed = !isCollapsed : '' ">
+
+    <div class="eml-header-side">
+      <div class="eml-panel-icons" ng-class="{ 'hidden' : !isCollapsable }"> <!-- Hide icons, if Panel isn't collapsable -->
+        <img src="img/collapse.svg" class="collapse-icon-minus" alt="Collapse panel"/>
+        <img src="img/expand.svg" class="collapse-icon-plus" alt="Open panel"/>
+      </div>
+      <h4 class="panel-title">{{ name | translate }}</h4>
+    </div>
+
+    <div class="eml-header-side" transclude-id="panel-head"> <!-- Panel header transclude starts -->
+    </div> <!-- Panel header transclude ends -->
+  </div>
+
+  <div class="panel-body"
+       collapse="isCollapsed"
+       transclude-id="panel-body"> <!-- Panel body transclude starts -->
+  </div> <!-- Panel body transclude ends -->
+</div>

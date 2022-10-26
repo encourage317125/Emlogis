@@ -1,0 +1,1309 @@
+{
+  "templates": [
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "WORK_IN_PLACE",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/wip_request/manager/final/work_in_place_manager_final_body_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "SMS_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "WORK_IN_PLACE",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/wip_request/manager/final/work_in_place_manager_final_body_sms_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "WORK_IN_PLACE",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/wip_request/manager/final/work_in_place_manager_final_body_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "WORK_IN_PLACE",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/wip_request/manager/final/work_in_place_manager_final_subject_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "WORK_IN_PLACE",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/wip_request/manager/final/work_in_place_manager_final_subject_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "WORK_IN_PLACE",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/wip_request/manager/pending/work_in_place_manager_pending_body_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "SMS_TEXT",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "WORK_IN_PLACE",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/wip_request/manager/pending/work_in_place_manager_pending_body_sms_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "WORK_IN_PLACE",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/wip_request/manager/pending/work_in_place_manager_pending_body_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "WORK_IN_PLACE",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/wip_request/manager/pending/work_in_place_manager_pending_subject_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "WORK_IN_PLACE",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/wip_request/manager/pending/work_in_place_manager_pending_subject_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "WORK_IN_PLACE",
+      "notificationRole": "REQUEST_PEER",
+      "filePath": "/notifications/en/wip_request/peer/final/work_in_place_peer_final_body_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "SMS_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "WORK_IN_PLACE",
+      "notificationRole": "REQUEST_PEER",
+      "filePath": "/notifications/en/wip_request/peer/final/work_in_place_peer_final_body_sms_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "WORK_IN_PLACE",
+      "notificationRole": "REQUEST_PEER",
+      "filePath": "/notifications/en/wip_request/peer/final/work_in_place_peer_final_body_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "WORK_IN_PLACE",
+      "notificationRole": "REQUEST_PEER",
+      "filePath": "/notifications/en/wip_request/peer/final/work_in_place_peer_final_subject_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "WORK_IN_PLACE",
+      "notificationRole": "REQUEST_PEER",
+      "filePath": "/notifications/en/wip_request/peer/final/work_in_place_peer_final_subject_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "BECOME_PEER_PENDING",
+      "notificationCategory": "WORK_IN_PLACE",
+      "notificationRole": "REQUEST_PEER",
+      "filePath": "/notifications/en/wip_request/peer/pending/work_in_place_peer_pending_body_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "SMS_TEXT",
+      "notificationOperation": "BECOME_PEER_PENDING",
+      "notificationCategory": "WORK_IN_PLACE",
+      "notificationRole": "REQUEST_PEER",
+      "filePath": "/notifications/en/wip_request/peer/pending/work_in_place_peer_pending_body_sms_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "BECOME_PEER_PENDING",
+      "notificationCategory": "WORK_IN_PLACE",
+      "notificationRole": "REQUEST_PEER",
+      "filePath": "/notifications/en/wip_request/peer/pending/work_in_place_peer_pending_body_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "BECOME_PEER_PENDING",
+      "notificationCategory": "WORK_IN_PLACE",
+      "notificationRole": "REQUEST_PEER",
+      "filePath": "/notifications/en/wip_request/peer/pending/work_in_place_peer_pending_subject_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "BECOME_PEER_PENDING",
+      "notificationCategory": "WORK_IN_PLACE",
+      "notificationRole": "REQUEST_PEER",
+      "filePath": "/notifications/en/wip_request/peer/pending/work_in_place_peer_pending_subject_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "WORK_IN_PLACE",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/wip_request/submitter/final/work_in_place_submitter_final_body_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "SMS_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "WORK_IN_PLACE",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/wip_request/submitter/final/work_in_place_submitter_final_body_sms_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "WORK_IN_PLACE",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/wip_request/submitter/final/work_in_place_submitter_final_body_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "WORK_IN_PLACE",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/wip_request/submitter/final/work_in_place_submitter_final_subject_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "WORK_IN_PLACE",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/wip_request/submitter/final/work_in_place_submitter_final_subject_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "BECOME_PEER_PENDING",
+      "notificationCategory": "WORK_IN_PLACE",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/wip_request/submitter/pending/work_in_place_submitter_pending_body_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "SMS_TEXT",
+      "notificationOperation": "BECOME_PEER_PENDING",
+      "notificationCategory": "WORK_IN_PLACE",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/wip_request/submitter/pending/work_in_place_submitter_pending_body_sms_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "BECOME_PEER_PENDING",
+      "notificationCategory": "WORK_IN_PLACE",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/wip_request/submitter/pending/work_in_place_submitter_pending_body_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "BECOME_PEER_PENDING",
+      "notificationCategory": "WORK_IN_PLACE",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/wip_request/submitter/pending/work_in_place_submitter_pending_subject_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "BECOME_PEER_PENDING",
+      "notificationCategory": "WORK_IN_PLACE",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/wip_request/submitter/pending/work_in_place_submitter_pending_subject_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "SHIFT_SWAP",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/shift_swap_request/manager/final/shift_swap_manager_final_body_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "SMS_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "SHIFT_SWAP",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/shift_swap_request/manager/final/shift_swap_manager_final_body_sms_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "SHIFT_SWAP",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/shift_swap_request/manager/final/shift_swap_manager_final_body_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "SHIFT_SWAP",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/shift_swap_request/manager/final/shift_swap_manager_final_subject_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "SHIFT_SWAP",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/shift_swap_request/manager/final/shift_swap_manager_final_subject_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "SHIFT_SWAP",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/shift_swap_request/manager/pending/shift_swap_manager_pending_body_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "SMS_TEXT",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "SHIFT_SWAP",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/shift_swap_request/manager/pending/shift_swap_manager_pending_body_sms_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "SHIFT_SWAP",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/shift_swap_request/manager/pending/shift_swap_manager_pending_body_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "SHIFT_SWAP",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/shift_swap_request/manager/pending/shift_swap_manager_pending_subject_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "SHIFT_SWAP",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/shift_swap_request/manager/pending/shift_swap_manager_pending_subject_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "SHIFT_SWAP",
+      "notificationRole": "REQUEST_PEER",
+      "filePath": "/notifications/en/shift_swap_request/peer/final/shift_swap_peer_final_body_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "SMS_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "SHIFT_SWAP",
+      "notificationRole": "REQUEST_PEER",
+      "filePath": "/notifications/en/shift_swap_request/peer/final/shift_swap_peer_final_body_sms_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "SHIFT_SWAP",
+      "notificationRole": "REQUEST_PEER",
+      "filePath": "/notifications/en/shift_swap_request/peer/final/shift_swap_peer_final_body_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "SHIFT_SWAP",
+      "notificationRole": "REQUEST_PEER",
+      "filePath": "/notifications/en/shift_swap_request/peer/final/shift_swap_peer_final_subject_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "SHIFT_SWAP",
+      "notificationRole": "REQUEST_PEER",
+      "filePath": "/notifications/en/shift_swap_request/peer/final/shift_swap_peer_final_subject_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "BECOME_PEER_PENDING",
+      "notificationCategory": "SHIFT_SWAP",
+      "notificationRole": "REQUEST_PEER",
+      "filePath": "/notifications/en/shift_swap_request/peer/pending/shift_swap_peer_pending_body_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "SMS_TEXT",
+      "notificationOperation": "BECOME_PEER_PENDING",
+      "notificationCategory": "SHIFT_SWAP",
+      "notificationRole": "REQUEST_PEER",
+      "filePath": "/notifications/en/shift_swap_request/peer/pending/shift_swap_peer_pending_body_sms_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "BECOME_PEER_PENDING",
+      "notificationCategory": "SHIFT_SWAP",
+      "notificationRole": "REQUEST_PEER",
+      "filePath": "/notifications/en/shift_swap_request/peer/pending/shift_swap_peer_pending_body_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "BECOME_PEER_PENDING",
+      "notificationCategory": "SHIFT_SWAP",
+      "notificationRole": "REQUEST_PEER",
+      "filePath": "/notifications/en/shift_swap_request/peer/pending/shift_swap_peer_pending_subject_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "BECOME_PEER_PENDING",
+      "notificationCategory": "SHIFT_SWAP",
+      "notificationRole": "REQUEST_PEER",
+      "filePath": "/notifications/en/shift_swap_request/peer/pending/shift_swap_peer_pending_subject_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "SHIFT_SWAP",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/shift_swap_request/submitter/final/shift_swap_submitter_final_body_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "SMS_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "SHIFT_SWAP",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/shift_swap_request/submitter/final/shift_swap_submitter_final_body_sms_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "SHIFT_SWAP",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/shift_swap_request/submitter/final/shift_swap_submitter_final_body_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "SHIFT_SWAP",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/shift_swap_request/submitter/final/shift_swap_submitter_final_subject_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "SHIFT_SWAP",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/shift_swap_request/submitter/final/shift_swap_submitter_final_subject_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "BECOME_PEER_PENDING",
+      "notificationCategory": "SHIFT_SWAP",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/shift_swap_request/submitter/pending/shift_swap_submitter_pending_body_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "SMS_TEXT",
+      "notificationOperation": "BECOME_PEER_PENDING",
+      "notificationCategory": "SHIFT_SWAP",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/shift_swap_request/submitter/pending/shift_swap_submitter_pending_body_sms_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "BECOME_PEER_PENDING",
+      "notificationCategory": "SHIFT_SWAP",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/shift_swap_request/submitter/pending/shift_swap_submitter_pending_body_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "BECOME_PEER_PENDING",
+      "notificationCategory": "SHIFT_SWAP",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/shift_swap_request/submitter/pending/shift_swap_submitter_pending_subject_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "BECOME_PEER_PENDING",
+      "notificationCategory": "SHIFT_SWAP",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/shift_swap_request/submitter/pending/shift_swap_submitter_pending_subject_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "OPEN_SHIFTS",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/open_shifts/manager/final/open_shifts_manager_final_body_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "SMS_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "OPEN_SHIFTS",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/open_shifts/manager/final/open_shifts_manager_final_body_sms_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "OPEN_SHIFTS",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/open_shifts/manager/final/open_shifts_manager_final_body_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "OPEN_SHIFTS",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/open_shifts/manager/final/open_shifts_manager_final_subject_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "OPEN_SHIFTS",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/open_shifts/manager/final/open_shifts_manager_final_subject_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "OPEN_SHIFTS",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/open_shifts/manager/pending/open_shifts_manager_pending_body_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "SMS_TEXT",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "OPEN_SHIFTS",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/open_shifts/manager/pending/open_shifts_manager_pending_body_sms_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "OPEN_SHIFTS",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/open_shifts/manager/pending/open_shifts_manager_pending_body_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "OPEN_SHIFTS",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/open_shifts/manager/pending/open_shifts_manager_pending_subject_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "OPEN_SHIFTS",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/open_shifts/manager/pending/open_shifts_manager_pending_subject_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "POST",
+      "notificationCategory": "OPEN_SHIFTS",
+      "notificationRole": "NONE",
+      "filePath": "/notifications/en/open_shifts/post/open_shift_post_notification_body_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "SMS_TEXT",
+      "notificationOperation": "POST",
+      "notificationCategory": "OPEN_SHIFTS",
+      "notificationRole": "NONE",
+      "filePath": "/notifications/en/open_shifts/post/open_shift_post_notification_body_sms_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "POST",
+      "notificationCategory": "OPEN_SHIFTS",
+      "notificationRole": "NONE",
+      "filePath": "/notifications/en/open_shifts/post/open_shift_post_notification_body_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "POST",
+      "notificationCategory": "OPEN_SHIFTS",
+      "notificationRole": "NONE",
+      "filePath": "/notifications/en/open_shifts/post/open_shift_post_notification_subject_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "POST",
+      "notificationCategory": "OPEN_SHIFTS",
+      "notificationRole": "NONE",
+      "filePath": "/notifications/en/open_shifts/post/open_shift_post_notification_subject_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "OPEN_SHIFTS",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/open_shifts/submitter/final/open_shifts_submitter_final_body_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "SMS_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "OPEN_SHIFTS",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/open_shifts/submitter/final/open_shifts_submitter_final_body_sms_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "OPEN_SHIFTS",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/open_shifts/submitter/final/open_shifts_submitter_final_body_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "OPEN_SHIFTS",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/open_shifts/submitter/final/open_shifts_submitter_final_subject_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "OPEN_SHIFTS",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/open_shifts/submitter/final/open_shifts_submitter_final_subject_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "OPEN_SHIFTS",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/open_shifts/submitter/pending/open_shifts_submitter_pending_body_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "SMS_TEXT",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "OPEN_SHIFTS",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/open_shifts/submitter/pending/open_shifts_submitter_pending_body_sms_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "OPEN_SHIFTS",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/open_shifts/submitter/pending/open_shifts_submitter_pending_body_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "OPEN_SHIFTS",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/open_shifts/submitter/pending/open_shifts_submitter_pending_subject_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "OPEN_SHIFTS",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/open_shifts/submitter/pending/open_shifts_submitter_pending_subject_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "AVAILABILITY",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/availability_request/manager/final/availability_manager_final_body_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "SMS_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "AVAILABILITY",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/availability_request/manager/final/availability_manager_final_body_sms_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "AVAILABILITY",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/availability_request/manager/final/availability_manager_final_body_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "AVAILABILITY",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/availability_request/manager/final/availability_manager_final_subject_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "AVAILABILITY",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/availability_request/manager/final/availability_manager_final_subject_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "AVAILABILITY",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/availability_request/manager/pending/availability_manager_pending_body_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "SMS_TEXT",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "AVAILABILITY",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/availability_request/manager/pending/availability_manager_pending_body_sms_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "AVAILABILITY",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/availability_request/manager/pending/availability_manager_pending_body_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "AVAILABILITY",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/availability_request/manager/pending/availability_manager_pending_subject_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "AVAILABILITY",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/availability_request/manager/pending/availability_manager_pending_subject_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "AVAILABILITY",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/availability_request/submitter/final/availability_submitter_final_body_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "SMS_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "AVAILABILITY",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/availability_request/submitter/final/availability_submitter_final_body_sms_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "AVAILABILITY",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/availability_request/submitter/final/availability_submitter_final_body_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "AVAILABILITY",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/availability_request/submitter/final/availability_submitter_final_subject_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "AVAILABILITY",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/availability_request/submitter/final/availability_submitter_final_subject_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "AVAILABILITY",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/availability_request/submitter/pending/availability_submitter_pending_body_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "SMS_TEXT",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "AVAILABILITY",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/availability_request/submitter/pending/availability_submitter_pending_body_sms_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "AVAILABILITY",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/availability_request/submitter/pending/availability_submitter_pending_body_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "AVAILABILITY",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/availability_request/submitter/pending/availability_submitter_pending_subject_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "AVAILABILITY",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/availability_request/submitter/pending/availability_submitter_pending_subject_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "SCHEDULE_CHANGE",
+      "notificationCategory": "SCHEDULE",
+      "notificationRole": "NONE",
+      "filePath": "/notifications/en/schedule/change/schedule_change_body_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "SMS_TEXT",
+      "notificationOperation": "SCHEDULE_CHANGE",
+      "notificationCategory": "SCHEDULE",
+      "notificationRole": "NONE",
+      "filePath": "/notifications/en/schedule/change/schedule_change_body_sms_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "SCHEDULE_CHANGE",
+      "notificationCategory": "SCHEDULE",
+      "notificationRole": "NONE",
+      "filePath": "/notifications/en/schedule/change/schedule_change_body_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "SCHEDULE_CHANGE",
+      "notificationCategory": "SCHEDULE",
+      "notificationRole": "NONE",
+      "filePath": "/notifications/en/schedule/change/schedule_change_subject_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "SCHEDULE_CHANGE",
+      "notificationCategory": "SCHEDULE",
+      "notificationRole": "NONE",
+      "filePath": "/notifications/en/schedule/change/schedule_change_subject_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "DELETE",
+      "notificationCategory": "SCHEDULE",
+      "notificationRole": "NONE",
+      "filePath": "/notifications/en/schedule/deleted/schedule_deleted_body_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "SMS_TEXT",
+      "notificationOperation": "DELETE",
+      "notificationCategory": "SCHEDULE",
+      "notificationRole": "NONE",
+      "filePath": "/notifications/en/schedule/deleted/schedule_deleted_body_sms_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "DELETE",
+      "notificationCategory": "SCHEDULE",
+      "notificationRole": "NONE",
+      "filePath": "/notifications/en/schedule/deleted/schedule_deleted_body_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "DELETE",
+      "notificationCategory": "SCHEDULE",
+      "notificationRole": "NONE",
+      "filePath": "/notifications/en/schedule/deleted/schedule_deleted_subject_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "DELETE",
+      "notificationCategory": "SCHEDULE",
+      "notificationRole": "NONE",
+      "filePath": "/notifications/en/schedule/deleted/schedule_deleted_subject_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "POST",
+      "notificationCategory": "SCHEDULE",
+      "notificationRole": "NONE",
+      "filePath": "/notifications/en/schedule/posted/schedule_posted_body_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "SMS_TEXT",
+      "notificationOperation": "POST",
+      "notificationCategory": "SCHEDULE",
+      "notificationRole": "NONE",
+      "filePath": "/notifications/en/schedule/posted/schedule_posted_body_sms_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "POST",
+      "notificationCategory": "SCHEDULE",
+      "notificationRole": "NONE",
+      "filePath": "/notifications/en/schedule/posted/schedule_posted_body_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "POST",
+      "notificationCategory": "SCHEDULE",
+      "notificationRole": "NONE",
+      "filePath": "/notifications/en/schedule/posted/schedule_posted_subject_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "POST",
+      "notificationCategory": "SCHEDULE",
+      "notificationRole": "NONE",
+      "filePath": "/notifications/en/schedule/posted/schedule_posted_subject_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "TIME_OFF",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/time_off_request/manager/final/time_off_manager_final_body_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "SMS_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "TIME_OFF",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/time_off_request/manager/final/time_off_manager_final_body_sms_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "TIME_OFF",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/time_off_request/manager/final/time_off_manager_final_body_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "TIME_OFF",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/time_off_request/manager/final/time_off_manager_final_subject_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "TIME_OFF",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/time_off_request/manager/final/time_off_manager_final_subject_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "TIME_OFF",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/time_off_request/manager/pending/time_off_manager_pending_body_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "SMS_TEXT",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "TIME_OFF",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/time_off_request/manager/pending/time_off_manager_pending_body_sms_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "TIME_OFF",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/time_off_request/manager/pending/time_off_manager_pending_body_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "TIME_OFF",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/time_off_request/manager/pending/time_off_manager_pending_subject_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "TIME_OFF",
+      "notificationRole": "REQUEST_MANAGER",
+      "filePath": "/notifications/en/time_off_request/manager/pending/time_off_manager_pending_subject_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "REMOVE",
+      "notificationCategory": "TIME_OFF",
+      "notificationRole": "NONE",
+      "filePath": "/notifications/en/time_off_request/removed/time_off_removed_body_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "SMS_TEXT",
+      "notificationOperation": "REMOVE",
+      "notificationCategory": "TIME_OFF",
+      "notificationRole": "NONE",
+      "filePath": "/notifications/en/time_off_request/removed/time_off_removed_body_sms_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "REMOVE",
+      "notificationCategory": "TIME_OFF",
+      "notificationRole": "NONE",
+      "filePath": "/notifications/en/time_off_request/removed/time_off_removed_body_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "REMOVE",
+      "notificationCategory": "TIME_OFF",
+      "notificationRole": "NONE",
+      "filePath": "/notifications/en/time_off_request/removed/time_off_removed_subject_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "REMOVE",
+      "notificationCategory": "TIME_OFF",
+      "notificationRole": "NONE",
+      "filePath": "/notifications/en/time_off_request/removed/time_off_removed_subject_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "TIME_OFF",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/time_off_request/submitter/final/time_off_submitter_final_body_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "SMS_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "TIME_OFF",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/time_off_request/submitter/final/time_off_submitter_final_body_sms_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "TIME_OFF",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/time_off_request/submitter/final/time_off_submitter_final_body_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "TIME_OFF",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/time_off_request/submitter/final/time_off_submitter_final_subject_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "OBTAINED_FINAL_STATE",
+      "notificationCategory": "TIME_OFF",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/time_off_request/submitter/final/time_off_submitter_final_subject_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "TIME_OFF",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/time_off_request/submitter/pending/time_off_submitter_pending_body_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "SMS_TEXT",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "TIME_OFF",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/time_off_request/submitter/pending/time_off_submitter_pending_body_sms_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Body",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "TIME_OFF",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/time_off_request/submitter/pending/time_off_submitter_pending_body_text_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "HTML",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "TIME_OFF",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/time_off_request/submitter/pending/time_off_submitter_pending_subject_html_en.ftl"
+    },
+    {
+      "locale": "en_US",
+      "notificationMessagePart": "Subject",
+      "notificationDeliveryFormat": "PLAIN_TEXT",
+      "notificationOperation": "BECOME_ADMIN_PENDING",
+      "notificationCategory": "TIME_OFF",
+      "notificationRole": "REQUEST_SUBMITTER",
+      "filePath": "/notifications/en/time_off_request/submitter/pending/time_off_submitter_pending_subject_text_en.ftl"
+    }
+  ]
+}

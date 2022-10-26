@@ -1,0 +1,168 @@
+@import "partials/variables";
+@import "partials/mixins";
+
+.admin {
+  .collapse-tick {
+    width: 16px;
+    height: 18px;
+    margin-right: $margin-base-horizontal;
+    border-radius: $border-radius-large;
+    background-color: #575a67;
+    padding-left: 3px;
+    cursor: pointer;
+    .glyphicon {
+      color: #fff;
+      font-size: $font-size-small;
+    }
+  }
+
+  .collapse-label {
+    cursor: pointer;
+  }
+
+  .admin-customers {
+    .no-border {
+      border: 0;
+    }
+
+    .red-border-cell {
+      border: 1px solid #ff0000;
+    }
+
+    .red-content-cell {
+      color: #ff0000;
+    }
+
+    .red-button {
+      color: #fff;
+      background-color: #ff0000;
+    }
+
+    .ui-grid-viewport {
+      .ui-grid-cell {
+        height: 50px;
+
+        .btn-edit-customer {
+          margin: 7px auto;
+          display: block;
+        }
+
+        .ui-grid-cell-contents {
+          padding: 13px 5px;
+        }
+      }
+
+      .ui-grid-row:hover {
+        .ui-grid-cell {
+          background-color: #c9dde1 !important;
+        }
+      }
+    }
+
+    .input-group {
+      display: inline-block;
+      vertical-align: middle;
+      .input-group-btn {
+        width: auto;
+        button {
+          height: 32px;
+        }
+      }
+    }
+
+    .nav-panel {
+      padding: 0 15px 15px;
+      margin-left: -15px;
+      margin-right: -15px;
+      border-bottom: 1px solid #ddd;
+      .customer-link {
+        cursor: pointer;
+      }
+    }
+
+    .control-panel {
+      .customer-name {
+        margin-top: 0;
+      }
+    }
+
+    .overview-panel {
+      .form-control {
+        width: auto;
+        display: inline-block;
+      }
+
+      .status {
+        h4 {
+          margin-top: 0;
+          margin-bottom: 0;
+        }
+      }
+
+      .created-on,
+      .expiration-date,
+      .remaining {
+        display: inline-block;
+        vertical-align: middle;
+        font-size: $font-size-small;
+        margin-right: $margin-base-horizontal;
+      }
+
+      .outline {
+        label {
+          margin-right: $margin-base-horizontal;
+        }
+      }
+    }
+
+    .edit-panel {
+      .optional-modules-body {
+        .form-control {
+          display: inline-block;
+          width: auto;
+        }
+      }
+    }
+  }
+
+  .admin-notification-delivery {
+    hr {
+      border-color: #cccccc;
+    }
+
+    .info-sub {
+      display: inline-block;
+      margin-right: $margin-large-horizontal;
+
+      .info-sub-checkbox {
+        vertical-align: top;
+      }
+    }
+
+    .info-sub:last-child {
+      margin-right: 0;
+    }
+
+    .provider-connection-status {
+      width: 12px;
+      height: 12px;
+      display: inline-block;
+    }
+
+    .provider-connection-OK {
+      background-color: #13e2ad;
+    }
+
+    .provider-connection-NOTCONFIGURED {
+      background-color: #f6e85e;
+    }
+
+    .provider-connection-ERROR {
+      background-color: #ff0000;
+    }
+  }
+
+  .angular-google-map-container {
+    height: 650px;
+  }
+}

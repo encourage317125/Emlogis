@@ -1,0 +1,120 @@
+<div class="row availability-calendar">
+  <div class="col-md-12">
+
+    <div class="row" ng-hide="calendarMode === calendarModes.PREVIEW">
+      <div class="col-md-7">
+        <span class="input-group eml-datepicker-right">
+          <input type="text"
+                 style="display:none"
+                 datepicker-popup="MM/dd/yy"
+                 ng-model="datepicker.model"
+                 is-open="datepicker.opened"
+                 current-text="{{ ::'calendar.JUMP_TO_TODAY' | translate }}"/>
+          <span class="input-group-btn">
+            <button type="button"
+                    class="btn eml-btn-grey-lightest eml-calendar-btn"
+                    ng-class="{ 'eml-calendar-opened' : datepicker.opened }"
+                    ng-click="datepicker.open($event)">
+              <img src="/scheduler-server/emlogis/img/calendar.svg">
+            </button>
+          </span>
+        </span>
+        <month-year-picker class="month-year-picker" year="monthYearPicker.year" month="monthYearPicker.month"></month-year-picker>
+
+        <div class="availabilty-preference-checker">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" ng-model="showAvailability"> {{'availability.AVAILABILITY' | translate}}
+            </label>
+          </div>
+          <div class="checkbox preference-checkbox">
+            <label>
+              <input type="checkbox" ng-model="showPreference"> {{'availability.PREFERENCE' | translate}}
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5 text-right space-between-btns">
+        <button type="button" class="btn btn-default" ng-click="openEditAvailabilityModal()" ng-disabled="!availabilityType">
+          <span ng-show="calendarMode === calendarModes.MANAGER">{{'availability.EDIT_AVAILABILITY' | translate}}</span>
+          <span ng-show="calendarMode === calendarModes.EMPLOYEE">{{'availability.REQUEST_AVAILABILITY_CHANGE' | translate}}</span>
+        </button>
+        <button type="button" class="btn btn-default" ng-click="openEditPreferenceModal()" ng-disabled="!availabilityType">
+          {{'availability.EDIT_PREFERENCE' | translate}}
+        </button>
+        <button type="button" class="btn btn-default" ng-click="openCopyAvailabilityModal()" ng-disabled="availabilityType !== 'cd'" ng-show="calendarMode === calendarModes.MANAGER">
+          {{'availability.COPY' | translate}}
+        </button>
+      </div>
+    </div>
+
+    <div class="row" ng-hide="calendarMode === calendarModes.PREVIEW">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-9">
+            <span class="select-days-text">{{'availability.SELECT_DAYS' | translate}}</span>
+          </div>
+          <div class="col-md-3">
+            <div class="couple-weekends" ng-hide="calendarMode === calendarModes.EMPLOYEE">
+              <div class="action-buttons" ng-show="coupleWeekends.value != coupleWeekends.initialValue">
+                <button type="button" class="btn btn-success btn-xs" ng-click="coupleWeekends.update()">{{'app.SAVE' | translate}}</button>
+                <button type="button" class="btn btn-danger btn-xs"ng-click="coupleWeekends.cancel()">{{'app.CANCEL' | translate}}</button>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" ng-model="coupleWeekends.value" ng-disabled="calendarMode === calendarModes.EMPLOYEE"> {{'availability.COUPLE_WEEKENDS' | translate}}
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 calendar">
+        <div ui-calendar="config.calendar" ng-model="fakeModel" calendar="availabilityCalendar"></div>
+        <div class="calendar-legend">
+          <div class="color-option">
+            <div class="color-box white"></div>
+            <div class="color-label">{{'availability.AVAILABLE' | translate}}</div>
+          </div>
+          <div class="color-option">
+            <div class="color-box light-grey"></div>
+            <div class="color-label">{{'availability.PARTIALLY_AVAILABLE' | translate}}</div>
+          </div>
+          <div class="color-option">
+            <div class="color-box blue"></div>
+            <div class="color-label">{{'availability.HOLIDAY_AND_VACATION' | translate}}</div>
+          </div>
+          <div class="color-option">
+            <div class="color-box dark-grey"></div>
+            <div class="color-label">{{'availability.NOT_AVAILABLR' | translate}}</div>
+          </div>
+        </div>
+      </div>
+      <!--<div class="col-md-1">-->
+        <!--<div class="max-days-header">-->
+          <!--{{'availability.MAX_DAYS_PER_WEEK' | translate}}-->
+        <!--</div>-->
+        <!--<div class="max-days-body">-->
+          <!--<div class="max-days-container" ng-repeat="m in maxDaysPerWeek" ng-show="!managerView">-->
+            <!--<div class="max-days-employee-view badge">{{m.days}}</div>-->
+          <!--</div>-->
+          <!--<div class="max-days-container" ng-repeat="m in maxDaysPerWeek" ng-show="managerView">-->
+            <!--<eml-dropdown model="m.days"-->
+                          <!--options="[1,2,3,4,5,6,7]"-->
+                          <!--on-select="m.showActionButtons = true">-->
+            <!--</eml-dropdown>-->
+            <!--<br>-->
+            <!--<div class="action-buttons" ng-show="m.showActionButtons">-->
+              <!--<button type="button" class="btn btn-success btn-xs" ng-click="m.update()">{{'app.SAVE' | translate}}</button>-->
+              <!--<button type="button" class="btn btn-danger btn-xs"ng-click="m.cancel()">{{'app.CANCEL' | translate}}</button>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    </div>
+
+  </div>
+</div>

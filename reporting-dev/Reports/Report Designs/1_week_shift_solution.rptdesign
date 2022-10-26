@@ -1,0 +1,932 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.4.0.v20150206-1039 Build &lt;4.2.3.v20150206-1039></property>
+    <list-property name="scriptLibs">
+        <structure>
+            <property name="name">libs/activation-1.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/commons-codec-1.6.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/commons-io-2.4.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/commons-logging-1.1.3.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/emlogis-scheduler-rest-api.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/FastInfoset-1.2.7.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/httpclient-4.4.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/httpcore-4.4.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/istack-commons-runtime-2.16.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-annotations-2.4.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-core-2.4.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-core-asl-1.9.12.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-databind-2.4.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-datatype-joda-2.3.0.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-jaxrs-1.9.12.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-jaxrs-base-2.4.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-jaxrs-json-provider-2.4.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-mapper-asl-1.9.12.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-module-afterburner-2.3.0.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-module-jaxb-annotations-2.4.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-xc-1.9.12.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jaxb-api-2.2.7.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jaxb-core-2.2.7.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jaxb-impl-2.2.7.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jaxrs-api-3.0.9.Emlogis.Custom.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jaxrs-api-3.0.9.Final.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jboss-annotations-api_1.1_spec-1.0.1.Final.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jcip-annotations-1.0.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/joda-time-2.3.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/resteasy-client-3.0.9.Final.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/resteasy-jackson-provider-3.0.9.Final.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/resteasy-jaxb-provider-3.0.9.Final.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/resteasy-jaxrs-3.0.9.Final.jar</property>
+        </structure>
+    </list-property>
+    <property name="units">in</property>
+    <method name="initialize"><![CDATA[try {
+	emlogis.current.reportName = "1 Week Shift Solution";
+	
+	var startDate = new Date(params["StartDate"].value.getTime());
+	var weeksAmount = 1;
+	emlogis.current.daysInterval = emlogis.date.getReportIntervalDays(startDate, weeksAmount, emlogis.current.site.get("firstDayOfWeek"));
+	
+	params["ReportIntervalStartDate"] = emlogis.current.daysInterval[0].dayStartDateTime;
+	params["ReportIntervalEndDate"] = emlogis.current.daysInterval[emlogis.current.daysInterval.length - 1].dayEndDateTime;
+	
+	reportContext.setGlobalVariable("reportData", {});
+	
+} catch(e){};]]></method>
+    <property name="theme">common.EmlogisGrayScales</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="layoutPreference">auto layout</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">96</property>
+    <list-property name="libraries">
+        <structure>
+            <property name="fileName">/ThemesReportItems31.rptlibrary</property>
+            <property name="namespace">ThemesReportItems31</property>
+        </structure>
+        <structure>
+            <property name="fileName">emlogis/report-libs/common.RPTLIBRARY</property>
+            <property name="namespace">common</property>
+        </structure>
+        <structure>
+            <property name="fileName">emlogis/report-libs/debug.rptlibrary</property>
+            <property name="namespace">debug</property>
+        </structure>
+    </list-property>
+    <parameters>
+        <scalar-parameter name="StartDate" id="12" extends="common.StartDate"/>
+        <scalar-parameter name="restApiUrl" id="13" extends="common.restApiUrl"/>
+        <cascading-parameter-group name="BasicReportCascadingParameterGroup" id="13784" extends="common.BasicReportCascadingParameterGroup">
+            <overridden-values>
+                <ref-entry baseId="11074" name="Security" id="11074"/>
+                <ref-entry baseId="11075" name="Site" id="11075"/>
+                <ref-entry baseId="14682" name="Teams" id="14682"/>
+            </overridden-values>
+        </cascading-parameter-group>
+    </parameters>
+    <data-sources>
+        <script-data-source name="Data Source" id="4" extends="common.Data Source"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="Shift DS" id="5" extends="common.Shift DS"/>
+        <script-data-set name="Dates Range DS" id="6" extends="common.Dates Range DS"/>
+        <script-data-set name="Skill DS" id="7" extends="common.Skill DS"/>
+        <derived-data-set extensionID="com.actuate.birt.data.join" name="Skills Dates Joined DS" id="8"
+ extends="common.Skills Dates Joined DS"/>
+        <script-data-set name="Team DS" id="9" extends="common.Team DS"/>
+        <script-data-set name="Site DS" id="10" extends="common.Site DS"/>
+        <derived-data-set extensionID="com.actuate.birt.data.join" name="Skills Dates ShiftReqs Joined DS" id="10769">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">skillName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">skillId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">teamId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">skillName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">skillId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">teamId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">dayName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">dayOfWeek</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">date</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">id</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">startTime</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">endTime</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">dayOfTheWeek</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">employeeCount</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">excessCount</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">teamName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <method name="onFetch"><![CDATA[var team = row["teamId"];
+var skill = row["skillId"];
+var dayOfTheWeek = row["dayOfTheWeek"];
+
+var reportData = reportContext.getGlobalVariable("reportData");
+
+var assignCellData = function(){
+
+	if(!dayOfTheWeek) {
+		return;
+	}	
+	
+	if(!reportData[team][skill][dayOfTheWeek]){
+		reportData[team][skill][dayOfTheWeek] = {
+			shiftReqs:[]
+		};
+	}
+	
+	var currentCell = reportData[team][skill][dayOfTheWeek];
+	
+	if(row["id"]) {
+		currentCell.shiftReqs.push({
+			date: row["date"],
+			startTime: row["startTime"],
+			endTime: row["endTime"],
+			employeeCount: row["employeeCount"],
+			excessCount: row["excessCount"]
+		});
+	}
+}
+
+/**
+ * Fill needed properties of the object if it is undefined AND assign corresponding cell reportData
+ */
+if(reportData[team]) {
+	if(reportData[team][skill]){
+		assignCellData();
+	} else {
+		reportData[team][skill] = {};
+		assignCellData();
+	}
+} else {
+	reportData[team] = {};
+	reportData[team][skill] = {};
+	assignCellData();
+}]]></method>
+            <simple-property-list name="inputDataSets">
+                <value>Skills Dates Joined DS</value>
+                <value>ExtendedShiftRequirement DS</value>
+                <value>SelectedTeamsDS</value>
+            </simple-property-list>
+            <xml-property name="queryText"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tns:joinedDataSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.actuate.com/birt/dataset_join.xsd" xmlns:tns="http://schemas.actuate.com/birt/dataset_join.xsd">
+<tns:selectColumns>
+<tns:Column>Skills Dates Joined DS::skillName</tns:Column>
+<tns:Column>Skills Dates Joined DS::skillId</tns:Column>
+<tns:Column>Skills Dates Joined DS::teamId</tns:Column>
+<tns:Column>Skills Dates Joined DS::dayName</tns:Column>
+<tns:Column>Skills Dates Joined DS::dayOfWeek</tns:Column>
+<tns:Column>Skills Dates Joined DS::date</tns:Column>
+<tns:Column>ExtendedShiftRequirement DS::id</tns:Column>
+<tns:Column>ExtendedShiftRequirement DS::startTime</tns:Column>
+<tns:Column>ExtendedShiftRequirement DS::endTime</tns:Column>
+<tns:Column>ExtendedShiftRequirement DS::dayOfTheWeek</tns:Column>
+<tns:Column>ExtendedShiftRequirement DS::employeeCount</tns:Column>
+<tns:Column>ExtendedShiftRequirement DS::excessCount</tns:Column>
+<tns:Column>SelectedTeamsDS::teamName</tns:Column>
+</tns:selectColumns>
+<tns:joins>
+<tns:startingDataSet Index="0" name="Skills Dates Joined DS"/>
+<tns:join>
+<tns:type>leftOuter</tns:type>
+<tns:dataSet Index="1" name="ExtendedShiftRequirement DS"/>
+<tns:on>
+<tns:condition>
+<tns:leftColumn>Skills Dates Joined DS::date</tns:leftColumn>
+<tns:rightColumn>ExtendedShiftRequirement DS::date</tns:rightColumn>
+<tns:operator>eq</tns:operator>
+</tns:condition>
+<tns:condition>
+<tns:leftColumn>Skills Dates Joined DS::skillId</tns:leftColumn>
+<tns:rightColumn>ExtendedShiftRequirement DS::skillId</tns:rightColumn>
+<tns:operator>eq</tns:operator>
+</tns:condition>
+<tns:condition>
+<tns:leftColumn>Skills Dates Joined DS::teamId</tns:leftColumn>
+<tns:rightColumn>ExtendedShiftRequirement DS::teamId</tns:rightColumn>
+<tns:operator>eq</tns:operator>
+</tns:condition>
+</tns:on>
+</tns:join>
+<tns:join>
+<tns:type>leftOuter</tns:type>
+<tns:dataSet Index="2" name="SelectedTeamsDS"/>
+<tns:on>
+<tns:condition>
+<tns:leftColumn>Skills Dates Joined DS::teamId</tns:leftColumn>
+<tns:rightColumn>SelectedTeamsDS::teamId</tns:rightColumn>
+<tns:operator>eq</tns:operator>
+</tns:condition>
+</tns:on>
+</tns:join>
+</tns:joins>
+</tns:joinedDataSet>]]></xml-property>
+        </derived-data-set>
+        <script-data-set name="ExtendedShiftRequirement DS" id="10770" extends="common.ExtendedShiftRequirement DS"/>
+        <script-data-set name="SelectedTeamsDS" id="10833" extends="common.SelectedTeamsDS"/>
+        <script-data-set name="ShiftReqs By Skill DS" id="10907">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">date</property>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">startTime</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">endTime</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">employeeCount</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">excessCount</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">date</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">startTime</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">endTime</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">employeeCount</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">excessCount</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+            </list-property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">teamId</property>
+                    <property name="dataType">string</property>
+                    <property name="position">1</property>
+                    <expression name="defaultValue" type="javascript">""</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">skillId</property>
+                    <property name="dataType">string</property>
+                    <property name="position">2</property>
+                    <expression name="defaultValue" type="javascript">""</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">date</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">startTime</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">endTime</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">employeeCount</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">excessCount</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[currentCellShiftReqsCount = 0;
+
+var team = inputParams["teamId"];
+var skill = inputParams["skillId"];
+var data = reportContext.getGlobalVariable("reportData");
+
+currentCellShiftReqs = data[team][skill];
+]]></method>
+            <method name="fetch"><![CDATA[if(currentCellShiftReqsCount < currentCellShiftReqs.length) {
+	var obj = currentCellShiftReqs[currentCellShiftReqsCount];
+	
+	row["date"] = obj.date;
+	row["startTime"] = obj.startTime;
+    row["endTime"] = obj.endTime;
+    row["employeeCount"] = obj.employeeCount;
+	row["excessCount"] = obj.excessCount;
+	
+	currentCellShiftReqsCount++
+	return true;
+}
+
+return false;]]></method>
+        </script-data-set>
+    </data-sets>
+    <cubes>
+        <tabular-cube name="DaysOfWeek DCube" id="10841">
+            <property name="dimensions">
+                <tabular-dimension name="By Date" id="10908">
+                    <property name="isTimeType">false</property>
+                    <property name="defaultHierarchy">NewTabularHierarchy1</property>
+                    <property name="hierarchies">
+                        <tabular-hierarchy name="NewTabularHierarchy1" id="10909">
+                            <property name="levels">
+                                <tabular-level name="date" id="10910">
+                                    <property name="dataType">date</property>
+                                    <property name="columnName">date</property>
+                                </tabular-level>
+                            </property>
+                        </tabular-hierarchy>
+                    </property>
+                </tabular-dimension>
+            </property>
+            <property name="measureGroups">
+                <tabular-measure-group name="Summary Field" id="10911">
+                    <property name="measures">
+                        <tabular-measure name="startTime" id="10912">
+                            <property name="function">count</property>
+                            <expression name="measureExpression" type="javascript">dataSetRow["startTime"]</expression>
+                            <property name="dataType">integer</property>
+                        </tabular-measure>
+                    </property>
+                </tabular-measure-group>
+            </property>
+            <property name="dataSet">ShiftReqs By Skill DS</property>
+        </tabular-cube>
+    </cubes>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <property name="orientation">auto</property>
+            <page-header>
+                <grid name="Report header" id="11122" extends="common.Report header">
+                    <overridden-values>
+                        <ref-entry baseId="13738" id="13738"/>
+                        <ref-entry baseId="13739" id="13739"/>
+                        <ref-entry baseId="13740" id="13740"/>
+                        <ref-entry baseId="13741" id="13741"/>
+                        <ref-entry baseId="13742" name="NewGrid11" id="13742"/>
+                        <ref-entry baseId="13743" id="13743"/>
+                        <ref-entry baseId="13744" id="13744"/>
+                        <ref-entry baseId="13745" id="13745"/>
+                        <ref-entry baseId="13746" name="NewData111" id="13746"/>
+                        <ref-entry baseId="13747" id="13747"/>
+                        <ref-entry baseId="13748" name="NewGrid2" id="13748"/>
+                        <ref-entry baseId="13749" id="13749"/>
+                        <ref-entry baseId="13750" id="13750"/>
+                        <ref-entry baseId="13751" id="13751"/>
+                        <ref-entry baseId="13752" name="NewData21" id="13752"/>
+                        <ref-entry baseId="13775" id="13775"/>
+                        <ref-entry baseId="13776" id="13776"/>
+                        <ref-entry baseId="10833" name="NewGrid" id="13777"/>
+                        <ref-entry baseId="10834" id="13778"/>
+                        <ref-entry baseId="10835" id="13779"/>
+                        <ref-entry baseId="10836" id="13780"/>
+                        <ref-entry baseId="13779" name="NewTextData1" id="13781"/>
+                    </overridden-values>
+                </grid>
+            </page-header>
+            <page-footer>
+                <grid name="Report footer" id="13782" extends="common.Report footer">
+                    <overridden-values>
+                        <ref-entry baseId="13754" id="13754"/>
+                        <ref-entry baseId="13755" id="13755"/>
+                        <ref-entry baseId="13756" id="13756"/>
+                        <ref-entry baseId="13757" id="13757"/>
+                        <ref-entry baseId="13758" name="NewTextData111" id="13758"/>
+                        <ref-entry baseId="13759" id="13759"/>
+                        <ref-entry baseId="13760" name="NewGrid1111" id="13760"/>
+                        <ref-entry baseId="13761" id="13761"/>
+                        <ref-entry baseId="13762" id="13762"/>
+                        <ref-entry baseId="13763" id="13763"/>
+                        <ref-entry baseId="13764" id="13764"/>
+                        <ref-entry baseId="13765" id="13765"/>
+                        <ref-entry baseId="13766" id="13766"/>
+                        <ref-entry baseId="13767" name="NewText211" id="13767"/>
+                        <ref-entry baseId="13768" id="13768"/>
+                        <ref-entry baseId="13769" name="NewAutoText211" id="13769"/>
+                        <ref-entry baseId="13770" id="13770"/>
+                        <ref-entry baseId="13771" name="NewText1111" id="13771"/>
+                        <ref-entry baseId="13772" id="13772"/>
+                        <ref-entry baseId="13773" name="NewAutoText1111" id="13773"/>
+                    </overridden-values>
+                </grid>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <list id="10834">
+            <list-property name="userProperties">
+                <structure>
+                    <property name="name">__ac_group_collapse_level</property>
+                    <property name="type">string</property>
+                </structure>
+            </list-property>
+            <property name="dataSet">Skills Dates ShiftReqs Joined DS</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">skillName</property>
+                    <text-property name="displayName">skillName</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["skillName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">skillId</property>
+                    <text-property name="displayName">skillId</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["skillId"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">teamId</property>
+                    <text-property name="displayName">teamId</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["teamId"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">date</property>
+                    <text-property name="displayName">date</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["date"]</expression>
+                    <property name="dataType">date</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">id</property>
+                    <text-property name="displayName">id</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["id"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">startTime</property>
+                    <text-property name="displayName">startTime</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["startTime"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">endTime</property>
+                    <text-property name="displayName">endTime</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["endTime"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">dayOfTheWeek</property>
+                    <text-property name="displayName">dayOfTheWeek</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["dayOfTheWeek"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">employeeCount</property>
+                    <text-property name="displayName">employeeCount</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["employeeCount"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">excessCount</property>
+                    <text-property name="displayName">excessCount</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["excessCount"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">teamName</property>
+                    <text-property name="displayName">teamName</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["teamName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">Column Binding</property>
+                    <expression name="expression" type="javascript">dataSetRow["startTime"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">Column Binding_1</property>
+                    <expression name="expression" type="javascript">dataSetRow["endTime"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">length</property>
+                    <expression name="expression" type="javascript">(dataSetRow["endTime"]*1 - dataSetRow["startTime"]*1)/1000/60/60 + " - hour"</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">Column Binding_2</property>
+                    <expression name="expression" type="javascript">emlogis.date.timeObjectToShort12TimeString(emlogis.date.millisToTime(dataSetRow["startTime"])) &#13;
++ " - " &#13;
++ emlogis.date.timeObjectToShort12TimeString(emlogis.date.millisToTime(dataSetRow["endTime"]))</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">time_interval</property>
+                    <expression name="expression" type="javascript">emlogis.date.timeObjectToShort12TimeString(emlogis.date.millisToTime(dataSetRow["startTime"])) &#13;
++ " - " &#13;
++ emlogis.date.timeObjectToShort12TimeString(emlogis.date.millisToTime(dataSetRow["endTime"]))</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">Required</property>
+                    <expression name="expression" type="javascript">dataSetRow["employeeCount"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">excess</property>
+                    <expression name="expression" type="javascript">dataSetRow["excessCount"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">D1</property>
+                    <expression name="expression" type="javascript">(function getDateStringForShiftReq() {&#13;
+	var date = new Date(dataSetRow["date"].getTime());&#13;
+	return date != "Invalid Date" ? emlogis.date.toString(date, "ddd, mmmm, dd") : "Invalid Date";&#13;
+})();</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">dayOfWeek</property>
+                    <expression name="expression" type="javascript">dataSetRow["dayOfWeek"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">WeekDay</property>
+                    <expression name="expression" type="javascript">(function getDateStringForShiftReq() {&#13;
+	var date = new Date(dataSetRow["date"].getTime());&#13;
+	return date != "Invalid Date" ? emlogis.date.toString(date, "ddd, mmmm, dd") : "Invalid Date";&#13;
+})();</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+            </list-property>
+            <group id="10835">
+                <property name="groupName">By Team</property>
+                <expression name="keyExpr" type="javascript">row["teamName"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue" type="javascript">row["teamName"]</expression>
+                </structure>
+                <property name="hideDetail">false</property>
+                <property name="pageBreakBefore">always-excluding-first</property>
+                <header>
+                    <grid id="10998">
+                        <column id="10999"/>
+                        <row id="11000">
+                            <cell id="11001">
+                                <data id="10836">
+                                    <property name="style">emlogis-header-first</property>
+                                    <property name="resultSetColumn">teamName</property>
+                                </data>
+                            </cell>
+                        </row>
+                    </grid>
+                </header>
+            </group>
+            <group id="10837">
+                <property name="groupName">By Skill</property>
+                <expression name="keyExpr" type="javascript">row["skillName"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue" type="javascript">row["skillName"]</expression>
+                </structure>
+                <property name="hideDetail">false</property>
+                <header>
+                    <grid id="10994">
+                        <property name="style">highlighted-text-italic</property>
+                        <column id="10995">
+                            <property name="style">highlighted-text-bold</property>
+                        </column>
+                        <row id="10996">
+                            <property name="style">highlighted-cell-light</property>
+                            <cell id="10997">
+                                <property name="style">padding-05em</property>
+                                <data id="10838">
+                                    <property name="style">emlogis-header-second</property>
+                                    <property name="resultSetColumn">skillName</property>
+                                </data>
+                            </cell>
+                        </row>
+                    </grid>
+                    <grid id="11047">
+                        <property name="style">bordered</property>
+                        <column id="11048"/>
+                        <row id="11049">
+                            <cell id="11050">
+                                <property name="style">empty-cell</property>
+                            </cell>
+                        </row>
+                    </grid>
+                    <grid id="11056">
+                        <column id="11057"/>
+                        <row id="11058">
+                            <cell id="11059">
+                                <property name="style">align-center-middle</property>
+                                <grid id="11024">
+                                    <property name="style">align-center-middle</property>
+                                    <property name="width">80%</property>
+                                    <column id="11025">
+                                        <property name="width">25%</property>
+                                    </column>
+                                    <column id="11026">
+                                        <property name="width">25%</property>
+                                    </column>
+                                    <column id="11027">
+                                        <property name="width">25%</property>
+                                    </column>
+                                    <column id="11028">
+                                        <property name="width">25%</property>
+                                    </column>
+                                    <row id="11029">
+                                        <property name="style">highlighted-text-uppercase</property>
+                                        <cell id="11030">
+                                            <label id="11038">
+                                                <text-property name="text">Shift Group</text-property>
+                                            </label>
+                                        </cell>
+                                        <cell id="11032">
+                                            <label id="11039">
+                                                <text-property name="text">Shift Description</text-property>
+                                            </label>
+                                        </cell>
+                                        <cell id="11034">
+                                            <label id="11040">
+                                                <text-property name="text">Required</text-property>
+                                            </label>
+                                        </cell>
+                                        <cell id="11036">
+                                            <label id="11041">
+                                                <text-property name="text">Excess</text-property>
+                                            </label>
+                                        </cell>
+                                    </row>
+                                </grid>
+                            </cell>
+                        </row>
+                    </grid>
+                </header>
+                <footer>
+                    <grid id="11004">
+                        <column id="11005"/>
+                        <row id="11006">
+                            <cell id="11007">
+                                <property name="style">padding-05em</property>
+                                <text id="11008">
+                                    <property name="contentType">auto</property>
+                                    <text-property name="content"><![CDATA[ ]]></text-property>
+                                </text>
+                            </cell>
+                        </row>
+                    </grid>
+                </footer>
+            </group>
+            <group id="10976">
+                <property name="groupName">By Date</property>
+                <expression name="keyExpr" type="javascript">row["dayOfWeek"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue" type="javascript">row["dayOfWeek"]</expression>
+                    <property name="TOCStyle">highlighted-cell-dark</property>
+                </structure>
+                <property name="hideDetail">false</property>
+                <list-property name="sort">
+                    <structure>
+                        <expression name="key" type="javascript">row["date"]</expression>
+                        <property name="direction">asc</property>
+                        <property name="strength">-1</property>
+                    </structure>
+                </list-property>
+                <header>
+                    <grid id="10990">
+                        <column id="10991"/>
+                        <row id="10992">
+                            <cell id="10993">
+                                <property name="style">padding-05em</property>
+                                <grid id="11060">
+                                    <property name="style">bordered</property>
+                                    <list-property name="highlightRules">
+                                        <structure>
+                                            <property name="operator">eq</property>
+                                            <expression name="testExpr" type="javascript">1</expression>
+                                            <simple-property-list name="value1">
+                                                <value type="javascript">1</value>
+                                            </simple-property-list>
+                                            <property name="style">only-bottom-border</property>
+                                        </structure>
+                                    </list-property>
+                                    <column id="11061"/>
+                                    <row id="11062">
+                                        <cell id="11063"/>
+                                    </row>
+                                </grid>
+                                <data id="13783">
+                                    <property name="resultSetColumn">WeekDay</property>
+                                </data>
+                            </cell>
+                        </row>
+                    </grid>
+                </header>
+            </group>
+            <detail>
+                <grid id="11052">
+                    <list-property name="visibility">
+                        <structure>
+                            <property name="format">all</property>
+                            <expression name="valueExpr" type="javascript">row["id"] == null</expression>
+                        </structure>
+                    </list-property>
+                    <column id="11053"/>
+                    <row id="11054">
+                        <cell id="11055">
+                            <property name="style">align-center-middle</property>
+                            <grid id="11009">
+                                <property name="style">align-center-middle</property>
+                                <property name="width">80%</property>
+                                <column id="11010">
+                                    <property name="width">25%</property>
+                                </column>
+                                <column id="11011">
+                                    <property name="width">25%</property>
+                                </column>
+                                <column id="11012">
+                                    <property name="width">25%</property>
+                                </column>
+                                <column id="11013">
+                                    <property name="width">25%</property>
+                                </column>
+                                <row id="11014">
+                                    <cell id="11015">
+                                        <data id="11019">
+                                            <property name="resultSetColumn">length</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="11016">
+                                        <data id="11021">
+                                            <property name="resultSetColumn">time_interval</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="11017">
+                                        <data id="11022">
+                                            <property name="resultSetColumn">Required</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="11018">
+                                        <data id="11023">
+                                            <property name="resultSetColumn">excess</property>
+                                        </data>
+                                    </cell>
+                                </row>
+                            </grid>
+                        </cell>
+                    </row>
+                </grid>
+            </detail>
+        </list>
+    </body>
+</report>

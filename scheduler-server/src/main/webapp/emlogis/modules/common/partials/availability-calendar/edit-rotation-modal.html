@@ -1,0 +1,47 @@
+<div class="edit-availability-modal">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h3 class="modal-title">{{'availability.SET_ROTATION' | translate}}</h3>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-9">
+        {{'availability.DAY_SELECTED' | translate}}: <b>{{selectedDay}}</b>
+      </div>
+      <div class="col-md-3 text-right">
+        <button type="button" class="btn btn-success" ng-click="updateWeekdayRotation()">{{'availability.SAVE_AND_CLOSE' | translate}}</button>
+      </div>
+    </div>
+    <div class="row divider" style="margin: 15px 0;"></div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="radio">
+          <label>
+            <input type="radio" name="rotation" value="NONE" ng-model="rotation" checked>
+            1:1 - {{'availability.NO_ROTATION' | translate}}
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="rotation" value="EVERY_OTHER" ng-model="rotation" >
+            1:2 - {{'availability.EVERY_OTHER' | translate}}
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="rotation" value="EVERY_THIRD" ng-model="rotation" >
+            1:3 - {{'availability.EVERY_THIRD' | translate}}
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="rotation" value="TWO_OF_EVERY_FOUR" ng-model="rotation" >
+            2:4 - {{'availability.TWO_OF_FOUR' | translate}}
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

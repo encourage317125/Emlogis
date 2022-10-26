@@ -1,0 +1,730 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.4.0.v20150206-1039 Build &lt;4.2.3.v20150206-1039></property>
+    <property name="units">in</property>
+    <method name="initialize"><![CDATA[try {
+	emlogis.current.reportName = "Schedule Summary by Employee";
+} catch(e){};
+
+function formatTime(date){
+	var H = date.getHours();
+	var M = (date.getMinutes()<10?'0':'') + date.getMinutes();
+    var h = H % 12 || 12;
+	var ampm = H < 12 ? "a" : "p";
+    return h + ":" + M + ampm;
+}
+
+function formatHour(H){
+    var h = H % 12 || 12;
+	var ampm = H < 12 ? "a" : "p";
+    return h + ampm;
+}]]></method>
+    <property name="theme">common.EmlogisGrayScales</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="layoutPreference">auto layout</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">96</property>
+    <list-property name="libraries">
+        <structure>
+            <property name="fileName">emlogis/report-libs/common.RPTLIBRARY</property>
+            <property name="namespace">common</property>
+        </structure>
+    </list-property>
+    <parameters>
+        <scalar-parameter name="restApiUrl" id="6" extends="common.restApiUrl">
+            <property name="valueType">static</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <cascading-parameter-group name="Parameters Group" id="3336">
+            <property name="dataSet">Security DS</property>
+            <property name="dataSetMode">multiple</property>
+            <parameters>
+                <scalar-parameter name="Security" id="58" extends="common.Security">
+                    <property name="valueType">dynamic</property>
+                </scalar-parameter>
+                <scalar-parameter name="StartDate" id="23">
+                    <text-property name="promptText">Select Start Date</text-property>
+                    <property name="valueType">dynamic</property>
+                    <property name="isRequired">true</property>
+                    <property name="dataSetName">Start Date DS</property>
+                    <expression name="valueExpr">row["startDate"]</expression>
+                    <expression name="labelExpr">row["startDate"]</expression>
+                    <property name="dataType">date</property>
+                    <property name="paramType">simple</property>
+                    <property name="fixedOrder">true</property>
+                    <structure name="format"/>
+                </scalar-parameter>
+                <scalar-parameter name="Site" id="24">
+                    <property name="valueType">dynamic</property>
+                    <property name="isRequired">true</property>
+                    <property name="dataSetName">Site DS</property>
+                    <expression name="valueExpr">row["siteInfo"]</expression>
+                    <expression name="labelExpr">row["siteName"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="paramType">simple</property>
+                    <property name="controlType">list-box</property>
+                    <property name="fixedOrder">true</property>
+                    <structure name="format"/>
+                </scalar-parameter>
+                <scalar-parameter name="scheduleId" id="25">
+                    <text-property name="promptText">Select Schedule</text-property>
+                    <property name="valueType">dynamic</property>
+                    <property name="isRequired">true</property>
+                    <property name="dataSetName">Schedule DS</property>
+                    <expression name="valueExpr">row["id"]</expression>
+                    <expression name="labelExpr">row["name"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="paramType">simple</property>
+                    <property name="controlType">list-box</property>
+                    <property name="fixedOrder">true</property>
+                    <structure name="format"/>
+                </scalar-parameter>
+                <scalar-parameter name="Teams" id="10732">
+                    <text-property name="promptText">Select team</text-property>
+                    <property name="valueType">dynamic</property>
+                    <property name="isRequired">true</property>
+                    <property name="dataSetName">Team DS</property>
+                    <expression name="valueExpr">row["teamInfo"]</expression>
+                    <expression name="labelExpr">row["teamName"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="paramType">multi-value</property>
+                    <property name="controlType">list-box</property>
+                    <property name="fixedOrder">true</property>
+                    <structure name="format"/>
+                </scalar-parameter>
+            </parameters>
+        </cascading-parameter-group>
+        <scalar-parameter name="EmployeeType" id="10746">
+            <text-property name="promptText">Select Employee Type</text-property>
+            <property name="valueType">static</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList">
+                <structure>
+                    <property name="value">0</property>
+                    <property name="label">Full Time</property>
+                </structure>
+                <structure>
+                    <property name="value">1</property>
+                    <property name="label">Part Time</property>
+                </structure>
+            </list-property>
+            <property name="paramType">multi-value</property>
+            <property name="controlType">list-box</property>
+            <property name="mustMatch">true</property>
+            <property name="fixedOrder">true</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <script-data-source name="Data Source" id="4" extends="common.Data Source"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="summaryDataSet" id="27">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">skill</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">team</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">hours</property>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">employeeName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">employeeId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">startDate</property>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">time</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">leaveHours</property>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">leaveType</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">skill</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">Skill</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">team</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">Team Name</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">hours</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">Hours</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">employeeName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">employeeId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">startDate</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">time</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">leaveHours</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">Leave Hours</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">leaveType</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">Leave Type</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">skill</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">team</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">hours</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">employeeName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">employeeId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">startDate</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">time</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">leaveHours</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">leaveType</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[summaryCount = 0;
+
+if (token) {
+	teams =  '\'' + emlogis.current.teams.getIds().join('\',\'') + '\'';
+	emplTypes = '\'' + params["EmployeeType"].join('\',\'') + '\'';
+	summaryList = report.getList(token, "schedules/" + params["scheduleId"] + "/employeesummaryreport?teamsIds=" + teams  + "&amp;employeeTypes=" + emplTypes);
+}
+]]></method>
+            <method name="fetch"><![CDATA[if (token != null &amp;&amp; summaryCount < summaryList.size()) {
+    obj = summaryList.get(summaryCount);
+
+	row["employeeId"] = obj["employeeId"];
+	    
+	row["employeeName"] = obj["employeeName"];
+	
+    var startDate = new Date(obj["startDateTime"]);
+	        
+	row["startDate"] = startDate;
+	
+	if(obj["leave"] == false){
+	
+		row["skill"] = obj["skillName"];
+	    
+	    row["team"] = obj["teamName"];
+	    
+	    row["hours"] = obj["shiftLength"];
+	   
+    	var endDate = new Date(obj["endDateTime"]);
+    	
+	    row["time"] = formatTime(startDate) + ' - ' + formatTime(endDate) + (startDate.getDay()!=endDate.getDay()?'+':'');
+	
+	} else {
+		row["leaveType"] = obj["leaveType"];
+	    
+	    row["leaveHours"] = obj["leaveHours"];
+	}
+    
+    summaryCount++;
+    
+    return true;
+}
+
+else return false;]]></method>
+        </script-data-set>
+        <script-data-set name="Security DS" id="10747" extends="common.Security DS"/>
+        <script-data-set name="Site DS" id="11265" extends="common.Site DS"/>
+        <script-data-set name="Start Date DS" id="11266" extends="common.Start Date DS"/>
+        <script-data-set name="Team DS" id="11267" extends="common.Team DS"/>
+        <script-data-set name="Schedule DS" id="14688" extends="common.Schedule DS"/>
+    </data-sets>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <property name="orientation">auto</property>
+            <property name="topMargin">15px</property>
+            <property name="leftMargin">15px</property>
+            <property name="bottomMargin">15px</property>
+            <property name="rightMargin">15px</property>
+            <page-header>
+                <grid name="Report header" id="13943" extends="common.Report header">
+                    <list-property name="boundDataColumns">
+                        <structure>
+                            <property name="name">reportTime</property>
+                            <text-property name="displayName">Report time interval</text-property>
+                            <expression name="expression" type="javascript">"Schedule name: "+ params["scheduleId"].displayText + '&lt;br>' +
+"Schedule date: "+ Formatter.format(params['StartDate'], 'MM/dd/YYYY') ;</expression>
+                            <property name="dataType">string</property>
+                            <property name="allowExport">true</property>
+                        </structure>
+                        <structure>
+                            <property name="name">reportName</property>
+                            <text-property name="displayName">Report Name</text-property>
+                            <expression name="expression" type="javascript">emlogis.current.reportName + ": "+emlogis.current.site.get("name")</expression>
+                            <property name="dataType">string</property>
+                            <property name="allowExport">true</property>
+                        </structure>
+                    </list-property>
+                    <overridden-values>
+                        <ref-entry baseId="13738" id="13738"/>
+                        <ref-entry baseId="13739" id="13739"/>
+                        <ref-entry baseId="13740" id="13740"/>
+                        <ref-entry baseId="13741" id="13741"/>
+                        <ref-entry baseId="13742" name="NewGrid11" id="13742"/>
+                        <ref-entry baseId="13743" id="13743"/>
+                        <ref-entry baseId="13744" id="13744"/>
+                        <ref-entry baseId="13745" id="13745"/>
+                        <ref-entry baseId="13746" name="NewData111" id="13746">
+                            <property name="resultSetColumn">reportName</property>
+                        </ref-entry>
+                        <ref-entry baseId="13747" id="13747"/>
+                        <ref-entry baseId="13748" name="NewGrid2" id="13748"/>
+                        <ref-entry baseId="13749" id="13749"/>
+                        <ref-entry baseId="13750" id="13750"/>
+                        <ref-entry baseId="13751" id="13751"/>
+                        <ref-entry baseId="13752" name="NewData21" id="13752">
+                            <property name="resultSetColumn">reportTime</property>
+                        </ref-entry>
+                        <ref-entry baseId="13775" id="13775"/>
+                        <ref-entry baseId="13776" id="13776"/>
+                        <ref-entry baseId="10833" name="NewGrid" id="10833"/>
+                        <ref-entry baseId="10834" id="10834"/>
+                        <ref-entry baseId="10835" id="10835"/>
+                        <ref-entry baseId="10836" id="10836"/>
+                        <ref-entry baseId="13779" name="NewTextData1" id="13779"/>
+                    </overridden-values>
+                </grid>
+            </page-header>
+            <page-footer>
+                <grid name="Report footer" id="11235" extends="common.Report footer">
+                    <overridden-values>
+                        <ref-entry baseId="13754" id="13754"/>
+                        <ref-entry baseId="13755" id="13755"/>
+                        <ref-entry baseId="13756" id="13756"/>
+                        <ref-entry baseId="13757" id="13757"/>
+                        <ref-entry baseId="13758" name="NewTextData111" id="13758"/>
+                        <ref-entry baseId="13759" id="13759"/>
+                        <ref-entry baseId="13760" name="NewGrid1111" id="13760"/>
+                        <ref-entry baseId="13761" id="13761"/>
+                        <ref-entry baseId="13762" id="13762"/>
+                        <ref-entry baseId="13763" id="13763"/>
+                        <ref-entry baseId="13764" id="13764"/>
+                        <ref-entry baseId="13765" id="13765"/>
+                        <ref-entry baseId="13766" id="13766"/>
+                        <ref-entry baseId="13767" name="NewText211" id="13767"/>
+                        <ref-entry baseId="13768" id="13768"/>
+                        <ref-entry baseId="13769" name="NewAutoText211" id="13769"/>
+                        <ref-entry baseId="13770" id="13770"/>
+                        <ref-entry baseId="13771" name="NewText1111" id="13771"/>
+                        <ref-entry baseId="13772" id="13772"/>
+                        <ref-entry baseId="13773" name="NewAutoText1111" id="13773"/>
+                    </overridden-values>
+                </grid>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <table id="10636">
+            <list-property name="userProperties">
+                <structure>
+                    <property name="name">__ac_group_collapse_level</property>
+                    <property name="type">string</property>
+                </structure>
+            </list-property>
+            <property name="masterPage">Simple MasterPage</property>
+            <property name="dataSet">summaryDataSet</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">skill</property>
+                    <text-property name="displayName">Skill</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["skill"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">team</property>
+                    <text-property name="displayName">Team Name</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["team"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">hours</property>
+                    <text-property name="displayName">Hours</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["hours"]</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">employeeName</property>
+                    <text-property name="displayName">employeeName</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["employeeName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">employeeId</property>
+                    <text-property name="displayName">employeeId</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["employeeId"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">startDate</property>
+                    <text-property name="displayName">startDate</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["startDate"]</expression>
+                    <property name="dataType">date</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">time</property>
+                    <text-property name="displayName">time</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["time"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">totalhours</property>
+                    <text-property name="displayName">Total Hours</text-property>
+                    <property name="dataType">float</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>employee</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">row["hours"]</expression>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">leaveHours</property>
+                    <expression name="expression" type="javascript">dataSetRow["leaveHours"]</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">leaveType</property>
+                    <expression name="expression" type="javascript">dataSetRow["leaveType"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">Aggregation</property>
+                    <text-property name="displayName">Total Leave</text-property>
+                    <property name="dataType">float</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>employee</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">row["leaveHours"]</expression>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">totalLeaveHours</property>
+                    <property name="dataType">float</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>employee</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">row["leaveHours"]</expression>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">totalHours</property>
+                    <property name="dataType">float</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>employee</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">row["hours"]</expression>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">true</property>
+                </structure>
+            </list-property>
+            <list-property name="sort">
+                <structure>
+                    <expression name="key" type="javascript">row["startDate"]</expression>
+                    <property name="direction">asc</property>
+                    <property name="strength">-1</property>
+                </structure>
+            </list-property>
+            <column id="10713"/>
+            <column id="10707"/>
+            <column id="10665"/>
+            <column id="10666"/>
+            <column id="10667"/>
+            <column id="10727"/>
+            <column id="10721"/>
+            <header>
+                <row id="11269">
+                    <cell id="11270">
+                        <label id="10714">
+                            <text-property name="text">Date</text-property>
+                        </label>
+                    </cell>
+                    <cell id="11271">
+                        <label id="10715">
+                            <text-property name="text">Time</text-property>
+                        </label>
+                    </cell>
+                    <cell id="11272">
+                        <label id="10728">
+                            <text-property name="text">Skill</text-property>
+                        </label>
+                    </cell>
+                    <cell id="11273">
+                        <label id="3186">
+                            <text-property name="text">Team</text-property>
+                        </label>
+                    </cell>
+                    <cell id="11274">
+                        <label id="3188">
+                            <text-property name="text">Hours</text-property>
+                        </label>
+                    </cell>
+                    <cell id="11275">
+                        <label id="10594">
+                            <text-property name="text">Leave Type</text-property>
+                        </label>
+                    </cell>
+                    <cell id="11276">
+                        <label id="10593">
+                            <text-property name="text">Leave Hours</text-property>
+                        </label>
+                    </cell>
+                </row>
+            </header>
+            <group id="10679">
+                <property name="groupName">employee</property>
+                <expression name="keyExpr" type="javascript">row["employeeId"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue" type="javascript">row["employeeId"]</expression>
+                </structure>
+                <property name="hideDetail">false</property>
+                <list-property name="sort">
+                    <structure>
+                        <expression name="key" type="javascript">row["employeeName"]</expression>
+                        <property name="direction">asc</property>
+                        <property name="strength">-1</property>
+                    </structure>
+                </list-property>
+                <header>
+                    <row id="10680">
+                        <property name="style">highlighted-text-bold</property>
+                        <cell id="10709">
+                            <property name="colSpan">3</property>
+                            <property name="rowSpan">1</property>
+                            <data id="10688">
+                                <property name="resultSetColumn">employeeName</property>
+                            </data>
+                        </cell>
+                        <cell id="10682"/>
+                        <cell id="10683"/>
+                        <cell id="10723"/>
+                        <cell id="10717"/>
+                    </row>
+                    <row id="10690">
+                        <property name="style">highlighted-text-underlined</property>
+                        <cell id="10710"/>
+                        <cell id="10704"/>
+                        <cell id="10691"/>
+                        <cell id="10692"/>
+                        <cell id="10693"/>
+                        <cell id="10724"/>
+                        <cell id="10718"/>
+                    </row>
+                </header>
+                <footer>
+                    <row id="10684">
+                        <property name="height">0.365in</property>
+                        <cell id="10712"/>
+                        <cell id="10706"/>
+                        <cell id="10685"/>
+                        <cell id="10686"/>
+                        <cell id="10687">
+                            <data id="10745">
+                                <structure name="numberFormat">
+                                    <property name="category">Custom</property>
+                                    <property name="pattern">0.00</property>
+                                </structure>
+                                <list-property name="visibility">
+                                    <structure>
+                                        <property name="format">all</property>
+                                        <expression name="valueExpr" type="javascript">row["totalHours"]&lt;0.01</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="resultSetColumn">totalHours</property>
+                            </data>
+                        </cell>
+                        <cell id="10726"/>
+                        <cell id="10720">
+                            <data id="10744">
+                                <structure name="numberFormat">
+                                    <property name="category">Custom</property>
+                                    <property name="pattern">0.00</property>
+                                </structure>
+                                <list-property name="visibility">
+                                    <structure>
+                                        <property name="format">all</property>
+                                        <expression name="valueExpr" type="javascript">row["totalLeaveHours"]&lt;0.01</expression>
+                                    </structure>
+                                </list-property>
+                                <property name="resultSetColumn">totalLeaveHours</property>
+                            </data>
+                        </cell>
+                    </row>
+                </footer>
+            </group>
+            <detail>
+                <row id="10648">
+                    <list-property name="highlightRules">
+                        <structure>
+                            <property name="operator">eq</property>
+                            <expression name="testExpr" type="javascript">row[0]%2</expression>
+                            <simple-property-list name="value1">
+                                <value type="javascript">0</value>
+                            </simple-property-list>
+                        </structure>
+                    </list-property>
+                    <cell id="10711">
+                        <data id="10729">
+                            <structure name="dateTimeFormat">
+                                <property name="category">Short Date</property>
+                                <property name="pattern">Short Date</property>
+                            </structure>
+                            <property name="resultSetColumn">startDate</property>
+                        </data>
+                    </cell>
+                    <cell id="10705">
+                        <data id="10730">
+                            <property name="resultSetColumn">time</property>
+                        </data>
+                    </cell>
+                    <cell id="10649">
+                        <data id="10650">
+                            <property name="resultSetColumn">skill</property>
+                        </data>
+                    </cell>
+                    <cell id="10651">
+                        <data id="10652">
+                            <property name="resultSetColumn">team</property>
+                        </data>
+                    </cell>
+                    <cell id="10653">
+                        <data id="10654">
+                            <structure name="numberFormat">
+                                <property name="category">Custom</property>
+                                <property name="pattern">0.00</property>
+                            </structure>
+                            <property name="resultSetColumn">hours</property>
+                        </data>
+                    </cell>
+                    <cell id="10725">
+                        <data id="10741">
+                            <property name="resultSetColumn">leaveType</property>
+                        </data>
+                    </cell>
+                    <cell id="10719">
+                        <data id="10742">
+                            <structure name="numberFormat">
+                                <property name="category">Custom</property>
+                                <property name="pattern">0.00</property>
+                            </structure>
+                            <property name="resultSetColumn">leaveHours</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+        </table>
+    </body>
+</report>

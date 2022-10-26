@@ -1,0 +1,96 @@
+<div class="modal-header">
+    <h3>{{item.title}}</h3>
+</div>
+<div ng-controller="AddRelatedEntityCtrl" class="modal-body">
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-10">
+            <div class="navbar ">
+                <div class="navbar-inner toolbar">
+                    <ul class="nav navbar-nav">
+                    </ul>
+                    <form class="navbar-form pull-right">
+                        <input type="text" data-ng-model="filterText" class="novalidate" placeholder="Filter"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-1"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-10">
+
+            <div>
+
+                <!-- List View -->
+                <div class="row gridContainer customersTable show-hide-animation" data-ng-show="listViewEnabled">
+                    <div class="col-sm-12">
+                        <table class="table table-condensed">
+                            <thead>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <th data-ng-repeat="col in columns track by $index"
+                                    data-ng-show="!(col.showInAddModal!=null && !col.showInAddModal)"
+                                    data-ng-click="setOrder(col)">{{col.label}}
+                                </th>
+                                <th>Add</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr data-ng-repeat="elt in filteredElements | orderBy:orderby:reverse"
+                                class="repeat-animation">
+                                <td ng-show="!relatedEntityDrillDown || !hasPermission(viewPermissions)">
+                                    <img ng-src="{{relatedEntityIcon}}" class="cardImage" height="13" width="20">
+                                </td>
+                                <!--<td data-ng-repeat="col in columns track by $index" ng-init="e = col.dto == null ?-->
+                                            <!--elt[col.name] : elt[col.dto][col.name]">{{e}}-->
+                                <!--</td>-->
+                                <td data-ng-repeat="col in columns track by $index"
+                                    data-ng-show="!(col.showInAddModal!=null && !col.showInAddModal)">{{elt[col.name] }}
+                                </td>
+                                <td ng-show="hasPermission('Account_Mgmt')" ng-click="associateEntity(elt)" class="pointer">
+                                        <a><span class="glyphicon glyphicon-plus" /></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row show-hide-animation" data-ng-show="elements.length == 0">
+                    <div class="span12">
+                        <h4>No {{item.relatedentityTypeLabel}} found</h4>
+                    </div>
+                </div>
+
+                <div class="row show-hide-animation" data-ng-show="elements.length > 0">
+                    <div class="span12">
+                        <pagination total-items="totalRecords"
+                                    ng-model="currentPage"
+                                    max-size="5"
+                                    class="pagination-sm"
+                                    boundary-links="true"
+                                    rotate="false"
+                                    items-per-page="pageSize"
+                                    num-pages="numPages"
+                                    first-text="<<"  last-text=">>"  previous-text="<"  next-text=">"
+                                    ng-change="pageChanged()"
+                                ></pagination>
+                        <h5>Showing {{filteredCount}} of {{totalRecords}} total {{item.relatedentityTypeLabel}}(s)</h5>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-1"></div>
+    </div>
+
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">Close</button>
+    <!--<button class="btn btn-warning" ng-click="cancel()">Cancel</button>-->
+</div>
+

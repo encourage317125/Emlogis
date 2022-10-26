@@ -1,0 +1,242 @@
+<!-- Rules Skills Page Start -->
+<div class="rules-skills">
+  <div class="container-fluid">
+    <div class="row eml-action-bar">
+      <div class="col-md-12" ng-hide="skillsReceived">
+        <loader></loader>
+      </div>
+      <div ng-show="skillsReceived">
+        <div class="col-md-4">
+          <sorting-directive
+              list="skills"
+              fields="fieldsToSort">
+          </sorting-directive>
+        </div>
+
+        <div class="col-md-4">
+          <filtering-directive
+              list="skills"
+              filters="fieldsToFilter">
+          </filtering-directive>
+        </div>
+
+        <div class="col-md-4 text-right">
+          <button type="button" class="btn btn-default" ng-click="addRowForNewSkill()" ng-if="hasMgmtPermission()">
+            {{ ::"rules.skills.ADD_SKILLS" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row divider" style="margin: 0 5px 15px;"></div>
+
+    <div class="row" ng-repeat="s in skills" ng-hide="s.filteredOut === true">
+      <div class="col-md-12">
+        <div collapsable-panel
+             is-collapsable="true"
+             is-collapsed="s.isCollapsed"
+             ng-click="getTeamsForSkill(s)">
+          <div transclude-to="panel-head">
+            <div ng-show="s.isCollapsed">
+              <div class="eml-panel-header-left">
+                <h4 class="panel-title">{{s.originalName}}</h4>
+              </div>
+              <div class="eml-panel-header-right">
+                <span>{{ ::"rules.skills.START_DATE" | translate }}:</span>
+                <span class="skills-header-value">{{toReadableFormat(s.startDate, "Available")}}</span>
+                <span class="vertical-divider">|</span>
+                <span>{{ ::"rules.skills.END_DATE" | translate }}:</span>
+                <span class="skills-header-value">{{toReadableFormat(s.endDate, 'Never End')}}</span>
+                <label class="checkbox-inline skills-header-value" ng-click="s.isCollapsed = false">
+                  <input type="checkbox" ng-model="s.isActive" ng-disabled="!hasMgmtPermission()">
+                  {{ ::"rules.skills.ACTIVE" | translate }}
+                </label>
+                <i class="fa fa-pencil skills-edit-icon" ng-if="hasMgmtPermission()"
+                   ng-click="s.isCollapsed = false"></i>
+                <i class="fa fa-trash-o skills-delete-icon" ng-click="deleteSkill($event, s)"
+                   ng-if="hasMgmtPermission()"></i>
+              </div>
+            </div>
+            <div ng-show="!s.isCollapsed">
+              <div class="eml-panel-header-right">
+                <label class="checkbox-inline skills-header-value" ng-click="s.isCollapsed = false">
+                  <input type="checkbox" ng-disabled="!hasMgmtPermission()" ng-model="s.isActive">{{
+                  ::"rules.skills.ACTIVE" | translate }}
+                </label>
+                <button type="button" class="btn btn-success btn-xs" ng-if="hasMgmtPermission()"
+                        ng-click="saveSkill($event, s)">{{ ::"app.SAVE" | translate }}
+                </button>
+                <i class="fa fa-trash-o skills-delete-icon" ng-if="hasMgmtPermission()"
+                   ng-click="deleteSkill($event, s)"></i>
+              </div>
+            </div>
+          </div>
+
+          <div transclude-to="panel-body">
+            <form novalidate name="skillForm">
+
+              <div class="row clearfix">
+                <div class="col-md-2 form-group">
+                  <label>{{ ::"app.NAME" | translate }}</label>
+                  <input name="skillName"
+                         type="text"
+                         class="form-control"
+                         placeholder="{{ ::'rules.skills.SKILL_NAME' | translate }}"
+                         maxlength="32"
+                         ng-model="s.name"
+                         focus-me="!s.isCollapsed"
+                         ng-escape="resetSkill(s)"
+                         required
+                         ng-disabled="!hasMgmtPermission()">
+
+                  <div validate-messages messages-for="skillForm.skillName" submitted="showValidationMessages(s)"></div>
+                </div>
+
+                <div class="col-md-2 form-group">
+                  <label>{{ ::"rules.skills.ABBR" | translate }}</label>
+                  <input name="skillAbbr"
+                         type="text"
+                         class="form-control"
+                         placeholder="{{ ::'rules.skills.ABBREVIATION' | translate }}"
+                         maxlength="20"
+                         ng-model="s.abbreviation"
+                         ng-escape="resetSkill(s)"
+                         required
+                         ng-disabled="!hasMgmtPermission()">
+
+                  <div validate-messages messages-for="skillForm.skillAbbr" submitted="showValidationMessages(s)"></div>
+                </div>
+
+                <div class="col-md-4 form-group">
+                  <label>{{ ::"app.DESCRIPTION" | translate }}</label>
+                  <input name="skillDescription"
+                         class="form-control"
+                         placeholder="{{ ::'app.DESCRIPTION' | translate }}"
+                         maxlength="50"
+                         ng-model="s.description"
+                         ng-escape="resetSkill(s)"
+                         ng-disabled="!hasMgmtPermission()">
+                </div>
+
+                <div class="col-md-2 form-group">
+                  <label>{{ ::"rules.skills.START_DATE" | translate }}</label>
+                  <span class="input-group date-input">
+                    <input type="text"
+                           class="form-control"
+                           name="startDate"
+                           placeholder="{{ ::'app.DATE' | translate }}"
+                           pattern="^(0?[1-9]|1[012])[\/](0?[1-9]|[12][0-9]|3[01])[\/]\d{2}$"
+                           datepicker-popup="MM/dd/yy"
+                           ng-model="s.calendarStartDate"
+                           ng-model-options="{ allowInvalid: true }"
+                           is-open="s.startDateOpened"
+                           current-text="{{ ::'calendar.JUMP_TO_TODAY' | translate }}"
+                           ng-escape="resetSkill(s)"
+                           ng-disabled="!hasMgmtPermission()"/>
+                    <span class="input-group-btn">
+                      <button type="button"
+                              ng-disabled="!hasMgmtPermission()"
+                              class="btn eml-btn-grey-lightest eml-calendar-btn"
+                              ng-class="{ 'eml-calendar-opened' : s.startDateOpened }"
+                              ng-click="openCalendar($event, s, 'startDateOpened')">
+                        <img src="/scheduler-server/emlogis/img/calendar.svg">
+                      </button>
+                    </span>
+                  </span>
+
+                  <div validate-messages
+                       messages-for="skillForm.startDate"
+                       pattern-error-message="Should be like 01/31/15"
+                       pattern-reg-exp="^(0?[1-9]|1[012])[\/](0?[1-9]|[12][0-9]|3[01])[\/]\d{2}$"
+                       watch-value="messagesFor.$viewValue"
+                       submitted="showValidationMessages(s)">
+                  </div>
+                </div>
+
+                <div class="col-md-2 form-group">
+                  <label>{{ ::"rules.skills.END_DATE" | translate }}</label>
+                  <span class="input-group date-input">
+                    <input type="text"
+                           class="form-control"
+                           name="endDate"
+                           placeholder="{{ ::'app.DATE' | translate }}"
+                           pattern="^(0?[1-9]|1[012])[\/](0?[1-9]|[12][0-9]|3[01])[\/]\d{2}$"
+                           datepicker-popup="MM/dd/yy"
+                           ng-model="s.calendarEndDate"
+                           ng-model-options="{ allowInvalid: true }"
+                           is-open="s.endDateOpened"
+                           current-text="{{ ::'calendar.JUMP_TO_TODAY' | translate }}"
+                           ng-escape="resetSkill(s)"
+                           ng-disabled="!hasMgmtPermission()"/>
+                    <span class="input-group-btn">
+                      <button type="button"
+                              ng-disabled="!hasMgmtPermission()"
+                              class="btn eml-btn-grey-lightest eml-calendar-btn"
+                              ng-class="{ 'eml-calendar-opened' : s.endDateOpened }"
+                              ng-click="openCalendar($event, s, 'endDateOpened')">
+                        <img src="/scheduler-server/emlogis/img/calendar.svg">
+                      </button>
+                    </span>
+                  </span>
+
+                  <div validate-messages
+                       messages-for="skillForm.endDate"
+                       pattern-error-message="Should be like 01/31/15"
+                       pattern-reg-exp="^(0?[1-9]|1[012])[\/](0?[1-9]|[12][0-9]|3[01])[\/]\d{2}$"
+                       watch-value="messagesFor.$viewValue"
+                       submitted="showValidationMessages(s)">
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                  <div ng-show="s.id">
+                    <div class="skiil-has-teams">
+                      <h4>{{ ::"rules.skills.SKILL_ADDED_TO_TEAMS" | translate }}:</h4>
+                      <h5 ng-repeat="(siteName, teams) in s.teamsForSkill">
+                        <span>{{siteName}}:</span>
+                        <span ng-repeat="t in teams" class="skills-teams">
+                          {{t.teamName}}
+                          <span ng-hide="$last">,&nbsp;</span>
+                        </span>
+                      </h5>
+                    </div>
+
+                    <button type="button" class="btn btn-default" ng-click="openModal(s)"
+                            ng-if="hasMgmtPermission()">
+                      {{ ::"rules.skills.ADD_REMOVE_TEAMS" | translate }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+            </form>
+          </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-header">
+      <button type="button" class="close" ng-click="cancel()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h3 class="modal-title">{{ ::"rules.skills.ADD_REMOVE_TEAMS_FROM" | translate }} *{{sObj.name}}*</h3>
+    </div>
+    <div class="modal-body teams-grid">
+      <div class="row" ng-if="sObj.gridOptions.data">
+        <div class="eml-grid col-sm-12">
+          <div ui-grid="sObj.gridOptions"
+               ui-grid-selection></div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-success" ng-click="updateTeamAssociations()">{{ ::"app.OK" | translate }}
+      </button>
+      <button class="btn btn-default" ng-click="cancel()">{{ ::"app.CANCEL" | translate }}</button>
+    </div>
+  </script>
+
+</div>
+<!-- Rules Skills Page End -->

@@ -1,0 +1,20 @@
+<kmodule xmlns="http://jboss.org/kie/6.0.0/kmodule">
+    <kbase name="emlogisKieBase" default="true" eventProcessingMode="cloud" equalsBehavior="identity" declarativeAgenda="disabled" scope="javax.enterprise.context.ApplicationScoped" packages="*">
+        <ksession name="emlogisKieSession" type="stateful" default="true" clockType="realtime" scope="javax.enterprise.context.ApplicationScoped">
+            <!--<workItemHandlers>-->
+                <!--<workItemHandler name="SS_HANDLER" type="com.emlogis.workflow.handler.ShiftSwapWorkingItemHandler" />-->
+                <!--<workItemHandler name="WIP_HANDLER" type="com.emlogis.workflow.handler.WIPWorkingItemHandler" />-->
+                <!--<workItemHandler name="AR_HANDLER" type="com.emlogis.workflow.handler.AvailabilityRequestWorkingItemHandler" />-->
+                <!--<workItemHandler name="OS_HANDLER" type="com.emlogis.workflow.handler.OpenShiftRequestHandler" />-->
+                <!--<workItemHandler name="PTO_HANDLER" type="com.emlogis.workflow.handler.PtoRequestHandler" />-->
+                <!--<workItemHandler name="CUSTOM_HANDLER" type="com.emlogis.workflow.handler.CustomProcessHandler" />-->
+                <!--<workItemHandler name="CUSTOM_HANDLER" type="com.emlogis.workflow.handler.NotificationHandler" />-->
+            <!--</workItemHandlers>-->
+            <listeners>
+                <processEventListener type="com.emlogis.workflow.listeners.PredefinedProcessListener"></processEventListener>
+                <!--<listener type="FQCN_OF_EVENT_LISTENER" />-->
+            </listeners>
+        </ksession>
+        <ksession name="defaultStatelessKieSession" type="stateless" default="true" clockType="realtime" scope="javax.enterprise.context.ApplicationScoped"/>
+    </kbase>
+</kmodule>

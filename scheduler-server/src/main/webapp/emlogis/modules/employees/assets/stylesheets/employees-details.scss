@@ -1,0 +1,568 @@
+/* Employee Details style stars */
+
+// Import variables
+@import '../../../_main/assets/stylesheets/bootstrap_variables';
+@import '../../../_main/assets/stylesheets/emlogis_variables';
+
+
+//--------------------------------------------------------------------
+// Layout
+//--------------------------------------------------------------------
+
+#employee-details {
+  display: flex;
+  flex-direction: row;
+
+  h4 {
+    font-size: 1.5em;
+  }
+}
+
+.flex-column {
+  flex: 1;
+}
+
+//--------------------------------------------------------------------
+// Employee profile
+//--------------------------------------------------------------------
+
+#employee-profile {
+  background-color: $eml-lightest-grey;
+
+  .employee-profile-flex {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .eml-btn-white {
+    text-shadow: none;
+
+    &:hover,
+    &:focus,
+    &:active {
+      border-color: transparent;
+      text-shadow: none;
+      background-color: #fff;
+    }
+  }
+}
+
+
+$empl-photo-width: 155px;
+
+#eml-profile-img {
+  flex: 0 0 $empl-photo-width;
+  margin: 15px 15px 15px 0;
+  width: $empl-photo-width;
+  height: $empl-photo-width;
+  background-color: $eml-light-grey;
+  border: 1px solid #ccc;
+  border-radius: $border-radius-base;
+  position: relative;
+
+  img {
+    width: $empl-photo-width - 2;
+    height: $empl-photo-width - 2;
+    border-radius: 2px;
+    z-index: 2;
+    position: relative;
+  }
+
+  &::after {
+    content: "";
+    background: url(../../img/empty-photo.png) no-repeat;
+    background-size: $empl-photo-width;
+    opacity: 0.1;
+    @include absolute-center();
+    z-index: 1;
+  }
+
+  .eml-btn-white {
+    border-color: transparent;
+    position: relative;
+    top: -($empl-photo-width/2 + $eml-el-height/2); //-$eml-el-height/2;
+    z-index: 10;
+
+    &:hover,
+    &:focus,
+    &:active {
+      color: $eml-blue-highlight;
+    }
+  }
+
+  #eml-photo-btn {
+
+    input {
+      position: fixed;
+      height: 0px;
+      width: 0px;
+      left: -9999px;
+    }
+  }
+
+  &.eml-img-displayed {
+
+    .eml-btn-white {
+      opacity: 0;
+    }
+
+    &:hover .eml-btn-white {
+      opacity: 1;
+    }
+  }
+
+  #eml-photo-delete-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px 10px;
+    border-radius: 1px;
+    background-color: rgba(0,0,0,.4);
+    box-shadow: none;
+    color: white;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: rgba(0,0,0,.75);
+      color: $eml-red-highlight;
+      outline: none;
+    }
+  }
+}
+
+#eml-profile-data {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  flex: 0 1 100%;
+
+  h1 {
+    margin: 0;
+    text-transform: capitalize;
+    line-height: 32px; // to fit editing
+  }
+
+  h4 {
+    margin: 10px 0 8px 2px;
+  }
+
+  .badge {
+    vertical-align: top;
+    padding: 3px 10px 4px;
+    font-weight: 300;
+    letter-spacing: .03em;
+  }
+
+  #eml-hidden-wage {
+    font-style: italic;
+    color: $eml-mid-grey;
+    cursor: pointer;
+    font-weight: 300;
+  }
+
+  .table {
+    margin-bottom: 0;
+
+    tbody > tr > td {
+      padding: 2px 0 3px 3px;
+      line-height: 1;
+      border-top-color: transparent;
+      color: $brand-primary;
+    }
+
+    td:last-child {
+      span {
+        font-weight: 400;
+        color: $eml-black;
+      }
+    }
+
+    &.table-left tbody > tr > td {
+      padding-right: 15px;
+    }
+  }
+
+  .table-left,
+  .table-mid {
+    td:first-child {
+      width: 115px;
+    }
+  }
+
+  .table-right {
+    td:first-child {
+      width: 94px;
+    }
+  }
+
+  h4,
+  .table span {
+    color: $eml-dark-grey;
+    font-weight: 300;
+  }
+
+  .eml-inline-editing {
+
+    &.empl-editing-h1 {
+      input[type="text"] {
+        font-size: 25px;
+        line-height: 31px;
+      }
+    }
+
+    &.empl-editing-mid {
+      input[type="text"] {
+        font-size: 18px;
+      }
+
+      h4 {
+        line-height: 23px;
+      }
+    }
+
+    &.empl-editing-text {
+      input[type="text"],
+      input[type="email"],
+      input[type="number"] {
+        font-size: $font-size-base;
+      }
+
+      span {
+        line-height: 16px;
+      }
+
+      select {
+        margin-top: -7px;
+        position: relative;
+        top: 2px;
+      }
+    }
+
+    .eml-calendar-btn {
+      position: relative;
+      bottom: 4px;
+      left: 0;
+      padding: 0 2px;
+      border-color: transparent;
+      background-color: transparent;
+      height: 15px;
+      width: 24px;
+
+      svg {
+        overflow: visible;
+      }
+
+      &:hover .eml-icon-calendar,
+      &:active .eml-icon-calendar,
+      &:focus .eml-icon-calendar {
+        fill: $eml-orange-highlight-dark;
+      }
+    }
+
+    .eml-inline-date {
+      border-bottom: none;
+
+      &:hover {
+        cursor: pointer;
+        color: $eml-orange-highlight-dark;
+
+      }
+    }
+
+    input.ng-invalid.ng-touched {
+      border-bottom-color: $eml-red-highlight-dark;
+      color: $eml-red-highlight-dark;
+    }
+  }
+}
+
+
+//
+// Emergency contact modal
+
+#eml-profile-ec,
+#eml-profile-newbie {
+
+  .modal-body {
+    font-weight: 300;
+    color: $eml-dark-grey;
+
+    .eml-strong {
+      font-weight: 400;
+      color: $eml-black;
+    }
+
+    .row:last-child p {
+      margin-bottom: 0;
+    }
+  }
+
+  // for validation icons
+  [required] {
+    width: 85%;
+  }
+}
+
+#eml-profile-ec {
+  .modal-body {
+    text-transform: uppercase;
+  }
+  .eml-strong {
+    text-transform: capitalize;
+  }
+}
+
+#eml-profile-newbie {
+  .checkbox {
+    font-weight: 300;
+  }
+  .divider {
+    background-color: $gray-lighter;
+  }
+  p {
+    margin: 0;
+  }
+}
+
+
+//--------------------------------------------------------------------
+// Employee sidebar
+//--------------------------------------------------------------------
+
+#employee-sidebar {
+  width: 320px;
+  background-color: #d9d9d9;
+
+  h4 {
+    margin: 15px 0;
+  }
+
+  .panel {
+    text-transform: uppercase;
+    box-shadow: $eml-el-shadow;
+  }
+
+  .panel-body {
+    padding: 0 12px;
+    position: relative;
+
+    .btn {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+    }
+  }
+
+  .eml-strong,
+  .eml-strong td {
+    font-weight: 400;
+    color: $eml-black;
+  }
+
+  .table {
+    @include top-border-radius($border-radius-large);
+    thead {
+      th {
+        @include top-border-radius($border-radius-large);
+        border-bottom: 1px solid #c5c5c5;
+      }
+    }
+  }
+
+  .checkbox label,
+  tbody td {
+    color: $eml-dark-grey;
+    font-weight: 300;
+  }
+
+  .table,
+  .list-group-item {
+    background-color: $eml-lightest-grey;
+  }
+
+  .panel-heading,
+  thead {
+    background-color: #e9e9e9;
+  }
+
+  .panel-heading {
+    @include bottom-border-radius(0);
+    border-bottom: 1px solid #c5c5c5;
+    //box-shadow: $eml-el-shadow;
+  }
+
+  .enable-notifications {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .panel-footer {
+    @include bottom-border-radius($border-radius-large);
+  }
+
+  .panel-heading,
+  .list-group-item,
+  .panel-footer,
+  .table-condensed > thead > tr > th,
+  .table-condensed > thead > tr > td,
+  .table-condensed > tbody > tr > th,
+  .table-condensed > tbody > tr > td,
+  .table-condensed > tfoot > tr > th,
+  .table-condensed > tfoot > tr > td {
+    padding: 5px 12px;
+  }
+}
+
+
+//
+// Employee Teams modal
+
+#eml-profile-et,
+#eml-profile-es {
+  .ui-grid {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+}
+
+#eml-profile-et {
+  .row-home-team {
+    .ui-grid-selection-row-header-buttons {
+      cursor: auto;
+      opacity: 0;
+    }
+  }
+}
+
+.modal-body {
+  background-color: $eml-lightest-grey;
+}
+
+.eml-grid-select {
+  height: 22px;
+  margin-top: 4px;
+  width: 65px;
+  font-size: 11px;
+  line-height: 1;
+  padding: 2px 15px;
+
+  &.form-control[disabled] {
+    background-color: $eml-lightest-grey;
+  }
+}
+
+
+//--------------------------------------------------------------------
+// Helpers
+//--------------------------------------------------------------------
+
+
+.emlogis {
+  .no-hor-padding,
+  .no-right-padding {
+    padding-right: 0 !important;
+  }
+
+  .no-hor-padding,
+  .no-left-padding {
+    padding-left: 0 !important;
+  }
+
+  .eml-inline-editing {
+    input[type="text"],
+    input[type="email"],
+    input[type="number"] {
+      display: inline-block;
+      margin: 0;
+      font-family: $font-lato;
+      font-weight: 300;
+      box-shadow: none;
+      border-radius: 0;
+      line-height: 1;
+      height: auto;
+      padding: 0;
+      border: none;
+      border-bottom: solid 1px $eml-mid-grey;
+      transition: all 0.3s;
+      background-color: transparent;
+      vertical-align: baseline;
+      width: 100%;
+    }
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="number"]:focus {
+      outline: none;
+    }
+
+    input[type="text"]:focus,
+    input[type="text"].focus,
+    input[type="email"]:focus,
+    input[type="email"].focus,
+    input[type="number"]:focus,
+    input[type="number"].focus {
+      border-bottom: solid 1px $eml-orange-highlight;
+      color: $eml-orange-highlight-dark;
+    }
+
+    select {
+      height: 22px;
+      display: block;
+      font-size: 11px;
+      line-height: 1;
+      font-weight: 400;
+      padding-bottom: 2px;
+      padding-top: 2px;
+    }
+  }
+}
+
+
+//--------------------------------------------------------------------
+// Employee tabs
+//--------------------------------------------------------------------
+
+#employee-tabs {
+  .employee-details-tab-content {
+    padding-top: 20px;
+
+    .current-calendar-tab {
+      margin-top: -10px;
+    }
+
+    .settings-tab {
+      .panel-title {
+        margin-left: 7px;
+      }
+
+      .panel-body {
+        margin-top: 10px;
+        margin-left: 10px;
+        overflow: visible;
+
+        .row > div {
+          padding-left: 5px;
+          padding-right: 5px;
+          white-space: nowrap;
+        }
+
+        .row:nth-child(2) {
+          margin-top: 40px;
+        }
+
+        .btn.eml-btn-white {
+          padding: 5px 10px;
+
+          &.dropdown-toggle {
+            padding: 5px;
+          }
+        }
+
+        .btn-success {
+          margin: 20px 10px;
+        }
+      }
+    }
+
+
+  }
+}

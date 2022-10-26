@@ -1,0 +1,9 @@
+<div class="settings-accounts-groups-list">
+  <div ng-include="'modules/settings/components/entity-list-container/views/entity-list-container.html'"></div>
+</div>
+<div class="settings-team-managers-list" ng-if="isTenantType('Customer')">
+  <div ui-grid="teamManagerGridOptions"
+       ui-grid-resize-columns
+       ui-grid-move-columns
+       class="entity-list-grid"></div>
+</div>

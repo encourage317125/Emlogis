@@ -1,0 +1,171 @@
+<div class="settings-accounts-users-user-details">
+  <div class="info-panel">
+    <div class="row form-group">
+
+      <div class="col-sm-6">
+        <h3>{{userName}}</h3>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="pull-right">
+          <div class="btn-container">
+            <button class="btn btn-success" ng-if="hasMgmtPermission()"
+                    ng-click="updateUserAccount()">{{'app.SAVE' | translate}}
+            </button>
+            <button class="btn btn-default"
+                    ng-if="hasMgmtPermission()"
+                    ng-click="requestPasswordReset()">{{'settings.accounts.RESET_PASSWORD' | translate}}
+            </button>
+            <button class="btn btn-danger"
+                    ng-if="hasMgmtPermission() && !userDetails.employeeId"
+                    ng-click="deleteUserAccount()">{{'settings.accounts.DELETE_USER' | translate}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row form-group">
+      <div class="col-md-2">
+        <label translate>settings.accounts.LOGIN</label>
+        <input type="text" class="form-control" ng-model="userDetails.login" ng-disabled="!hasMgmtPermission()">
+      </div>
+      <div class="col-md-2">
+        <label translate>settings.accounts.MAX_INACTIVITY_PERIOD</label>
+        <select class="form-control"
+                ng-model="userDetails.inactivityPeriod"
+                ng-options="item.value as item.label for item in inactivityPeriodOptions"
+                ng-disabled="!hasMgmtPermission()"></select>
+      </div>
+      <div class="col-md-2">
+        <label translate>settings.accounts.LAST_LOGIN</label>
+        <input type="text" class="form-control" ng-model="lastLoggedIn" readonly>
+      </div>
+      <div class="col-md-2">
+        <label translate>settings.accounts.ACCOUNT_STATUS</label>
+        <select class="form-control"
+                ng-model="userDetails.status"
+                ng-options="item.value as item.label for item in userStatusOptions"
+                ng-disabled="!hasMgmtPermission() || !enableUserStatusEditing"></select>
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-default"
+                ng-if="hasMgmtPermission()"
+                ng-click="editUserStatus(true)"
+                style="margin-top: 20px;">{{'settings.accounts.EDIT_STATUS' | translate}}
+        </button>
+      </div>
+    </div>
+
+    <div class="row form-group">
+      <div class="col-md-2">
+        <label translate>app.FIRST_NAME</label>
+        <input type="text" class="form-control" ng-model="userDetails.firstName" ng-disabled="!hasMgmtPermission()">
+      </div>
+      <div class="col-md-2">
+        <label translate>app.LAST_NAME</label>
+        <input type="text" class="form-control" ng-model="userDetails.lastName" ng-disabled="!hasMgmtPermission()">
+      </div>
+      <div class="col-md-2">
+        <label translate>app.GENDER</label>
+        <select class="form-control"
+                ng-model="userDetails.gender"
+                ng-options="item.value as item.label for item in genderOptions"
+                ng-disabled="!hasMgmtPermission()"></select>
+      </div>
+    </div>
+
+    <div class="row form-group">
+      <div class="col-md-2">
+        <label translate>settings.accounts.HOME_EMAIL</label>
+        <input type="email" class="form-control" ng-model="userDetails.homeEmail" ng-disabled="!hasMgmtPermission()">
+      </div>
+      <div class="col-md-2">
+        <label translate>settings.accounts.WORK_EMAIL</label>
+        <input type="email" class="form-control" ng-model="userDetails.workEmail" ng-disabled="!hasMgmtPermission()">
+      </div>
+    </div>
+
+    <div class="row form-group">
+      <div class="col-md-2">
+        <label translate>settings.accounts.HOME_PHONE</label>
+        <input type="text" class="form-control" ng-model="userDetails.homePhone" ng-disabled="!hasMgmtPermission()">
+      </div>
+      <div class="col-md-2">
+        <label translate>settings.accounts.WORK_PHONE</label>
+        <input type="text" class="form-control" ng-model="userDetails.workPhone" ng-disabled="!hasMgmtPermission()">
+      </div>
+    </div>
+
+    <div class="row form-group">
+      <div class="col-md-2">
+        <label translate>app.ADDRESS</label>
+        <input type="text" class="form-control" ng-model="userDetails.address" ng-disabled="!hasMgmtPermission()">
+      </div>
+      <div class="col-md-2">
+        <label translate>app.CITY</label>
+        <input type="text" class="form-control" ng-model="userDetails.city" ng-disabled="!hasMgmtPermission()">
+      </div>
+      <div class="col-md-2">
+        <label translate>app.COUNTRY</label>
+        <input type="text" class="form-control" ng-model="userDetails.country" ng-disabled="!hasMgmtPermission()">
+      </div>
+      <div class="col-md-2">
+        <label translate>app.ZIP</label>
+        <input type="text" class="form-control" ng-model="userDetails.zip" ng-disabled="!hasMgmtPermission()">
+      </div>
+      <div class="col-md-2">
+        <label translate>app.TIME_ZONE</label>
+        <input type="text" class="form-control" ng-model="userDetails.timeZone" disabled>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <h4>GROUPS</h4>
+      </div>
+      <div class="col-sm-12">
+        <div tags
+             readonly="!hasMgmtPermission()"
+             tagslist="userDetails.groups"
+             deletetag="removeGroupFromUser(tag)"
+             addtagslist="unassosiatedGroups"
+             addtag="addGroupToUser(newTag)"
+             ng-if="userDetails.groups && unassosiatedGroups">
+        </div>
+      </div>
+    </div>
+
+    <div class="row" ng-if="hasSupportPermission()">
+      <div class="col-sm-12">
+        <h4>ROLES</h4>
+      </div>
+      <div class="col-sm-12">
+        <div tags
+             readonly="!hasMgmtPermission()"
+             tagslist="userDetails.roles"
+             deletetag="removeRoleFromUser(tag)"
+             addtagslist="unassosiatedRoles"
+             addtag="addRoleToUser(newTag)"
+             ng-if="userDetails.roles && unassosiatedRoles">
+        </div>
+      </div>
+    </div>
+
+    <div class="row form-group" style="margin-top: 25px;">
+      <div class="col-md-2">
+        <label translate>settings.accounts.CREATED_ON</label> <br>
+        {{createdOn}}
+        <span translate> settings.accounts.BY </span>
+        {{userDetails.createdBy}}
+      </div>
+      <div class="col-md-2">
+        <label translate>settings.accounts.UPDATED_ON</label> <br>
+        {{updatedOn}}
+        <span translate> settings.accounts.BY </span>
+        {{userDetails.updatedBy}}
+      </div>
+    </div>
+
+  </div>
+</div>

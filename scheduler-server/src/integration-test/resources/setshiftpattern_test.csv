@@ -1,0 +1,15 @@
+url|method|json|response_id
+sites|POST|{"name":"SiteSetA", "description":"Site Set A"}}|#{SiteSetA}
+teams|POST|{"siteId":"#{SiteSetA}", "updateDto":{"name":"TeamSetA", "description":"Team Set A"}}|#{TeamSetA}
+skills|POST|{"name":"somename1", "abbreviation":"somename1", "description":"somename1"}|#{skillId}
+setshiftpatterns|POST|{"updateDto":{"name":"SomeName"}, "skillId":"#{skillId}", "teamId":"#{TeamSetA}"}|#{patternId}
+setshiftpatterns|POST|{"updateDto":{"maxEmployeeCount":2}, "teamId":"#{TeamSetA}"}|#{patternId2}
+setshiftpatterns/#{patternId}|PUT|{"dayOfWeek":1}|
+setshiftpatterns/#{patternId}/ops/setshiftreqs|POST|[{"employeeCount":2},{"durationInMins":120},{"startTime":1000010000}]|
+setshiftpatterns|GET||
+setshiftpatterns/#{patternId}|GET||
+setshiftpatterns/#{patternId2}|GET||
+skills/#{skillId}|DELETE||
+setshiftpatterns|GET||
+teams/#{TeamSetA}|DELETE||
+setshiftpatterns|GET||

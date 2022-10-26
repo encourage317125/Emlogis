@@ -1,0 +1,53 @@
+<div class="admin-notification-delivery-sms-create-provider">
+  <div class="create-provider-header">
+    <div class="row">
+      <div class="col-sm-6">
+        <h3>{{'app.CREATE' | translate}} {{provider.providerType}} {{'admin.notification_delivery.PROVIDER' | translate}}</h3>
+      </div>
+      <div class="col-sm-6">
+        <div class="pull-right">
+          <div class="btn-container">
+            <button class="btn btn-default" ng-click="createProvider()" translate>app.CREATE</button>
+            <button class="btn btn-default" ng-click="goToProviderListState()" translate>app.CLOSE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="well">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>{{'app.NAME' | translate}} *</label>
+          <input type="text" class="form-control" ng-model="provider.updateDto.name">
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>{{'admin.notification_delivery.PROVIDER_TYPE' | translate}}</label>
+          <input type="text" class="form-control" ng-model="provider.providerType" readonly>
+        </div>
+      </div>
+      <div class="col-sm-4"></div>
+    </div>
+    <hr>
+    <div ng-if="provider.providerType==='Twillio'">
+      <h4 translate>admin.notification_delivery.ACCOUNT</h4>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>{{'admin.notification_delivery.ACCOUNT_IDENTIFIER' | translate}} *</label>
+            <input type="text" class="form-control" ng-model="provider.updateDto.settings.accountId">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>{{'admin.notification_delivery.AUTHORIZATION_TOKEN' | translate}} *</label>
+            <input type="text" class="form-control" ng-model="provider.updateDto.settings.authKey">
+          </div>
+        </div>
+        <div class="col-sm-4"></div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,83 @@
+<div class="modal-header">
+  <h5 class="modal-title">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="pull-left">{{ 'app.USERS' | translate }} {{ 'impersonation.IMPERSONATIONS' | translate }}</div>
+      </div>
+      <div class="col-md-6">
+        <div class="pull-right">
+          <a href ng-click="close()">&times;</a>
+        </div>
+      </div>
+    </div>
+  </h5>
+</div>
+<div class="modal-body">
+  <div class="impersonation-users-window">
+
+
+    <div class="control-panel">
+      <div class="row">
+        <div class="col-xs-6">
+
+          <div style="clear:both" class="input-group">
+            <input type="text"
+                   class="form-control col-sm-6"
+                   placeholder="{{'app.SEARCH'|translate}} {{'app.USERS'|translate}}..."
+                   ng-model="browser.filterTxt"
+                   typeahead="record for record in getName($viewValue)"
+                   typeahead-loading="loadingUserAccounts"
+                   ng-keydown="userFilterKeyDown($event)">
+
+            <span class="input-group-btn">
+              <button class="btn btn-default" ng-click="listUsers()">
+                <img src="img/search.svg" width="18">
+              </button>
+            </span>
+          </div>
+
+        </div>
+        <div class="actions col-xs-3">
+          <span class="records_info pull-right">
+            {{ 'app.SHOWING' | translate }}: {{gridOptions.data.length}} {{'app.OF'|translate}} {{browser.totalRecords}}
+          </span>
+        </div>
+        <div class="col-xs-3">
+          <button type="button" class="btn btn-success save pull-right" ng-click="refresh()">
+            {{'app.REFRESH ' | translate}}
+          </button>
+          <a class="btn eml-btn-invisible pull-right" style="margin-right:10px;" data-ng-click="close()">
+            {{'app.CANCEL' | translate}}
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="eml-grid col-md-12">
+        <div ui-grid="gridOptions"
+             ui-grid-pagination
+             external-scopes="gridModel"
+             class="impersonation-users-list">
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="text-center">
+          <pagination class="pagination-sm"
+                      total-items="browser.totalRecords"
+                      items-per-page="browser.pageSize"
+                      ng-model="browser.currentPage"
+                      boundary-links="true"
+                      max-size="5"
+                      previous-text="&lsaquo;"
+                      next-text="&rsaquo;"
+                      first-text="&laquo;"
+                      last-text="&raquo;"
+                      ng-change="pageChanged()">
+          </pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

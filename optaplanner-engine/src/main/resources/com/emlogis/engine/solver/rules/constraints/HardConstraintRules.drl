@@ -1,0 +1,836 @@
+package com.emlogis.engine.solver.rules.constraints;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.lang.Math;
+
+import com.emlogis.engine.domain.*;
+import com.emlogis.engine.domain.timeoff.*;
+import com.emlogis.engine.domain.organization.*;
+import com.emlogis.engine.domain.contract.patterns.*;
+import com.emlogis.engine.domain.contract.contractline.*;
+import com.emlogis.engine.domain.contract.patterns.WeekdayRotationPattern.RotationPatternType;
+import com.emlogis.engine.domain.contract.ConstraintOverrideType;
+import com.emlogis.engine.domain.contract.*;
+import com.emlogis.engine.solver.drools.*;
+import com.emlogis.engine.solver.drools.score.QualificationScoreHolder;
+
+import org.joda.time.*;
+
+import org.joda.time.LocalTime;
+
+/*
+ * This is the main driving hard constraint of the system
+ * A hard constraint is raised for every non-extra shift that is left unfilled by an employee.
+ * The weight of the hard constraint is the number of employees ma
+*/
+rule "requiredEmployeeSizePerShift"
+enabled true
+    when
+    	$info : EmployeeRosterInfo()
+        $shift : Shift(requiredEmployeeSize > 0, $requiredEmployeeSize : requiredEmployeeSize, 
+        				!excessShift, isInPlanningWindow($info))
+        $totalEmployeeSize : Number(intValue != $requiredEmployeeSize) from accumulate(
+            $assignment : ShiftAssignment(shift == $shift, employee != null, $employeeId : employeeId),
+            count($assignment)
+        )
+    then
+        int weightMultiplier = $info.getRuleWeightMultiplier("requiredEmployeeSizePerShift");
+		scoreHolder.addHardConstraintMatch(kcontext, 1, -weightMultiplier * Math.abs($requiredEmployeeSize - $totalEmployeeSize.intValue()));
+end
+
+/*
+* This rule gets a fulfilled shift assingment and raises a hard constraint if the employee filling
+* the shift does not have the skill required for the shift type. 
+* 
+*/
+rule "skillsMatch"
+enabled true
+	when
+	    $info : EmployeeRosterInfo()
+		$shift : ShiftAssignment($employee : employee, employee != null, $assignmentShift : shift, isInPlanningWindow($info) )
+		Employee ( this == $employee) //To ensure every constraint justification list has an employee
+		$skillRequirement : ShiftSkillRequirement(shift == $assignmentShift, $skillReq : skill )
+		not SkillProficiency( employee  == $employee, skill  == $skillReq )
+	then
+	    int weightMultiplier = $info.getRuleWeightMultiplier("skillsMatch");
+		//Look at whether this constraint should or should not be weighted hire than requiredEmployeeSize
+		scoreHolder.addSkillHardConstraintMatch(kcontext, -weightMultiplier, $skillReq, $shift); 
+end
+
+/*
+ * Adds a constraint if the shift assignment is filled by an employee who is not on nor floating 
+ * on the shift team. Should prefer to put employess to a team that they are on vs float
+ *
+*/
+rule "correctTeamAssociation"
+enabled true
+	when
+		$info : EmployeeRosterInfo() 
+		$shift : ShiftAssignment(employee != null, teamId != null, $employee : employee, $teamId : teamId, isInPlanningWindow($info) )
+		not TeamAssociation(employee == $employee, teamId == $teamId, type == TeamAssociationType.ON )
+		not ConstraintOverride( employee == $employee && type == ConstraintOverrideType.TEAM_FLOAT_ON )
+		Employee ( this == $employee) //To ensure every constraint justification list has an employee
+	then
+		int weightMultiplier = $info.getRuleWeightMultiplier("correctTeamAssociation");                    
+		scoreHolder.addTeamHardConstraintMatch(kcontext, -weightMultiplier, $shift); 
+end
+
+/*
+ * Adds a constraint if the shift assignment is filled by an employee who is not on nor floating 
+ * on the shift team. Should prefer to put employess to a team that they are on vs float
+ *
+*/
+rule "correctTeamAssociationFloat"
+enabled true
+	when
+		$info : EmployeeRosterInfo() 
+		$shift : ShiftAssignment(employee != null, $employee : employee, $teamId : teamId, isInPlanningWindow($info) )
+		ConstraintOverride( employee == $employee && type == ConstraintOverrideType.TEAM_FLOAT_ON )
+		Employee ( this == $employee) //To ensure every constraint justification list has an employee
+		not TeamAssociation(employee == $employee, teamId == $teamId, type == TeamAssociationType.ON || type == TeamAssociationType.FLOAT )
+	then
+		int weightMultiplier = $info.getRuleWeightMultiplier("correctTeamAssociationFloat");
+		scoreHolder.addTeamHardConstraintMatch(kcontext, -weightMultiplier, $shift); 
+end
+
+/************* Rules for consecutive assignment constraint --- BEGINING ------- *******************/
+rule "insertEmployeeConsecutiveAssignmentStart"
+        salience 2 // Do these rules first (optional, for performance)
+    when
+       ShiftAssignment(
+            $employee : employee, employee != null,
+            $shiftDate : shiftDate
+        )
+        // The first day has no working day before it
+        not ShiftAssignment(employee == $employee, shiftDate.equals($shiftDate.minusDays(1)))
+    then
+        insertLogical(new EmployeeConsecutiveAssignmentStart($employee, $shiftDate));
+end
+
+rule "insertEmployeeConsecutiveAssignmentEnd"
+        salience 2 // Do these rules first (optional, for performance)
+    when
+      ShiftAssignment(
+            $employee : employee, employee != null,
+            $shiftDate : shiftDate
+        )
+        // The first day has no working day after it
+        not ShiftAssignment(employee == $employee, shiftDate.equals($shiftDate.plusDays(1)))
+    then
+        insertLogical(new EmployeeConsecutiveAssignmentEnd($employee, $shiftDate));
+end
+
+rule "insertEmployeeWorkSequence"
+        salience 1 // Do these rules first (optional, for performance)
+    when
+        EmployeeConsecutiveAssignmentStart(
+            $employee : employee,
+            $startConsecutivesAssignmentDate: shiftDate
+        )
+
+        EmployeeConsecutiveAssignmentEnd(
+            employee == $employee,
+            $endConsecutivesAssignmentDate: shiftDate
+        )
+
+        // There are no free days between the first and last day
+        not EmployeeConsecutiveAssignmentEnd(
+            employee == $employee,
+            shiftDate.isBefore($endConsecutivesAssignmentDate)
+        )
+    then
+    	EmployeeWorkSequence seq = new EmployeeWorkSequence($employee, $startConsecutivesAssignmentDate, $endConsecutivesAssignmentDate);
+        insertLogical(seq);
+end
+
+// Raises a constraint if a consecutive sequences exceeds the max contract value for an employee
+rule "maxConsecutiveDays"
+	extends "baseEmployeeContractSelector"
+	dialect "mvel" 
+	enabled true
+    when
+    	$info : EmployeeRosterInfo( )         
+      	$contractLine : MinMaxContractLine( contractLineType == ContractLineType.CONSECUTIVE_WORKING_DAYS, $maximumValue : maximumValue, $weight : maximumWeight, 
+						maximumEnabled == true, contract == $contract)
+        $employeeWorkSequence : EmployeeWorkSequence(
+          	 employee == $employee
+            ,dayLength > $maximumValue
+            ,$dayLength : dayLength
+            ,$firstDate : firstDay
+            ,$lastDate : lastDay
+        )
+     	$shiftsInvolved : ArrayList() 
+			 from collect(
+          	 	ShiftAssignment( employee != null, employee == $employee
+								 ,shiftDate.isBeforeOrEquals($lastDate)
+								 ,shiftDate.isAfterOrEquals($firstDate)
+            			)
+            	)
+        not ConstraintOverride( employee == $employee && type == ConstraintOverrideType.MAX_CONSECUTIVE_DAYS_OVERRIDE )
+    then
+    	int weightMultiplier = $info.getRuleWeightMultiplier("maxConsecutiveDays");
+        scoreHolder.addMaxHardConstraintMatch(kcontext, weightMultiplier * ($dayLength - $maximumValue) * $weight,
+										 $dayLength, $contractLine, 
+										 $shiftsInvolved);
+end
+/************* End -  Rules for consecutive assignment constraint *******************/
+
+
+/************* Rules for consecutive 12 hours assignment constraint --- BEGINING ------- *******************/
+rule "insertEmployeeConsecutive12HourAssignmentStart"
+        salience 2 // Do these rules first (optional, for performance)
+    when
+       ShiftAssignment(
+            $employee : employee, employee != null,
+            shiftDurationHours >= 12,
+            $shiftDate : shiftDate
+        )
+        // The first day has no working day before it
+        not ShiftAssignment(employee == $employee, shiftDate.equals($shiftDate.minusDays(1)))
+    then
+        insertLogical(new EmployeeConsecutive12HourAssignmentStart($employee, $shiftDate));
+end
+
+rule "insertEmployeeConsecutive12HourAssignmentEnd"
+        salience 2 // Do these rules first (optional, for performance)
+    when
+      ShiftAssignment(
+            $employee : employee, employee != null,
+            shiftDurationHours >= 12,
+            $shiftDate : shiftDate
+        )
+        // The first day has no working day after it
+        not ShiftAssignment(employee == $employee, shiftDate.equals($shiftDate.plusDays(1)))
+    then
+        insertLogical(new EmployeeConsecutive12HourAssignmentEnd($employee, $shiftDate));
+end
+
+rule "insertEmployee12HourWorkSequence"
+        salience 1 // Do these rules first (optional, for performance)
+    when
+        EmployeeConsecutive12HourAssignmentStart(
+            $employee : employee,
+            $startConsecutivesAssignmentDate: shiftDate
+        )
+
+        EmployeeConsecutive12HourAssignmentEnd(
+            employee == $employee,
+            $endConsecutivesAssignmentDate: shiftDate
+        )
+
+        // There are no free days between the first and last day
+        not EmployeeConsecutive12HourAssignmentEnd(
+            employee == $employee,
+            shiftDate.isBefore($endConsecutivesAssignmentDate)
+        )
+    then
+    	Employee12HourWorkSequence seq = new Employee12HourWorkSequence($employee, $startConsecutivesAssignmentDate, $endConsecutivesAssignmentDate);
+        insertLogical(seq);
+end
+
+// Raises a constraint if a consecutive sequences exceeds the max contract value for an employee
+rule "maxConsecutive12HourDays"
+	extends "baseEmployeeContractSelector"
+	dialect "mvel" 
+	enabled true
+    when
+    	$info : EmployeeRosterInfo( )         
+      	$contractLine : MinMaxContractLine( contractLineType == ContractLineType.CONSECUTIVE_TWELVE_HOUR_DAYS, $maximumValue : maximumValue, $weight : maximumWeight, 
+						maximumEnabled == true, contract == $contract)
+        $employeeWorkSequence : Employee12HourWorkSequence(
+          	 employee == $employee
+            ,dayLength > $maximumValue
+            ,$dayLength : dayLength
+            ,$firstDate : firstDay
+            ,$lastDate : lastDay
+        )
+     	$shiftsInvolved : ArrayList() 
+			 from collect(
+          	 	ShiftAssignment( employee != null, employee == $employee
+								 ,shiftDate.isBeforeOrEquals($lastDate)
+								 ,shiftDate.isAfterOrEquals($firstDate)
+            			)
+            	)
+        //not ConstraintOverride( employee == $employee && type == ConstraintOverrideType.MAX_CONSECUTIVE_DAYS_OVERRIDE )//TODO:Check if such an override exist
+    then
+    	int weightMultiplier = $info.getRuleWeightMultiplier("maxConsecutive12HourDays");
+        scoreHolder.addMaxHardConstraintMatch(kcontext, weightMultiplier * ($dayLength - $maximumValue) * $weight,
+										 $dayLength, $contractLine, 
+										 $shiftsInvolved);
+end
+/************* End -  Rules for consecutive 12 hour assignment constraint *******************/
+
+/*
+ * This rule raises a constraint violation if an employee does not meet their Minimum Hours Per Week Primary Skill
+ * requirement. The rule is weighted by the number of hours the employee is short. The engine is rewarded
+ * if it increases the number of hours the employee is short of his goal even if he/she is still short.
+ *
+*/
+rule "minHoursPrimeSkillPerWeek"
+	extends "baseEmployeeContractSelector"
+	dialect "mvel" 
+	enabled true
+	when                                                                                                                                                       
+		$contractLine : MinMaxContractLine( contractLineType == ContractLineType.HOURS_PER_WEEK_PRIME_SKILL, $minMinutesValue : minimumValue, $weight : minimumWeight, 
+											minimumEnabled == true, contract == $contract)
+		$info : EmployeeRosterInfo( $firstDayOfWeek : firstDayOfWeek )         
+		$firstDayOfWeekShiftDate : ShiftDate(dayOfWeek == $firstDayOfWeek, isInScheduleWindow($info),
+											 this.plusDays(6).isBeforeOrEquals($info.getLastShiftDate()))
+		SkillProficiency( employee == $employee, isPrimarySkill(), $primarySkill : skill)
+		$minutesPTO : Number () from accumulate (
+						CDTimeOff(  employeeId == $employee.getEmployeeId(), $durationInMinutes : durationInMinutes
+						,$firstDayOfWeekShiftDate.isBeforeOrEquals(getStartDateTime()) 
+            			,$firstDayOfWeekShiftDate.plusDays(7).isAfter(getStartDateTime())
+						,isInScheduleWindow($info)),
+						sum($durationInMinutes)
+		)
+		$matchingSkillReqs : List() from accumulate(
+			ShiftSkillRequirement( $shiftId : shiftId, skill == $primarySkill ),
+			collectList($shiftId)
+		) 
+		accumulate ( $shift : ShiftAssignment( employee != null, employee == $employee, $minutes : shiftDurationMinutes 
+            				,startsOnOrAfter($firstDayOfWeekShiftDate) 
+            				,shiftDate.isBefore($firstDayOfWeekShiftDate.plusDays(7))
+            				,isInScheduleWindow($info)
+            				,shiftId memberOf $matchingSkillReqs)
+           			,$minutesInWeek  : sum($minutes)
+           			,$shiftsInvolved : collectList($shift);
+           			 $minutesInWeek < $minMinutesValue - ($info.isIncludePTOInMinCalculations() ? $minutesPTO.intValue() : 0)
+		
+		)
+        not ConstraintOverride( employee == $employee && type == ConstraintOverrideType.MIN_HOURS_WEEK_OVERRIDE )
+	then
+		int weightMultiplier = $info.getRuleWeightMultiplier("minHoursPrimeSkillPerWeek");
+		int minValWithPTO = $minMinutesValue - ($info.isIncludePTOInMinCalculations() ? $minutesPTO.intValue() : 0);
+		int hoursMissing = minutesToHours( minValWithPTO - $minutesInWeek.intValue() );
+		scoreHolder.addMinMediumConstraintMatch(kcontext, weightMultiplier * $weight*hoursMissing,
+										 $minutesInWeek.intValue(), $contractLine, 
+										 $shiftsInvolved);
+end
+
+/*
+ * This rule raises a constraint violation if an employee does not meet their Minimum Hours Per Week
+ * requirement. The rule is weighted by the number of hours the employee is short. The engine is rewarded
+ * if it increases the number of hours the employee is short of his goal even if he/she is still short.
+ *
+ */
+rule "minHoursPerWeek"
+	extends "baseEmployeeContractSelector"
+	dialect "mvel" 
+	enabled true
+	when
+		$contractLine : MinMaxContractLine( contractLineType == ContractLineType.HOURS_PER_WEEK, $minMinutesValue : minimumValue, $weight : minimumWeight, 
+											minimumEnabled == true, contract == $contract)
+		$info : EmployeeRosterInfo( $firstDayOfWeek : firstDayOfWeek, $lastShiftDate : lastShiftDate )
+		$firstDayOfWeekShiftDate : ShiftDate(dayOfWeek == $firstDayOfWeek, isInScheduleWindow($info),
+											 this.plusDays(6).isBeforeOrEquals($lastShiftDate)
+											 ) 
+		$minutesPTO : Number () from accumulate (
+						CDTimeOff(  employeeId == $employee.getEmployeeId(), $durationInMinutes : durationInMinutes
+						,$firstDayOfWeekShiftDate.isBeforeOrEquals(getStartDateTime()) 
+            			,$firstDayOfWeekShiftDate.plusDays(6).isAfter(getStartDateTime())
+						,isInScheduleWindow($info)),
+						sum($durationInMinutes)
+		)
+		accumulate ( $shift : ShiftAssignment( employee != null, employee == $employee, $minutes : shiftDurationMinutes 
+            				,startsOnOrAfter($firstDayOfWeekShiftDate) 
+            				,shiftDate.isBefore($firstDayOfWeekShiftDate.plusDays(7))
+            				,isInScheduleWindow($info) )
+           			,$minutesInWeek  : sum($minutes)
+           			,$shiftsInvolved : collectList($shift);
+           			 $minutesInWeek < $minMinutesValue - ($info.isIncludePTOInMinCalculations() ? $minutesPTO.intValue() : 0)
+		
+		)
+        not ConstraintOverride( employee == $employee && type == ConstraintOverrideType.MIN_HOURS_WEEK_OVERRIDE )
+	then
+		int weightMultiplier = $info.getRuleWeightMultiplier("minHoursPerWeek");
+		//If includePTOinMinCalculations is false do not count the PTO hours
+		int minValWithPTO = $minMinutesValue - ($info.isIncludePTOInMinCalculations() ? $minutesPTO.intValue() : 0);
+		int hoursMissing = minutesToHours( minValWithPTO - $minutesInWeek.intValue() );
+		LoggerFactory.getLogger("HardRules").trace("Min Hours Per Week\n\t" + $employee + "\n\tHoursMissing: " + hoursMissing
+				+"\n\tMinutesInWeek: " + $minutesInWeek + "\n\tShiftsInvolved: " + $shiftsInvolved);
+
+		scoreHolder.addMinMediumConstraintMatch(kcontext, weightMultiplier * $weight*hoursMissing,
+										 $minutesInWeek.intValue(), $contractLine, 
+										 $shiftsInvolved);
+end
+
+/*
+ * This rule raises a constraint violation if an employee does not meet their Minimum Hours Per Two Weeks
+ * requirement. The rule is weighted by the number of hours the employee is short. The engine is rewarded
+ * if it increases the number of hours the employee is short of his goal even if he/she is still short.
+ *
+ */
+rule "minHoursPerTwoWeeks"
+	extends "baseEmployeeContractSelector"
+	dialect "mvel" 
+	enabled true
+	when
+		$contractLine : MinMaxContractLine( contractLineType == ContractLineType.HOURS_PER_TWO_WEEKS, $minMinutesValue : minimumValue, $weight : minimumWeight, 
+											minimumEnabled == true, contract == $contract)
+		$info : EmployeeRosterInfo( $firstDayOfWeek : firstDayOfWeek, $lastShiftDate : lastShiftDate )
+		$firstDayOfWeekShiftDate : ShiftDate(dayOfWeek == $firstDayOfWeek, isInScheduleWindow($info),
+											 this.plusDays(13).isBeforeOrEquals($lastShiftDate)
+											 ) 
+		$minutesPTO : Number () from accumulate (
+						CDTimeOff(  employeeId == $employee.getEmployeeId(), $durationInMinutes : durationInMinutes
+						,$firstDayOfWeekShiftDate.isBeforeOrEquals(getStartDateTime()) 
+            			,$firstDayOfWeekShiftDate.plusDays(13).isAfter(getStartDateTime())
+						,isInScheduleWindow($info)),
+						sum($durationInMinutes)
+		)
+		accumulate ( $shift : ShiftAssignment( employee != null, employee == $employee, $minutes : shiftDurationMinutes
+            				,startsOnOrAfter($firstDayOfWeekShiftDate) 
+            				,shiftDate.isBefore($firstDayOfWeekShiftDate.plusDays(14))
+            				,isInScheduleWindow($info) )
+           			,$minutesInWeek  : sum($minutes)
+           			,$shiftsInvolved : collectList($shift);
+           			 $minutesInWeek < $minMinutesValue - ($info.isIncludePTOInMinCalculations() ? $minutesPTO.intValue() : 0)
+		
+		)
+        not ConstraintOverride( employee == $employee && type == ConstraintOverrideType.MIN_HOURS_WEEK_OVERRIDE )
+	then
+		int weightMultiplier = $info.getRuleWeightMultiplier("minHoursPerTwoWeeks");
+		//If includePTOinMinCalculations is false do not count the PTO hours
+		int minValWithPTO = $minMinutesValue - ($info.isIncludePTOInMinCalculations() ? $minutesPTO.intValue() : 0);
+		int hoursMissing = minutesToHours( minValWithPTO - $minutesInWeek.intValue() );
+		LoggerFactory.getLogger("HardRules").trace("Min Hours Per Two Weeks\n\t" + $employee + "\n\tHoursMissing: " + hoursMissing
+				+"\n\tMinutesInTwoWeeks: " + $minutesInWeek + "\n\tShiftsInvolved: " + $shiftsInvolved);
+
+		scoreHolder.addMinMediumConstraintMatch(kcontext, weightMultiplier * $weight*hoursMissing,
+										 $minutesInWeek, $contractLine, 
+										 $shiftsInvolved);
+end
+
+/*
+ * This rule raises a constraint violation if an employee goes over their Max Hours Per Day
+ * requirement. The rule is weighted by the number of hours the employee is over. The engine is rewarded
+ * if it decreases the number of hours the employee is over his goal even if he/she is still over.
+ * The constraint is not activated for a date if the employee has no shift STARTING on that date
+ *
+ */
+rule "maxHoursPerDay"
+	extends "baseEmployeeContractSelector"
+	dialect "mvel" 
+	enabled true
+	when
+		$contractLine : MinMaxContractLine( contractLineType == ContractLineType.HOURS_PER_DAY, $maxMinutesValue : maximumValue, $weight : maximumWeight, 
+											maximumEnabled == true, $contract == contract)
+		$info : EmployeeRosterInfo( $firstDayOfWeek : firstDayOfWeek )
+		$shiftDate : ShiftDate(isInPlanningWindow($info))
+		accumulate ( $shift : ShiftAssignment( employee != null, employee == $employee
+								,$accumulatedMinutes : shiftDurationMinutes, shiftDate.equals($shiftDate), $minutes : shiftDurationMinutes )
+           			,$minutesInDay  : sum($minutes)
+           			,$shiftsInvolved : collectList($shift);
+           			 $minutesInDay > 0 && $minutesInDay > $maxMinutesValue
+		)
+       not ConstraintOverride( employee == $employee && type == ConstraintOverrideType.MAX_HOURS_DAY_OVERRIDE )
+	then
+		int weightMultiplier = $info.getRuleWeightMultiplier("maxHoursPerDay");
+		int hoursOver = minutesToHours( $minutesInDay.intValue() - $maxMinutesValue );
+	    scoreHolder.addMaxHardConstraintMatch(kcontext, weightMultiplier * $weight*hoursOver,
+										 $minutesInDay.intValue(), $contractLine, 
+										 $shiftsInvolved);
+end
+
+/*
+ * This rule raises a constraint violation if an employee does not meet their Minimum Hours Per Day
+ * requirement. The rule is weighted by the number of hours the employee is short. The engine is rewarded
+ * if it increases the number of hours the employee is short of his goal even if he/she is still short.
+ * The constraint is not activated for a date if the employee has no shift STARTING on that date
+ *
+ */
+rule "minHoursPerDay"
+	extends "baseEmployeeContractSelector"
+	dialect "mvel" 
+	enabled true
+	when
+		$contractLine : MinMaxContractLine( contractLineType == ContractLineType.HOURS_PER_DAY, $minMinutesValue : minimumValue, $weight : minimumWeight, 
+											minimumEnabled == true, $contract == contract)
+		$info : EmployeeRosterInfo( $firstDayOfWeek : firstDayOfWeek )
+		$shiftDate : ShiftDate(isInPlanningWindow($info))
+		$minutesPTO : Number () from accumulate (
+						CDTimeOff( employeeId == $employee.getEmployeeId(), $durationMinutes : durationInMinutes,
+						$shiftDate.getDate() == localDayOffStart),
+						sum($durationMinutes)
+		)
+		accumulate ( $shift : ShiftAssignment( employee != null, employee == $employee
+								,$accumulatedMinutes : shiftDurationMinutes, shiftDate.equals($shiftDate), $minutes : shiftDurationMinutes )
+           			,$minutesInDay  : sum($minutes)
+           			,$shiftsInvolved : collectList($shift);
+           			 $minutesInDay > 0 && $minutesInDay < $minMinutesValue - ($info.isIncludePTOInMinCalculations() ? $minutesPTO.intValue() : 0)
+		
+		)
+       not ConstraintOverride( employee == $employee && type == ConstraintOverrideType.MIN_HOURS_DAY_OVERRIDE )
+	then
+		int weightMultiplier = $info.getRuleWeightMultiplier("minHoursPerDay");
+		int hoursMissing = minutesToHours( $minMinutesValue - $minutesInDay.intValue() - ($info.isIncludePTOInMinCalculations() ? $minutesPTO.intValue() : 0) );
+	    scoreHolder.addMinMediumConstraintMatch(kcontext, weightMultiplier * $weight*hoursMissing,
+										 $minutesInDay.intValue(), $contractLine, 
+										 $shiftsInvolved);
+end
+
+/*
+ * This rule raises a constraint violation if an employee is over their Maximum Hours Per Week
+ * requirement. The rule is weighted by the number of hours the employee is over. The engine is rewarded
+ * if it decreases the number of hours the employee is over his goal even if he/she is still over.
+ *
+ */
+rule "maxHoursPerWeek"
+	extends "baseEmployeeContractSelector"
+	dialect "mvel" 
+	enabled true
+	when
+		$contractLine : MinMaxContractLine( contractLineType == ContractLineType.HOURS_PER_WEEK, $maxMinutesValue : maximumValue, $weight : maximumWeight, 
+											maximumEnabled == true, $contract == contract)
+		$info : EmployeeRosterInfo( $firstDayOfWeek : firstDayOfWeek )
+		$firstDayOfWeekShiftDate : ShiftDate(dayOfWeek == $firstDayOfWeek) 
+		accumulate ( $shift : ShiftAssignment( employee != null, employee == $employee, $minutes : shiftDurationMinutes, 
+										startsOnOrAfter($firstDayOfWeekShiftDate) ,shiftDate.isBefore($firstDayOfWeekShiftDate.plusDays(7))
+										,isInScheduleWindow($info))
+           			,$minutesInWeek  : sum($minutes)
+           			,$shiftsInvolved : collectList($shift);
+           			 $minutesInWeek > $maxMinutesValue
+		)
+        not ConstraintOverride( employee == $employee && type == ConstraintOverrideType.MAX_HOURS_WEEK_OVERRIDE )
+	then
+		int weightMultiplier = $info.getRuleWeightMultiplier("maxHoursPerWeek");
+		int hoursOver = minutesToHours( $minutesInWeek.intValue() - $maxMinutesValue ) ; 
+		scoreHolder.addMaxHardConstraintMatch(kcontext, weightMultiplier * $weight*hoursOver,
+										 $minutesInWeek.intValue(), $contractLine, 
+										 $shiftsInvolved);
+end
+
+/*
+ * This rule raises a constraint violation if an employee is over their Maximum Days Per Week
+ * requirement. The rule is weighted by the number of days the employee is over. The engine is rewarded
+ * if it decreases the number of days the employee is over his goal even if he/she is still over.
+ *
+ */
+rule "maxDaysPerWeek"
+	extends "baseEmployeeContractSelector"
+	dialect "mvel" 
+	enabled true
+	when
+		$contractLine : MinMaxContractLine( contractLineType == ContractLineType.DAYS_PER_WEEK, $maxDaysValue : maximumValue, $weight : maximumWeight, 
+											maximumEnabled == true, $contract == contract)
+		$info : EmployeeRosterInfo( $firstDayOfWeek : firstDayOfWeek )
+		$firstDayOfWeekShiftDate : ShiftDate(dayOfWeek == $firstDayOfWeek) 
+		accumulate ( 
+					$shift : ShiftAssignment (employee != null, employee == $employee, $startDate : shiftDate 
+											 ,startsOnOrAfter($firstDayOfWeekShiftDate)
+            								 ,shiftDate.isBefore($firstDayOfWeekShiftDate.plusDays(7)), isInScheduleWindow($info)
+            									)
+            		,$shiftsInvolved : collectList($shift)
+            		,$datesInvolved : collectSet($startDate);
+            		 $datesInvolved.size() > $maxDaysValue
+            		)
+        not ConstraintOverride( employee == $employee && type == ConstraintOverrideType.MAX_DAYS_WEEK_OVERRIDE )
+	then
+		int weightMultiplier = $info.getRuleWeightMultiplier("maxDaysPerWeek");
+		int daysOver = $shiftsInvolved.size() - $maxDaysValue;
+	    scoreHolder.addMaxHardConstraintMatch(kcontext, weightMultiplier * $weight*daysOver,
+										 $shiftsInvolved.size(), $contractLine, 
+										 $shiftsInvolved);
+end
+
+/*
+ * Checks shift assignments that violate a calendar dependent day off. Raises a conflict
+ * if shift assignment intersect the cd time off based on calendar day and time. 
+ *
+*/
+rule "cdTimeOffRule"
+enabled true
+	when
+		$timeOff : CDTimeOff(  $employeeId : employeeId, $dayOffStartTime : startDateTime, $dayOffEndTime : endDateTime,
+					$startTime : startTime, $endTime : endTime, $weight : weight, $isPTO : PTO, $isAllDay : allDay)
+		Employee ( employeeId == $employeeId) //To ensure every constraint justification list has an employee
+		$info : EmployeeRosterInfo( $firstDayOfWeek : firstDayOfWeek )
+        $shift : ShiftAssignment( employee != null, employee.getEmployeeId() == $employeeId
+        					,startsAfter($dayOffStartTime) && startsBefore($dayOffEndTime) || endsAfter($dayOffStartTime) && endsBefore($dayOffEndTime)
+        					|| startsOnOrBefore($dayOffStartTime) && endsOnOrAfter($dayOffEndTime)
+        					,isInPlanningWindow($info)
+       )
+       
+       //Override checks
+		not ConstraintOverride( employee.getEmployeeId() == $employeeId && type == ConstraintOverrideType.PTO_OVERRIDE && $isPTO )
+		not ConstraintOverride( employee.getEmployeeId() == $employeeId && type == ConstraintOverrideType.ALL_DAY_UNAVAILABLE_OVERRIDE && !$isPTO && $isAllDay)
+		not ConstraintOverride( employee.getEmployeeId() == $employeeId && type == ConstraintOverrideType.TIME_WINDOW_UNAVAILABLE_OVERRIDE && !$isPTO && !$isAllDay)
+	then
+		int weightMultiplier = $info.getRuleWeightMultiplier("cdTimeOffRule");
+	    scoreHolder.addHardConstraintMatch(kcontext, weightMultiplier * $weight, $timeOff, $shift);
+end
+
+
+/*
+ * Checks shift assignments that violate a calendar indepdent day off. Raises a conflict
+ * if shift assignment intersect the cd time off based on day of week and time. 
+ *
+*/
+rule "ciTimeOffRule"
+enabled true
+	when
+		$timeOff : CITimeOff(  $employeeId : employeeId, $dayOfWeekOff : dayOfWeek
+					,$effectiveStart : effectiveStart, $effectiveEnd : effectiveEnd
+					,$cdOverrides : cdOverrides
+					,$startTime : startTime, $endTime : endTime, $weight : weight, $isPTO : PTO, $isAllDay : allDay)
+		Employee ( employeeId == $employeeId) //To ensure every constraint justification list has an employee
+		$info : EmployeeRosterInfo( $firstDayOfWeek : firstDayOfWeek )
+        $shift : ShiftAssignment( employee != null, employee.getEmployeeId() == $employeeId, dayOfWeek == $dayOfWeekOff, $shiftDate : startDate
+        					,$isAllDay || 
+        						(
+	        						(startsAfter($startTime) && startsBefore($endTime)) 
+	        						|| (endsAfter($startTime) && endsBefore($endTime))
+	        						|| ( startsOnOrBefore($startTime) && (endsOnOrAfter($endTime) || shiftEndTime.equals(LocalTime.MIDNIGHT)) )
+        						)
+        					,$effectiveStart == null || startsOnOrAfter($effectiveStart)
+        					,$effectiveEnd == null || endsOnOrBefore($effectiveEnd)
+        					,isInPlanningWindow($info)
+        )
+        // Make sure the CI availability hasn't been overridden by a CD Availability
+        not  CDTimeOff(  $employeeId == employeeId, dayOffStart.getDayOfWeek() == $dayOfWeekOff.getJodaValue() || dayOffEnd.getDayOfWeek() == $dayOfWeekOff.getJodaValue())
+        not  CDOverrideAvailDate(overrideDate == $shiftDate) from $cdOverrides
+        //Override checks
+		not ConstraintOverride( employee.getEmployeeId() == $employeeId && type == ConstraintOverrideType.ALL_DAY_UNAVAILABLE_OVERRIDE && !$isPTO && $isAllDay)
+		not ConstraintOverride( employee.getEmployeeId() == $employeeId && type == ConstraintOverrideType.TIME_WINDOW_UNAVAILABLE_OVERRIDE && !$isPTO && !$isAllDay)
+	then
+		int weightMultiplier = $info.getRuleWeightMultiplier("ciTimeOffRule");
+	    scoreHolder.addHardConstraintMatch(kcontext, weightMultiplier * $weight, $timeOff, $shift );
+end
+
+///////////////////////////////////////Overtime Rules //////////////////////////////////////////////////
+
+rule "avoidDailyOvertimeConstraint"
+extends "collectDailyOvertime"
+dialect "mvel" 
+enabled true
+	when
+	    ConstraintOverride(employee == $employee && type == ConstraintOverrideType.AVOID_OVERTIME )
+	then
+		int weightMultiplier = $info.getRuleWeightMultiplier("avoidDailyOvertimeConstraint");
+		int overtimeMinutes = $minutesInDay.intValue() - $overtimeStart;
+		LoggerFactory.getLogger("HardRules").trace("Adding daily overtime constraint for " + $employee);
+		scoreHolder.addMaxHardConstraintMatch(kcontext, -weightMultiplier, overtimeMinutes, $contractLine, $shiftsInvolved);
+end
+
+rule "avoidWeeklyOvertimeConstraint"
+extends "collectWeeklyOvertime"
+dialect "mvel" 
+enabled true	
+	when
+	    ConstraintOverride( employee == $employee && type == ConstraintOverrideType.AVOID_OVERTIME )
+	then
+		int weightMultiplier = $info.getRuleWeightMultiplier("avoidWeeklyOvertimeConstraint");
+		int overtimeMinutes = $minutesInWeek.intValue() - $overtimeStart;
+		LoggerFactory.getLogger("HardRules").trace("Adding weekly overtime constraint for " + $employee);
+		scoreHolder.addMaxHardConstraintMatch(kcontext, -weightMultiplier, overtimeMinutes, $contractLine, $shiftsInvolved);
+end
+	
+
+//TODO: The weight should be based on number of hours over the limit
+rule "avoidTwoWeekOvertimeConstraint"
+extends "collectTwoWeekOvertime"
+dialect "mvel" 
+enabled true
+	when
+	    ConstraintOverride(employee == $employee && type == ConstraintOverrideType.AVOID_OVERTIME )
+	then
+		int weightMultiplier = $info.getRuleWeightMultiplier("avoidWeeklyOvertimeConstraint");
+		int overtimeMinutes = $minutesInTwoWeeks.intValue() - $overtimeStart;
+		LoggerFactory.getLogger("HardRules").trace("Adding two week overtime constraint for " + $employee);
+		scoreHolder.addMaxHardConstraintMatch(kcontext, -weightMultiplier, overtimeMinutes, $contractLine, $shiftsInvolved);
+end
+
+/////////////////////////////////////// End - Overtime Rules //////////////////////////////////////////////////
+
+
+/*
+ * This rule raises a hard constraint if an employee has two shifts that are less than get
+ * $minHoursValue apart. 
+ *
+*/ 
+rule "minHoursBetweenDays"
+	extends "baseEmployeeContractSelector"
+	dialect "mvel" 
+	enabled true
+	when
+		$info : EmployeeRosterInfo()
+		$contractLine : MinMaxContractLine( contractLineType == ContractLineType.HOURS_BETWEEN_DAYS, $minMinutesValue : minimumValue, $weight : minimumWeight, 
+											minimumEnabled == true, $contract == contract)
+		$firstShift : ShiftAssignment( employee != null, employee == $employee, $firstShiftEmployee : employee, $firstEndDateTime : shiftEndDateTime, $firstShiftDate : shiftDate )
+		$second : ShiftAssignment( employee == $firstShiftEmployee, this != $firstShift
+									,shiftDate.equals($firstShiftDate.plusDays(1))
+									,startsOnOrAfterShiftEnds($firstShift)
+									,shiftStartDateTime.minusMinutes($minMinutesValue).isBefore($firstEndDateTime)
+									,isInPlanningWindow($info)
+				 )
+		not ConstraintOverride( employee == $employee && type == ConstraintOverrideType.MIN_HOURS_BETWEEN_DAYS_OVERRIDE )
+	then
+		int weightMultiplier = $info.getRuleWeightMultiplier("minHoursBetweenDays");
+		int minutesBetweenShifts = Minutes.minutesBetween($firstShift.getShiftEndDateTime(), $second.getShiftStartDateTime()).getMinutes();
+		scoreHolder.addMinHardConstraintMatch(kcontext, weightMultiplier * $weight,
+										 minutesBetweenShifts, $contractLine, 
+										 Arrays.asList($firstShift, $second));
+end
+
+/*
+ * Since all employees should have a maximum overlap time of 0 between shifts
+ * this rule will insert a contract line if the employee does not have one
+ * defined in the database (contract lines with value == 0 are ignored)
+*/
+//TODO: Can we simply remove 0 valued ContractLines from teh DB unless they are actually needed? 
+ 
+rule "insertMinOverlappingShiftLine"
+	extends "baseEmployeeContractSelector"
+	dialect "mvel" 
+	when
+		not MinMaxContractLine( contractLineType == ContractLineType.OVERLAPPING_SHIFTS, $maxOverlap : maximumValue, $weight : maximumWeight, 
+										maximumEnabled == true, $contract == contract)
+	then
+		insert(MinMaxContractLine.createMaxContractLine($contract, ContractLineType.OVERLAPPING_SHIFTS, true, 0, -1));
+end
+
+/*
+ * This rule raises a hard constraint if an employee has two shifts that are overlapping
+ *
+*/ 
+rule "overlappingShifts"
+	extends "baseEmployeeContractSelector"
+	dialect "mvel" 
+	enabled true
+	when
+		$info : EmployeeRosterInfo()
+		$contractLine : MinMaxContractLine( contractLineType == ContractLineType.OVERLAPPING_SHIFTS, $maxOverlap : maximumValue, $weight : maximumWeight, 
+										maximumEnabled == true, $contract == contract)
+		$firstShift : ShiftAssignment( employee == $employee, $firstEndDateTime : shiftEndDateTime )
+		$second : ShiftAssignment( employee == $employee, this != $firstShift
+									,startsOnOrAfterShiftStarts($firstShift)
+									,shiftStartDateTime.isBefore($firstEndDateTime.minusMinutes($maxOverlap)) )
+	then
+		int weightMultiplier = $info.getRuleWeightMultiplier("overlappingShifts");
+		int minutesBetweenShifts = Minutes.minutesBetween($second.getShiftStartDateTime(), $firstShift.getShiftEndDateTime()).getMinutes();
+		scoreHolder.addMaxHardConstraintMatch(kcontext, weightMultiplier * $weight, minutesBetweenShifts,
+			$contractLine, Arrays.asList($firstShift, $second));
+end
+
+/*
+ * Detects the violation of any combination of the weekend rotation pattern.
+ * 1st It gets a shift date that is far back enough in the schedule to have at least $totalDays*7 days in the schedule ahead of it
+ * 2nd Get the last shift assignment that starts beforeOrOn 1stShift + 7*($totalDays - 1) [accomplished via "$lastShift + not ShiftAssignment" lines]
+ * 3rd Add up all of the shiftassignment between the last shift and the 1st shift. If the # of assignments is more than is allowed by the constraint
+ * raise a hard constraint violation
+ *
+*/
+rule "weekdayRotationPattern"
+	extends "baseEmployeeContractSelector"
+	dialect "mvel" 
+	enabled true
+	when
+		$pattern : WeekdayRotationPattern($dayOfWeek : dayOfWeek, rotationType == RotationPatternType.DAYS_OFF_PATTERN, 
+											$numberOfDays : numberOfDays, $totalDays : outOfTotalDays, $weight : weight  )
+	    $contractLine : PatternContractLine( pattern == $pattern, $contract == contract )
+
+		$info : EmployeeRosterInfo( $scheduleEndShiftDate : lastShiftDate  )
+		$shiftOne  : ShiftAssignment( employee == $employee, dayOfWeek == $dayOfWeek, $firstShiftDate : shiftDate
+										,shiftDate.plusDays(7*($totalDays-1)).isBeforeOrEquals($scheduleEndShiftDate)
+									)
+		$lastShift : ShiftAssignment( employee == $employee, dayOfWeek == $dayOfWeek, $lastShiftDate : shiftDate,
+								shiftDate.isAfter($firstShiftDate), 
+								shiftDate.isBeforeOrEquals($firstShiftDate.plusDays(7*($totalDays-1))), isInScheduleWindow($info)
+						) 
+		not ShiftAssignment( employee == $employee, dayOfWeek == $dayOfWeek, 
+								shiftDate.isAfter($lastShiftDate), 
+								shiftDate.isBeforeOrEquals($firstShiftDate.plusDays(7*($totalDays-1)))
+						)				
+		$weekdayShifts : ArrayList( size > $totalDays - $numberOfDays - 2) 
+					from collect( ShiftAssignment( employee == $employee, dayOfWeek == $dayOfWeek, 
+								shiftDate.isAfter($firstShiftDate), shiftDate.isBefore($lastShiftDate)) 
+								)
+		not ConstraintOverride( employee == $employee && type == ConstraintOverrideType.WEEKDAY_ROTATION_OVERRIDE )
+	then
+		int weightMultiplier = $info.getRuleWeightMultiplier("weekdayRotationPattern");
+		$weekdayShifts.add($shiftOne);
+		$weekdayShifts.add($lastShift);
+		scoreHolder.addRotationHardConstraintMatch(kcontext, weightMultiplier * $weight, $pattern, $weekdayShifts);
+		
+end
+
+///////////////////////////////////////////////////////Weekend work pattern rules///////////////////////////////////////////////////////////////////
+rule "coupledWeekendPattern"
+	extends "baseEmployeeContractSelector"
+	dialect "mvel" 
+	enabled true
+	when
+		$info : EmployeeRosterInfo($weekendDef : weekendDefinition, $weekendDays : weekendDefinition.getDayOfWeekSet())
+		$pattern : CompleteWeekendWorkPattern($weight : weight)
+	    $contractLine : PatternContractLine( pattern == $pattern, $contract == contract)
+		$weekendStart : ShiftDate (dayOfWeek == $weekendDef.getFirstDayOfWeekend(), plusDays($weekendDays.size()).isInPlanningWindow($info) )
+     	$involvedShifts : ArrayList(size < $weekendDays.size()) from collect (
+		     	ShiftAssignment(employee == $employee, startsOnOrAfter($weekendStart)
+		     		,startsBefore($weekendStart.plusDays($weekendDays.size()))
+		     	)
+     	)
+		not ConstraintOverride( employee == $employee && type == ConstraintOverrideType.COUPLED_WEEKEND_OVERRIDE )
+	then
+		int weightMultiplier = $info.getRuleWeightMultiplier("coupledWeekendPattern");
+		scoreHolder.addCoupledWeekendHardConstraintMatch(kcontext, weightMultiplier * $weight, $weekendStart.getDate(), $involvedShifts);
+end 
+
+rule "daysOffAfterWeekend"
+	extends "baseEmployeeContractSelector"
+	dialect "mvel" 
+	enabled true
+	when
+		$info : EmployeeRosterInfo( $lastWeekendDay : weekendDefinition.getLastDayOfWeekend() )
+		$pattern : CompleteWeekendWorkPattern($weight : weight, $daysOffAfterList : daysOffAfter)
+	    $contractLine : PatternContractLine( pattern == $pattern, $contract == contract )
+	    $firstShift  : ShiftAssignment( employee == $employee, dayOfWeek == $lastWeekendDay, $firstShiftDate : shiftDate )
+	    $weekdayShifts : ArrayList( size > 0 ) 
+					from collect( ShiftAssignment( employee == $employee, dayOfWeek memberOf $daysOffAfterList, 
+							shiftDate.isAfter($firstShiftDate), shiftDate.isBefore($firstShiftDate.plusDays(6)))
+							) 
+		not ConstraintOverride( employee == $employee && type == ConstraintOverrideType.DAYS_OFF_AFTER_OVERRIDE )
+	then
+		int weightMultiplier = $info.getRuleWeightMultiplier("daysOffAfterWeekend");
+		
+		// Each day that violates the constraint should count as the weight. 
+		// This way removing one of the violating days would improve the score
+		int constraintScore = weightMultiplier * $weight * $weekdayShifts.size();
+		scoreHolder.addDaysAfterHardConstraintMatch(kcontext, constraintScore, $daysOffAfterList, $weekdayShifts); 
+end
+
+rule "daysOffBeforeWeekend"
+	extends "baseEmployeeContractSelector"
+	dialect "mvel" 
+	enabled true
+	when
+		$info : EmployeeRosterInfo( $firstWeekendDay : weekendDefinition.getFirstDayOfWeekend() )
+		$pattern : CompleteWeekendWorkPattern($weight : weight, $daysOffBeforeList : daysOffBefore)
+	    $contractLine : PatternContractLine( pattern == $pattern, $contract == contract)
+	    $firstShift  : ShiftAssignment( employee == $employee, dayOfWeek == $firstWeekendDay, $firstShiftDate : shiftDate )
+	    $weekdayShifts : ArrayList( size > 0 ) 
+					from collect( ShiftAssignment( employee == $employee, dayOfWeek memberOf $daysOffBeforeList, 
+							shiftDate.isBefore($firstShiftDate), shiftDate.isAfter($firstShiftDate.minusDays(6)))
+							) 
+		not ConstraintOverride( employee == $employee && type == ConstraintOverrideType.DAYS_OFF_BEFORE_OVERRIDE )
+	then
+		int weightMultiplier = $info.getRuleWeightMultiplier("daysOffBeforeWeekend");
+		// Each day that violates the constraint should count as the weight. 
+		// This way removing one of the violating days would improve the score
+		int constraintScore = weightMultiplier * $weight * $weekdayShifts.size();
+		scoreHolder.addDaysBeforeHardConstraintMatch(kcontext, constraintScore, $daysOffBeforeList, $weekdayShifts); 
+end
+
+
+///////////////////////////////////////////////////////End - Weekend work pattern rules///////////////////////////////////////////////////////////////////
+
+/*
+ * Returns the minimum hours needed to cover
+ * the minutes (30 minutes = 1 hours)
+*/
+function int minutesToHours(int minutes) {
+	return (int) Math.ceil( minutes/60.0 );
+}
+

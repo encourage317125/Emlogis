@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly>
+	<id>hazelcast</id>
+	<formats>
+		<format>zip</format>
+	</formats>
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<fileSets>
+		<fileSet>
+			<directory>src/main/resources/hazelcast</directory>
+			<excludes>
+				<exclude>*.sql</exclude>
+			</excludes>
+			<outputDirectory>hazelcast-server</outputDirectory>
+		</fileSet>
+	</fileSets>
+
+	<files>
+		<file>
+			<source>src/main/resources/hazelcast/client.sh</source>
+			<outputDirectory>hazelcast-server</outputDirectory>
+			<fileMode>0755</fileMode>
+		</file>
+		<file>
+			<source>src/main/resources/hazelcast/hznode.sh</source>
+			<outputDirectory>hazelcast-server</outputDirectory>
+			<fileMode>0755</fileMode>
+		</file>
+		<file>
+			<source>src/main/resources/hazelcast/stophzsrv.sh</source>
+			<outputDirectory>hazelcast-server</outputDirectory>
+			<fileMode>0755</fileMode>
+		</file>
+		<file>
+			<source>src/main/resources/hazelcast/hznodesrv.sh</source>
+			<outputDirectory>hazelcast-server</outputDirectory>
+			<fileMode>0755</fileMode>
+		</file>
+	</files>
+
+	<dependencySets>
+		<dependencySet>
+			<includes>
+				<include>com.hazelcast:hazelcast</include>
+				<include>com.emlogis:scheduler-common</include>
+			</includes>
+			<outputDirectory>hazelcast-server/lib</outputDirectory>
+		</dependencySet>
+	</dependencySets>
+</assembly>
+

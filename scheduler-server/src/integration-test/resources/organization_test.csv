@@ -1,0 +1,10 @@
+url|method|json|response_id
+orgs/timeoff|post|{"effectiveStartDate":1403531081111, "name":"testName"}|#timeoffId
+orgs/timeoff/#timeoffId|put|{"effectiveStartDate":1403531082222, "name":"testNameAfterUpdate"}|
+orgs/timeoff|post|{"effectiveStartDate":1403531084444, "name":"testName2"}|#timeoffId2
+orgs/timeoff|post|{"effectiveStartDate":1403531085555, "name":"testName3"}|#timeoffId3
+orgs/timeoff|get||
+orgs/timeoff/#timeoffId|get||
+orgs/timeoff/#timeoffId|delete||
+orgs/timeoff/#timeoffId2|delete||
+orgs/timeoff/#timeoffId3|delete||

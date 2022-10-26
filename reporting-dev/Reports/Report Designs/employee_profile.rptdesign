@@ -1,0 +1,753 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.4.0.v20150206-1039 Build &lt;4.2.3.v20150206-1039></property>
+    <property name="units">in</property>
+    <method name="initialize"><![CDATA[try {
+	emlogis.current.reportName = "Employee Profile";
+} catch(e){};
+]]></method>
+    <property name="theme">common.EmlogisGrayScales</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="layoutPreference">auto layout</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">72</property>
+    <list-property name="libraries">
+        <structure>
+            <property name="fileName">emlogis/report-libs/common.RPTLIBRARY</property>
+            <property name="namespace">common</property>
+        </structure>
+    </list-property>
+    <parameters>
+        <scalar-parameter name="restApiUrl" id="13383" extends="common.restApiUrl"/>
+        <cascading-parameter-group name="BasicReportCascadingParameterGroup" id="13384" extends="common.BasicReportCascadingParameterGroup">
+            <overridden-values>
+                <ref-entry baseId="11074" name="Security" id="11074"/>
+                <ref-entry baseId="11075" name="Site" id="11075"/>
+                <ref-entry baseId="14682" name="Teams" id="14682"/>
+            </overridden-values>
+        </cascading-parameter-group>
+        <scalar-parameter name="EmployeeType" id="10746">
+            <text-property name="promptText">Select Employee Type</text-property>
+            <property name="valueType">static</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList">
+                <structure>
+                    <property name="value">0</property>
+                    <property name="label">Full Time</property>
+                </structure>
+                <structure>
+                    <property name="value">1</property>
+                    <property name="label">Part Time</property>
+                </structure>
+            </list-property>
+            <property name="paramType">multi-value</property>
+            <property name="controlType">list-box</property>
+            <property name="mustMatch">true</property>
+            <property name="fixedOrder">true</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="wages" id="13699">
+            <text-property name="promptText">Show wages</text-property>
+            <property name="valueType">static</property>
+            <property name="dataType">boolean</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">true</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">check-box</property>
+            <structure name="format"/>
+        </scalar-parameter>
+        <scalar-parameter name="Inactives" id="3394">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">boolean</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">true</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">check-box</property>
+            <structure name="format"/>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <script-data-source name="Data Source" id="13379" extends="common.Data Source"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="Security DS" id="13380" extends="common.Security DS"/>
+        <script-data-set name="Site DS" id="13381" extends="common.Site DS"/>
+        <script-data-set name="Team DS" id="13382" extends="common.Team DS"/>
+        <script-data-set name="Employee DS" id="13386">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">employeeName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">employeeId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">employeeType</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">activityType</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">startDate</property>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">endDate</property>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">hourlyRate</property>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">login</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">minHoursWeek</property>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">maxHoursWeek</property>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">minHoursDay</property>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">maxHoursDay</property>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="position">13</property>
+                    <property name="name">maxDaysWeek</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">14</property>
+                    <property name="name">teams</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">15</property>
+                    <property name="name">skills</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">employeeName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">employeeId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">employeeType</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">activityType</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">startDate</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">endDate</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">hourlyRate</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">login</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">minHoursWeek</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">maxHoursWeek</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">minHoursDay</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">maxHoursDay</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">maxDaysWeek</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">teams</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">skills</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">employeeName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">employeeId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">employeeType</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">activityType</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">startDate</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">endDate</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">hourlyRate</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">login</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">minHoursWeek</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">maxHoursWeek</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">minHoursDay</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">maxHoursDay</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">maxDaysWeek</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">14</property>
+                        <property name="name">teams</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">15</property>
+                        <property name="name">skills</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[employeeCount = 0;
+
+if (token) {
+	teams = emlogis.current.teams.getIds().join(';') ;
+	//emplTypes = '\'' + params["EmployeeType"].join('\',\'') + '\'';
+	employeeList = report.getList(token, "teams/" + 
+	"employeesprofiles?teamIds=" + teams );
+}]]></method>
+            <method name="fetch"><![CDATA[if (token != null &amp;&amp; employeeCount < employeeList.size()) {
+    obj = employeeList.get(employeeCount);
+
+	row["employeeId"] = obj["employeeId"];
+	row["employeeName"] = obj["employeeName"];
+    row["employeeType"] = obj["employeeType"];
+	row["activityType"] = obj["activityType"];
+	row["startDate"] = obj["startDate"];
+	row["endDate"] = obj["endDate"];
+	row["hourlyRate"] = obj["hourlyRate"]/100;
+	row["login"] = obj["login"];
+	row["minHoursWeek"] = obj["minHoursWeek"]/60;
+	row["maxHoursWeek"] = obj["maxHoursWeek"]/60;
+	row["minHoursDay"] = obj["minHoursDay"]/60;
+	row["maxHoursDay"] = obj["maxHoursDay"]/60;
+	row["maxDaysWeek"] = obj["maxDaysWeek"];
+	row["teams"] = obj["teams"];
+	row["skills"] = obj["skills"];
+    employeeCount++;
+    
+    return true;
+}
+
+else return false;
+
+]]></method>
+        </script-data-set>
+    </data-sets>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <property name="orientation">auto</property>
+            <page-header>
+                <grid name="Report header" id="13943" extends="common.Report header">
+                    <list-property name="boundDataColumns">
+                        <structure>
+                            <property name="name">reportTime</property>
+                            <text-property name="displayName">Report time interval</text-property>
+                            <expression name="expression" type="javascript">""</expression>
+                            <property name="dataType">string</property>
+                            <property name="allowExport">true</property>
+                        </structure>
+                        <structure>
+                            <property name="name">reportName</property>
+                            <text-property name="displayName">Report Name</text-property>
+                            <expression name="expression" type="javascript">emlogis.current.reportName + ": "+emlogis.current.site.get("name")</expression>
+                            <property name="dataType">string</property>
+                            <property name="allowExport">true</property>
+                        </structure>
+                    </list-property>
+                    <overridden-values>
+                        <ref-entry baseId="13738" id="14683"/>
+                        <ref-entry baseId="13739" id="14684"/>
+                        <ref-entry baseId="13740" id="14685"/>
+                        <ref-entry baseId="13741" id="13741"/>
+                        <ref-entry baseId="13742" name="NewGrid11" id="13742"/>
+                        <ref-entry baseId="13743" id="13743"/>
+                        <ref-entry baseId="13744" id="14686"/>
+                        <ref-entry baseId="13745" id="14687"/>
+                        <ref-entry baseId="13746" name="NewData111" id="13746">
+                            <property name="resultSetColumn">reportName</property>
+                        </ref-entry>
+                        <ref-entry baseId="13747" id="13747"/>
+                        <ref-entry baseId="13748" name="NewGrid2" id="13748"/>
+                        <ref-entry baseId="13749" id="13749"/>
+                        <ref-entry baseId="13750" id="13750"/>
+                        <ref-entry baseId="13751" id="13751"/>
+                        <ref-entry baseId="13752" name="NewData21" id="13752">
+                            <property name="resultSetColumn">reportTime</property>
+                        </ref-entry>
+                        <ref-entry baseId="13775" id="13775"/>
+                        <ref-entry baseId="13776" id="13776"/>
+                        <ref-entry baseId="10833" name="NewGrid" id="10833"/>
+                        <ref-entry baseId="10834" id="10834"/>
+                        <ref-entry baseId="10835" id="10835"/>
+                        <ref-entry baseId="10836" id="10836"/>
+                        <ref-entry baseId="13779" name="NewTextData1" id="13779"/>
+                    </overridden-values>
+                </grid>
+            </page-header>
+            <page-footer>
+                <grid name="Report footer" id="11235" extends="common.Report footer">
+                    <overridden-values>
+                        <ref-entry baseId="13754" id="13754"/>
+                        <ref-entry baseId="13755" id="13755"/>
+                        <ref-entry baseId="13756" id="13756"/>
+                        <ref-entry baseId="13757" id="13757"/>
+                        <ref-entry baseId="13758" name="NewTextData111" id="13758"/>
+                        <ref-entry baseId="13759" id="13759"/>
+                        <ref-entry baseId="13760" name="NewGrid1111" id="13760"/>
+                        <ref-entry baseId="13761" id="13761"/>
+                        <ref-entry baseId="13762" id="13762"/>
+                        <ref-entry baseId="13763" id="13763"/>
+                        <ref-entry baseId="13764" id="13764"/>
+                        <ref-entry baseId="13765" id="13765"/>
+                        <ref-entry baseId="13766" id="13766"/>
+                        <ref-entry baseId="13767" name="NewText211" id="13767"/>
+                        <ref-entry baseId="13768" id="13768"/>
+                        <ref-entry baseId="13769" name="NewAutoText211" id="13769"/>
+                        <ref-entry baseId="13770" id="13770"/>
+                        <ref-entry baseId="13771" name="NewText1111" id="13771"/>
+                        <ref-entry baseId="13772" id="13772"/>
+                        <ref-entry baseId="13773" name="NewAutoText1111" id="13773"/>
+                    </overridden-values>
+                </grid>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <table id="13557">
+            <list-property name="userProperties">
+                <structure>
+                    <property name="name">__ac_group_collapse_level</property>
+                    <property name="type">string</property>
+                </structure>
+            </list-property>
+            <property name="dataSet">Employee DS</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">employeeName</property>
+                    <text-property name="displayName">employeeName</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["employeeName"] + (dataSetRow["activityType"]=='Inactive'? " (I)" : "") + (dataSetRow["activityType"]=='Pooled'? " (P)" : "")</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">employeeId</property>
+                    <text-property name="displayName">employeeId</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["employeeId"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">employeeType</property>
+                    <text-property name="displayName">employeeType</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["employeeType"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">activityType</property>
+                    <text-property name="displayName">activityType</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["activityType"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">startDate</property>
+                    <text-property name="displayName">startDate</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["startDate"]</expression>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="name">endDate</property>
+                    <text-property name="displayName">endDate</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["endDate"]</expression>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="name">hourlyRate</property>
+                    <text-property name="displayName">hourlyRate</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["hourlyRate"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">login</property>
+                    <text-property name="displayName">login</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["login"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">minHoursWeek</property>
+                    <text-property name="displayName">minHoursWeek</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["minHoursWeek"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">maxHoursWeek</property>
+                    <text-property name="displayName">maxHoursWeek</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["maxHoursWeek"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">minHoursDay</property>
+                    <text-property name="displayName">minHoursDay</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["minHoursDay"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">maxHoursDay</property>
+                    <text-property name="displayName">maxHoursDay</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["maxHoursDay"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">maxDaysWeek</property>
+                    <text-property name="displayName">maxDaysWeek</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["maxDaysWeek"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">teams</property>
+                    <text-property name="displayName">teams</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["teams"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">skills</property>
+                    <text-property name="displayName">skills</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["skills"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <column id="13636"/>
+            <column id="13691">
+                <property name="repeat">1</property>
+            </column>
+            <column id="13642">
+                <property name="repeat">1</property>
+                <list-property name="visibility">
+                    <structure>
+                        <property name="format">all</property>
+                        <expression name="valueExpr" type="javascript">params["wages"].value == false</expression>
+                    </structure>
+                </list-property>
+            </column>
+            <column id="13640"/>
+            <column id="13641"/>
+            <column id="13649">
+                <property name="repeat">1</property>
+            </column>
+            <column id="13650">
+                <property name="repeat">1</property>
+            </column>
+            <column id="13646"/>
+            <column id="13647"/>
+            <column id="13644">
+                <property name="repeat">1</property>
+            </column>
+            <column id="13645">
+                <property name="repeat">1</property>
+            </column>
+            <column id="13648"/>
+            <header>
+                <row id="13558">
+                    <cell id="13559">
+                        <label id="13560">
+                            <text-property name="text">Name</text-property>
+                        </label>
+                    </cell>
+                    <cell id="13692">
+                        <label id="13693">
+                            <text-property name="text">ID</text-property>
+                        </label>
+                    </cell>
+                    <cell id="13571">
+                        <label id="13572">
+                            <text-property name="text">Wage</text-property>
+                        </label>
+                    </cell>
+                    <cell id="13567">
+                        <label id="13568">
+                            <text-property name="text">Start Date</text-property>
+                        </label>
+                    </cell>
+                    <cell id="13569">
+                        <label id="13570">
+                            <text-property name="text">End Date</text-property>
+                        </label>
+                    </cell>
+                    <cell id="13585">
+                        <label id="13586">
+                            <text-property name="text">Team(s)</text-property>
+                        </label>
+                    </cell>
+                    <cell id="13587">
+                        <label id="13588">
+                            <text-property name="text">Skill(s)</text-property>
+                        </label>
+                    </cell>
+                    <cell id="13579">
+                        <label id="13580">
+                            <text-property name="text">Min (hrs/day)</text-property>
+                        </label>
+                    </cell>
+                    <cell id="13581">
+                        <label id="13582">
+                            <text-property name="text">Max (hrs/day)</text-property>
+                        </label>
+                    </cell>
+                    <cell id="13575">
+                        <label id="13576">
+                            <text-property name="text">Min (hrs/week)</text-property>
+                        </label>
+                    </cell>
+                    <cell id="13577">
+                        <label id="13578">
+                            <text-property name="text">Max (hrs/week)</text-property>
+                        </label>
+                    </cell>
+                    <cell id="13583">
+                        <label id="13584">
+                            <text-property name="text">Max (days/week)</text-property>
+                        </label>
+                    </cell>
+                </row>
+            </header>
+            <group id="13651">
+                <property name="groupName">NewTableGroup1</property>
+                <expression name="keyExpr" type="javascript">row["employeeType"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue" type="javascript">row["employeeType"]</expression>
+                </structure>
+                <property name="hideDetail">false</property>
+                <header>
+                    <row id="13652">
+                        <cell id="13653">
+                            <data id="13682">
+                                <property name="resultSetColumn">employeeType</property>
+                            </data>
+                        </cell>
+                        <cell id="13694"/>
+                        <cell id="13658"/>
+                        <cell id="13656"/>
+                        <cell id="13657"/>
+                        <cell id="13665"/>
+                        <cell id="13666"/>
+                        <cell id="13662"/>
+                        <cell id="13663"/>
+                        <cell id="13660"/>
+                        <cell id="13661"/>
+                        <cell id="13664"/>
+                    </row>
+                </header>
+                <footer>
+                    <row id="13667">
+                        <cell id="13668"/>
+                        <cell id="13695"/>
+                        <cell id="13673"/>
+                        <cell id="13671"/>
+                        <cell id="13672"/>
+                        <cell id="13680"/>
+                        <cell id="13681"/>
+                        <cell id="13677"/>
+                        <cell id="13678"/>
+                        <cell id="13675"/>
+                        <cell id="13676"/>
+                        <cell id="13679"/>
+                    </row>
+                </footer>
+            </group>
+            <detail>
+                <row id="13589">
+                    <list-property name="highlightRules">
+                        <structure>
+                            <property name="operator">eq</property>
+                            <expression name="testExpr" type="javascript">row["activityType"]</expression>
+                            <simple-property-list name="value1">
+                                <value type="javascript">'Inactive'</value>
+                            </simple-property-list>
+                            <property name="style">highlighted-cell-light</property>
+                        </structure>
+                    </list-property>
+                    <cell id="13590">
+                        <data id="13591">
+                            <property name="resultSetColumn">employeeName</property>
+                        </data>
+                    </cell>
+                    <cell id="13696">
+                        <data id="13697">
+                            <property name="resultSetColumn">login</property>
+                        </data>
+                    </cell>
+                    <cell id="13602">
+                        <data id="13603">
+                            <property name="resultSetColumn">hourlyRate</property>
+                        </data>
+                    </cell>
+                    <cell id="13598">
+                        <data id="13599">
+                            <property name="resultSetColumn">startDate</property>
+                        </data>
+                    </cell>
+                    <cell id="13600">
+                        <data id="13601">
+                            <property name="resultSetColumn">endDate</property>
+                        </data>
+                    </cell>
+                    <cell id="13616">
+                        <data id="13617">
+                            <property name="resultSetColumn">teams</property>
+                        </data>
+                    </cell>
+                    <cell id="13618">
+                        <data id="13619">
+                            <property name="resultSetColumn">skills</property>
+                        </data>
+                    </cell>
+                    <cell id="13610">
+                        <data id="13611">
+                            <property name="resultSetColumn">minHoursDay</property>
+                        </data>
+                    </cell>
+                    <cell id="13612">
+                        <data id="13613">
+                            <property name="resultSetColumn">maxHoursDay</property>
+                        </data>
+                    </cell>
+                    <cell id="13606">
+                        <data id="13607">
+                            <property name="resultSetColumn">minHoursWeek</property>
+                        </data>
+                    </cell>
+                    <cell id="13608">
+                        <data id="13609">
+                            <property name="resultSetColumn">maxHoursWeek</property>
+                        </data>
+                    </cell>
+                    <cell id="13614">
+                        <data id="13615">
+                            <property name="resultSetColumn">maxDaysWeek</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+            <footer>
+                <row id="13620">
+                    <cell id="13621"/>
+                    <cell id="13698"/>
+                    <cell id="13627"/>
+                    <cell id="13625"/>
+                    <cell id="13626"/>
+                    <cell id="13634"/>
+                    <cell id="13635"/>
+                    <cell id="13631"/>
+                    <cell id="13632"/>
+                    <cell id="13629"/>
+                    <cell id="13630"/>
+                    <cell id="13633"/>
+                </row>
+            </footer>
+        </table>
+    </body>
+</report>

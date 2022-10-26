@@ -1,0 +1,1 @@
+A PTO request from ${submitterName} for a ${absenceTypeName}  day on ${absenceDate} has been ${requestStatus}.

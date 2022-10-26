@@ -1,0 +1,1 @@
+You are requested to SWAP the following shift: ${shiftSkillName} on ${shiftTeamName} on ${shiftStartDate} from ${shiftStartTime}-${shiftEndTime} with ${peerName} as ${peerEmployeeSkillName} on ${peerEmployeeTeamName} on ${shiftPeerStartDate} from ${shiftPeerStartTime}.

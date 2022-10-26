@@ -1,0 +1,117 @@
+<!-- Rules Site / Teams Page Start -->
+<div id="wrapper"
+     class="rules-site-teams"
+     ng-class="sidebarVisible ? 'toggled' : '' ">
+
+  <!-- Sidebar -->
+  <div id="sidebar-wrapper">
+    <h3 class="text-success">{{ "rules.SITE_TEAMS" | translate }}</h3>
+
+    <ul class="list-unstyled">
+      <li ng-repeat="site in sitesTeamsTree" ng-class="{ 'site-selected' : site.id === selectedSite.id }">
+        <span ng-click="setSelectedSite(site.id)"><i class="fa fa-home"></i> {{ site.name }}</span>
+        <ul class="selectedSite = site">
+          <li ng-repeat="team in site.children"
+              ng-click="displayTeam(site.id, team.id)"> {{ team.name }}</li>
+        </ul>
+        <br>
+      </li>
+    </ul>
+  </div> <!-- /sidebar -->
+
+  <!-- Main window -->
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="row eml-action-bar">  <!-- row -->
+        <!-- <form novalidate id="siteForm" name="siteForm" ng-submit="updateSite(selectedSite.id, selectedSite)"> -->
+        <div class="col-md-6">
+          <div class="form-inline">
+
+            <button type="button"
+                    class="btn btn-default"
+                    ng-show="allSites.length > 1"
+                    ng-click="toggleSidebar()"> <!--ng-class="sidebarVisible ? 'btn-success' : 'btn-default' "-->
+
+              <i class="fa"
+                 ng-class="sidebarVisible ? 'fa-chevron-circle-left' : 'fa-list' "></i> <!-- fa-list -->
+            </button>
+
+            <select class="form-control"
+                    ng-show="allSites.length > 1"
+                    ng-options="site as site.name for site in allSites"
+                    ng-model="selectedSite"
+                    ng-change="siteDataIsLoading = true">
+
+              <option ng-if="!selectedSite.id" value="">Choose site</option>
+            </select>
+            <div loader ng-show="siteDataIsLoading"></div>
+          </div>
+        </div>
+
+        <div class="col-md-6 text-right" ng-if="hasMgmtPermission()">
+          <!--<code>Editing: {{ editing }}</code>-->
+          <!--<code>Teams: {{ selectedSiteChildren.site.children.length }}</code>-->
+
+          <button type="button"
+                  class="btn btn-default"
+                  ng-click="addNewSiteInit()">
+            {{ ::"rules.site_teams.ADD_SITE" | translate }}
+          </button>
+
+          <!--<div class="divider-vertical"></div>-->
+          <button type="submit"
+                  class="btn"
+                  ng-class="page.editing ? 'btn-info' : 'btn-default'"
+                  ng-disabled="!page.editing"
+                  ng-click="save()">{{ ::"app.SAVE" | translate }}
+          </button> <!-- page.submitted = true; siteForm.$valid &&  -->
+
+          <!--<button type="button" class="btn btn-default">{{ ::"app.SAVE_AS" | translate }}</button>-->
+
+          <button type="button"
+                  class="btn btn-default"
+                  ng-click="deleteSite(selectedSite)"
+                  ng-disabled="isSiteDeletable(selectedSite)">{{ ::"app.DELETE" | translate }}</button>
+        </div>
+        <!-- </form> <!-- siteForm ends -->
+      </div>  <!-- row ends -->
+
+      <div class="row divider"></div>
+
+      <!-- Site Edit section -->
+      <div ng-include="'modules/settings/rules/sites_teams/partials/include/rules_sites-teams_site-edit.html'"></div>
+
+
+      <div class="row"></div>
+      <br>
+      <!-- TEMP - DEMO -->
+      <tabset>
+        <tab heading="Teams">
+          <!-- Teams tab -->
+          <div ng-include="'modules/settings/rules/sites_teams/partials/include/rules_sites-teams_teams.html'"></div>
+        </tab>
+
+        <!--<tab heading="Scheduling Settings">
+          <tab-heading>{{ ::"rules.site_teams.OVERWRITE_SCHED" | translate }}</tab-heading>
+          &lt;!&ndash; Overwrite Org Scheduling Settings tab &ndash;&gt;
+          <div ng-include="'modules/settings/rules/sites_teams/partials/include/rules_sites-teams_overwrite-org.html'"></div>
+        </tab>-->
+
+        <tab heading="Shift Length & Types">
+          <tab-heading>{{ ::"rules.site_teams.SHIFT_LENGTH_TYPES" | translate }}</tab-heading>
+          <!-- Shift Length & Types tab -->
+          <div ng-include="'modules/settings/rules/sites_teams/partials/include/rules_sites-teams_shift.html'"></div>
+        </tab>
+
+        <tab>
+          <tab-heading>{{ ::"rules.site_teams.ABSENCE_TYPES" | translate }}</tab-heading>
+          <!-- Absence types tab -->
+          <div ng-include="'modules/settings/rules/sites_teams/partials/include/rules_sites-teams_absence-types.html'"></div>
+        </tab>
+      </tabset> <!-- / TEMP - DEMO -->
+
+    </div>  <!-- container ends -->
+  </div><!-- /main window -->
+
+</div>
+<!-- Rules Site / Teams Page End -->

@@ -1,0 +1,3535 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.4.0.v20150206-1039 Build &lt;4.2.3.v20150206-1039></property>
+    <list-property name="includeScripts">
+        <property>emlogis/js/helpers.js</property>
+    </list-property>
+    <property name="units">in</property>
+    <property name="theme">EmlogisGrayScales</property>
+    <parameters>
+        <scalar-parameter name="restApiUrl" id="56">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">http://cloud.demo.emlogis.com/scheduler-server/emlogis/rest</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <cascading-parameter-group name="BasicReportCascadingParameterGroup" id="11073">
+            <text-property name="promptText">Use this group for production, but note that you will not be able to modify it.</text-property>
+            <property name="dataSet">Security DS</property>
+            <property name="dataSetMode">multiple</property>
+            <parameters>
+                <scalar-parameter name="Security" id="11074">
+                    <property name="hidden">true</property>
+                    <property name="valueType">dynamic</property>
+                    <property name="isRequired">true</property>
+                    <property name="dataSetName">Security DS</property>
+                    <expression name="valueExpr">row["security"]</expression>
+                    <expression name="labelExpr">row["security"]</expression>
+                    <property name="dataType">string</property>
+                    <simple-property-list name="defaultValue">
+                        <value type="constant">htran,schedulecreator</value>
+                    </simple-property-list>
+                    <property name="paramType">simple</property>
+                    <property name="controlType">list-box</property>
+                    <property name="fixedOrder">true</property>
+                    <structure name="format"/>
+                </scalar-parameter>
+                <scalar-parameter name="Site" id="11075">
+                    <property name="valueType">dynamic</property>
+                    <property name="isRequired">true</property>
+                    <property name="dataSetName">Site DS</property>
+                    <expression name="valueExpr">row["siteInfo"]</expression>
+                    <expression name="labelExpr">row["siteName"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="paramType">simple</property>
+                    <property name="controlType">list-box</property>
+                    <property name="fixedOrder">true</property>
+                    <structure name="format"/>
+                </scalar-parameter>
+                <scalar-parameter name="Teams" id="14682">
+                    <property name="valueType">dynamic</property>
+                    <property name="isRequired">true</property>
+                    <property name="dataSetName">Team DS</property>
+                    <expression name="valueExpr">row["teamInfo"]</expression>
+                    <expression name="labelExpr">row["teamName"]</expression>
+                    <expression name="sortByColumn">dataSetRow["teamName"]</expression>
+                    <property name="sortDirection">asc</property>
+                    <property name="dataType">string</property>
+                    <property name="paramType">multi-value</property>
+                    <property name="controlType">list-box</property>
+                    <property name="fixedOrder">false</property>
+                    <structure name="format"/>
+                </scalar-parameter>
+            </parameters>
+        </cascading-parameter-group>
+        <scalar-parameter name="StartDate" id="3387">
+            <property name="valueType">static</property>
+            <property name="dataType">date</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="javascript">new Date()</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="EndDate" id="13736">
+            <property name="valueType">static</property>
+            <property name="dataType">date</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="javascript">new Date()</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="ReportIntervalStartDate" id="13780">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">date</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="concealValue">true</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="ReportIntervalEndDate" id="13781">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">date</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="concealValue">true</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="IsHomeTeamEmployees" id="14681">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">boolean</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">True</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">check-box</property>
+            <structure name="format"/>
+        </scalar-parameter>
+        <scalar-parameter name="IsAssignedShifts" id="14780">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">boolean</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">True</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">check-box</property>
+            <structure name="format"/>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <script-data-source name="Data Source" id="5">
+            <method name="open"><![CDATA[report = new Packages.com.emlogis.report.Report(params["restApiUrl"]);
+
+var securityParamValue = params["Security"];
+
+if (securityParamValue) {
+    arr = securityParamValue.split(",");
+    
+    if (arr) {
+        if (arr.length > 0) {
+	    	tenantId = arr[0];
+	    }
+	    if (arr.length > 1) {
+	    	accountId = arr[1];
+	    }
+    }
+    if (tenantId != null &amp;&amp; accountId != null) {
+    	token = report.loginByAccount(tenantId, accountId);
+    }
+}
+]]></method>
+            <method name="close"><![CDATA[report.logout(token);]]></method>
+        </script-data-source>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="Security DS" id="55">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">security</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">security</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">Security</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">security</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[securityCount = 0;]]></method>
+            <method name="fetch"><![CDATA[if (securityCount == 0) {
+    row["Security"] = params["Security"];
+
+    securityCount = 1;
+    
+    return true;
+}
+
+return false;]]></method>
+        </script-data-set>
+        <script-data-set name="Site DS" id="8">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">siteId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">siteName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">timeZoneOffset</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">firstDayOfWeek</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">siteInfo</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">shiftIncrements</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">siteId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">siteName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">timeZoneOffset</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">firstDayOfWeek</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">siteInfo</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">shiftIncrements</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">siteId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">siteName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">timeZoneOffset</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">firstDayOfWeek</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">siteInfo</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">shiftIncrements</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[siteCount = 0;
+
+if (token) {
+	siteList = report.getListFromResultSet(token, "sites?limit=0");
+}]]></method>
+            <method name="fetch"><![CDATA[if (token != null &amp;&amp; siteCount < siteList.size()) {
+	var obj = siteList.get(siteCount);
+
+    row["siteId"] = obj.id;
+    row["siteName"] = obj.name;
+    row["timeZoneOffset"] = obj.timeZoneOffset + "";
+    row["firstDayOfWeek"] = obj.firstDayOfWeek;
+    row["shiftIncrements"] = obj.shiftIncrements;
+
+    var siteInfo = {
+    	"id": row["siteId"],
+    	"name": row["siteName"],
+    	"timeZoneOffset": row["timeZoneOffset"],
+    	"firstDayOfWeek": row["firstDayOfWeek"],
+    	"shiftIncrements": row["shiftIncrements"]
+    };
+    row["siteInfo"] = emlogis.helper.buildDataString(siteInfo);
+    
+    siteCount++;
+    return true;
+}
+
+return false;]]></method>
+        </script-data-set>
+        <script-data-set name="Start Date DS" id="14782">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">0</property>
+                    <property name="name">startDate</property>
+                    <property name="dataType">date</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">startDate</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">startDate</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[sdCount = 0;]]></method>
+            <method name="fetch"><![CDATA[if (sdCount == 0) {
+    row["startDate"] = new Date();
+
+    sdCount = 1;
+
+    return true;
+}
+
+return false;]]></method>
+        </script-data-set>
+        <script-data-set name="Team DS" id="31">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">teamId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">teamName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">teamInfo</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">description</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">abbreviation</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">teamId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">teamName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">teamInfo</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">description</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">abbreviation</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">teamId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">teamName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">teamInfo</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">description</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">abbreviation</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[teamCount = 0;
+
+try {
+	teamList = reportContext.getPersistentGlobalVariable("teamList");
+}catch(e){
+	teamList = null;
+}
+
+if (token &amp;&amp; !teamList) {
+	var siteId = emlogis.current.site.get("id");
+	teamList = report.getListFromResultSet(token, "sites/" + siteId + "/teams?limit=0");
+	reportContext.setPersistentGlobalVariable("teamList", teamList);
+}]]></method>
+            <method name="fetch"><![CDATA[if (token != null &amp;&amp; teamCount < teamList.size()) {
+	var obj = teamList.get(teamCount);
+	
+	row["teamId"] = obj.id;
+    row["teamName"] = obj.name;
+    row["description"] = obj.description;
+    row["abbreviation"] = obj.abbreviation;
+    
+    var teamInfo = {
+    	"id": row["teamId"],
+    	"name": row["teamName"]
+    }
+    row["teamInfo"] = emlogis.helper.buildDataString(teamInfo);
+
+    teamCount++;
+    return true;
+}
+
+return false;]]></method>
+        </script-data-set>
+        <script-data-set name="Shift DS" id="11505">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">shiftId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">startDateTime</property>
+                    <property name="dataType">date-time</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">endDateTime</property>
+                    <property name="dataType">date-time</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">shiftLength</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">employeeId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">scheduleId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">teamId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">teamName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">skillAbbrev</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">shift::dayOfMonth</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">skillId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">date</property>
+                    <property name="dataType">date</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">shiftId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">startDateTime</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">endDateTime</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">shiftLength</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">employeeId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">scheduleId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">teamId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">teamName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">skillAbbrev</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">shift::dayOfMonth</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">skillId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">date</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+            </list-property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">startDateTime</property>
+                    <property name="dataType">string</property>
+                    <property name="position">1</property>
+                    <expression name="defaultValue" type="javascript">params["ReportIntervalStartDate"].value.getTime() + ""</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">endDateTime</property>
+                    <property name="dataType">string</property>
+                    <property name="position">2</property>
+                    <expression name="defaultValue" type="javascript">params["ReportIntervalEndDate"].value.getTime() + ""</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">isAssignedShifts</property>
+                    <property name="dataType">boolean</property>
+                    <property name="position">3</property>
+                    <expression name="defaultValue" type="javascript">params["IsAssignedShifts"].value</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">shiftId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">startDateTime</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">endDateTime</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">shiftLength</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">employeeId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">scheduleId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">teamId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">teamName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">skillAbbrev</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">shift::dayOfMonth</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">skillId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">date</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[shiftsCount = 0;
+
+if (token) {
+	var startDate = emlogis.date.startOfDay(emlogis.date.parse(inputParams["startDateTime"]));
+	var endDate = emlogis.date.endOfDay(emlogis.date.parse(inputParams["endDateTime"]));
+	
+	var isAssignedShifts = inputParams["isAssignedShifts"];
+	var isAssignedShiftsCondition = isAssignedShifts ? "IS NOT NULL" : "IS NULL"; 
+	
+	shiftsList = report.getListFromResultSet(token, "shifts?limit=0&amp;filter=" + 
+		"employeeId " + isAssignedShiftsCondition + ";" + 
+		"scheduleId<>'';" + 
+		"startDateTime>='" + emlogis.date.toString(startDate, "yyyy-mm-dd HH:MM:ss") + "';" +
+		"endDateTime<='" + emlogis.date.toString(endDate, "yyyy-mm-dd HH:MM:ss") + "';" + 
+		"teamId IN ('"+ emlogis.current.teams.getIds().join("','") +"');" + 
+		"scheduleStatus=" + emlogis.def.schedule.status.posted
+	);
+}]]></method>
+            <method name="fetch"><![CDATA[if (token != null &amp;&amp; shiftsCount < shiftsList.size()) {
+	var obj = shiftsList.get(shiftsCount);
+
+    row["shiftId"] = obj.id;
+    row["startDateTime"] = toSiteTime(obj.startDateTime);
+    row["endDateTime"] = toSiteTime(obj.endDateTime);
+    row["shiftLength"] = obj.shiftLength;
+    row["scheduleId"] = obj.scheduleId;
+    row["employeeId"] = obj.employeeId;
+    row["teamId"] = obj.teamId;
+    row["teamName"] = obj.teamName;
+    row["skillAbbrev"] = obj.skillAbbrev;
+    row["skillId"] = obj.skillId;
+    
+    row["shift::dayOfMonth"] = row["startDateTime"].getDate();
+    row["date"] = row["startDateTime"];
+
+    shiftsCount++;
+    return true;
+}
+
+return false;]]></method>
+        </script-data-set>
+        <script-data-set name="SelectedTeamsDS" id="13334">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">teamName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">teamId</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">teamName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">teamId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">teamName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">teamId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[selectedTeamsCount = 0;
+
+selectedTeams = emlogis.current.teams.getObjects();]]></method>
+            <method name="fetch"><![CDATA[if (selectedTeamsCount < selectedTeams.length) {
+	var obj = selectedTeams[selectedTeamsCount];
+	
+	row["teamName"] = obj["name"];
+	row["teamId"] = obj["id"];
+	
+	selectedTeamsCount++;
+	return true;
+}
+
+return false;]]></method>
+        </script-data-set>
+        <script-data-set name="CIAvailability DS" id="12903">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">id</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">startTime</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">endTime</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">dayOfTheWeek</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">availabilityType</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">effectiveStartDate</property>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">effectiveEndDate</property>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">employeeId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">preview</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">id</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">startTime</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">endTime</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">dayOfTheWeek</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">availabilityType</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">effectiveStartDate</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">effectiveEndDate</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">employeeId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">preview</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">id</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">startTime</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">endTime</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">dayOfTheWeek</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">availabilityType</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">effectiveStartDate</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">effectiveEndDate</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">employeeId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">preview</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[ciAvailCount = 0;
+
+try {
+	ciAvailabilityList = reportContext.getGlobalVariable("ciAvailabilityList");
+}catch(e){
+	ciAvailabilityList = null;
+}
+
+if (!ciAvailabilityList &amp;&amp; token) {
+	/*
+	 * Using these params we can extend current Data Set within any report (Not depending on specific report params).
+	 */
+	var startDate = toServerTime(params["ReportIntervalStartDate"].value).getTime();
+	var endDate = toServerTime(params["ReportIntervalEndDate"].value).getTime();
+	
+	ciAvailabilityList = report.getList(token, "teams/ciavailability?teamIds=" 
+		+ emlogis.current.teams.getIds().join(";") + "&amp;startDate=" + startDate + "&amp;endDate=" + endDate);
+	reportContext.setGlobalVariable("ciAvailabilityList", ciAvailabilityList);
+}]]></method>
+            <method name="fetch"><![CDATA[if (token != null &amp;&amp; ciAvailCount < ciAvailabilityList.size()) {
+	var obj = ciAvailabilityList.get(ciAvailCount);
+
+	row["id"] = "" + obj.employeeId + obj.dayOfTheWeek + obj.startTime + obj.endTime + obj.effectiveDateRangeStart + obj.effectiveDateRangeEnd;
+	row["startTime"] = obj.startTime + "";
+    row["endTime"] = obj.endTime + "";
+	row["availabilityType"] = obj.availType;
+    row["dayOfTheWeek"] = obj.dayOfTheWeek;
+    row["employeeId"] = obj.employeeId;
+    row["effectiveStartDate"] = toSiteTime(obj.effectiveDateRangeStart);
+    /*
+     * "obj.effectiveDateRangeEnd" field is nullable, so if it is null we replace it with very far date (currentYear + 1000)
+     * (Reason: row["effectiveEndDate"] typed as BIRT Date, it is NOT nullable and creates "01.01.1970" date for invalid date, but
+     * "obj.effectiveDateRangeEnd" == null means that the time frame is endless)
+     */
+    var effectiveDateRangeEnd = obj.effectiveDateRangeEnd;
+    if(effectiveDateRangeEnd) {
+    	row["effectiveEndDate"] = toSiteTime(effectiveDateRangeEnd);
+    } else {
+    	var farDate = new Date();
+    	farDate.setYear(farDate.getFullYear() + 1000);
+    	row["effectiveEndDate"] = farDate;
+    }
+    
+    row["preview"] = obj.preview;
+    ciAvailCount++;
+
+    return true;
+}
+
+return false;
+
+function calculateEndTime(startTime, durationInMinutes) {
+	return startTime &amp;&amp; durationInMinutes ? startTime*1 + durationInMinutes*1*60*1000 : null;
+}
+
+function millisToTime(timeInMillis) {
+	var hrs = Math.floor(timeInMillis/3600000);
+	var restTime = timeInMillis % 3600000;
+	var mins = Math.floor(restTime/60000);
+	restTime = restTime % 60000;
+	var secs = Math.floor(restTime/1000);
+	return {
+		hours: hrs,
+		minutes: mins,
+		seconds: secs
+	}
+}
+
+function timeStringToShort12TimeString(timeString) {
+	var date = new Date("Thu Jan 01 1970 " + timeString);
+	return emlogis.date.toShort12TimeString(date);
+}]]></method>
+        </script-data-set>
+        <script-data-set name="CDAvailability DS" id="11847">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">id</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">startTime</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">endTime</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">date</property>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">availabilityType</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">isPTO</property>
+                    <property name="dataType">boolean</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">reason</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">absenceTypeName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">employeeId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">preview</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">id</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">startTime</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">endTime</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">date</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">availabilityType</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">isPTO</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">reason</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">absenceTypeName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">employeeId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">preview</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">id</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">startTime</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">endTime</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">date</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">availabilityType</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">isPTO</property>
+                        <property name="dataType">boolean</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">reason</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">absenceTypeName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">employeeId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">preview</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[cdAvailCount = 0;
+
+try {
+	cdAvailabilityList = reportContext.getGlobalVariable("cdAvailabilityList");
+}catch(e){
+	cdAvailabilityList = null;
+}
+
+if (!cdAvailabilityList &amp;&amp; token) {
+	/*
+	 * Using these params we can extend current Data Set within any report (Not depending on specific report params).
+	 */
+	var startDate = toServerTime(params["ReportIntervalStartDate"].value).getTime();
+	var endDate = toServerTime(params["ReportIntervalEndDate"].value).getTime();
+	
+	cdAvailabilityList = report.getList(token, "teams/cdavailability?teamIds=" 
+		+ emlogis.current.teams.getIds().join(";") + "&amp;startDate=" + startDate + "&amp;endDate=" + endDate);
+	reportContext.setGlobalVariable("cdAvailabilityList", cdAvailabilityList);
+}]]></method>
+            <method name="fetch"><![CDATA[if (token != null &amp;&amp; cdAvailCount < cdAvailabilityList.size()) {
+	var obj = cdAvailabilityList.get(cdAvailCount);
+
+	row["id"] = "" + obj.employeeId + obj.availType + obj.startTime + obj.endTime;
+	row["startTime"] = obj.startTime+"";
+    row["endTime"] = obj.endTime+"";
+    row["date"] = toSiteTime(obj.dateTime);
+	row["availabilityType"] = obj.availType;
+	row["isPTO"] = obj.pto;
+	row["reason"] = obj.reason;
+	row["absenceTypeName"] = obj.absenceTypeName;
+	row["employeeId"] = obj.employeeId;
+    row["previw"] = obj.preview;
+    
+    cdAvailCount++;
+    return true;
+}
+
+return false;]]></method>
+        </script-data-set>
+        <script-data-set name="Dates Range DS" id="14680">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">dayName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">dayOfWeek</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">dayOfMonth</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">date</property>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">joinColumn</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">weekNumber</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">monthNumber</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">year</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">dayId</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">dayName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">dayOfWeek</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">dayOfMonth</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">date</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">joinColumn</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">weekNumber</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">monthNumber</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">year</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">dayId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+            </list-property>
+            <list-property name="parameters"/>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">dayName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">dayOfWeek</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">dayOfMonth</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">date</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">joinColumn</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">weekNumber</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">monthNumber</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">year</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">dayId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[daysCount = 0;
+weekNumber = 1;]]></method>
+            <method name="fetch"><![CDATA[/*
+ * You should fill "emlogis.current.daysInterval" 
+ * before report creation phase to use this DS
+ */
+if(daysCount < emlogis.current.daysInterval.length) {
+	var day = emlogis.current.daysInterval[daysCount];
+	row["dayName"] = day["name"];
+	row["dayId"] = day["id"];
+	row["dayOfWeek"] = day["number"];
+	row["dayOfMonth"] = day["dayOfMonth"];
+	row["date"] = day["date"];
+	row["monthNumber"] = day["date"].getMonth();
+	row["year"] = day["date"].getFullYear();
+	
+	row["weekNumber"] = weekNumber;
+	
+	if((daysCount + 1) % 7 === 0) {
+		weekNumber++;
+	}
+	
+	/*
+     * Used for joining everything to everything. 
+     * For example we want to join employees and DS which represents 7 days of week:
+     * using leftOuterJoin every employee will be duplicated 7 times, 
+     * each duplication with different day of the week
+     */
+	row["joinColumn"] = 1;
+	
+	daysCount++;
+	return true;
+}
+
+return false;]]></method>
+        </script-data-set>
+        <derived-data-set extensionID="com.actuate.birt.data.join" name="Employees Dates Joined DS" id="14779">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">employeeId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">employeeName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">teamName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">dayName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">dayOfWeek</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">dayOfMonth</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">date</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">professionalLabel</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">employeeType</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">weekNumber</property>
+                    <property name="analysis">measure</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">employeeId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">employeeName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">teamId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">teamName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">isFloating</property>
+                        <property name="dataType">boolean</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">professionalLabel</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">employeeType</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">dayName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">dayOfWeek</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">dayOfMonth</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">date</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">weekNumber</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">dayId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <simple-property-list name="inputDataSets">
+                <value>Employee DS</value>
+                <value>Dates Range DS</value>
+            </simple-property-list>
+            <xml-property name="queryText"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tns:joinedDataSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.actuate.com/birt/dataset_join.xsd" xmlns:tns="http://schemas.actuate.com/birt/dataset_join.xsd">
+<tns:selectColumns>
+<tns:Column>Employee DS::employeeId</tns:Column>
+<tns:Column>Employee DS::employeeName</tns:Column>
+<tns:Column>Employee DS::teamId</tns:Column>
+<tns:Column>Employee DS::teamName</tns:Column>
+<tns:Column>Employee DS::isFloating</tns:Column>
+<tns:Column>Employee DS::professionalLabel</tns:Column>
+<tns:Column>Employee DS::employeeType</tns:Column>
+<tns:Column>Dates Range DS::dayName</tns:Column>
+<tns:Column>Dates Range DS::dayOfWeek</tns:Column>
+<tns:Column>Dates Range DS::dayOfMonth</tns:Column>
+<tns:Column>Dates Range DS::date</tns:Column>
+<tns:Column>Dates Range DS::weekNumber</tns:Column>
+<tns:Column>Dates Range DS::dayId</tns:Column>
+</tns:selectColumns>
+<tns:joins>
+<tns:startingDataSet Index="0" name="Employee DS"/>
+<tns:join>
+<tns:type>leftOuter</tns:type>
+<tns:dataSet Index="1" name="Dates Range DS"/>
+<tns:on>
+<tns:condition>
+<tns:leftColumn>Employee DS::joinCol</tns:leftColumn>
+<tns:rightColumn>Dates Range DS::joinColumn</tns:rightColumn>
+<tns:operator>eq</tns:operator>
+</tns:condition>
+</tns:on>
+</tns:join>
+</tns:joins>
+</tns:joinedDataSet>]]></xml-property>
+        </derived-data-set>
+        <script-data-set name="Employee DS" id="11325">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">employeeId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">employeeName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">teamId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">teamName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">isFloating</property>
+                    <property name="dataType">boolean</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">professionalLabel</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">employeeType</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">joinCol</property>
+                    <property name="dataType">integer</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">employeeId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">employeeName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">teamId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">teamName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">isFloating</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">professionalLabel</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">employeeType</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">joinCol</property>
+                    <property name="analysis">measure</property>
+                </structure>
+            </list-property>
+            <list-property name="filter">
+                <structure>
+                    <property name="operator">eq</property>
+                    <expression name="expr" type="javascript">row["isFloating"]</expression>
+                    <simple-property-list name="value1">
+                        <value>!params["IsHomeTeamEmployees"].value</value>
+                    </simple-property-list>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">employeeId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">employeeName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">teamId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">teamName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">isFloating</property>
+                        <property name="dataType">boolean</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">professionalLabel</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">employeeType</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">joinCol</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[employeesCount = 0;
+
+try {
+	employeesList = reportContext.getGlobalVariable("employeesList");
+}catch(e){
+	employeesList = null;
+}
+
+if (token &amp;&amp; !employeesList) {
+	employeesList = report.getList(token, "teams/employees?teamIds=" + emlogis.current.teams.getIds().join(";"));
+	reportContext.setGlobalVariable("employeesList", employeesList);
+}]]></method>
+            <method name="fetch"><![CDATA[if (token != null &amp;&amp; employeesCount < employeesList.size()) {
+	var obj = employeesList.get(employeesCount);
+	row["employeeId"] = obj.employeeId;
+    row["employeeName"] = obj.employeeName;
+    row["teamId"] = obj.teamId;
+    row["teamName"] = obj.teamName;
+    row["isFloating"] = obj.isFloating;
+    row["professionalLabel"] = obj.professionalLabel;
+    row["employeeType"] = emlogis.helper.convertEmploymentType(obj.employeeType);
+    
+    /*
+     * Used for joining everything to everything. 
+     * For example we want to join employees and DS which represents 7 days of week:
+     * using leftOuterJoin every employee will be duplicated 7 times, 
+     * each duplication with different day of the week
+     */
+    row["joinCol"] = 1;
+    
+    employeesCount++;
+    return true;
+}
+return false;]]></method>
+        </script-data-set>
+        <script-data-set name="Skill DS" id="13335">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">skillName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">skillId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">teamId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">joinColumn</property>
+                    <property name="dataType">integer</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">skillName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">skillId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">teamId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">joinColumn</property>
+                    <property name="analysis">measure</property>
+                </structure>
+            </list-property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">teamIds</property>
+                    <property name="dataType">string</property>
+                    <property name="position">1</property>
+                    <expression name="defaultValue" type="javascript">emlogis.current.teams.getIds().join(";")</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">skillName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">skillId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">teamId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">joinColumn</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[skillsCount = 0;
+
+try {
+	skillsList = reportContext.getGlobalVariable("skillsList");
+}catch(e){
+	skillsList = null;
+}
+
+if (token &amp;&amp; !skillsList) {
+	skillsList = report.getList(token, "teams/skills?teamIds=" + inputParams["teamIds"]);
+	reportContext.setGlobalVariable("skillsList", skillsList);
+}]]></method>
+            <method name="fetch"><![CDATA[if (token != null &amp;&amp; skillsCount < skillsList.size()) {
+	var obj = skillsList.get(skillsCount);
+	row["teamId"] = obj.teamId;
+    row["skillId"] = obj.skillId;
+    row["skillName"] = obj.skillName;
+    
+    /*
+     * Used for joining everything to everything. 
+     * For example we want to join employees and DS which represents 7 days of week:
+     * using leftOuterJoin every employee will be duplicated 7 times, 
+     * each duplication with different day of the week
+     */
+    row["joinColumn"] = 1;
+    
+    skillsCount++;
+    return true;
+}
+return false;]]></method>
+        </script-data-set>
+        <derived-data-set extensionID="com.actuate.birt.data.join" name="Skills Dates Joined DS" id="14695">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">skillName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">skillId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">teamId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">dayName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">dayOfWeek</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">dayOfMonth</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">date</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">skillName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">skillId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">teamId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">dayName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">dayOfWeek</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">dayOfMonth</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">date</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">weekNumber</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <simple-property-list name="inputDataSets">
+                <value>Skill DS</value>
+                <value>Dates Range DS</value>
+            </simple-property-list>
+            <xml-property name="queryText"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tns:joinedDataSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.actuate.com/birt/dataset_join.xsd" xmlns:tns="http://schemas.actuate.com/birt/dataset_join.xsd">
+<tns:selectColumns>
+<tns:Column>Skill DS::skillName</tns:Column>
+<tns:Column>Skill DS::skillId</tns:Column>
+<tns:Column>Skill DS::teamId</tns:Column>
+<tns:Column>Dates Range DS::dayName</tns:Column>
+<tns:Column>Dates Range DS::dayOfWeek</tns:Column>
+<tns:Column>Dates Range DS::dayOfMonth</tns:Column>
+<tns:Column>Dates Range DS::date</tns:Column>
+<tns:Column>Dates Range DS::weekNumber</tns:Column>
+</tns:selectColumns>
+<tns:joins>
+<tns:startingDataSet Index="0" name="Skill DS"/>
+<tns:join>
+<tns:type>leftOuter</tns:type>
+<tns:dataSet Index="1" name="Dates Range DS"/>
+<tns:on>
+<tns:condition>
+<tns:leftColumn>Skill DS::joinColumn</tns:leftColumn>
+<tns:rightColumn>Dates Range DS::joinColumn</tns:rightColumn>
+<tns:operator>eq</tns:operator>
+</tns:condition>
+</tns:on>
+</tns:join>
+</tns:joins>
+</tns:joinedDataSet>]]></xml-property>
+        </derived-data-set>
+        <script-data-set name="CDPreference DS" id="15330">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">id</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">startTime</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">endTime</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">date</property>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">prefType</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">employeeId</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">id</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">startTime</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">endTime</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">date</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">prefType</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">employeeId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">id</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">startTime</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">endTime</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">date</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">prefType</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">employeeId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[cdAvailCount = 0;
+
+try {
+	cdPreferenceList = reportContext.getGlobalVariable("cdPreferenceList");
+}catch(e){
+	cdPreferenceList = null;
+}
+
+if (!cdPreferenceList &amp;&amp; token) {
+	/*
+	 * Using these params we can extend current Data Set within any report (Not depending on specific report params).
+	 */
+	var startDate = toServerTime(params["ReportIntervalStartDate"].value).getTime();
+	var endDate = toServerTime(params["ReportIntervalEndDate"].value).getTime();
+	
+	cdPreferenceList = report.getList(token, "teams/cdpreference?teamIds=" 
+		+ emlogis.current.teams.getIds().join(";") + "&amp;startDate=" + startDate + "&amp;endDate=" + endDate);
+	reportContext.setGlobalVariable("cdPreferenceList", cdPreferenceList);
+}]]></method>
+            <method name="fetch"><![CDATA[if (token != null &amp;&amp; cdAvailCount < cdPreferenceList.size()) {
+	var obj = cdPreferenceList.get(cdAvailCount);
+
+	row["id"] = "" + obj.employeeId + obj.dateTime + obj.prefType + obj.startTime + obj.endTime;
+	row["startTime"] = obj.startTime+"";
+    row["endTime"] = obj.endTime+"";
+    row["date"] = toSiteTime(obj.dateTime);
+	row["prefType"] = obj.prefType;
+	row["employeeId"] = obj.employeeId;
+    
+    cdAvailCount++;
+    return true;
+}
+
+return false;]]></method>
+        </script-data-set>
+        <script-data-set name="CIPreference DS" id="15331">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">id</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">startTime</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">endTime</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">dayOfTheWeek</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">prefType</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">effectiveStartDate</property>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">effectiveEndDate</property>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">employeeId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">preview</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">id</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">startTime</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">endTime</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">dayOfTheWeek</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">prefType</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">effectiveStartDate</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">effectiveEndDate</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">employeeId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">preview</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">id</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">startTime</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">endTime</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">dayOfTheWeek</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">prefType</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">effectiveStartDate</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">effectiveEndDate</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">employeeId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">preview</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[ciAvailCount = 0;
+
+try {
+	ciPreferenceList = reportContext.getGlobalVariable("ciPreferenceList");
+}catch(e){
+	ciPreferenceList = null;
+}
+
+if (!ciPreferenceList &amp;&amp; token) {
+	/*
+	 * Using these params we can extend current Data Set within any report (Not depending on specific report params).
+	 */
+	var startDate = toServerTime(params["ReportIntervalStartDate"].value).getTime();
+	var endDate = toServerTime(params["ReportIntervalEndDate"].value).getTime();
+	
+	ciPreferenceList = report.getList(token, "teams/cipreference?teamIds=" 
+		+ emlogis.current.teams.getIds().join(";") + "&amp;startDate=" + startDate + "&amp;endDate=" + endDate);
+	reportContext.setGlobalVariable("ciPreferenceList", ciPreferenceList);
+}]]></method>
+            <method name="fetch"><![CDATA[if (token != null &amp;&amp; ciAvailCount < ciPreferenceList.size()) {
+	var obj = ciPreferenceList.get(ciAvailCount);
+
+	row["id"] = "" + obj.employeeId + obj.dayOfTheWeek + obj.startTime + obj.endTime + obj.effectiveDateRangeStart + obj.effectiveDateRangeEnd;
+	row["startTime"] = obj.startTime + "";
+    row["endTime"] = obj.endTime + "";
+	row["prefType"] = obj.prefType;
+    row["dayOfTheWeek"] = obj.dayOfTheWeek;
+    row["employeeId"] = obj.employeeId;
+    row["effectiveStartDate"] = toSiteTime(obj.effectiveDateRangeStart);
+    /*
+     * "obj.effectiveDateRangeEnd" field is nullable, so if it is null we replace it with very far date (currentYear + 1000)
+     * (Reason: row["effectiveEndDate"] typed as BIRT Date, it is NOT nullable and creates "01.01.1970" date for invalid date, but
+     * "obj.effectiveDateRangeEnd" == null means that the time frame is endless)
+     */
+    var effectiveDateRangeEnd = obj.effectiveDateRangeEnd;
+    if(effectiveDateRangeEnd) {
+    	row["effectiveEndDate"] = toSiteTime(effectiveDateRangeEnd);
+    } else {
+    	var farDate = new Date();
+    	farDate.setYear(farDate.getFullYear() + 1000);
+    	row["effectiveEndDate"] = farDate;
+    }
+    
+    row["preview"] = "";
+    ciAvailCount++;
+
+    return true;
+}
+
+return false;
+
+function calculateEndTime(startTime, durationInMinutes) {
+	return startTime &amp;&amp; durationInMinutes ? startTime*1 + durationInMinutes*1*60*1000 : null;
+}
+
+function millisToTime(timeInMillis) {
+	var hrs = Math.floor(timeInMillis/3600000);
+	var restTime = timeInMillis % 3600000;
+	var mins = Math.floor(restTime/60000);
+	restTime = restTime % 60000;
+	var secs = Math.floor(restTime/1000);
+	return {
+		hours: hrs,
+		minutes: mins,
+		seconds: secs
+	}
+}
+
+function timeStringToShort12TimeString(timeString) {
+	var date = new Date("Thu Jan 01 1970 " + timeString);
+	return emlogis.date.toShort12TimeString(date);
+}]]></method>
+        </script-data-set>
+        <script-data-set name="ExtendedShiftRequirement DS" id="15332">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">id</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">startTime</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">endTime</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">dayOfTheWeek</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">date</property>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">employeeCount</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">excessCount</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">teamId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">skillId</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">id</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">startTime</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">endTime</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">dayOfTheWeek</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">date</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">employeeCount</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">excessCount</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">teamId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">skillId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">id</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">startTime</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">endTime</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">dayOfTheWeek</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">date</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">employeeCount</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">excessCount</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">teamId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">skillId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[shiftRequirementsCount = 0;
+
+try {
+	shiftRequirementList = reportContext.getGlobalVariable("shiftRequirementList");
+}catch(e){
+	shiftRequirementList = null;
+}
+
+if (!shiftRequirementList &amp;&amp; token) {
+	/*
+	 * Using these params we can extend current Data Set within any report (Not depending on specific report params).
+	 */
+	var startDate = toServerTime(params["ReportIntervalStartDate"].value).getTime();
+	var endDate = toServerTime(params["ReportIntervalEndDate"].value).getTime();
+	
+	shiftRequirementList = report.getList(token, "teams/shiftrequirements?teamIds=" 
+		+ emlogis.current.teams.getIds().join(";") + "&amp;startDate=" + startDate + "&amp;endDate=" + endDate);
+	reportContext.setGlobalVariable("shiftRequirementList", shiftRequirementList);
+}]]></method>
+            <method name="fetch"><![CDATA[if (token != null &amp;&amp; shiftRequirementsCount < shiftRequirementList.size()) {
+	var obj = shiftRequirementList.get(shiftRequirementsCount);
+
+	row["id"] = obj.id;
+	var startTime = emlogis.helper.toNumber(obj.shiftStartTimeMillis);
+	var length = emlogis.helper.toNumber(obj.shiftLengthMillis);
+	row["startTime"] = (!isNaN(startTime) ? startTime : null) + "";
+    row["endTime"] = (!isNaN(startTime) &amp;&amp; !isNaN(length) ? startTime + length : null) + "";
+    
+    var date = emlogis.helper.toNumber(obj.cdDate);
+    date = !isNaN(date) ? date : null;
+    row["dayOfTheWeek"] = parseDayOfTheWeek(obj);
+    row["date"] = date ? toSiteTime(date) : emlogis.current.daysInterval[row["dayOfTheWeek"]].date;
+	row["employeeCount"] = obj.employeeCount;
+	row["excessCount"] = obj.excessCount;
+	row["teamId"] = obj.teamId;
+	row["skillId"] = obj.skillId;
+    
+    shiftRequirementsCount++;
+    return true;
+}
+
+return false;
+
+function parseDayOfTheWeek(obj) {
+	var dayOfTheWeek = emlogis.helper.toNumber(obj.dayOfTheWeek);
+	var date = emlogis.helper.toNumber(obj.cdDate);
+	if(!isNaN(dayOfTheWeek)) {
+		return dayOfTheWeek;
+	}
+	if(!isNaN(date)) {
+		date = toSiteTime(date);
+		for(var i = 0; i < emlogis.current.daysInterval.length; i++) {
+			var day = emlogis.current.daysInterval[i];
+			if(emlogis.date.isEqualDates(date, day.date)) {
+				return day.number;
+			}
+		}
+	}
+	return -1;
+}]]></method>
+        </script-data-set>
+        <script-data-set name="Schedule DS" id="15335">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">id</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">name</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">startDate</property>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">endDate</property>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">lengthInDays</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">scheduleInfo</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">id</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">name</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">startDate</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">endDate</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">lengthInDays</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">scheduleInfo</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+            </list-property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">filter</property>
+                    <property name="dataType">string</property>
+                    <property name="position">1</property>
+                    <expression name="defaultValue" type="javascript">"limit=0&amp;filter=id=" + emlogis.current</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">id</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">startDate</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">endDate</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">lengthInDays</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">scheduleInfo</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[schedulesCount = 0;
+
+try {
+	schedulesList = reportContext.getPersistentGlobalVariable("schedulesList");
+}catch(e){
+	schedulesList = null;
+}
+
+if (token &amp;&amp; !schedulesList) {
+	var entityToSend = report.newStringMap();
+	entityToSend.put("sites", report.newStringList(emlogis.current.site.get("id")));
+	entityToSend.put("teams", null);
+	entityToSend.put("statuses", null);
+	entityToSend.put("states", null);
+	entityToSend.put("scheduleType", null);
+	entityToSend.put("scheduleLengthInDays", null);
+	entityToSend.put("search", null);
+	entityToSend.put("startDate", toServerTime(params["StartDate"].value.getTime()).getTime());
+	entityToSend.put("paging", null);
+	entityToSend.put("ordering", null);
+
+	schedulesList = report.getListFromResultSetByPost(token, "schedules/ops/querynew", entityToSend);
+	reportContext.setPersistentGlobalVariable("schedulesList", schedulesList);
+}]]></method>
+            <method name="fetch"><![CDATA[if (token &amp;&amp; schedulesCount < schedulesList.size()) {
+	var obj = schedulesList.get(schedulesCount);
+	
+	row["id"] = obj.id;
+    row["name"] = obj.name;
+    row["lengthInDays"] = obj.lengthInDays+"";
+    row["startDate"] = toSiteTime(obj.startDate);
+    row["endDate"] = !obj.endDate 
+    	? calculateScheduleEndDate(row["startDate"].getTime(), row["lengthInDays"]) 
+    	: toSiteTime(obj.endDate);
+    
+    var scheduleInfo = {
+        id: row["id"],
+        name: row["name"],
+        startDate: row["startDate"].getTime(),
+        endDate: row["endDate"].getTime(),
+        lengthInDays: row["lengthInDays"]
+    }
+    
+    row["scheduleInfo"] = emlogis.helper.buildDataString(scheduleInfo);
+
+    schedulesCount++;
+    return true;
+}
+
+return false;
+
+function calculateScheduleEndDate(startDateMillisInSiteTZ, scheduleLengthInDays) {
+	scheduleLengthInDays = emlogis.helper.toNumber(scheduleLengthInDays);
+	var scheduleLengthInMillis = scheduleLengthInDays ? scheduleLengthInDays * 24 * 60 * 60 * 1000 : null;
+	if(startDateMillisInSiteTZ &amp;&amp; scheduleLengthInMillis) {
+		return new Date(startDateMillisInSiteTZ + scheduleLengthInMillis);
+	}
+	throw name + ".fetch Failed to calculate endDate using startDate=" 
+		+ startDateMillisInSiteTZ + ", lengthInDays=" + scheduleLengthInDays;
+}]]></method>
+        </script-data-set>
+        <script-data-set name="ShiftsBySchedule DS" id="15336">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">shiftId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">startDateTime</property>
+                    <property name="dataType">date-time</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">endDateTime</property>
+                    <property name="dataType">date-time</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">shiftLength</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">employeeId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">scheduleId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">teamId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">teamName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">skillName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">skillAbbrev</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">shift::dayOfMonth</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">skillId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">13</property>
+                    <property name="name">date</property>
+                    <property name="dataType">date</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">shiftId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">startDateTime</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">endDateTime</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">shiftLength</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">employeeId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">scheduleId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">teamId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">teamName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">skillName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">skillAbbrev</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">shift::dayOfMonth</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">skillId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">date</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+            </list-property>
+            <list-property name="parameters"/>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">shiftId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">startDateTime</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">endDateTime</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">shiftLength</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">employeeId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">scheduleId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">teamId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">teamName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">skillName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">skillAbbrev</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">shift::dayOfMonth</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">skillId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">date</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[shiftsByScheduleCount = 0;
+
+try {
+	shiftsByScheduleList = reportContext.getPersistentGlobalVariable("shiftsByScheduleList");
+}catch(e){
+	shiftsByScheduleList = null;
+}
+
+if (token &amp;&amp; !shiftsByScheduleList) {
+	shiftsByScheduleList = report.getListFromResultSet(token, "shifts?limit=0&amp;filter=" + 
+		"scheduleId='" + emlogis.current.schedule.get("id") + "';"
+//		+ "scheduleStatus=" + emlogis.def.schedule.status.posted
+	);
+	reportContext.setPersistentGlobalVariable("shiftsByScheduleList", shiftsByScheduleList);
+}]]></method>
+            <method name="fetch"><![CDATA[if (token != null &amp;&amp; shiftsByScheduleCount < shiftsByScheduleList.size()) {
+	var obj = shiftsByScheduleList.get(shiftsByScheduleCount);
+
+    row["shiftId"] = obj.id;
+    row["startDateTime"] = toSiteTime(obj.startDateTime);
+    row["endDateTime"] = toSiteTime(obj.endDateTime);
+    row["shiftLength"] = obj.shiftLength;
+    row["scheduleId"] = obj.scheduleId;
+    row["employeeId"] = obj.employeeId;
+    row["teamId"] = obj.teamId;
+    row["teamName"] = obj.teamName;
+    row["skillName"] = obj.skillName;
+    row["skillAbbrev"] = obj.skillAbbrev;
+    row["skillId"] = obj.skillId;
+    
+    row["shift::dayOfMonth"] = row["startDateTime"].getDate();
+    row["date"] = row["startDateTime"];
+
+    shiftsByScheduleCount++;
+    return true;
+}
+
+return false;]]></method>
+        </script-data-set>
+        <script-data-set name="SkillsBySite DS" id="15338">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">skillName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">skillId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">teamId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">abbreviation</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">description</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">joinColumn</property>
+                    <property name="dataType">integer</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">skillName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">skillId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">teamId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">abbreviation</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">description</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">joinColumn</property>
+                    <property name="analysis">measure</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">skillName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">skillId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">teamId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">abbreviation</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">description</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">joinColumn</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[skillsBySiteCount = 0;
+
+try {
+	skillsBySiteList = reportContext.getGlobalVariable("skillsBySiteList");
+}catch(e){
+	skillsBySiteList = null;
+}
+
+if (token &amp;&amp; !skillsBySiteList) {
+	skillsBySiteList = report.getListFromResultSet(token, "sites/"+ emlogis.current.site.get("id") +"/skills");
+	reportContext.setGlobalVariable("skillsBySiteList", skillsBySiteList);
+}]]></method>
+            <method name="fetch"><![CDATA[if (token != null &amp;&amp; skillsBySiteCount < skillsBySiteList.size()) {
+	var obj = skillsBySiteList.get(skillsBySiteCount);
+	row["skillId"] = obj.id;
+    row["skillName"] = obj.name;
+    row["abbreviation"] = obj.abbreviation;
+    row["description"] = obj.description;
+    
+    /*
+     * Used for joining everything to everything. 
+     * For example we want to join employees and DS which represents 7 days of week:
+     * using leftOuterJoin every employee will be duplicated 7 times, 
+     * each duplication with different day of the week
+     */
+    row["joinColumn"] = 1;
+    
+    skillsBySiteCount++;
+    return true;
+}
+return false;]]></method>
+        </script-data-set>
+        <script-data-set name="ShiftType DS" id="15339">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">id</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">name</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">paidTimeInMin</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">description</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">startTime</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">shiftLengthId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">shiftLengthLength</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">active</property>
+                    <property name="dataType">boolean</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">id</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">name</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">paidTimeInMin</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">description</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">startTime</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">shiftLengthId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">shiftLengthLength</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">active</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">id</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">paidTimeInMin</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">description</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">startTime</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">shiftLengthId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">shiftLengthLength</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">active</property>
+                        <property name="dataType">boolean</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[shiftTypesCount = 0;
+
+try {
+	shiftTypesList = reportContext.getGlobalVariable("shiftTypesList");
+}catch(e){
+	shiftTypesList = null;
+}
+
+if (token &amp;&amp; !shiftTypesList) {
+	shiftTypesList = report.getListFromResultSet(token, "sites/"+ emlogis.current.site.get("id") +"/shifttypes");
+	reportContext.setGlobalVariable("shiftTypesList", shiftTypesList);
+}]]></method>
+            <method name="fetch"><![CDATA[if (token != null &amp;&amp; shiftTypesCount < shiftTypesList.size()) {
+	var obj = shiftTypesList.get(shiftTypesCount);
+	
+	row["id"] = obj.id;
+    row["name"] = obj.name;
+    row["paidTimeInMin"] = obj.paidTimeInMin;
+    row["description"] = obj.description;
+    row["startTime"] = obj.startTime+"";
+    row["shiftLengthId"] = obj.shiftLengthId;
+    row["shiftLengthLength"] = obj.shiftLengthLength;
+    row["active"] = obj.active;
+    
+    shiftTypesCount++;
+    return true;
+}
+return false;]]></method>
+        </script-data-set>
+        <script-data-set name="SiteDetails DS" id="15337">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">id</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">name</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">description</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">dailyOvertimeMins</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">weeklyOvertimeMins</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">biweeklyOvertimeMins</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">maxConsecutiveDays</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">hoursOffBetweenDays</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">shiftBackToBackTimeMin</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">displayStartTime</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">displayEndTime</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">id</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">name</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">description</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">dailyOvertimeMins</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">weeklyOvertimeMins</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">biweeklyOvertimeMins</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">maxConsecutiveDays</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">hoursOffBetweenDays</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">shiftBackToBackTimeMin</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">displayStartTime</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">displayEndTime</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">id</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">description</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">dailyOvertimeMins</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">weeklyOvertimeMins</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">biweeklyOvertimeMins</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">maxConsecutiveDays</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">hoursOffBetweenDays</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">shiftBackToBackTimeMin</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">displayStartTime</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">displayEndTime</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[siteFlag = false;
+
+if (token) {
+	siteDetails = report.getObject(token, "sites/" + emlogis.current.site.get("id"));
+}]]></method>
+            <method name="fetch"><![CDATA[if (!siteFlag) {
+	var obj = siteDetails;
+	var overtimeObj = obj.overtimeDto;
+
+    row["id"] = obj.id;
+    row["name"] = obj.name;
+    row["description"] = obj.description;
+    
+    row["dailyOvertimeMins"] = overtimeObj.dailyOvertimeMins;
+    row["weeklyOvertimeMins"] = overtimeObj.weeklyOvertimeMins;
+    row["biweeklyOvertimeMins"] = overtimeObj.biweeklyOvertimeMins;
+    
+    row["maxConsecutiveDays"] = 0; //obj.maxConsecutiveShifts;
+    row["hoursOffBetweenDays"] = 0; //obj.timeOffBetweenShifts
+    row["shiftBackToBackTimeMin"] = 0; //obj.shiftOverlaps
+    
+    row["displayStartTime"] = "";
+    row["displayEndTime"] = "";
+    
+    siteFlag = true;
+    return true;
+}
+
+return false;]]></method>
+        </script-data-set>
+    </data-sets>
+    <themes>
+        <theme name="EmlogisGrayScales" id="4">
+            <list-property name="cssStyleSheets">
+                <structure>
+                    <property name="fileName">emlogis/css/emlogis-classic-theme/basic.css</property>
+                    <property name="useExternalCss">false</property>
+                </structure>
+            </list-property>
+        </theme>
+        <report-item-theme type="Table" name="Table-EmlogisGrayScales" id="11012">
+            <list-property name="cssStyleSheets">
+                <structure>
+                    <property name="fileName">emlogis/css/emlogis-classic-theme/table.css</property>
+                    <property name="useExternalCss">false</property>
+                </structure>
+            </list-property>
+        </report-item-theme>
+    </themes>
+    <components>
+        <list name="Report header in body - Selected teams" id="11078">
+            <property name="style">emlogis-header-second</property>
+            <property name="display">inline</property>
+            <property name="dataSet">Team DS</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">teamId</property>
+                    <text-property name="displayName">Team Id</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["teamId"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">teamName</property>
+                    <text-property name="displayName">Team Name</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["teamName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="filter">
+                <structure>
+                    <property name="operator">in</property>
+                    <expression name="expr" type="javascript">row["teamId"]</expression>
+                    <simple-property-list name="value1">
+                        <value type="javascript">emlogis.current.teams.getIds()</value>
+                    </simple-property-list>
+                    <property name="updateAggregation">true</property>
+                </structure>
+            </list-property>
+            <header>
+                <text name="NewText" id="11079">
+                    <property name="style">highlighted-text-italic</property>
+                    <property name="display">inline</property>
+                    <list-property name="highlightRules">
+                        <structure>
+                            <property name="operator">eq</property>
+                            <expression name="testExpr" type="javascript">1</expression>
+                            <simple-property-list name="value1">
+                                <value type="javascript">1</value>
+                            </simple-property-list>
+                            <property name="style">padding-05em</property>
+                        </structure>
+                    </list-property>
+                    <property name="contentType">auto</property>
+                    <text-property name="content"><![CDATA[Selected teams: ]]></text-property>
+                </text>
+            </header>
+            <detail>
+                <text-data name="NewTextData" id="11080">
+                    <property name="style">padding-05em</property>
+                    <property name="display">inline</property>
+                    <list-property name="highlightRules">
+                        <structure>
+                            <property name="operator">eq</property>
+                            <expression name="testExpr" type="javascript">1</expression>
+                            <simple-property-list name="value1">
+                                <value type="javascript">1</value>
+                            </simple-property-list>
+                            <property name="style">highlighted-text-underlined</property>
+                        </structure>
+                        <structure>
+                            <property name="operator">eq</property>
+                            <expression name="testExpr" type="javascript">1</expression>
+                            <simple-property-list name="value1">
+                                <value type="javascript">1</value>
+                            </simple-property-list>
+                            <property name="style">highlighted-text-italic</property>
+                        </structure>
+                    </list-property>
+                    <expression name="valueExpr" type="javascript">row["teamName"]</expression>
+                    <property name="contentType">html</property>
+                </text-data>
+            </detail>
+            <footer>
+                <text name="NewText1" id="11061">
+                    <property name="marginBottom">0em</property>
+                </text>
+            </footer>
+        </list>
+        <grid name="Report header" id="13737">
+            <property name="marginLeft">auto</property>
+            <property name="marginBottom">0pt</property>
+            <property name="marginRight">auto</property>
+            <property name="width">100%</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">reportTime</property>
+                    <text-property name="displayName">Report time interval</text-property>
+                    <expression name="expression" type="javascript">var birtStartDate = BirtDateTime.firstDayOfWeek(params["StartDate"].value);&#13;
+var birtEndtDate = BirtDateTime.addDay(birtStartDate, 6);&#13;
+"Schedule span: "+ Formatter.format(birtStartDate, 'MM/dd/YYYY') + " to " + Formatter.format(birtEndtDate, 'MM/dd/YYYY');</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">reportName</property>
+                    <text-property name="displayName">Report Name</text-property>
+                    <expression name="expression" type="javascript">emlogis.current.reportName + ": "+emlogis.current.site.get("name")</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">Selected teams</property>
+                    <expression name="expression" type="javascript">"Selected teams: " + "&lt;u>" + emlogis.current.teams.getNames().join("&lt;u>&amp;nbsp;&amp;nbsp;&lt;u>") + "&lt;u>";</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+            </list-property>
+            <column id="13738">
+                <property name="width">80%</property>
+            </column>
+            <column id="13739"/>
+            <row id="13740">
+                <cell id="13741">
+                    <property name="style">emlogis-header-first</property>
+                    <grid name="NewGrid11" id="13742">
+                        <column id="13743"/>
+                        <row id="13744">
+                            <cell id="13745">
+                                <property name="style">padding-05em</property>
+                                <data name="NewData111" id="13746">
+                                    <property name="resultSetColumn">reportName</property>
+                                </data>
+                            </cell>
+                        </row>
+                    </grid>
+                </cell>
+                <cell id="13747">
+                    <property name="style">emlogis-header-second</property>
+                    <grid name="NewGrid2" id="13748">
+                        <column id="13749"/>
+                        <row id="13750">
+                            <cell id="13751">
+                                <data name="NewData21" id="13752">
+                                    <property name="style">align-right</property>
+                                    <property name="resultSetColumn">reportTime</property>
+                                </data>
+                            </cell>
+                        </row>
+                    </grid>
+                </cell>
+            </row>
+            <row id="13775">
+                <cell id="13776">
+                    <property name="colSpan">2</property>
+                    <property name="rowSpan">1</property>
+                    <property name="style">emlogis-header-second</property>
+                    <grid name="NewGrid" id="10833">
+                        <column id="10834"/>
+                        <row id="10835">
+                            <cell id="10836">
+                                <property name="style">padding-05em</property>
+                                <text-data name="NewTextData1" id="13779">
+                                    <property name="style">highlighted-text-italic</property>
+                                    <expression name="valueExpr">"Selected teams: " + "&lt;u>" + emlogis.current.teams.getNames().join("&lt;u>&amp;nbsp;&amp;nbsp;&lt;u>") + "&lt;u>";</expression>
+                                    <property name="contentType">html</property>
+                                </text-data>
+                            </cell>
+                        </row>
+                    </grid>
+                </cell>
+            </row>
+        </grid>
+        <grid name="Report footer" id="13753">
+            <property name="marginTop">4pt</property>
+            <property name="marginLeft">auto</property>
+            <property name="marginRight">auto</property>
+            <property name="height">100%</property>
+            <property name="width">100%</property>
+            <column id="13754">
+                <property name="width">50%</property>
+            </column>
+            <column id="13755"/>
+            <row id="13756">
+                <cell id="13757">
+                    <property name="style">padding-05em</property>
+                    <text-data name="NewTextData111" id="13758">
+                        <property name="style">highlighted-text-bold</property>
+                        <expression name="valueExpr">'Report Date: ' + Formatter.format(BirtDateTime.now(), 'MMMM d, y h:mm a')</expression>
+                        <property name="contentType">html</property>
+                    </text-data>
+                </cell>
+                <cell id="13759">
+                    <property name="style">align-right</property>
+                    <grid name="NewGrid1111" id="13760">
+                        <property name="style">highlighted-text-bold</property>
+                        <property name="width">1%</property>
+                        <column id="13761"/>
+                        <column id="13762"/>
+                        <column id="13763"/>
+                        <column id="13764"/>
+                        <row id="13765">
+                            <cell id="13766">
+                                <text name="NewText211" id="13767">
+                                    <property name="contentType">auto</property>
+                                    <text-property name="content"><![CDATA[Page ]]></text-property>
+                                </text>
+                            </cell>
+                            <cell id="13768">
+                                <auto-text name="NewAutoText211" id="13769">
+                                    <property name="type">page-number</property>
+                                </auto-text>
+                            </cell>
+                            <cell id="13770">
+                                <text name="NewText1111" id="13771">
+                                    <property name="contentType">plain</property>
+                                    <text-property name="content"><![CDATA[ of ]]></text-property>
+                                </text>
+                            </cell>
+                            <cell id="13772">
+                                <auto-text name="NewAutoText1111" id="13773">
+                                    <property name="type">total-page</property>
+                                </auto-text>
+                            </cell>
+                        </row>
+                    </grid>
+                </cell>
+            </row>
+        </grid>
+    </components>
+    <page-setup>
+        <simple-master-page name="Basic Portrait" id="10507"/>
+    </page-setup>
+</library>

@@ -1,0 +1,70 @@
+@import 'bootstrap_variables.scss';
+@import 'emlogis_variables.scss';
+
+.login-container {
+  height: 100%;
+  background-color: #007fb5;
+  background-size: 100% 100%;
+
+  .login-shine {
+    position: absolute;
+    width: 640px;
+    height: 530px;
+    left:0;
+    right:0;
+    margin-left:auto;
+    margin-right:auto;
+    z-index: 1;
+  }
+
+  #login-holder {
+    position: absolute;
+    padding-top: 200px;
+    width: 300px;
+    left: 50%;
+    margin-left: -150px;
+    z-index: 100;
+
+    form {
+      margin-top: 15px;
+      text-align: left;
+
+      label {
+        color: white;
+      }
+
+      .form-control {
+        height: 35px;
+        font-size: $font-size-h4;
+      }
+
+      .new-pwd, .repeat-pwd {
+        .glyphicon-ok {
+          display: inline-block;
+          color: greenyellow;
+          top: -25px;
+          left: 310px;
+        }
+      }
+
+      .button-section {
+        margin-top: 5px;
+        span {
+          text-transform: uppercase;
+          color: #acd5e7;
+          font-weight: 300;
+          margin-right: 15px;
+          cursor: pointer;
+        }
+      }
+
+    }
+  }
+
+  .bottom-image {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 2;
+  }
+}

@@ -1,0 +1,70 @@
+<div class="new-schedule-modal">
+    <h4>{{'schedule_builder.NEW_SCHEDULE' | translate }}</h4>
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <label for="scheduleName" class="pull-left" translate>app.NAME</label>
+            <input type="text" id="scheduleName" ng-model="schedule.name" class="form-control name pull-left">
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-sm-12 col-md-12 col-lg-12" >
+            <label for="sites" class="pull-left" style="padding-top: 10px;" >{{'schedule_builder.SITES' | translate}}:</label>
+            <!-- Sites Filter -->
+            <div class="sites">
+                <div isteven-multi-select
+                     id = "sites"
+                     input-model="sites"
+                     button-label="name"
+                     output-model="selectedSites"
+                     item-label="name"
+                     tick-property="ticked"
+                     max-labels = "1"
+                     selection-mode="single"
+                     on-item-click="loadTeamsAction(data)"
+                     max-height="200px"
+                        >
+                </div>
+            </div>
+
+            <label for="teams" class="pull-left" style="margin-left: 10px; padding-top: 10px;" >{{'schedule_builder.TEAMS' | translate}}:</label>
+            <!-- Teams Filter -->
+            <div class="teams">
+                <div isteven-multi-select
+                     id = "teams"
+                     input-model="teams"
+                     output-model="selectedTeams"
+                     button-label="name"
+                     item-label="name"
+                     tick-property="ticked"
+                     max-labels = "1"
+                     max-height="200px"
+                        >
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-sm-12 col-md-12 col-lg-12" >
+            <label for="startDate" class="pull-left" > {{'schedule_builder.START_DATE' | translate}}:</label>
+
+            <div class="input-group start-date pull-left" >
+                <input type="text" id="startDate" class="form-control" datepicker-popup="shortDate"
+                       ng-model="schedule.startDate" is-open="startDateOpened" datepicker-options="dateOptions"
+                       ng-required="true" date-disabled="calendarDisabled(date, mode)" close-text="Close" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="showDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </div>
+            <label for="length" class="pull-left" >{{'schedule_builder.LENGTH' | translate}}:</label>
+            <select class="form-control length pull-left" ng-model="schedule.length" ng-options="day as day + ' days' for day in days" id="length">
+                <option value="">{{'app.SELECT' | translate}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12" style="overflow: hidden; padding-top: 10px; clear: both;">
+            <button ng-click="close()" class="btn btn-default close-btn pull-right" translate>app.CLOSE</button>
+            <button ng-click="create()" ng-disabled = "!schedule.startDate || !schedule.length || !schedule.name || selectedSites.length == 0 || selectedTeams.length == 0" class="btn btn-default save-btn pull-right" translate>app.CREATE</button>
+        </div>
+    </div>
+</div>

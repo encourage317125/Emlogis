@@ -1,0 +1,1 @@
+EGS: Your Work In Place Request has been ${requestStatus}

@@ -1,0 +1,1932 @@
+<div class="employee-schedules">
+  <div class="data-panel container-fluid">
+    <div class="row site-level select-container top-margin-base form-group">
+      <div class="col-md-12">
+        <div class="select-schedule-container sub-select-container">
+          <button class="btn btn-primary btn-open-schedule" ng-click="openSiteSchedulesModal()">
+            <span class="filter-ico fa fa-calendar"></span>
+          </button>
+        </div>
+        <div class="sub-select-container">
+          <div class="no-schedule-alert-container" ng-if="selectedSchedule === null && scheduleInfoLoaded === null">
+            <h4>{{'employee_schedules.PLEASE_SELECT_SCHEDULE' | translate}}</h4>
+          </div>
+        </div>
+        <div class="loader-container sub-select-container">
+          <div loader ng-if="scheduleInfoLoaded === false" class="schedule-loader"></div>
+        </div>
+        <div class="sub-select-container text-center" ng-if="selectedSchedule !== null">
+          <label class="black-color">{{'app.VIEW' | translate}}:</label>
+          <span ng-if="viewMode.mode === 'week'">
+            <span ng-repeat="week in selectedSchedule.weeks" class="week-selector">
+              <button ng-if="week.selected" class="btn btn-default mid-grey-bg white-color" ng-click="selectWeek(week)">{{week.label}}</button>
+              <button ng-if="!week.selected" class="btn btn-default white-bg blue-color" ng-click="selectWeek(week)">{{week.label}}</button>
+            </span>
+          </span>
+          <span ng-if="viewMode.mode === 'day'">
+            <span ng-repeat="day in selectedSchedule.selectedWeek.dayLabels" class="day-selector">
+              <button ng-if="day.selected" class="btn btn-default mid-grey-bg white-color" ng-click="goToDayViewFromSelectedWeek(day)">{{day.title}}</button>
+              <button ng-if="!day.selected" class="btn btn-default white-bg blue-color" ng-click="goToDayViewFromSelectedWeek(day)">{{day.title}}</button>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="row schedule-top-level schedule-info-container form-group" ng-if="selectedSchedule !== null">
+      <div class="col-md-4">
+        <div class="row">
+          <div class="col-sm-12">
+            <h4 class="schedule-name-info">
+              <label>{{'employee_schedules.SCHEDULE_NAME' | translate}}:</label>
+              <span class="info-value black-color">{{selectedSchedule.name}}</span>
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="inline-container">
+              <div class="inline-info">
+                <label>{{'employee_schedules.START' | translate}}:</label>
+                <span class="info-value black-color">{{selectedSchedule.startDateStr}}</span>
+              </div>
+              <div class="inline-info">
+                <label>{{'employee_schedules.LENGTH' | translate}}:</label>
+                <span class="info-value black-color">{{selectedSchedule.lengthInWeeks}} {{'employee_schedules.WEEKS' | translate}}</span>
+              </div>
+              <div class="inline-info schedule-status-info">
+                <label>{{'employee_schedules.STATUS' | translate}}:</label>
+                <span class="status-info-value info-value">{{selectedSchedule.status}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 text-center">
+        <div class="inline-container">
+          <div class="inline-info text-center">
+            <h4 class="info-value black-color">{{selectedSchedule.totalHours}}</h4>
+            <label>{{'employee_schedules.HOURS' | translate}}</label>
+          </div>
+          <div class="inline-info text-center">
+            <h4 class="info-value black-color">{{selectedSchedule.overtimeHours}}</h4>
+            <label>{{'employee_schedules.OT' | translate}}</label>
+          </div>
+          <div class="inline-info text-center">
+            <h4 class="info-value black-color">{{selectedSchedule.totalCost}}</h4>
+            <label>{{'employee_schedules.COST' | translate}}</label>
+          </div>
+          <div class="inline-info text-center">
+            <h4 class="red-color info-value">{{selectedSchedule.unfilledShiftCount}}</h4>
+            <label>{{'employee_schedules.UNFILLED' | translate}}</label>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="pull-right action-container">
+          <a href ng-click="openOverrides()" class="link-advanced-options">
+            {{'employee_schedules.ADVANCED_OPTIONS' | translate}}
+          </a>
+
+            <div class="btn-group" dropdown ng-show="selectedSchedule.isDeletable">
+            <button class="btn btn-default btn-delete-schedule dropdown-toggle" dropdown-toggle>{{'app.DELETE' | translate}} <span class="caret"></span></button>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href>{{'app.NO' | translate}}</a></li>
+              <li><a href ng-click="deleteSchedule()">{{'app.YES' | translate}}</a></li>
+            </ul>
+          </div>
+          <button class="btn btn-default btn-promote-schedule" ng-click="promoteSchedule()" ng-hide="selectedSchedule.status === 'Posted'">{{'employee_schedules.PROMOTE' | translate}}</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row schedule-level schedule-filter-container form-group" ng-if="selectedSchedule !== null">
+      <div edit-well name="employee_schedules.FILTERING_OPTIONS" is-collapsable="false">
+        <div class="schedule-filter-body" transclude-to="well-body">
+          <div class="upper-part">
+            <div class="row">
+              <div class="col-md-7">
+                <div class="filter-selector-container">
+                  <div class="form-group">
+                    <label class="control-label filter-label black-color" translate>employee_schedules.HOME_TEAM</label>
+                    <span class="filter-selector"
+                          isteven-multi-select
+                          input-model="filter.homeTeams"
+                          output-model="filter.selectedHomeTeams"
+                          button-label="name"
+                          item-label="name"
+                          tick-property="ticked"
+                          max-labels = "1"
+                          on-item-click="onFilterChanged(false)"
+                          on-select-all="onFilterChanged(false)"
+                          on-select-none="onFilterChanged(false)"
+                          on-reset="onFilterChanged(false)">
+                    </span>
+                  </div>
+                </div>
+                <div class="filter-selector-container">
+                  <div class="form-group">
+                    <label class="control-label filter-label black-color" translate>employee_schedules.ASSIGNED_TEAM</label>
+                    <span class="filter-selector"
+                          isteven-multi-select
+                          input-model="filter.assignedTeams"
+                          output-model="filter.selectedAssignedTeams"
+                          button-label="name"
+                          item-label="name"
+                          tick-property="ticked"
+                          max-labels = "1"
+                          on-item-click="onFilterChanged(true)"
+                          on-select-all="onFilterChanged(true)"
+                          on-select-none="onFilterChanged(true)"
+                          on-reset="onFilterChanged(true)">
+                    </span>
+                  </div>
+                </div>
+                <div class="filter-selector-container">
+                  <div class="form-group">
+                    <label class="control-label filter-label black-color" translate>employee_schedules.PRIMARY_SKILL</label>
+                    <span class="filter-selector"
+                          isteven-multi-select
+                          input-model="filter.primarySkills"
+                          output-model="filter.selectedPrimarySkills"
+                          button-label="name"
+                          item-label="name"
+                          tick-property="ticked"
+                          max-labels = "1"
+                          on-item-click="onFilterChanged(false)"
+                          on-select-all="onFilterChanged(false)"
+                          on-select-none="onFilterChanged(false)"
+                          on-reset="onFilterChanged(false)">
+                    </span>
+                  </div>
+                </div>
+                <div class="filter-selector-container">
+                  <div class="form-group">
+                    <label class="control-label filter-label black-color" translate>employee_schedules.ASSIGNED_SKILL</label>
+                    <span class="filter-selector"
+                          isteven-multi-select
+                          input-model="filter.assignedSkills"
+                          output-model="filter.selectedAssignedSkills"
+                          button-label="name"
+                          item-label="name"
+                          tick-property="ticked"
+                          max-labels = "1"
+                          on-item-click="onFilterChanged(true)"
+                          on-select-all="onFilterChanged(true)"
+                          on-select-none="onFilterChanged(true)"
+                          on-reset="onFilterChanged(true)">
+                    </span>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+              <div class="col-md-5">
+                <div class="row">
+                  <div class="col-md-7">
+                    <label class="control-label filter-label black-color" translate>employee_schedules.SHIFT_START_TIME</label>
+                    <div class="slider-container">
+                      <input ng-model="filter.startTime" type="text" slider options="filter.sliderOptions" />
+                    </div>
+                  </div>
+                  <div class="col-md-5">
+                    <div class="pull-right">
+                      <div class="chk-display-scheduled-only-container">
+                        <input type="checkbox" class="chk-display-scheduled-only" ng-model="filter.displayScheduledOnly">
+                        <span translate>employee_schedules.DISPLAY_SCHEDULED_EMPLOYEES_ONLY</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="lower-part form-group">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="pull-left">
+                  <div class="row">
+                    <div class="col-sm-4 text-center">
+                      <span class="black-color info-value">
+                        <h4 ng-if="viewMode.mode === 'week'">
+                          {{selectedSchedule.selectedWeek.hours}}
+                        </h4>
+                        <h4 ng-if="viewMode.mode === 'day'">
+                          {{selectedSchedule.selectedWeek.selectedDay.hours}}
+                        </h4>
+                      </span>
+                      <label>{{'employee_schedules.HOURS' | translate}}</label>
+                    </div>
+                    <div class="col-sm-4 text-center">
+                      <span class="black-color info-value">
+                        <h4 ng-if="viewMode.mode === 'week'">
+                          {{selectedSchedule.selectedWeek.cost}}
+                        </h4>
+                        <h4 ng-if="viewMode.mode === 'day'">
+                          {{selectedSchedule.selectedWeek.selectedDay.cost}}
+                        </h4>
+                      </span>
+                      <label>{{'employee_schedules.COST' | translate}}</label>
+                    </div>
+                    <div class="col-sm-4 text-center">
+                      <span class="red-color info-value">
+                        <h4 ng-if="viewMode.mode === 'week'">
+                          {{selectedSchedule.selectedWeek.unfilled}}
+                        </h4>
+                        <h4 ng-if="viewMode.mode === 'day'">
+                          {{selectedSchedule.selectedWeek.selectedDay.unfilled}}
+                        </h4>
+                      </span>
+                      <label>{{'employee_schedules.UNFILLED' | translate}}</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="pull-right action-container">
+                  <button class="btn btn-default white-color btn-manage-open-shifts" ng-if="viewMode.mode === 'week'" ng-click="openManageOpenShiftsModal()" ng-disabled="selectedSchedule.status !== 'Posted' || checkIfPastSchedule()">{{'employee_schedules.MANAGE_OPEN_SHIFTS' | translate}}</button>
+                  <button class="btn btn-default white-color btn-manage-open-shifts" ng-if="viewMode.mode === 'day'" ng-click="openManageOpenShiftsModal(selectedSchedule.selectedWeek.selectedDay.date)" ng-disabled="selectedSchedule.status !== 'Posted' || checkIfPastSchedule()">{{'employee_schedules.MANAGE_OPEN_SHIFTS' | translate}}</button>
+                  <button class="btn btn-default white-bg grey-color btn-add-new-shift" ng-click="openAddNewShiftModal()" ng-disabled="checkIfPastSchedule()">{{'employee_schedules.ADD_NEW_SHIFT' | translate}}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div ng-if="viewMode.mode === 'week' && selectedSchedule !== null" class="row schedule-level schedule-calendar-container schedule-week-view form-group">
+      <div class="col-sm-12">
+        <div class="row schedule-calendar-bar">
+          <div class="col-sm-12">
+            <div class="pull-left">
+              <div class="input-group name-filter">
+                <input type="text" class="form-control" placeholder="Employee Name..."
+                       ng-model="filter.employeeName" ng-change="onEmployeeNameChanged()"/>
+                <span class="input-group-btn">
+                  <button class="btn btn-default glyphicon glyphicon-search"></button>
+                </span>
+              </div>
+              <div class="toggle-summary">
+                <div class="pull-left" ng-if="!summaryCollapsed">
+                  <button class="blue-color" ng-click="toggleSummary()">>></button>
+                </div>
+                <div class="tick-hourly-rate-container pull-right" ng-if="!summaryCollapsed">
+                  <input class="tick-hourly-rate" type="checkbox" ng-model="checkboxModel.showHourlyRate">
+                  <span translate>employee_schedules.SHOW_HOURLY_RATE</span>
+                </div>
+                <div class="pull-right" ng-if="summaryCollapsed">
+                  <button class="blue-color" ng-click="toggleSummary()"><<</button>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+            <div class="pull-right">
+              <strong>{{getDisplayedEmployeesCount()}}</strong>
+              <span> {{'app.OUT_OF' | translate}} </span>
+              <strong>{{selectedSchedule.employeesInfo.result.length}}</strong>
+              <strong> {{'app.EMPLOYEES' | translate}} </strong>
+              <span>{{'app.DISPLAYED' | translate}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="schedule-calendar schedule-calendar-week-view">
+              <div class="schedule-calendar-header">
+                <div class="schedule-calendar-row">
+                  <div class="employee-info schedule-calendar-cell">
+                    <div class="pull-left">
+                      <a href ng-click="toggleSort('employeeName')">
+                        {{'app.EMPLOYEE' | translate}}
+                      </a>
+                    </div>
+                    <div class="pull-right">
+                      <div class="sort-asc sort">
+                        <a href class="dark-grey-color" ng-click="toggleSort('employeeName', 'asc')">
+                          <span class="fa fa-caret-up fa-lg" ng-class="{'black-color': (sort.field === 'employeeName' && sort.order === 'asc')}"></span>
+                        </a>
+                      </div>
+                      <div class="sort-dec sort">
+                        <a href class="dark-grey-color" ng-click="toggleSort('employeeName', 'dec')">
+                          <span class="fa fa-caret-down fa-lg" ng-class="{'black-color': (sort.field === 'employeeName' && sort.order === 'dec')}"></span>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="pull-right">
+                      <span class="employee-hours" tooltip="{{'employee_schedules.MINIMUM_HOURS_SCHEDULED_HOURS' | translate}}">{{'app.HOURS' | translate}}</span>
+                    </div>
+                  </div>
+                  <div class="employee-service-years schedule-calendar-cell" ng-show="!summaryCollapsed">
+                    <div class="pull-left">
+                      <a href ng-click="toggleSort('serviceYears')">
+                        <span class="glyphicon glyphicon-time"></span>
+                      </a>
+                    </div>
+                    <div class="pull-right">
+                      <div class="sort-asc sort">
+                        <a href class="dark-grey-color" ng-click="toggleSort('serviceYears', 'asc')">
+                          <span class="fa fa-caret-up fa-lg" ng-class="{'black-color': (sort.field === 'serviceYears' && sort.order === 'asc')}"></span>
+                        </a>
+                      </div>
+                      <div class="sort-dec sort">
+                        <a href class="dark-grey-color" ng-click="toggleSort('serviceYears', 'dec')">
+                          <span class="fa fa-caret-down fa-lg" ng-class="{'black-color': (sort.field === 'serviceYears' && sort.order === 'dec')}"></span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="employee-rate schedule-calendar-cell" ng-show="!summaryCollapsed">
+                    <div class="pull-left">
+                      <a href ng-click="toggleSort('rate')">
+                        <span class="glyphicon glyphicon-usd"></span>
+                      </a>
+                    </div>
+                    <div class="pull-right">
+                      <div class="sort-asc sort">
+                        <a href class="dark-grey-color" ng-click="toggleSort('rate', 'asc')">
+                          <span class="fa fa-caret-up fa-lg" ng-class="{'black-color': (sort.field === 'rate' && sort.order === 'asc')}"></span>
+                        </a>
+                      </div>
+                      <div class="sort-dec sort">
+                        <a href class="dark-grey-color" ng-click="toggleSort('rate', 'dec')">
+                          <span class="fa fa-caret-down fa-lg" ng-class="{'black-color': (sort.field === 'rate' && sort.order === 'dec')}"></span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="employee-home-team schedule-calendar-cell" ng-show="!summaryCollapsed">
+                    <div class="pull-left">
+                      <a href ng-click="toggleSort('homeTeam')">
+                        <span class="glyphicon glyphicon-home"></span>
+                      </a>
+                    </div>
+                    <div class="pull-right">
+                      <div class="sort-asc sort">
+                        <a href class="dark-grey-color" ng-click="toggleSort('homeTeam', 'asc')">
+                          <span class="fa fa-caret-up fa-lg" ng-class="{'black-color': (sort.field === 'homeTeam' && sort.order === 'asc')}"></span>
+                        </a>
+                      </div>
+                      <div class="sort-dec sort">
+                        <a href class="dark-grey-color" ng-click="toggleSort('homeTeam', 'dec')">
+                          <span class="fa fa-caret-down fa-lg" ng-class="{'black-color': (sort.field === 'homeTeam' && sort.order === 'dec')}"></span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="employee-primary-skill schedule-calendar-cell" ng-show="!summaryCollapsed">
+                    <div class="pull-left">
+                      <a href ng-click="toggleSort('primarySkill')">
+                        <span class="glyphicon glyphicon-briefcase"></span>
+                      </a>
+                    </div>
+                    <div class="pull-right">
+                      <div class="sort-asc sort">
+                        <a href class="dark-grey-color" ng-click="toggleSort('primarySkill', 'asc')">
+                          <span class="fa fa-caret-up fa-lg" ng-class="{'black-color': (sort.field === 'primarySkill' && sort.order === 'asc')}"></span>
+                        </a>
+                      </div>
+                      <div class="sort-dec sort">
+                        <a href class="dark-grey-color" ng-click="toggleSort('primarySkill', 'dec')">
+                          <span class="fa fa-caret-down fa-lg" ng-class="{'black-color': (sort.field === 'primarySkill' && sort.order === 'dec')}"></span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div ng-repeat="headerLabel in selectedSchedule.selectedWeek.dayLabels"
+                       class="calendar-header-label calendar-day schedule-calendar-cell">
+                    <a href class="pull-left" ng-click="goToDayViewFromSelectedWeek(headerLabel)">{{headerLabel.label}}</a>
+                    <a href class="open-shifts-count-label red-bg white-color pull-right" ng-click="openManageOpenShiftsModal(headerLabel.date)"
+                        ng-if="headerLabel.openShiftsCount !== 0">
+                      OS {{headerLabel.openShiftsCount}}
+                    </a>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+              <div class="schedule-calendar-body">
+                <div ng-repeat="employee in selectedSchedule.employeesInfo.result" class="schedule-calendar-row"
+                     ng-show="employee[9] && (!filter.displayScheduledOnly || employeeHasShifts(employee[0]))">
+                  <div class="employee-info schedule-calendar-cell" ng-click="openAssignShiftsModal(employee)" ng-style="{height: rowHeightsOfEmployeesInWeekView[employee[0]]}">
+                    <div class="employee-name-hours dark-blue-color">
+                      <span class="employee-name pull-left">{{employee[1]}} {{employee[2]}}</span>
+                      <span class="employee-hours pull-right" ng-class="{'red-color': selectedSchedule.selectedWeek.employees[employee[0]].hoursAlarmed, 'bold': selectedSchedule.selectedWeek.employees[employee[0]].hoursAlarmed}">{{selectedSchedule.selectedWeek.employees[employee[0]].minimumHours}}/{{selectedSchedule.selectedWeek.employees[employee[0]].scheduledHours}}</span>
+                      <span class="clearfix"></span>
+                    </div>
+                    <div class="employee-skills">
+                      <span class="glyphicon glyphicon-briefcase dark-blue-color"></span>
+                      <span class="dark-blue-color" tooltip="{{getEmployeeSkillNamesList(employee)}}" tooltip-placement="right">
+                          {{getPrimarySkillName(employee[6])}}
+                      </span>
+                    </div>
+                    <div class="employee-teams">
+                      <span class="glyphicon glyphicon-home dark-blue-color"></span>
+                      <span class="dark-blue-color" tooltip="{{getEmployeeTeamNamesList(employee)}}" tooltip-placement="right">
+                        {{getHomeTeamName(employee[5])}}
+                      </span>
+                    </div>
+                  </div>
+                  <div class="employee-service-years schedule-calendar-cell" ng-show="!summaryCollapsed" ng-style="{height: rowHeightsOfEmployeesInWeekView[employee[0]]}">
+                    <span>{{employee[10]}}</span>
+                  </div>
+                  <div class="employee-rate schedule-calendar-cell" ng-show="!summaryCollapsed" ng-style="{height: rowHeightsOfEmployeesInWeekView[employee[0]]}">
+                    <span ng-if="checkboxModel.showHourlyRate">{{employee[3]}}</span>
+                  </div>
+                  <div class="employee-home-team schedule-calendar-cell" ng-show="!summaryCollapsed" ng-style="{height: rowHeightsOfEmployeesInWeekView[employee[0]]}">
+                    <span>{{getHomeTeamName(employee[5])}}</span>
+                  </div>
+                  <div class="employee-primary-skill schedule-calendar-cell" ng-show="!summaryCollapsed" ng-style="{height: rowHeightsOfEmployeesInWeekView[employee[0]]}">
+                    <span>{{getPrimarySkillName(employee[6])}}</span>
+                  </div>
+                  <div ng-repeat="headerLabel in selectedSchedule.selectedWeek.dayLabels"
+                       class="calendar-day calendar-day-content calendar-day-{{headerLabel.date}} schedule-calendar-cell"
+                      ng-style="{height: rowHeightsOfEmployeesInWeekView[employee[0]]}">
+                    <div ng-repeat="shift in selectedSchedule.selectedWeek.shifts.employeeShifts[employee[0]]['calendar-day-' + headerLabel.date]">
+                      <div class="shift-content {{shift.type}} {{shift.excessType}} {{shift.commentClass}} white-color" tooltip="{{shift.comment}}"
+                           ng-class="{'filter-passed': shift.filterPassed, 'filter-removed': !shift.filterPassed}"
+                           ng-click="openManageShiftModal(shift, employee)">
+                        <div class="content-upper">
+                          <div class="time-excess-type-skill row">
+                            <div class="col-sm-12">
+                              <div class="pull-left">
+                                <span class="time">
+                                  {{shift.timeStr}}
+                                </span>
+                                <span class="excess-type">
+                                  {{shift.excessTypeStr}}
+                                </span>
+                              </div>
+                              <div class="pull-right">
+                                <span class="skill">
+                                  {{shift.skillAbbrev}}
+                                </span>
+                              </div>
+                              <div class="clearfix"></div>
+                            </div>
+                          </div>
+                          <div class="assignment row">
+                            <div class="col-sm-12">
+                              <span class="assignment">
+                                {{shift.assignment}}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="content-lower">
+                          <div class="row">
+                            <div class="col-sm-12">
+                              {{shift.teamName}}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="schedule-calendar-row" ng-show="openShiftsExisting()">
+                  <div class="open-shifts-desc schedule-calendar-cell" ng-style="{height: openShiftsRowHeightInWeekView}">
+                    <span class="red-color" translate>employee_schedules.OPEN_SHIFTS_DESC</span>
+                  </div>
+                  <div ng-repeat="headerLabel in selectedSchedule.selectedWeek.dayLabels"
+                       class="calendar-day calendar-day-content calendar-day-{{headerLabel.date}} schedule-calendar-cell"
+                      ng-style="{height: openShiftsRowHeightInWeekView}">
+                    <div ng-repeat="shift in selectedSchedule.selectedWeek.shifts.openShifts['calendar-day-' + headerLabel.date]">
+                      <div class="shift-content {{shift.type}} {{shift.excessType}} {{shift.commentClass}} white-color" tooltip="{{shift.comment}}"
+                           ng-class="{'filter-passed': shift.filterPassed, 'filter-removed': !shift.filterPassed}"
+                           ng-click="openFillShiftModal(shift)">
+                        <div class="content-upper">
+                          <div class="time-excess-type-requested-skill row">
+                            <div class="col-sm-12">
+                              <div class="pull-left">
+                                <span class="time">
+                                  {{shift.timeStr}}
+                                </span>
+                                <span class="excess-type">
+                                  {{shift.excessTypeStr}}
+                                </span>
+                              </div>
+                              <div class="pull-right">
+                                <span class="requested">
+                                  {{shift.requested}}
+                                </span>
+                                <span class="skill">
+                                  {{shift.skillAbbrev}}
+                                </span>
+                              </div>
+                              <div class="clearfix"></div>
+                            </div>
+                          </div>
+                          <div class="assignment-posted row">
+                            <div class="col-sm-12">
+                              <div class="pull-left">
+                                <span class="assignment">
+                                  {{shift.assignment}}
+                                </span>
+                              </div>
+                              <div class="pull-right">
+                                <span class="posted">
+                                  {{shift.posted}}
+                                </span>
+                              </div>
+                              <div class="clearfix"></div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="content-lower">
+                          <div class="row">
+                            <div class="col-sm-12">
+                              {{shift.teamName}}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div ng-if="viewMode.mode === 'day' && selectedSchedule !== null" class="row schedule-level schedule-calendar-container schedule-day-view form-group">
+      <div class="col-sm-12">
+        <div class="row schedule-calendar-bar">
+          <div class="col-sm-12">
+            <div class="pull-left">
+              <div class="input-group name-filter">
+                <input type="text" class="form-control" placeholder="Employee Name..."
+                       ng-model="filter.employeeName" ng-change="onEmployeeNameChanged()"/>
+                <span class="input-group-btn">
+                  <button class="btn btn-default glyphicon glyphicon-search"></button>
+                </span>
+              </div>
+            </div>
+            <div class="day-view-navigator text-center">
+              <span class="btn-previous-day btn-day-navigator">
+                <a href ng-click="goToPreviousDay()"><span class="fa fa-angle-double-left"></span> {{'employee_schedules.PREVIOUS_DAY' | translate}}</a>
+              </span>
+              <span class="day-title">
+                <span class="day-title-content">
+                  {{'employee_schedules.YOU_ARE_VIEWING' | translate}} <strong>{{selectedSchedule.selectedWeek.selectedDay.fullStr}}</strong>
+                </span>
+                <span class="day-title-week-navigator">
+                  (
+                  <a href ng-click="goToWeekViewFromSelectedDay()">{{'employee_schedules.GO_TO_WEEK_VIEW' | translate}}</a>
+                  )
+                </span>
+              </span>
+              <span class="btn-next-day btn-day-navigator">
+                <a href ng-click="goToNextDay()">{{'employee_schedules.NEXT_DAY' | translate}} <span class="fa fa-angle-double-right"></span></a>
+              </span>
+            </div>
+            <div class="pull-right">
+              <strong>{{getDisplayedEmployeesCount()}}</strong>
+              <span> {{'app.OUT_OF' | translate}} </span>
+              <strong>{{selectedSchedule.employeesInfo.result.length}}</strong>
+              <strong> {{'app.EMPLOYEES' | translate}} </strong>
+              <span>{{'app.DISPLAYED' | translate}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="schedule-calendar schedule-calendar-day-view">
+              <div class="schedule-calendar-header">
+                <div class="schedule-calendar-row">
+                  <div class="employee-info schedule-calendar-cell">
+                    <div class="pull-left">
+                      <a href ng-click="toggleSort('employeeName')">
+                        {{'app.EMPLOYEE' | translate}}
+                      </a>
+                    </div>
+                    <div class="pull-right">
+                      <div class="sort-asc sort">
+                        <a href class="dark-grey-color" ng-click="toggleSort('employeeName', 'asc')">
+                          <span class="fa fa-caret-up fa-lg" ng-class="{'black-color': (sort.field === 'employeeName' && sort.order === 'asc')}"></span>
+                        </a>
+                      </div>
+                      <div class="sort-dec sort">
+                        <a href class="dark-grey-color" ng-click="toggleSort('employeeName', 'dec')">
+                          <span class="fa fa-caret-down fa-lg" ng-class="{'black-color': (sort.field === 'employeeName' && sort.order === 'dec')}"></span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="employee-total schedule-calendar-cell">
+                    <div class="pull-left">
+                      <a href ng-click="toggleSort('total')">
+                        {{'employee_schedules.TOTAL' | translate}}
+                      </a>
+                    </div>
+                    <div class="pull-right">
+                      <div class="sort-asc sort">
+                        <a href class="dark-grey-color" ng-click="toggleSort('total', 'asc')">
+                          <span class="fa fa-caret-up fa-lg" ng-class="{'black-color': (sort.field === 'total' && sort.order === 'asc')}"></span>
+                        </a>
+                      </div>
+                      <div class="sort-dec sort">
+                        <a href class="dark-grey-color" ng-click="toggleSort('total', 'dec')">
+                          <span class="fa fa-caret-down fa-lg" ng-class="{'black-color': (sort.field === 'total' && sort.order === 'dec')}"></span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="employee-due schedule-calendar-cell">
+                    <div class="pull-left">
+                      <a href ng-click="toggleSort('due')">
+                        {{'employee_schedules.DUE' | translate}}
+                      </a>
+                    </div>
+                    <div class="pull-right">
+                      <div class="sort-asc sort">
+                        <a href class="dark-grey-color" ng-click="toggleSort('due', 'asc')">
+                          <span class="fa fa-caret-up fa-lg" ng-class="{'black-color': (sort.field === 'due' && sort.order === 'asc')}"></span>
+                        </a>
+                      </div>
+                      <div class="sort-dec sort">
+                        <a href class="dark-grey-color" ng-click="toggleSort('due', 'dec')">
+                          <span class="fa fa-caret-down fa-lg" ng-class="{'black-color': (sort.field === 'due' && sort.order === 'dec')}"></span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="employee-primary-skill schedule-calendar-cell">
+                    <div class="pull-left">
+                      <a href ng-click="toggleSort('primarySkill')">
+                        {{'employee_schedules.SKILL' | translate}}
+                      </a>
+                    </div>
+                    <div class="pull-right">
+                      <div class="sort-asc sort">
+                        <a href class="dark-grey-color" ng-click="toggleSort('primarySkill', 'asc')">
+                          <span class="fa fa-caret-up fa-lg" ng-class="{'black-color': (sort.field === 'primarySkill' && sort.order === 'asc')}"></span>
+                        </a>
+                      </div>
+                      <div class="sort-dec sort">
+                        <a href class="dark-grey-color" ng-click="toggleSort('primarySkill', 'dec')">
+                          <span class="fa fa-caret-down fa-lg" ng-class="{'black-color': (sort.field === 'primarySkill' && sort.order === 'dec')}"></span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div ng-repeat="headerLabel in consts.calendarTimeLabels"
+                       class="calendar-header-label calendar-hour schedule-calendar-cell">
+                    <span class="pull-left">{{headerLabel.label}}</span>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+              <div class="schedule-calendar-body">
+                <div ng-repeat="employee in selectedSchedule.employeesInfo.result" class="schedule-calendar-row schedule-calendar-employee"
+                     ng-show="employee[9] && (!filter.displayScheduledOnly || employeeHasShifts(employee[0]))">
+                  <div class="employee-info schedule-calendar-cell">
+                    <div class="employee-name dark-blue-color">
+                      {{employee[1]}} {{employee[2]}}
+                    </div>
+                  </div>
+                  <div class="employee-total schedule-calendar-cell">
+                    <span></span>
+                  </div>
+                  <div class="employee-due schedule-calendar-cell">
+                    <span></span>
+                  </div>
+                  <div class="employee-primary-skill schedule-calendar-cell">
+                    <span>{{getPrimarySkillName(employee[6])}}</span>
+                  </div>
+                  <div class="employee-shifts-container schedule-calendar-cell">
+                    <div ng-repeat="headerLabel in consts.calendarTimeLabels"
+                         class="calendar-hour schedule-calendar-cell">
+                      <div ng-repeat="n in timeIntervalInMinutes" class="calendar-hour-inner-cell" ng-style="{width: n.width}"></div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div ng-repeat="shift in selectedSchedule.selectedWeek.shifts.employeeShifts[employee[0]]['calendar-day-' + selectedSchedule.selectedWeek.selectedDay.date]"
+                         class="shift-content-container"
+                         ng-style="{left: shift.startTimeOffSetPercentInDay, width: shift.lengthPercentInDay}">
+                      <div class="shift-content {{shift.type}} {{shift.excessType}} {{shift.commentClass}} white-color" tooltip="{{shift.comment}}"
+                           ng-class="{'filter-passed': shift.filterPassed, 'filter-removed': !shift.filterPassed}"
+                           ng-click="openManageShiftModal(shift, employee)">
+                        <div class="shift-time">
+                          {{shift.timeStr}}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="schedule-calendar-row schedule-calendar-open-shifts" ng-show="openShiftsExisting()">
+                  <div class="open-shifts-desc schedule-calendar-cell">
+                    <span class="red-color" translate>employee_schedules.OPEN_SHIFTS_DESC</span>
+                  </div>
+                  <div class="open-shifts-container schedule-calendar-cell"
+                       ng-style="{height: (35 * selectedSchedule.selectedWeek.shifts.openShifts['calendar-day-' + selectedSchedule.selectedWeek.selectedDay.date].length + 29) + 'px'}">
+                    <div class="open-shifts-inner-container"
+                         ng-style="{height: 35 * selectedSchedule.selectedWeek.shifts.openShifts['calendar-day-' + selectedSchedule.selectedWeek.selectedDay.date].length + 'px'}">
+                      <div ng-repeat="headerLabel in consts.calendarTimeLabels"
+                           class="calendar-hour schedule-calendar-cell">
+                        <div ng-repeat="n in timeIntervalInMinutes" class="calendar-hour-inner-cell" ng-style="{width: n.width}"></div>
+                        <div class="clearfix"></div>
+                      </div>
+                      <div class="clearfix"></div>
+                      <div ng-repeat="shift in selectedSchedule.selectedWeek.shifts.openShifts['calendar-day-' + selectedSchedule.selectedWeek.selectedDay.date]"
+                           class="shift-content-container"
+                           ng-style="{top: 35 * $index + 'px', left: shift.startTimeOffSetPercentInDay, width: shift.lengthPercentInDay}">
+                        <div class="shift-content {{shift.type}} {{shift.excessType}} {{shift.commentClass}} white-color" tooltip="{{shift.comment}}"
+                             ng-class="{'filter-passed': shift.filterPassed, 'filter-removed': !shift.filterPassed}"
+                             ng-click="openFillShiftModal(shift)">
+                          <div class="pull-left">
+                            <span class="shift-time">
+                              {{shift.timeStr}}
+                            </span>
+                            <span class="requested">
+                              {{shift.requested}}
+                            </span>
+                          </div>
+                          <div class="pull-right">
+                            <span class="posted">
+                              {{shift.posted}}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="time-label-container">
+                      <div ng-repeat="headerLabel in consts.calendarTimeLabels"
+                           class="calendar-header-label calendar-hour schedule-calendar-cell">
+                        <span class="pull-left">{{headerLabel.label}}</span>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="schedule-calendar-row schedule-calendar-head-counts">
+                  <div class="head-counts-title schedule-calendar-cell">
+                    <h4 class="pull-right">{{'employee_schedules.HEAD_COUNTS' | translate}}: </h4>
+                  </div>
+                  <div class="head-counts-container schedule-calendar-cell">
+                    <div class="upper-head-counts">
+                      <div ng-repeat="timeLabel in consts.calendarTimeLabels"
+                           class="calendar-hour schedule-calendar-cell">
+                        <div class="head-counts-inner-cell first-cell">
+                          <span ng-show="headCountsInDayView[timeLabel.label][0] !== 0">{{headCountsInDayView[timeLabel.label][0]}}</span>
+                        </div>
+                        <div class="head-counts-inner-cell third-cell">
+                          <span ng-show="headCountsInDayView[timeLabel.label][2] !== 0">{{headCountsInDayView[timeLabel.label][2]}}</span>
+                        </div>
+                        <div class="clearfix"></div>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="head-counts-meters">
+                      <div class="upper-meter">
+                        <div ng-repeat="timeLabel in consts.calendarTimeLabels"
+                             class="calendar-hour schedule-calendar-cell">
+                          <div class="head-counts-inner-cell"></div>
+                          <div class="head-counts-inner-cell"></div>
+                          <div class="clearfix"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                      </div>
+                      <div class="lower-meter">
+                        <div ng-repeat="timeLabel in consts.calendarTimeLabels"
+                             class="calendar-hour schedule-calendar-cell">
+                          <div class="head-counts-inner-cell"></div>
+                          <div class="clearfix"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                      </div>
+                    </div>
+                    <div class="lower-head-counts">
+                      <div ng-repeat="timeLabel in consts.calendarTimeLabels"
+                           class="calendar-hour schedule-calendar-cell">
+                        <div class="head-counts-inner-cell second-cell text-center">
+                          <span ng-show="headCountsInDayView[timeLabel.label][1] !== 0">{{headCountsInDayView[timeLabel.label][1]}}</span>
+                        </div>
+                        <div class="head-counts-inner-cell fourth-cell text-center">
+                          <span ng-show="headCountsInDayView[timeLabel.label][3] !== 0">{{headCountsInDayView[timeLabel.label][3]}}</span>
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div ui-view="employeeSchedulesContent"></div>
+</div>
+
+<div ng-include="'modules/common/partials/schedule-selector-modal.html'"></div>
+
+<script type="text/ng-template" id="manageOpenShiftsPopupModal.html">
+  <div class="modal-header">
+    <h5 class="modal-title">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="pull-left">{{'employee_schedules.MANAGE_OPEN_SHIFTS' | translate}}</div>
+        </div>
+        <div class="col-md-6">
+          <div class="pull-right">
+            <a href ng-click="close()">&times;</a>
+          </div>
+        </div>
+      </div>
+    </h5>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="messages-container">
+          <alert ng-repeat="message in data.messages" type="{{message.type}}" close="closeMessage($index)">{{message.msg}}</alert>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-7">
+        <div class="row form-group">
+          <div class="col-md-7">
+            <div class="pull-left">
+              <div class="step-header">
+                <span class="step-title" translate>employee_schedules.STEP_1</span>
+                <span>:</span>
+                <span class="step-header-content">
+                  {{'employee_schedules.SELECT_OPEN_SHIFTS' | translate}} -
+                  <span> {{data.openShifts.length}} </span>
+                  {{'employee_schedules.SHIFTS_AVAILABLE' | translate}}
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="pull-right">
+              <div class="step-display-options">
+                <input type="checkbox" ng-model="checkboxModel.notPostedOnly" ng-change="filterDisplayedShifts()">
+                <span translate>employee_schedules.NOT_POSTED_ONLY</span>
+                <input type="checkbox" ng-model="checkboxModel.requested"  ng-change="filterDisplayedShifts()">
+                <span translate>employee_schedules.REQUESTED</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div ng-if="loadingState.populatingOpenShifts === false" ui-grid="openShiftsGridOptions" ui-grid-resize-columns ui-grid-move-columns ui-grid-selection
+                 class="open-shifts-grid eml-grid"></div>
+            <div class="loader-container">
+              <div loader ng-if="loadingState.populatingOpenShifts === true" class="open-shifts-loader"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="row form-group">
+          <div class="col-md-6">
+            <div class="pull-left">
+              <div class="step-header">
+                <span class="step-title" translate>employee_schedules.STEP_2</span>
+                <span>:</span>
+                <span class="step-header-content" translate>employee_schedules.POST_TO</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="pull-right">
+              <div class="step-display-options">
+                <a href ng-click="togglePostingRulesPopup()" translate>employee_schedules.POSTING_RULES</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" ng-show="data.postingRulesShown">
+          <div class="col-md-12">
+            <div class="posting-rules-popup-container">
+              <div class="caret-container dark-blue-color pull-right">
+                <span class="fa fa-caret-up fa-2x"></span>
+              </div>
+              <div class="posting-rules-popup panel panel-default dark-blue-bg white-color">
+                <div class="panel-body">
+                  <div class="pull-right">
+                    <a class="white-color" href ng-click="togglePostingRulesPopup()">&times;</a>
+                  </div>
+                  <form>
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" ng-model="options.allOverrideOptions" ng-change="toggleAllOverrideOptions()"><span class="posting-rules-header"> {{'employee_schedules.POSTING_RULES' | translate}}</span>
+                      </label>
+                    </div>
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" ng-model="options.overrideOptions.TEAM_FLOAT_ON"> {{'employee_schedules.INCLUDE_FLOAT_POOL_EMPLOYEES' | translate}}
+                        <p class="help-block" translate>employee_schedules.INCLUDE_FLOAT_POOL_EMPLOYEES_DESC</p>
+                      </label>
+                    </div>
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" ng-model="options.overrideOptions.AVOID_OVERTIME"> {{'employee_schedules.AVOID_EMPLOYEE_OVERTIME' | translate}}
+                        <p class="help-block" translate>employee_schedules.AVOID_EMPLOYEE_OVERTIME_DESC</p>
+                      </label>
+                    </div>
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" ng-model="options.overrideOptions.ALL_DAY_UNAVAILABLE_OVERRIDE"> {{'employee_schedules.OVERRIDE_FULL_DAY_UNAVAILABILITY' | translate}}
+                      </label>
+                    </div>
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" ng-model="options.overrideOptions.TIME_WINDOW_UNAVAILABLE_OVERRIDE"> {{'employee_schedules.OVERRIDE_TIMEFRAMES_UNAVAILABILITY' | translate}}
+                      </label>
+                    </div>
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" ng-model="options.overrideOptions.MAX_DAYS_WEEK_OVERRIDE"> {{'employee_schedules.OVERRIDE_MAXIMUM_DAYS_PER_WEEK' | translate}}
+                      </label>
+                    </div>
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" ng-model="options.overrideOptions.MAX_CONSECUTIVE_DAYS_OVERRIDE"> {{'employee_schedules.OVERRIDE_MAXIMUM_DAYS_IN_A_ROW' | translate}}
+                      </label>
+                    </div>
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" ng-model="options.overrideOptions.MAX_HOURS_WEEK_OVERRIDE"> {{'employee_schedules.OVERRIDE_MAXIMUM_HOURS_PER_WEEK' | translate}}
+                      </label>
+                    </div>
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" ng-model="options.overrideOptions.MAX_HOURS_DAY_OVERRIDE"> {{'employee_schedules.OVERRIDE_MAXIMUM_HOURS_PER_DAY' | translate}}
+                      </label>
+                    </div>
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" ng-model="options.overrideOptions.MIN_HOURS_DAY_OVERRIDE"> {{'employee_schedules.OVERRIDE_MINIMUM_HOURS_PER_DAY' | translate}}
+                      </label>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <button class="btn btn-default form-control white-border dark-blue-bg dark-grey-color" ng-click="updateOverrideOptions()" translate>employee_schedules.SAVE_RULES_AS_DEFAULT</button>
+                      </div>
+                      <div class="col-sm-6">
+                        <button class="btn btn-default form-control white-bg black-color" ng-click="togglePostingRulesPopup(true)" translate>employee_schedules.SET_POSTING_RULES</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" ng-show="!data.postingRulesShown">
+          <div class="col-md-12">
+            <div class="list-employees-label-container">
+              <button class="btn btn-primary form-control list-employees-label dark-blue-bg white-color" ng-click="getEligibilityDataFromSelectedEntities()" ng-disabled="data.selectedOpenShifts.length === 0">
+                {{'employee_schedules.LIST_EMPLOYEES' | translate}}
+              </button>
+              <div class="caret-container text-center dark-blue-color" ng-class="{'disabled-caret': data.selectedOpenShifts.length === 0}">
+                <span class="fa fa-caret-down fa-2x"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" ng-show="!data.postingRulesShown">
+          <div class="col-md-12">
+            <div ng-if="loadingState.loadingEligibilityData === false" ui-grid="employeesGridOptions" ui-grid-resize-columns ui-grid-move-columns ui-grid-selection
+                 class="employees-grid eml-grid"></div>
+            <div class="loader-container">
+              <div loader ng-if="loadingState.loadingEligibilityData === true" class="eligibility-loader"></div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <textarea class="form-control" ng-model="data.comments" placeholder="Comments..."></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-7">
+        <div class="pull-left">
+          <div class="step-header">
+            <span class="step-title" translate>employee_schedules.STEP_3</span>
+            <span>:</span>
+            <label class="eml-switch terms-switch" ng-class="{'switch-checked': options.firstRequestOnly}">
+              <input type="checkbox" class="eml-switch-input" ng-model="options.firstRequestOnly" ng-checked="options.firstRequestOnly" ng-change="parseTerms()">
+              <span class="eml-switch-label" data-on="{{ ::'app.ON' | translate }}" data-off="{{ ::'app.OFF' | translate }}"></span>
+              <span class="eml-switch-handle"></span>
+            </label>
+            <span class="step-header-content" translate>employee_schedules.FIRST_REQUEST_ONLY</span>
+          </div>
+        </div>
+        <div class="pull-right">
+          <div class="step-header post-until-label">
+            <span class="step-title" translate>employee_schedules.STEP_4</span>
+            <span>:</span>
+            <span class="step-header-content" translate>employee_schedules.POST_UNTIL</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="pull-left">
+              <span class="input-group post-until-calendar eml-datepicker-right">
+                <input type="text" class="form-control" datepicker-popup="dd-MMMM-yyyy" ng-model="datePickerModel.postUntil" ng-change="parseDeadline()" is-open="datePickerModel.datePickerOpened" datepicker-options="datePickerModel.datePickerOptions" close-text="Close"/>
+                <span class="input-group-btn">
+                  <button type="button" class="btn eml-btn-grey-lightest eml-calendar-btn" ng-class="{ 'eml-calendar-opened' : datePickerModel.datePickerOpened }" ng-click="datePickerModel.openDatePicker($event)">
+                    <img src="/scheduler-server/emlogis/img/calendar.svg">
+                  </button>
+                </span>
+              </span>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="pull-right">
+              <button ng-if="loadingState.postingOpenShifts === false" class="btn btn-success" ng-click="postOpenShifts()" ng-disabled="data.selectedEmployees.length === 0">
+                {{'employee_schedules.POST_OPEN_SHIFTS' | translate}}
+              </button>
+              <div class="loader-container">
+                <div loader ng-if="loadingState.postingOpenShifts === true" class="posting-open-shifts-loader"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</script>
+
+<script type="text/ng-template" id="promoteScheduleConfirmationModal.html">
+  <div class="modal-header">
+    <h5 class="modal-title">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="pull-left">{{'employee_schedules.PROMOTE_SCHEDULE' | translate}}</div>
+        </div>
+        <div class="col-md-6">
+          <div class="pull-right">
+            <a href ng-click="close()">&times;</a>
+          </div>
+        </div>
+      </div>
+    </h5>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-sm-12">
+        <h4>{{'employee_schedules.PROMOTE_CONFIRMATION_MESSAGE' | translate}}</h4>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-success" ng-click="confirmToPromote()" translate>app.YES</button>
+    <button class="btn btn-default" ng-click="close()" translate>app.NO</button>
+  </div>
+</script>
+
+<script type="text/ng-template" id="manageScheduleShiftPopupModal.html">
+  <div class="modal-header">
+    <h5 class="modal-title">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="pull-left">
+            {{'employee_schedules.MANAGE_SHIFT' | translate}}
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="pull-right">
+            <a href ng-click="close()">&times;</a>
+          </div>
+        </div>
+      </div>
+    </h5>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="shift-header">
+          <div class="shift-time-team-skill">
+            <span class="shift-time inner-cell">{{data.formattedTime}}</span>
+            <span class="shift-team inner-cell">
+              <span class="inner-label">{{'app.TEAM' | translate}}:</span>
+              <span class="inner-value">{{data.teamName}}</span>
+            </span>
+            <span class="shift-skill inner-cell">
+              <span class="inner-label">{{'app.SKILL' | translate}}:</span>
+              <span class="inner-value">{{data.skillName}}</span>
+            </span>
+          </div>
+          <div class="employee-name">{{data.selectedEmployee[1]}} {{data.selectedEmployee[2]}}</div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="scale-opt ng-hide pull-right">
+          <a title="Zoom Out" ng-click="zoomOut()"><span class="glyphicon glyphicon-zoom-out" /></a>
+          <a title="Zoom In" ng-click="zoomIn()"><span class="glyphicon glyphicon-zoom-in" /></a>
+          <a title="Zoom Best" ng-click="zoomBest()"><span class="glyphicon glyphicon-screenshot" /></a>
+        </div>
+      </div>
+    </div>
+    <div class="row form-group">
+      <div class="col-sm-12">
+        <div class="time-line-container">
+          <div class="time-line">
+            <div shift-time-line class="time-line-shift" firstpos="data.shiftModel.start" endpos="data.shiftModel.width" step="data.step" width=568
+                 ng-style="{left: data.shiftModel.start, width: data.shiftModel.width}">
+              <div ng-show="data.shiftModel.width > 75" class="time-line-content">
+                {{data.startDate.format('h:mma')}} - {{data.endDate.format('h:mma')}}
+              </div>
+              <div ng-show="data.shiftModel.width <= 75" class="time-line-content-small"
+                   title="{{data.startDate.format('h:mma')}} - {{data.endDate.format('h:mma')}}">
+              </div>
+            </div>
+            <div ng-show="hasNewShift()" class="pto" ng-style="{left: data.newShiftModel.start, width: data.newShiftModel.width}">
+              <div ng-show="data.newShiftModel.width > 75" class="time-line-content">
+                {{data.startPtoDate.format('h:mma')}} - {{data.endPtoDate.format('h:mma')}}
+              </div>
+              <div ng-show="data.newShiftModel.width <= 75" class="time-line-content-small"
+                   title="{{data.startPtoDate.format('h:mma')}} - {{data.endPtoDate.format('h:mma')}}">
+              </div>
+            </div>
+          </div>
+          <table class="time-line-table">
+            <tr>
+              <th ng-repeat="hour in hours">{{hour.format('h:mma')}}</th>
+            </tr>
+            <tr>
+              <td ng-repeat="hour in hours"></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="row form-group">
+      <div class="col-sm-5">
+        <div class="pull-left">
+          <span class="hint-italic">{{'employee_schedules.SHIFT_DRAG_HINT' | translate}}</span>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="col-sm-7">
+        <div class="pull-right">
+          <div class="swap-shift-checkbox checkbox btn btn-default">
+            <label>
+              <input type="checkbox" ng-model="data.swapShift" ng-change="onSwapShiftChanged()"> {{'employee_schedules.SWAP_SHIFT' | translate}}
+            </label>
+          </div>
+          <button class="btn btn-default" ng-click="onDropShiftAttempt()">{{'employee_schedules.DROP_SHIFT' | translate}}</button>
+        </div>
+        <div class="pull-right">
+          <div loader ng-if="data.swapShift && !data.eligibleShiftsLoaded" class="eligible-shifts-loader"></div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+    <!--<div class="row" ng-show="hasNewShift()">
+      <div class="col-sm-7">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="data.changeToPto"> {{'app.CHANGE' | translate}} {{data.startPtoDate.format('h:mma')}} - {{data.endPtoDate.format('h:mma')}} {{'employee_schedules.TO_PTO_FOR' | translate}} {{data.selectedEmployee[2]}}
+          </label>
+        </div>
+      </div>
+      <div class="col-sm-5">
+        <select class="form-control" ng-model="data.selectedAbsenceType" ng-options="absenceType as absenceType.description for absenceType in data.absenceTypes track by absenceType.id" ng-disabled="!data.changeToPto">
+          <option value="">---{{'app.SELECT' | translate}} {{'employee_schedules.PTO_TYPE' | translate}}---</option>
+        </select>
+      </div>
+    </div>-->
+    <div class="row">
+      <div class="col-sm-12" ng-show="!data.dropShitAttempt">
+        <div ng-show="hasNewShift()">
+          <hr>
+          <div class="radio">
+            <label>
+              <input type="radio" name="optionsRadios" id="optionsRadios1" ng-model="data.action" value="CreateAndDrop">
+              &nbsp;{{'app.DROP' | translate}} {{data.startPtoDate.format('h:mma')}} - {{data.endPtoDate.format('h:mma')}} {{'employee_schedules.AND_DO_NOT_FILL' | translate}}
+            </label>
+          </div>
+          <div class="radio">
+            <label>
+              <input type="radio" name="optionsRadios" id="optionsRadios2" ng-model="data.action" value="CreateAndPost">
+              &nbsp;{{'app.POST' | translate}} {{data.startPtoDate.format('h:mma')}} - {{data.endPtoDate.format('h:mma')}} {{'employee_schedules.AS_OPEN_SHIFT' | translate}}
+            </label>
+          </div>
+          <div class="radio">
+            <label>
+              <input type="radio" name="optionsRadios" id="optionsRadios3" ng-model="data.action" value="CreateAndAssign" ng-change="getWipEligibleEmployees()">
+              &nbsp;{{'app.FILL' | translate}} {{data.startPtoDate.format('h:mma')}} - {{data.endPtoDate.format('h:mma')}} {{'app.WITH' | translate}}&nbsp;
+              <select class="form-control employee-selector" ng-model="data.newFillEmployee" ng-options="fillEmployee as fillEmployee.employeeName for fillEmployee in data.eligibleEmployees track by fillEmployee.employeeId" ng-disabled="data.action !== 'CreateAndAssign'">
+                <option value="">---{{'app.SELECT' | translate}} {{'app.EMPLOYEE' | translate}}---</option>
+              </select>
+              <div loader ng-if="!data.eligibleEmployeesLoaded" class="eligible-employees-loader"></div>
+              <span ng-show="data.action === 'CreateAndAssign' && data.eligibleEmployeesLoaded && data.eligibleEmployees.length === 0">
+                <span>&nbsp;{{'employee_schedules.NO_ELIGIBLE_EMPLOYEES_FOUND' | translate}}</span>
+              </span>
+            </label>
+          </div>
+        </div>
+        <div ng-show="data.swapShift" class="form-group">
+          <div ng-show="data.eligibleShiftsLoaded && data.eligibleShifts.length === 0">
+            <span>{{'employee_schedules.NO_ELIGIBLE_SHIFTS_FOUND' | translate}}</span>
+          </div>
+          <div ui-grid="data.eligibleShiftsGridOptions" ui-grid-resize-columns ui-grid-move-columns ui-grid-selection
+               class="eligible-shifts-grid eml-grid"></div>
+        </div>
+        <div class="form-group comment-area">
+          <label class="control-label">{{'employee_schedules.ADD_COMMENT' | translate}}</label>
+          <textarea class="form-control" ng-model="data.comment"></textarea>
+        </div>
+      </div>
+
+      <div class="col-sm-12" ng-show="data.dropShitAttempt">
+        <h4>Please indicate a reason why you want to drop this shift:</h4>
+        <div class="radio" ng-repeat="r in dropShiftReasons">
+          <label>
+            <input type="radio" name="dropShiftReasons" ng-model="dropShiftReasonId" ng-value="r.id">
+            {{r.name}}
+          </label>
+        </div>
+      </div>
+      </div>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-default" ng-click="submit()" ng-show="!data.dropShitAttempt">{{'app.SUBMIT' | translate}}</button>
+    <button class="btn btn-danger" ng-click="dropShift()" ng-show="data.dropShitAttempt">{{'app.DROP' | translate}}</button>
+    <a href ng-click="close()">{{'app.CLOSE' | translate}}</a>
+  </div>
+</script>
+
+<script type="text/ng-template" id="addNewShiftPopupModal.html">
+  <div class="modal-header">
+    <h5 class="modal-title">
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="pull-left">{{'employee_schedules.ADD_NEW_SHIFT' | translate}}</div>
+        </div>
+        <div class="col-sm-4">
+          <div class="pull-right">
+            <a href ng-click="close()">&times;</a>
+          </div>
+        </div>
+      </div>
+    </h5>
+  </div>
+  <div class="modal-body">
+    <div class="content-header">
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="pull-left">
+            <span>{{'employee_schedules.PLEASE_SELECT' | translate}}: </span>
+            <span class="strong-header"><strong>{{'app.TEAM' | translate}}, {{'app.SKILL' | translate}} {{'app.AND' | translate}} {{'employee_schedules.SHIFT_TIME' | translate}}</strong></span>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="pull-right">
+            <button class="btn btn-success" ng-click="submit()">{{'app.SUBMIT' | translate}}</button>
+          </div>
+        </div>
+      </div>
+      <hr>
+    </div>
+    <div class="content-body">
+      <div class="content-body-upper content-body-sub row-em">
+        <div class="col-em-20 col-em">
+          <div class="form-group">
+            <label class="control-label">{{'app.TEAM' | translate}}</label>
+            <select class="form-control" ng-model="data.selectedTeam" ng-options="team as team[1] for team in data.teams track by team[0]" ng-change="onSelectedTeamChanged()">
+              <option value="">---{{'employee_schedules.PLEASE_SELECT' | translate}}---</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-em-26 col-em">
+          <div class="form-group">
+            <label class="control-label">{{'app.SKILL' | translate}}</label>
+            <select class="form-control" ng-model="data.selectedSkill" ng-options="skill as skill[1] for skill in data.skills track by skill[0]" ng-change="onSelectedSkillChanged()">
+              <option value="">---{{'employee_schedules.PLEASE_SELECT' | translate}}---</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-em-27 col-em shift-time-range-picker">
+          <div class="form-group">
+            <label class="control-label">{{'employee_schedules.START_TIME' | translate}}</label>
+            <div class="input-group date" id="start-datetime-picker">
+              <input type="text" class="form-control">
+                  <span class="input-group-addon">
+                    <button type="button" class="btn eml-btn-grey-lightest eml-calendar-btn">
+                      <img src="/scheduler-server/emlogis/img/calendar.svg">
+                    </button>
+                  </span>
+            </div>
+          </div>
+        </div>
+        <div class="col-em-27 col-em shift-time-range-picker">
+          <div class="form-group">
+            <label class="control-label">{{'employee_schedules.END_TIME' | translate}}</label>
+            <div class="input-group date" id="end-datetime-picker">
+              <input type="text" class="form-control">
+                  <span class="input-group-addon">
+                    <button type="button" class="btn eml-btn-grey-lightest eml-calendar-btn">
+                      <img src="/scheduler-server/emlogis/img/calendar.svg">
+                    </button>
+                  </span>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="content-body-lower content-body-sub row-em">
+        <div class="col-em-46 col-em">
+          <div class="col-em-42 col-em">
+            <div class="form-group">
+              <div class="radio">
+                <label>
+                  <input type="radio" name="operation-type" id="add-as-open-shift" value="addAsOpenShift" ng-model="data.selectedOperationType">
+                  {{'employee_schedules.ADD_AS_OPEN_SHIFT' | translate}}
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-em-30 col-em">
+            <div class="form-group">
+              <div class="radio">
+                <label>
+                  <input type="radio" name="operation-type" id="post-shift" value="postShift" ng-model="data.selectedOperationType" ng-disabled="data.selectedScheduleStatus !== 'Posted'">
+                  {{'employee_schedules.POST_SHIFT' | translate}}
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-em-28 col-em">
+            <div class="form-group">
+              <div class="radio">
+                <label>
+                  <input type="radio" name="operation-type" id="fill-shift" value="fillShift" ng-model="data.selectedOperationType" ng-change="onFillShiftSelected()">
+                  {{'employee_schedules.FILL_SHIFT' | translate}}
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="col-em-27 col-em" ng-show="data.selectedOperationType === 'fillShift'">
+          <div class="form-group">
+            <select class="form-control" ng-model="data.selectedEligibleEmployee" ng-change="onSelectedEligibleEmployeeChanged()" ng-options="eligibleEmployee as eligibleEmployee.employeeName for eligibleEmployee in data.eligibleEmployees track by eligibleEmployee.employeeId">
+              <option value="">---{{'employee_schedules.SELECT_EMPLOYEE' | translate}}---</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" ng-model="data.showAvailableOnly" ng-change="getWipEligibleEmployees()">
+                {{'employee_schedules.SHOW_AVAILABLE_ONLY' | translate}}
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="col-em-27 col-em" ng-show="data.selectedOperationType === 'fillShift'">
+          <div class="form-group">
+            <div loader ng-if="!data.eligibleEmployeesLoaded" class="employees-loader"></div>
+            <div ng-if="data.eligibleEmployees.length > 1" class="btn-group sort-options" dropdown>
+              <button type="button" class="btn white-bg dropdown-toggle" dropdown-toggle>
+                <span class="glyphicon glyphicon-sort"></span> <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href ng-click="setSortOption('sortByName')">{{'employee_schedules.SORT_BY_NAME' | translate}}</a></li>
+                <li><a href ng-click="setSortOption('leastHoursFirst')">{{'employee_schedules.LEAST_HOURS_FIRST' | translate}}</a></li>
+                <li><a href ng-click="setSortOption('leastCostFirst')">{{'employee_schedules.LEAST_COST_FIRST' | translate}}</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+    <div class="content-footer" ng-show="canShowFooterContent()">
+      <div class="footer-header footer-sub">
+        <div class="panel-upper footer-label footer-label-schedule"
+             ng-style="{height: data.employeeCalendarShiftsRowHeight, 'line-height': data.employeeCalendarShiftsRowHeight}">
+          {{'employee_schedules.SCHD' | translate}}:
+        </div>
+        <div class="panel-lower"
+             ng-style="{height: data.employeeCalendarAvailPrefItemsRowHeight}">
+          <div class="footer-label footer-label-availability">{{'employee_schedules.AVAIL' | translate}}:</div>
+          <div class="footer-label footer-label-preference">{{'employee_schedules.PREF' | translate}}:</div>
+        </div>
+      </div>
+      <div class="footer-calendar footer-sub">
+        <div class="footer-calendar-header">
+          <div class="footer-calendar-header-cell footer-calendar-cell" ng-repeat="cell in data.employeeCalendarHeaderCells">
+            <span class="cell-day-of-week pull-left">{{cell.dayOfWeek}}</span>
+            <span class="cell-date pull-right">{{cell.date}}</span>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="footer-calendar-body">
+          <div class="panel-upper footer-calendar-body-upper footer-calendar-body-sub">
+            <div class="footer-calendar-body-cell footer-calendar-cell" ng-repeat="cell in data.employeeCalendarHeaderCells" ng-style="{height: data.employeeCalendarShiftsRowHeight}">
+              <div class="{{shift.type}} shift-content {{shift.className}}" ng-repeat="shift in data.employeeCalendarShifts[cell.dayOfWeek]">
+                <div class="cell-info shift-time">
+                  {{shift.timeStr}}
+                </div>
+                <div class="cell-info shift-team-skill">
+                  <span class="shift-team pull-left">{{shift.team}}</span>
+                  <span class="shift-skill pull-right">{{shift.skillAbbrev}}</span>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+          <div class="panel-lower footer-calendar-body-lower footer-calendar-body-sub">
+            <div class="availability-items">
+              <div class="footer-calendar-body-cell footer-calendar-cell" ng-repeat="cell in data.employeeCalendarHeaderCells" ng-style="{height: data.employeeCalendarAvailItemsRowHeight}">
+                <div class="{{availItem.type}} item-content {{availItem.className}}" ng-repeat="availItem in data.employeeCalendarAvailItems[cell.dayOfWeek]">
+                  <div class="cell-info">
+                    {{availItem.title}}
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <div class="preference-items">
+              <div class="footer-calendar-body-cell footer-calendar-cell" ng-repeat="cell in data.employeeCalendarHeaderCells" ng-style="{height: data.employeeCalendarPrefItemsRowHeight}">
+                <div class="{{prefItem.type}} item-content {{prefItem.className}}" ng-repeat="prefItem in data.employeeCalendarPrefItems[cell.dayOfWeek]">
+                  <div class="cell-info">
+                    {{prefItem.title}}
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+      <div class="offset-container">
+        <div class="footer-calendar-signs">
+          <div class="footer-calendar-signs-cell">
+            <div class="sign sign-available">
+              <div class="pattern-available pattern"></div>
+              <label class="text-available pattern-label">{{'employee_schedules.AVAILABLE' | translate}}</label>
+            </div>
+          </div>
+          <div class="footer-calendar-signs-cell">
+            <div class="sign sign-partially-available">
+              <div class="pattern-partially-available pattern"></div>
+              <label class="text-partially-available pattern-label">{{'employee_schedules.PARTIALLY_AVAILABLE' | translate}}</label>
+            </div>
+          </div>
+          <div class="footer-calendar-signs-cell">
+            <div class="sign sign-holiday-vacation">
+              <div class="pattern-holiday-vacation pattern"></div>
+              <label class="text-holiday-vacation pattern-label">{{'employee_schedules.HOLIDAY_VACATION' | translate}}</label>
+            </div>
+          </div>
+          <div class="footer-calendar-signs-cell">
+            <div class="sign sign-not-available">
+              <div class="pattern-not-available pattern"></div>
+              <label class="text-not-available pattern-label">{{'employee_schedules.NOT_AVAILABLE' | translate}}</label>
+            </div>
+          </div>
+          <div class="footer-calendar-signs-cell">
+            <div class="sign sign-new-shift">
+              <div class="pattern-new-shift pattern"></div>
+              <label class="text-new-shift pattern-label">{{'employee_schedules.NEW_SHIFT' | translate}}</label>
+            </div>
+          </div>
+        </div>
+        <div class="footer-contact">
+          <div class="footer-contact-cell">
+            <span class="employee-name">{{data.selectedEligibleEmployee.name}}</span>
+          </div>
+          <div class="footer-contact-cell">
+            <label class="footer-contact-label">{{'employee_schedules.HOME' | translate}}: </label>
+            <span class="footer-contact-text">{{data.selectedEligibleEmployee.homePhone}}</span>
+          </div>
+          <div class="footer-contact-cell">
+            <label class="footer-contact-label">{{'employee_schedules.CELL' | translate}}: </label>
+            <span class="footer-contact-text">{{data.selectedEligibleEmployee.cellPhone}}</span>
+          </div>
+          <div class="footer-contact-cell">
+            <label class="footer-contact-label">{{'employee_schedules.EMAIL' | translate}}: </label>
+            <span class="footer-contact-text">{{data.selectedEligibleEmployee.email}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</script>
+
+<script type="text/ng-template" id="assignShiftsPopupModal.html">
+  <div class="modal-header">
+    <h5 class="modal-title">
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="pull-left">{{'employee_schedules.ASSIGN_SHIFTS' | translate}}</div>
+        </div>
+        <div class="col-sm-4">
+          <div class="pull-right">
+            <a href ng-click="close()">&times;</a>
+          </div>
+        </div>
+      </div>
+    </h5>
+  </div>
+  <div class="modal-body">
+    <div class="content-header">
+      <div class="row">
+        <div class="col-sm-10">
+          <div class="pull-left">
+            <div class="employee-info-cell">
+              <span class="employee-name">{{data.parsedEmployeeInfo.name}}</span>
+            </div>
+            <div class="employee-info-cell">
+              <label class="employee-info-label">{{'employee_schedules.HOME' | translate}}: </label>
+              <span class="employee-info-text">{{data.parsedEmployeeInfo.homePhone}}</span>
+            </div>
+            <div class="employee-info-cell">
+              <label class="employee-info-label">{{'employee_schedules.CELL' | translate}}: </label>
+              <span class="employee-info-text">{{data.parsedEmployeeInfo.cellPhone}}</span>
+            </div>
+            <div class="employee-info-cell">
+              <label class="employee-info-label">{{'employee_schedules.EMAIL' | translate}}: </label>
+              <span class="employee-info-text">{{data.parsedEmployeeInfo.email}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="pull-right">
+            <button class="btn btn-success" ng-click="submit()">{{'app.SUBMIT' | translate}}</button>
+          </div>
+          <div class="pull-right">
+            <div class="loader-container">
+              <div loader ng-if="data.openShiftsLoaded === false" class="open-shifts-loader"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+    </div>
+    <div class="content-body">
+      <div class="body-header body-sub">
+        <div class="panel-upper"
+             ng-style="{height: data.employeeCalendarAvailPrefItemsRowHeight}">
+          <div class="body-label body-label-availability">{{'employee_schedules.AVAIL' | translate}}:</div>
+          <div class="body-label body-label-preference">{{'employee_schedules.PREF' | translate}}:</div>
+        </div>
+        <div class="panel-lower body-label body-label-schedule"
+             ng-style="{height: data.employeeCalendarShiftsRowHeight, 'line-height': data.employeeCalendarShiftsRowHeight}">
+          {{'employee_schedules.SCHD' | translate}}:
+        </div>
+      </div>
+      <div class="body-calendar body-sub">
+        <div class="body-calendar-header">
+          <div class="body-calendar-header-cell body-calendar-cell" ng-repeat="cell in data.employeeCalendarHeaderCells">
+            <span class="cell-day-of-week pull-left">{{cell.dayOfWeek}}</span>
+            <span class="cell-date pull-right">{{cell.date}}</span>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="body-calendar-body">
+          <div class="body-calendar-avail-pref body-calendar-body-sub">
+            <div class="availability-items">
+              <div class="body-calendar-body-cell body-calendar-cell" ng-repeat="cell in data.employeeCalendarHeaderCells" ng-style="{height: data.employeeCalendarAvailItemsRowHeight}">
+                <div class="{{availItem.type}} item-content {{availItem.className}}" ng-repeat="availItem in data.employeeCalendarAvailItems[cell.dayOfWeek]">
+                  <div class="cell-info">
+                    {{availItem.title}}
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <div class="preference-items">
+              <div class="body-calendar-body-cell body-calendar-cell" ng-repeat="cell in data.employeeCalendarHeaderCells" ng-style="{height: data.employeeCalendarPrefItemsRowHeight}">
+                <div class="{{prefItem.type}} item-content {{prefItem.className}}" ng-repeat="prefItem in data.employeeCalendarPrefItems[cell.dayOfWeek]">
+                  <div class="cell-info">
+                    {{prefItem.title}}
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+          <div class="body-calendar-shifts body-calendar-body-sub">
+            <div class="body-calendar-body-cell body-calendar-cell" ng-repeat="cell in data.employeeCalendarHeaderCells" ng-style="{height: data.employeeCalendarShiftsRowHeight}">
+              <div class="{{shift.type}} shift-content {{shift.className}}" ng-repeat="shift in data.employeeCalendarShifts[cell.dayOfWeek]">
+                <div class="cell-info shift-time">
+                  {{shift.timeStr}}
+                </div>
+                <div class="cell-info shift-team-skill">
+                  <span class="shift-team pull-left">{{shift.team}}</span>
+                  <span class="shift-skill pull-right">{{shift.skillAbbrev}}</span>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+          <div class="body-calendar-open-shifts-desc body-calendar-body-sub">
+            <span>{{'employee_schedules.PLEASE_SELECT_AVAILABLE_SHIFTS' | translate}}:</span>
+          </div>
+          <div class="body-calendar-open-shifts body-calendar-body-sub">
+            <div class="body-calendar-body-cell body-calendar-cell" ng-repeat="cell in data.employeeCalendarHeaderCells" ng-style="{height: data.employeeCalendarOpenShiftsRowHeight}">
+              <div class="{{openShift.type}} open-shift-content shift-content" ng-repeat="openShift in data.employeeCalendarOpenShifts[cell.dayOfWeek]" ng-click="tickOpenShift(openShift, cell.dayOfWeek)" ng-class="{ticked: openShift.ticked}">
+                <div class="cell-info shift-time">
+                  {{openShift.timeStr}}
+                </div>
+                <div class="cell-info shift-team-skill">
+                  <span class="shift-team pull-left">{{openShift.team}}</span>
+                  <span class="shift-skill pull-right">{{openShift.skillAbbrev}}</span>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+      <div class="offset-container">
+        <div class="body-calendar-signs">
+          <div class="body-calendar-signs-cell">
+            <div class="sign sign-available">
+              <div class="pattern-available pattern"></div>
+              <label class="text-available pattern-label">{{'employee_schedules.AVAILABLE' | translate}}</label>
+            </div>
+          </div>
+          <div class="body-calendar-signs-cell">
+            <div class="sign sign-partially-available">
+              <div class="pattern-partially-available pattern"></div>
+              <label class="text-partially-available pattern-label">{{'employee_schedules.PARTIALLY_AVAILABLE' | translate}}</label>
+            </div>
+          </div>
+          <div class="body-calendar-signs-cell">
+            <div class="sign sign-holiday-vacation">
+              <div class="pattern-holiday-vacation pattern"></div>
+              <label class="text-holiday-vacation pattern-label">{{'employee_schedules.HOLIDAY_VACATION' | translate}}</label>
+            </div>
+          </div>
+          <div class="body-calendar-signs-cell">
+            <div class="sign sign-not-available">
+              <div class="pattern-not-available pattern"></div>
+              <label class="text-not-available pattern-label">{{'employee_schedules.NOT_AVAILABLE' | translate}}</label>
+            </div>
+          </div>
+          <div class="body-calendar-signs-cell">
+            <div class="sign sign-new-shift">
+              <div class="pattern-new-shift pattern"></div>
+              <label class="text-new-shift pattern-label">{{'employee_schedules.NEW_SHIFT' | translate}}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</script>
+
+<script type="text/ng-template" id="fillShiftPopupModal.html">
+  <div class="modal-header">
+    <h5 class="modal-title">
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="pull-left">{{'employee_schedules.OPEN_SHIFT' | translate}}</div>
+        </div>
+        <div class="col-sm-4">
+          <div class="pull-right">
+            <a href ng-click="close()">&times;</a>
+          </div>
+        </div>
+      </div>
+    </h5>
+  </div>
+  <div class="modal-body">
+    <div class="content-header">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="pull-right">
+            <div class="btn-group" dropdown>
+              <button class="btn eml-btn-white eml-btn-delete btn-delete-os dropdown-toggle" dropdown-toggle>
+                <i class="fa fa-trash-o"></i>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href>{{'app.NO' | translate}}</a></li>
+                <li><a href ng-click="deleteOS()">{{'app.YES' | translate}}</a></li>
+              </ul>
+            </div>
+            <button class="btn btn-success" ng-click="submit()">{{'app.SUBMIT' | translate}}</button>
+          </div>
+        </div>
+      </div>
+      <hr>
+    </div>
+    <div class="content-body">
+      <div class="content-body-upper content-body-sub row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label class="control-label">{{'app.TEAM' | translate}}</label>
+            <h4>{{data.selectedOpenShift.teamName}}</h4>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="control-label">{{'app.SKILL' | translate}}</label>
+            <h4>{{data.selectedOpenShift.skillName}}</h4>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="form-group">
+            <label class="control-label">{{'employee_schedules.SHIFT_TIME' | translate}}</label>
+            <h4>
+              <span>{{data.selectedOpenShift.dateStr}}, </span>
+              <strong class="green-color">{{data.selectedOpenShift.startTimeStr}} </strong>
+              <span style="text-transform: lowercase;">{{'app.TO' | translate}} </span>
+              <strong class="green-color">{{data.selectedOpenShift.endTimeStr}}</strong>
+            </h4>
+          </div>
+        </div>
+      </div>
+      <div class="content-body-lower content-body-sub row">
+        <div class="col-md-2">
+          <div class="form-group">
+            <div class="radio">
+              <label>
+                <input type="radio" name="operation-type" value="postShift" ng-model="data.selectedOperationType" ng-disabled="data.selectedScheduleStatus !== 'Posted'">
+                {{'employee_schedules.POST_SHIFT' | translate}}
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="pull-left">
+            <div class="form-group">
+              <div class="radio">
+                <label>
+                  <input type="radio" name="operation-type" value="fillShift" ng-model="data.selectedOperationType" ng-change="onFillShiftSelected()">
+                  {{'employee_schedules.FILL_SHIFT' | translate}}
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="pull-right" ng-show="data.selectedOperationType === 'fillShift'">
+            <div class="form-group">
+              <div class="radio">
+                <span>{{'app.EMPLOYEE' | translate}}: </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3" ng-show="data.selectedOperationType === 'fillShift'">
+          <div class="form-group">
+            <select class="form-control" ng-model="data.selectedEligibleEmployee" ng-change="onSelectedEligibleEmployeeChanged()" ng-options="eligibleEmployee as eligibleEmployee.name for eligibleEmployee in data.eligibleEmployees track by eligibleEmployee.id">
+              <option value="">---{{'employee_schedules.SELECT_EMPLOYEE' | translate}}---</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" ng-model="data.showAvailableOnly" ng-change="getWipEligibleEmployees()">
+                {{'employee_schedules.SHOW_AVAILABLE_ONLY' | translate}}
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3" ng-show="data.selectedOperationType === 'fillShift'">
+          <div class="form-group">
+            <div loader ng-if="!data.eligibleEmployeesLoaded" class="employees-loader"></div>
+            <div ng-if="data.eligibleEmployees.length > 1" class="btn-group sort-options" dropdown>
+              <button type="button" class="btn white-bg dropdown-toggle" dropdown-toggle>
+                <span class="glyphicon glyphicon-sort"></span> <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href ng-click="setSortOption('sortByName')">{{'employee_schedules.SORT_BY_NAME' | translate}}</a></li>
+                <li><a href ng-click="setSortOption('leastHoursFirst')">{{'employee_schedules.LEAST_HOURS_FIRST' | translate}}</a></li>
+                <li><a href ng-click="setSortOption('leastCostFirst')">{{'employee_schedules.LEAST_COST_FIRST' | translate}}</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="content-footer" ng-show="canShowFooterContent()">
+      <div class="footer-header footer-sub">
+        <div class="panel-upper footer-label footer-label-schedule"
+             ng-style="{height: data.employeeCalendarShiftsRowHeight, 'line-height': data.employeeCalendarShiftsRowHeight}">
+          {{'employee_schedules.SCHD' | translate}}:
+        </div>
+        <div class="panel-lower"
+             ng-style="{height: data.employeeCalendarAvailPrefItemsRowHeight}">
+          <div class="footer-label footer-label-availability">{{'employee_schedules.AVAIL' | translate}}:</div>
+          <div class="footer-label footer-label-preference">{{'employee_schedules.PREF' | translate}}:</div>
+        </div>
+      </div>
+      <div class="footer-calendar footer-sub">
+        <div class="footer-calendar-header">
+          <div class="footer-calendar-header-cell footer-calendar-cell" ng-repeat="cell in data.employeeCalendarHeaderCells">
+            <span class="cell-day-of-week pull-left">{{cell.dayOfWeek}}</span>
+            <span class="cell-date pull-right">{{cell.date}}</span>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="footer-calendar-body">
+          <div class="panel-upper footer-calendar-body-upper footer-calendar-body-sub">
+            <div class="footer-calendar-body-cell footer-calendar-cell" ng-repeat="cell in data.employeeCalendarHeaderCells" ng-style="{height: data.employeeCalendarShiftsRowHeight}">
+              <div class="{{shift.type}} shift-content {{shift.className}}" ng-repeat="shift in data.employeeCalendarShifts[cell.dayOfWeek]">
+                <div class="cell-info shift-time">
+                  {{shift.timeStr}}
+                </div>
+                <div class="cell-info shift-team-skill">
+                  <span class="shift-team pull-left">{{shift.team}}</span>
+                  <span class="shift-skill pull-right">{{shift.skillAbbrev}}</span>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+          <div class="panel-lower footer-calendar-body-lower footer-calendar-body-sub">
+            <div class="availability-items">
+              <div class="footer-calendar-body-cell footer-calendar-cell" ng-repeat="cell in data.employeeCalendarHeaderCells" ng-style="{height: data.employeeCalendarAvailItemsRowHeight}">
+                <div class="{{availItem.type}} item-content {{availItem.className}}" ng-repeat="availItem in data.employeeCalendarAvailItems[cell.dayOfWeek]">
+                  <div class="cell-info">
+                    {{availItem.title}}
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <div class="preference-items">
+              <div class="footer-calendar-body-cell footer-calendar-cell" ng-repeat="cell in data.employeeCalendarHeaderCells" ng-style="{height: data.employeeCalendarPrefItemsRowHeight}">
+                <div class="{{prefItem.type}} item-content {{prefItem.className}}" ng-repeat="prefItem in data.employeeCalendarPrefItems[cell.dayOfWeek]">
+                  <div class="cell-info">
+                    {{prefItem.title}}
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+      <div class="offset-container">
+        <div class="footer-calendar-signs">
+          <div class="footer-calendar-signs-cell">
+            <div class="sign sign-available">
+              <div class="pattern-available pattern"></div>
+              <label class="text-available pattern-label">{{'employee_schedules.AVAILABLE' | translate}}</label>
+            </div>
+          </div>
+          <div class="footer-calendar-signs-cell">
+            <div class="sign sign-partially-available">
+              <div class="pattern-partially-available pattern"></div>
+              <label class="text-partially-available pattern-label">{{'employee_schedules.PARTIALLY_AVAILABLE' | translate}}</label>
+            </div>
+          </div>
+          <div class="footer-calendar-signs-cell">
+            <div class="sign sign-holiday-vacation">
+              <div class="pattern-holiday-vacation pattern"></div>
+              <label class="text-holiday-vacation pattern-label">{{'employee_schedules.HOLIDAY_VACATION' | translate}}</label>
+            </div>
+          </div>
+          <div class="footer-calendar-signs-cell">
+            <div class="sign sign-not-available">
+              <div class="pattern-not-available pattern"></div>
+              <label class="text-not-available pattern-label">{{'employee_schedules.NOT_AVAILABLE' | translate}}</label>
+            </div>
+          </div>
+          <div class="footer-calendar-signs-cell">
+            <div class="sign sign-new-shift">
+              <div class="pattern-new-shift pattern"></div>
+              <label class="text-new-shift pattern-label">{{'employee_schedules.NEW_SHIFT' | translate}}</label>
+            </div>
+          </div>
+        </div>
+        <div class="footer-contact">
+          <div class="footer-contact-cell">
+            <span class="employee-name">{{data.selectedEligibleEmployee.name}}</span>
+          </div>
+          <div class="footer-contact-cell">
+            <label class="footer-contact-label">{{'employee_schedules.HOME' | translate}}: </label>
+            <span class="footer-contact-text">{{data.selectedEligibleEmployee.homePhone}}</span>
+          </div>
+          <div class="footer-contact-cell">
+            <label class="footer-contact-label">{{'employee_schedules.CELL' | translate}}: </label>
+            <span class="footer-contact-text">{{data.selectedEligibleEmployee.cellPhone}}</span>
+          </div>
+          <div class="footer-contact-cell">
+            <label class="footer-contact-label">{{'employee_schedules.EMAIL' | translate}}: </label>
+            <span class="footer-contact-text">{{data.selectedEligibleEmployee.email}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</script>

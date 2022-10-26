@@ -1,0 +1,39 @@
+<div id="eml-new-shift-lengths">
+  <div class="modal-header">
+    <h4 class="modal-title">{{ ::"rules.site_teams.ADD_SHIFT_LENGTHS" | translate }}</h4>
+  </div>
+  <div class="modal-body">
+    <div class="row" ng-if="nsl.lengths">
+      <div class="eml-grid col-sm-12">
+        <div>
+          <select name="lengthEnding"
+                  id="lengthEnding"
+                  ng-options="ending as ending for ending in nsl.lengthsEndings"
+                  ng-model="nsl.lengthEngingSelected"
+                  ng-change="nsl.createListOfLengthsToSelect()"></select>
+        </div>
+
+        <div class="shift-lengths-list">
+          <div class="new-length" ng-repeat="length in nsl.lengthsToSelect">
+            <label class="checkbox-inline">
+              <input type="checkbox"
+                     ng-checked="length.exists"
+                     ng-model="length.exists"
+                     ng-disabled="length.disabled"
+                     ng-change="nsl.updateEditing(length)">
+              <span ng-class="{ 'eml-grey' : length.disabled }"> {{ length.lengthInMin | displayAsHMM }}</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <a class="btn eml-btn-invisible"
+       ng-click="nsl.closeModal()">{{ ::"app.CLOSE" | translate }}</a>
+    <button ng-show="nsl.isEditing"
+            class="btn btn-success"
+            ng-click="nsl.addNewShiftLengths()">{{ ::"app.ADD" | translate }}</button>
+  </div>
+</div>

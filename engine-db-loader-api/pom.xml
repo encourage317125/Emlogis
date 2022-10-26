@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.emlogis</groupId>
+    <artifactId>emlogis-scheduler</artifactId>
+    <version>1.0</version>
+  </parent>
+  <artifactId>engine-db-loader-api</artifactId>
+  <name>EngineDBLoaderAPI</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+      	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  
+		<!-- other plugin versions -->
+		<version.compiler.plugin>3.1</version.compiler.plugin>
+		<version.war.plugin>2.1.1</version.war.plugin>
+
+		<!-- maven-compiler-plugin -->
+		<maven.compiler.target>1.7</maven.compiler.target>
+		<maven.compiler.source>1.7</maven.compiler.source>
+		
+		<!-- EmLogis  Begin -->
+		<!-- <optaplanner.version>6.2.0.Final</optaplanner.version> -->
+        <!-- EmLogis  End -->
+	</properties>
+  
+  <dependencies>
+  	<dependency>
+  		<groupId>com.emlogis</groupId>
+  		<artifactId>scheduler-common</artifactId>
+  		<version>${emlogis.scheduler.version}</version>
+  	</dependency>
+  </dependencies>
+  <groupId>com.emlogis</groupId>
+  <version>1.0</version>
+</project>

@@ -1,0 +1,2 @@
+A request for an Open Shift for ${shiftSkillName} on ${shiftTeamName} on ${shiftStartDate} from ${startTime} - ${endTIme}
+has been received from ${submitterName}. Please Reply Y/N followed by this code ${UserResponseCode}.

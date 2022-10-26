@@ -1,0 +1,150 @@
+<nav class="navbar navbar-inverse " role="navigation"
+	ng-controller="HeaderCtrl">
+	<!-- Brand and toggle get grouped for better mobile display -->
+	<!--  	<div class="row"> -->
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle"
+			ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+			<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
+			<span class="icon-bar"></span> <span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="/www.emlogis.com/">EmLogis</a>
+	</div>
+
+	<!-- Collect the nav links, forms, and other content for toggling -->
+	<div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'"
+		ng-click="navCollapsed=true">
+
+		<ul class="nav navbar-nav">
+
+			<li><a href='' ui-sref="home"><span
+					class="glyphicon glyphicon-home"></span> </a></li>
+
+			<li class="dropdown" ng-show="hasPermission('Demand.Mgmt')"><a
+				href="#" data-ng-class="{active: true}" class="dropdown-toggle">Demand<b
+					class="caret"></b></a>
+				<ul class="dropdown-menu">
+					<li><a href='' ng-click="loadDemandMgmt('demand')">Demand
+							Management</a></li>
+					<li><a href='' ng-click="loadDemandMgmt('schedule')">Schedule
+							Management</a></li>
+				</ul></li>
+
+			<li class="dropdown"><a href="#" class="dropdown-toggle">Browser<b
+					class="caret"></b></a>
+				<ul class="dropdown-menu">
+					<li><a href=''
+						ng-show="hasPermissionIn(['OrganizationProfile.View', 'OrganizationProfile.Mgmt'])"
+						ui-sref="browser({entity: 'site'})">Sites</a></li>
+					<li><a href=''
+						ng-show="hasPermissionIn(['OrganizationProfile.View', 'OrganizationProfile.Mgmt'])"
+						ui-sref="browser({entity: 'team'})">Teams</a></li>
+					<li><a href=''
+						ng-show="hasPermissionIn(['Employee.View', 'Employee.Mgmt'])"
+						ui-sref="browser({entity: 'employee'})">Employees</a></li>
+					<li><a href=''
+						ng-show="hasPermissionIn(['Employee.View', 'Demand.View', 'Employee.Mgmt', 'Demand.Mgmt'])"
+						ui-sref="browser({entity: 'contract'})">Contracts</a></li>
+					<li><a href=''
+						ng-show="hasPermissionIn(['OrganizationProfile.View', 'OrganizationProfile.Mgmt'])"
+						ui-sref="browser({entity: 'skill'})">Skills</a></li>
+					<li><a href=''
+						ng-show="hasPermissionIn(['OrganizationProfile.View', 'OrganizationProfile.Mgmt'])"
+						ui-sref="browser({entity: 'absencetype'})">Absence Types (NA)</a></li>
+					<li>
+					<li><a href=''
+						ng-show="hasPermissionIn(['OrganizationProfile.View', 'OrganizationProfile.Mgmt'])"
+						ui-sref="browser({entity: 'shifttype'})">Shift Types</a></li>
+					<li>
+					<li class="divider"></li>
+					<li><a href=''
+						ng-show="hasPermissionIn(['Demand.View', 'Demand.Mgmt'])"
+						ui-sref="browser({entity: 'schedule'})">Schedules</a></li>
+					<li><a href=''
+						ng-show="hasPermissionIn(['Demand.View', 'Demand.Mgmt'])"
+						ui-sref="browser({entity: 'shiftstructure'})">ShiftStructures
+							(temp)</a></li>
+					<li><a href=''
+						ng-show="hasPermissionIn(['Demand.View', 'Demand.Mgmt'])"
+						ui-sref="browser({entity: 'shiftreq'})">Shift Reqs (temp)</a></li>
+					<li class="divider"></li>
+					<li><a href=''
+						ng-show="hasPermissionIn(['Account.View', 'Account.Mgmt'])"
+						ui-sref="browser({entity: 'useraccount'})">User Accounts</a></li>
+					<li><a href=''
+						ng-show="hasPermissionIn(['Account.View', 'Account.Mgmt'])"
+						ui-sref="browser({entity: 'groupaccount'})">Groups</a></li>
+					<li><a href=''
+						ng-show="hasPermissionIn(['Role.View', 'Role.Mgmt'])"
+						ui-sref="browser({entity: 'role'})">Roles</a></li>
+					<li><a href=''
+						ng-show="hasPermissionIn(['Role.View', 'Role.Mgmt'])"
+						ui-sref="browser({entity: 'acl'})">Access Control Lists (NA)</a></li>
+					<li class="divider"></li>
+					<li><a href='' ui-sref="browser({entity: 'appserver'})">App
+							Servers</a></li>
+					<li><a href='' ui-sref="browser({entity: 'engine'})">Engines</a></li>
+					<li><a href='' ui-sref="browser({entity: 'session'})">Active Sessions</a></li>
+				</ul></li>
+
+			<!-- ng-show="hasPermission('Account.Mgmt')"   OrganizationProfile -->
+
+			<!-- hack: dummy tag to get some space between menu items -->
+			<li><a href="#"><span class="badge" ng-show="false"></span></a></li>
+			<!--
+                        <li>
+                            <span class="badge">{{eventCnt}}</span>
+                            <font color="red"> {{eventData}}</font>
+                        </li>
+            -->
+		</ul>
+
+		<!--
+                      <li class="dropdown" >
+                        <a href="#" class="dropdown-toggle">{{searchEntityLabel}}<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                          <li><a href='' ng-click="setSearchEntity('employee', 'Employee')">Employee</a></li>
+                          <li data-ng-class="{active: false}" ng-click="setSearchEntity('schedule', 'Schedule')"><a href="#">Schedule</a></li>
+                          <li><a href='' ng-click="setSearchEntity('team', 'Team')">Team</a></li>
+                          <li><a href='' ng-click="setSearchEntity('site', 'Site')">Site</a></li>
+                        </ul>
+                     </li>
+                </ul>
+        -->
+
+		<!--	    <div class="col-md-2"> -->
+		<!-- weird, but allows to control the width of the search form; To be investigated how to do better -->
+		<!--
+
+                    <form class="navbar-form navbar-left input-group" role="search" >
+                         <div class="form-group">
+                            <div class="input-group">
+                                  <input type="text" class="form-control" size="20" ng-model="searchQuery" placeholder="Search">
+                                <span class="input-group-btn"></span>
+                                <button type="submit" class="btn btn-default" ng-click="fireSearch()" ><span class="glyphicon glyphicon-search"></span></button>
+                           </div>
+                           </div>
+                    </form>
+        -->
+
+		<ul class="nav navbar-nav navbar-right">
+			<li class="dropdown"><a href="#" class="dropdown-toggle"
+				data-toggle="dropdown"><span ng-bind="getUserName()" /></span><b
+					class="caret"></b></a>
+				<ul class="dropdown-menu">
+					<li><a href="#">Profile</a></li>
+					<li><a href="#">Preferences</a></li>
+					<li><a href="#">Help</a></li>
+					<li><a href='' ui-sref="about">About</a></li>
+					<li class="divider"></li>
+					<li><a href='' ng-click="logout()">Logout</a></li>
+				</ul></li>
+		</ul>
+	</div>
+	<!-- /.navbar-collapse -->
+	<!--	</div> -->
+	<br> <span class="badge">{{eventCnt}}</span> <font color="red">
+		{{eventData}}</font>
+
+</nav>
+

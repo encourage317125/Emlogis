@@ -1,0 +1,214 @@
+/*BIRT default (you do not need to apply these classes to report element)*/
+.report {
+    font-weight: 400;
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #4d525e;
+}
+.table, .crosstab {
+    margin: auto;
+    font-size: 1em;
+    border-color: #acb4b7;
+    border-style: solid;
+    border-width: 2px;
+}
+.table-header-cell, .table-detail-cell, .crosstab-cell {
+    border-color: #acb4b7;
+    border-style: solid;
+    border-width: 1px;
+    padding: 5px;
+    font-weight: normal;
+    text-align: left;
+    vertical-align: top;
+}
+.table-header {
+    text-transform: uppercase;
+    font-size: 1.1em;
+}
+.min-height {
+    height: 2em;
+}
+/*BIRT default END*/
+
+/*Prepared Sets of styles (use it if you need to combine few atomic styles on a report element,)
+NOTE that ATOMIC styles more acceptable*/
+.emlogis-table {
+    margin: auto;
+    font-size: 1em;
+    border-color: #acb4b7;
+    border-style: solid;
+    border-width: 2px;
+}
+.emlogis-table-cell {
+    border-color: #acb4b7;
+    border-style: solid;
+    border-width: 1px;
+    padding: 5px;
+}
+.emlogis-table-header {
+    text-transform: uppercase;
+    font-size: 1.1em;
+    padding: 0.5em;
+    font-weight: normal;
+}
+/*Prepared Sets of styles END*/
+
+/*===========ATOMIC STYLES===========*/
+/*BIRT does not allow applying few css styles(classes) to 1 report element, so possible workarounds are: 
+	1. Use elements inheritance (create fake parent elements and apply additional styles to it)
+	2. Use BIRT Highlights (create "if(true)" condition, for example "1 Equal to 1" and apply required style)*/
+
+/*Tables, Grids*/
+.highlighted-cell-dark{
+    background-color: #cfd3d5;
+}
+.highlighted-cell-light {
+    background-color: #e7e9ea;
+}
+.bordered {
+    border-color: #acb4b7;
+    border-style: solid;
+    border-width: 1px;
+}
+.border-top {
+    border-color: #acb4b7;
+    border-style: solid;
+    border-width: 0px;
+    border-top-width: 1px;
+}
+.border-right {
+    border-color: #acb4b7;
+    border-style: solid;
+    border-width: 0px;
+    border-right-width: 1px;
+}
+.border-left {
+    border-color: #acb4b7;
+    border-style: solid;
+    border-width: 0px;
+    border-left-width: 1px;
+}
+.border-right-left {
+    border-color: #acb4b7;
+    border-style: solid;
+    border-width: 0px;
+    border-right-width: 1px;
+    border-left-width: 1px;
+}
+.border-bottom {
+    border-color: #acb4b7;
+    border-style: solid;
+    border-width: 0px;
+    border-bottom-width: 1px;
+}
+.double-border {
+    border-width: 2px;
+}
+.no-borders {
+    border: none;
+}
+.no-top-border {
+    border-top: none;
+}
+.no-bottom-border {
+    border-bottom: none;
+}
+.no-right-border {
+    border-right: none;
+}
+.no-left-border {
+    border-left: none;
+}
+.only-top-border {
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+}
+.only-bottom-border {
+    border-left: none;
+    border-right: none;
+    border-top: none;
+}
+.empty-cell {
+    border: none;
+    padding: 0px;
+    margin: 0px;
+    height: 0px;
+    width: 0px;
+}
+/*Tables, Grids END*/
+
+/*Text*/
+.emlogis-header-first {
+    font-size: 1.5em;
+}
+.emlogis-header-second {
+    font-size: 1.2em;
+}
+.highlighted-text-bold {
+    font-weight: bold;
+}
+.highlighted-text-italic {
+    font-style: italic;
+}
+.highlighted-text-underlined {
+    text-decoration: underline;
+}
+.highlighted-text-uppercase {
+    text-transform: uppercase;
+}
+.highlighted-text-light {
+    color: rgb(115, 116, 119);
+}
+.highlighted-text-dark {
+    color: rgb(24, 27, 33);
+}
+.highlighted-text-small {
+    font-size: smaller;
+}
+.align-left {
+    text-align: left;
+}
+.align-right {
+    text-align: right;
+}
+.allign-center {
+    text-align: center;
+}
+.align-center-middle {
+    text-align: center;
+    vertical-align: middle;
+}
+.valign-middle {
+    vertical-align: middle;
+}
+.medium-font {
+    font-size: 1.3em;
+}
+/*Text END*/
+
+/*Spaces*/
+.padding-05em {
+    padding: 0.5em;
+}
+.no-padding {
+    padding: 0px;
+}
+.no-margin {
+    margin: 0px;
+}
+.slim-fit {
+    padding: 0px;
+    margin: 0px;
+}
+/*Spaces END*/
+
+/*Common*/
+.no-display {
+    display: none;
+}
+.content {
+    width: 100%;
+    height: 100%;
+}
+/*Common END*/
+/*===========ATOMIC STYLES END===========*/

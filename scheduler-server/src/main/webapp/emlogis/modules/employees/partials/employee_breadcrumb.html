@@ -1,0 +1,19 @@
+<!-- employee breadcrumb start -->
+<div class="employees-breadcrumb">
+  <button class="btn btn-default pull-right eml-breadcrumb-btn" ng-show="authService.hasPermission('Employee_Mgmt')"
+          ng-click="startCreatingEmployee()">{{ "employees.ADD_EMPLOYEES" | translate }}</button>
+
+  <div class="input-group pull-right">
+    <input type="text"
+           class="form-control"
+           placeholder="{{'app.SEARCH'|translate}}"
+           ng-model="searchText"
+           typeahead="e as e.fullName for e in searchEmployees($viewValue)"
+           typeahead-on-select="selectEmployee($item)"
+           typeahead-min-length="2">
+    <span class="input-group-btn">
+        <button class="btn btn-default"><img src="img/search.svg" alt="{{'app.SEARCH'|translate}}"/></button>
+    </span>
+  </div>
+</div>
+<!-- employee breadcrumb end -->

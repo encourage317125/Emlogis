@@ -1,0 +1,17 @@
+#!/bin/bash
+DIR="$(dirname "$0")"
+cd $DIR
+
+sudo cp scheduler-engine /etc/init.d/scheduler-engine
+sudo chmod 754 /etc/init.d/scheduler-engine
+
+# Remove previous scheduler-engine deployment
+sudo service scheduler-engine stop
+sudo mkdir /opt/emlogis/
+sudo rm -R /opt/emlogis/scheduler-engine 2>&1
+sudo unzip -o ../../../../../target/scheduler-engine-bin-1.0.zip -d /opt/emlogis/
+#sudo unzip -o /home/emlogis/Project/git/emlogis-scheduler/scheduler-resources/target/scheduler-engine-bin-1.0.zip -d /opt/emlogis/
+sudo chmod 755 /opt/emlogis/scheduler-engine/stop-ngin-node.sh /opt/emlogis/scheduler-engine/start-ngin-node.sh
+sudo /opt/emlogis/scheduler-engine/stop-ngin-node.sh
+sed -i 's/hazelcast_address=_IPADDRESSLIST_/hazelcast_address="127.0.0.1"/g' /opt/emlogis/scheduler-engine/engine.properties
+sudo service scheduler-engine start

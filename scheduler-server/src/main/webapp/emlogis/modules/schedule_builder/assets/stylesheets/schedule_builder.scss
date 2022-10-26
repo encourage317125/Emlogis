@@ -1,0 +1,1077 @@
+/*
+* Modal Paddings
+*/
+$modal-padding-left: 10px;
+$modal-padding-right: 10px;
+$modal-padding-top: 10px;
+$modal-padding-bottom: 10px;
+$modal-window-width: 900px;
+$schedule-list-height: 400px;
+
+$pattern-header-bg-color: #ccc;
+$normal-demand-circle-bg-color: #95A5A6;
+$extra-demand-circle-bg-color: #EDC30A;
+
+.disabled {
+  color: $btn-link-disabled-color;
+}
+
+a.disabled:link {
+  color: $btn-link-disabled-color;
+}
+
+/* visited link */
+a.disabled:visited {
+  color: $btn-link-disabled-color;
+}
+
+/* mouse over link */
+a.disabled:hover {
+  color: $btn-link-disabled-color;
+}
+
+/* selected link */
+a.disabled:active {
+  color: $btn-link-disabled-color;
+}
+
+//  Schedule Builder Breadcrumb
+.schedule-builder-breadcrumb {
+  //font-size: $ico-font-size;
+  .settings, .help {
+    color: $font-color;
+    margin-left: 10px;
+    //padding-top: 4px;
+  }
+  .help {
+    font-size: $ico-font-size;
+  }
+
+  .schedule-builder-create-schedules-breadcrumb {
+
+    .site-team {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+  }
+
+  .schedule-builder-shift-patterns-breadcrumb {
+    .settings {
+      font-size: $ico-font-size;
+    }
+  }
+
+  .modal-dialog {
+    margin-top: $modal-margin-top;
+  }
+
+  .new-schedule-modal {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 14px;
+
+    label {
+      margin-right: 10px;
+      padding-top: 5px;
+    }
+
+    .save-btn, .close-btn {
+      margin-left: 10px;
+    }
+
+    .name {
+      width: 300px;
+      padding-top: 2px;
+    }
+
+    .start-date {
+      width: 135px;
+      margin-right: 10px;
+    }
+
+    .length {
+      width: 120px;
+    }
+
+    .teams, .sites {
+      display: block;
+      float: left;
+      margin-left: 10px;
+    }
+  }
+
+}
+
+.schedule-builder {
+
+  $margin-right: 10px;
+  $margin-left: 10px;
+
+  /*.label {
+      color: $font-color;
+  }*/
+
+  #scheduler {
+    width: 100%;
+    height: 600px;
+  }
+
+  .empty-list {
+    color: #000000;
+  }
+
+  #scheduler * {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+  }
+
+  // Create Schedule Page
+  .schedule-builder-create-schedule {
+
+    padding-bottom: 50px;
+
+    .actions {
+      padding-top: 15px;
+      padding-bottom: 15px;
+
+      .multiSelect > button {
+        min-height: 30px !important;
+      }
+
+      .open-schedule-btn {
+        padding: 0px;
+        border: 0px;
+        margin-right: $margin-right;
+        background-color: $eml-lightest-grey;
+      }
+
+      .teams, .sites {
+        display: block;
+        float: left;
+        margin-left: $margin-left;
+      }
+
+      span.label {
+        float: left;
+        padding-top: 10px;
+        font-size: 100%;
+        font-weight: normal;
+      }
+
+      .save, .generate, .settings, .duplicate, .save-as {
+        margin-left: 15px;
+      }
+
+      .settings {
+        color: $font-color;
+        font-size: $ico-font-size;
+      }
+
+      .tree-panel {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+
+      }
+
+      .delBtn {
+        float: right;
+        margin-left: 15px;
+      }
+
+      .filter-ico {
+        background-image: none;
+        padding: 6px;
+        font-size: 18px;
+        color: $eml-dark-blue;
+      }
+    }
+
+    .schedule-info {
+
+      padding-top: 10px;
+
+      label {
+        float: left;
+        font-weight: normal;
+        padding-left: 0px;
+        padding-top: 7px;
+        margin-right: $margin-right;
+      }
+
+      input.name {
+        width: 200px;
+        margin-right: $margin-right;
+
+      }
+
+      label.big {
+        width: 100px;
+        font-weight: normal;
+        padding-top: 2px;
+        font-size: 14px;
+      }
+
+      .info {
+        margin-left: $margin-left;
+        padding-top: 6px;
+      }
+
+      .start-date, .length {
+        width: 135px;
+        padding-top: 2px;
+        margin-right: $margin-right;
+        .btn-calendar {
+          background-color: #d9d9da;
+          border-color: #d9d9da;
+          padding: 4px 7px;
+          img {
+            width: 16px;
+            height: 18px;
+          }
+        }
+      }
+
+      .length {
+        width: 100px;
+      }
+
+      .input-group-btn {
+        vertical-align: top;
+      }
+
+      .schedule-teams {
+        display: inline-block;
+        vertical-align: top;
+
+        .team, .add-team {
+          display: inline-block;
+          button {
+            padding-top: 1px;
+            padding-bottom: 1px;
+          }
+        }
+
+        .team {
+          border: 1px solid #c6c6c6;
+          margin-right: $margin-right;
+          border-radius: 25px;
+          background: buttonface;
+          padding: 1px 12px;
+          .close {
+            margin-right: 5px;
+          }
+        }
+      }
+
+      .generation-panel {
+
+        margin-bottom: 10px;
+        overflow: auto;
+
+        label.default {
+          font-size: 16px;
+        }
+
+        a.close {
+          margin-right: -20px;
+          margin-top: -27px;
+          span {
+            font-size: 30px;
+          }
+        }
+
+        span {
+          padding-top: 0px;
+          margin-right: 5px;
+        }
+
+        span.separator {
+          margin-left: 5px;
+        }
+
+        span.elapsed {
+          padding-top: 9px;
+        }
+
+        button.btn {
+          margin-left: $margin-left;
+        }
+
+        .running {
+
+          .progressbar-section {
+            padding-top: 5px;
+            margin-right: 20px;
+            width: 200px;
+            display: inline-block;
+
+            .progress {
+              margin-bottom: 0px;
+              border-radius: 10px;
+              height: 10px;
+
+              .progress-bar {
+                background-color: lightblue;
+              }
+            }
+          }
+
+          .msg-label {
+            color: lightblue;
+          }
+          i.msg-label, i.error {
+            margin-top: 2px;
+            margin-right: 5px;
+          }
+        }
+
+        .status {
+          //border: 1px solid #c6c6c6;
+          //border-radius: 5px;
+          margin-right: 10px;
+          //background-color: darkgoldenrod;
+          //color: #ffffff;
+          //padding: 4px 12px;
+          //display: inline-block;
+          background-color: $eml-dark-grey;
+          color: #fff;
+          padding: 3px 6px;
+          -webkit-border-radius: 3px;
+          border-radius: 3px;
+        }
+
+        .state {
+          margin-top: 5px;
+        }
+
+        .completed {
+          .msg-label {
+            color: mediumseagreen;
+          }
+
+          .error {
+            color: red;
+          }
+
+          i.msg-label, i.error {
+            margin-top: 2px;
+            margin-right: 5px;
+          }
+        }
+      }
+
+      span.editing {
+        padding-top: 5px;
+        font-size: 150%;
+        font-weight: normal;
+        padding-left: 0px;
+        margin-left: 10px;
+        color: $text-color;
+      }
+
+      .status-info {
+        .error {
+          color: red;
+        }
+      }
+
+    }
+
+    $pattern-selected-bg-color: #3399DB;
+
+    table.calendar {
+      width: 100%;
+      border: 1px solid $border-color;
+      border-collapse: collapse;
+      tr.header {
+        text-transform: uppercase;
+        font-weight: bold;
+        td {
+          //padding-left: 10px;
+        }
+
+      }
+      tr.data {
+        border-top-width: 1px;
+        border-top-style: solid;
+
+        td.day {
+          border-right: 1px solid $border-color;
+          vertical-align: top;
+
+          table.patterns {
+            border: none;
+            width: 100%;
+
+            tr {
+              border-bottom: 1px solid $border-color;
+              color: white;
+              background-color: darkgrey;
+              height: 25px;
+
+              td {
+                padding: 5px;
+                > span {
+                  > a {
+                    padding-left: 10px;
+                  }
+                  > ul {
+                    padding-left: 10px;
+                    li > a {
+                      padding-left: 0px;
+                    }
+                  }
+                }
+
+                span.pattern-name {
+
+                }
+                button.close {
+                  margin-left: 10px;
+                }
+
+                .add-shift-pattern {
+                }
+
+              }
+            }
+
+            tr.selected {
+              background-color: $pattern-selected-bg-color;
+              color: white;
+            }
+
+            tr.pattern {
+
+            }
+
+            tr.disabled {
+              pointer-events: none;
+              cursor: default;
+            }
+
+          }
+        }
+
+        td.disabled {
+          color: grey;
+        }
+      }
+    }
+
+  }
+
+  // Shift Pattern Page
+  .schedule-builder-shift-patterns {
+
+    .actions {
+
+      padding-top: 15px;
+      padding-bottom: 15px;
+
+      .filter-ico {
+        float: left;
+        font-size: 30px;
+        padding-top: 4px;
+        background-image: none;
+      }
+
+      .teams, .sites, .skills {
+        display: block;
+        float: left;
+        margin-left: $margin-left;
+      }
+
+      span.label {
+        float: left;
+        padding-top: 10px;
+        font-size: 100%;
+        font-weight: normal;
+      }
+
+      .start-date, .length {
+        float: left;
+        width: 120px;
+        padding-top: 2px;
+      }
+
+      .length {
+        float: left;
+        width: 100px;
+      }
+
+      .input-group-btn {
+        vertical-align: top;
+      }
+
+      button.btn {
+        margin-left: $margin-left;
+      }
+
+      .tree-panel {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+        min-width: 250px;
+
+        .site {
+          padding-left: 10px;
+
+          .team {
+            padding-left: 10px;
+
+            .skill {
+              padding-left: 10px;
+              width: 100%;
+              clear: both;
+              overflow: hidden;
+
+              .specific-date {
+                padding-left: 10px;
+                clear: both;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .shift-pattern-info {
+
+      padding-top: 10px;
+      padding-bottom: 5px;
+
+      span.label {
+        float: left;
+        padding-top: 5px;
+        font-size: 150%;
+        font-weight: normal;
+        padding-left: 0px;
+        color: $text-color;
+      }
+
+      .name {
+        float: left;
+        width: 300px;
+        padding-top: 2px;
+      }
+
+      .info {
+        margin-left: $margin-left;
+        padding-top: 6px;
+        span {
+          margin-right: 10px;
+        }
+      }
+
+      .duplicate, .default-name {
+        margin-left: $margin-left;
+      }
+
+      .date-type {
+        margin-top: 10px;
+
+        .label {
+          font-size: 100%;
+          padding-top: 10px;
+        }
+
+        .options {
+          padding-top: 12px;
+
+          input[type="radio"] {
+            margin-top: 4px;
+            margin-left: $margin-left;
+            margin-right: 5px;
+          }
+          label {
+            padding-top: 1px;
+          }
+        }
+
+        .specific-date {
+          width: 120px;
+          margin-left: $margin-left;
+          margin-top: 7px;
+        }
+
+        .btn-calendar {
+          background-color: #d9d9da;
+          border-color: #d9d9da;
+          padding: 4px 7px;
+          img {
+            width: 16px;
+            height: 18px;
+          }
+        }
+      }
+    }
+
+    .shift-pattern-area {
+
+      $padding-left: 10px;
+      $padding-right: 10px;
+      $padding-top: 10px;
+      $padding-bottom: 10px;
+      $left-section-width: 120px;
+
+      .shift-settings {
+
+        //define variable
+        $generation-type-width: 300px;
+
+        border: 1px solid $border-color;
+        padding-top: $padding-top;
+        padding-bottom: $padding-bottom;
+        padding-left: $padding-left;
+        padding-right: $padding-right;
+        overflow: hidden;
+        min-height: 200px;
+
+        .left {
+          width: $left-section-width;
+          padding-top: 5px;
+          span.label {
+            font-size: 120%;
+            font-weight: normal;
+            padding-left: 0px;
+            color: $text-color;
+          }
+        }
+
+        .generation-type {
+          text-transform: uppercase;
+          min-width: $generation-type-width;
+          padding-right: 30px;
+
+          .options {
+            input[type="radio"] {
+              margin-top: 4px;
+              float: left;
+              margin-right: 10px;
+            }
+          }
+        }
+
+        .select-shifts {
+          text-transform: uppercase;
+          width: calc(100% - #{$left-section-width} - #{$generation-type-width});
+          min-width: 930px;
+
+          tr.first {
+            border-bottom: 1px solid $border-color;
+          }
+
+          table.shifts {
+            width: 100%;
+
+            td {
+              padding-left: 5px;
+              padding-top: 2px;
+              padding-bottom: 2px;
+            }
+            td.hour {
+              font-weight: bold;
+              padding-left: 15px;
+              padding-right: 15px;
+            }
+            td.first {
+              padding-left: 0px;
+            }
+          }
+          table.shift-lengths {
+            width: 100%;
+            tr.lengths {
+              input[type="checkbox"] {
+                margin-right: 2px;
+              }
+              td {
+                padding-top: 10px;
+              }
+            }
+          }
+          .required, .excess {
+            width: 70px;
+          }
+        }
+      }
+
+      .shift-pattern, .demand {
+
+        border: 1px solid $border-color;
+        border-top: none;
+        padding-top: $padding-top;
+        padding-left: $padding-left;
+        padding-right: $padding-right;
+        padding-bottom: $padding-bottom;
+        overflow: hidden;
+        min-height: 200px;
+
+        .left {
+          width: $left-section-width;
+          padding-top: 5px;
+          span.label {
+            font-size: 120%;
+            font-weight: normal;
+            padding-left: 0px;
+            color: $text-color;
+          }
+        }
+
+        // graph area
+        .graph {
+          width: calc(100% - #{$left-section-width});
+          min-width: 900px;
+          table {
+            width: 100%;
+            td, th {
+              padding-left: 4px;
+              padding-right: 4px;
+            }
+          }
+        }
+
+        .shift-demands-graph table {
+          thead {
+            tr.demand-header {
+              background-color: darkgrey;
+
+              td {
+                padding-bottom: 3px;
+              }
+
+              td.disabled {
+                background-color: grey;
+              }
+
+              input.demand-time-frame-count {
+                width: 20px;
+                background-color: transparent;
+                border-style: none;
+                border-bottom-style: solid;
+                border-bottom-width: 1px;
+                text-align: center;
+                outline: 0;
+              }
+            }
+
+          }
+
+          label.circle {
+            border-radius: 15px;
+            background-color: $normal-demand-circle-bg-color;
+            width: 20px;
+            height: 20px;
+            margin-bottom: 0px;
+            vertical-align: bottom;
+          }
+
+          label.circle.extra {
+            background-color: $extra-demand-circle-bg-color;
+          }
+
+          td.demand-item {
+            text-align: center;
+          }
+          tr.demand-items {
+            height: 21px;
+            th {
+              background-color: $pattern-header-bg-color;
+              padding-left: 3px;
+            }
+          }
+        }
+
+      }
+
+    }
+
+  }
+
+  // Schedule Generation Report Page
+  .schedule-builder-report {
+    padding-left: 25px;
+    padding-bottom: 25px;
+    padding-right: 25px;
+
+    .open-schedule-btn {
+      padding: 0px;
+      border: 0px;
+      margin-right: $margin-right;
+      background-color: $eml-lightest-grey;
+    }
+    .nav-tabs {
+      margin: 0px -25px;
+    }
+
+    .tab-content {
+      padding-top: 15px;
+    }
+
+    button.pull-right {
+      margin-left: 5px;
+      margin-bottom: 5px;
+    }
+
+    .child-tab {
+      padding-left: 25px;
+      padding-bottom: 25px;
+      padding-right: 25px;
+    }
+
+    .overflow-table {
+      overflow-x: auto;
+    }
+
+    .gridCell {
+      padding: 5px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .hardCell {
+      color: rgb(255, 0, 0);
+    }
+
+    .softCell {
+      color: rgb(0, 0, 0);
+    }
+
+    .mediumCell {
+      color: rgb(255, 136, 0);
+    }
+
+    .goodCell {
+      color: rgb(0, 127, 255);
+    }
+
+    .gridStyle {
+      height: 500px;
+    }
+
+    .ui-grid-header-cell .ui-grid-cell-contents {
+      //white-space: normal;
+    }
+
+    .ui-grid-column-menu-button {
+      top: inherit;
+      bottom: 5px;
+    }
+
+    .ui-grid-header-cell {
+      height: inherit !important;
+    }
+
+    .last-generation {
+      .left-col-table {
+        vertical-align: top;
+        padding-right: 10px;
+      }
+    }
+
+    .ngcell {
+      display: table-cell;
+      height: auto !important;
+      overflow: visible;
+      position: static;
+    }
+
+    .ngcell-contents {
+      height: auto !important;
+      white-space: normal;
+      overflow: visible;
+    }
+
+    .ngrow {
+      display: table-row;
+      height: auto !important;
+      position: static;
+    }
+  }
+
+  .shift-modal {
+    overflow: hidden;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    .info {
+      padding-top: 6px;
+    }
+
+    button.btn {
+      margin-left: 20px;
+    }
+  }
+
+  .duplicate-modal {
+    overflow: visible;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    .specific-date {
+      width: 150px;
+    }
+
+    button.save-btn, button.close-btn, {
+      margin-left: 20px;
+    }
+
+    .general-days {
+      display: inline-table;
+      margin-right: 5px;
+    }
+
+    .general, .specific {
+      marging-right: 5px;
+    }
+  }
+
+  .create-schedule-duplicate-modal {
+    overflow: visible;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    .start-date {
+      width: 150px;
+    }
+
+    button.save-btn, button.close-btn, {
+      margin-left: 20px;
+    }
+
+    label {
+      padding-top: 5px;
+      margin-right: $margin-right;
+    }
+
+    input.name {
+      width: 200px;
+      margin-right: 10px;
+    }
+
+  }
+
+  .save-as-modal {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    button.btn {
+      margin-left: $margin-left;
+    }
+  }
+  .save-work-modal {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    button.btn {
+      margin-left: $margin-left;
+    }
+  }
+
+  .modal-dialog {
+    margin-top: $modal-margin-top;
+  }
+
+}
+
+.schedule-builder-open-schedule {
+
+  .open-schedule-modal {
+
+    padding-left: $modal-padding-left;
+    padding-right: $modal-padding-right;
+    padding-top: $modal-padding-top;
+    padding-bottom: $modal-padding-bottom;
+    font-size: 14px;
+
+    .big {
+      width: 200px;
+      font-weight: normal;
+      padding-top: 2px;
+      font-size: 150%;
+    }
+
+    .actions {
+
+      margin-top: 10px;
+      .records_info {
+        font-weight: bold;
+      }
+
+      .showing {
+        margin-right: 10px;
+      }
+
+      .action-btn {
+        margin-left: 10px;
+      }
+
+      .status {
+        margin-left: 10px;
+        margin-top: 5px;
+
+      }
+    }
+
+    // Filter input box & search icon
+    .input-group-btn > .btn {
+      border-left-width: 0;
+      -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+      background: #ffffff;
+      border-color: #ccc;
+    }
+
+    /* stop the glowing border-left: ; shadow */
+    .add-on .form-control:focus {
+      box-shadow: none;
+      -webkit-box-shadow: none;
+      border-color: #cccccc;
+    }
+
+    .filter {
+      border-right-width: 0px;
+      width: 150px;
+    }
+  }
+
+  .modal-dialog {
+    margin-top: 100px;
+    width: $modal-window-width;
+  }
+}
+
+// Search Grid list
+.schedule-list {
+  clear: both;
+  width: 880px;
+  margin-top: 20px;
+  height: $schedule-list-height;
+
+  // Impersonate a tag positioning
+  .action-cell {
+    text-align: center;
+    padding-top: 5px;
+
+    // Cursor Pointer
+    a {
+      cursor: pointer;
+    }
+  }
+}

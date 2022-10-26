@@ -1,0 +1,37 @@
+<div class="duplicate-modal">
+    <h2>Duplicate Shifts</h2>
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <input type="radio" id="duplicateGeneral" ng-model="duplicate.type" value="GENERAL" class="pull-left" checked>
+            <label for="duplicateGeneral" translate>schedule_builder.GENERAL_DAY_OF_THE_WEEK</label>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-12">
+
+            <label ng-repeat="day in generalDays" class="general-days">
+                <input type="checkbox" id="{{day.id}}" ng-model="day.checked" ng-change="selectedGeneralDays()" style="float:left; margin-right: 5px;" ng-disabled = "duplicate.type !== 'GENERAL'">
+                <label for="{{day.id}}" translate>{{day.display}}</label>
+            </label>
+
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <input type="radio" id="specificDuplicate" class="pull-left specific" ng-model="duplicate.type" value="SPECIFIC" checked >
+            <label class="pull-left" for="specificDuplicate" translate> schedule_builder.SPECIFIC_DATE </label>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="input-group pull-left specific-date">
+                <input type="text" class="form-control" datepicker-popup="shortDate" ng-model="duplicate.cdDate" is-open="dateOpened" ng-required="true" close-text="Close" ng-disabled = "duplicate.type !== 'SPECIFIC'" />
+                <span class="input-group-btn ">
+                    <button type="button" class="btn btn-default" ng-click="open($event)" ng-disabled = "duplicate.type !== 'SPECIFIC'"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12" style="overflow: hidden; padding-top: 10px; clear: both;">
+            <button ng-click="duplicateAction()" class="btn btn-default save-btn pull-right" translate>schedule_builder.DUPLICATE</button>
+            <button ng-click="close()" class="btn btn-default close-btn pull-right" translate>app.CLOSE</button>
+        </div>
+    </div>
+</div>

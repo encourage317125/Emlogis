@@ -1,0 +1,130 @@
+<script type="text/ng-template" id="scheduleSelectorModal.html">
+  <div class="modal-header">
+    <h5 class="modal-title">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="pull-left">{{'employee_schedules.SELECT_SCHEDULE' | translate}}</div>
+        </div>
+        <div class="col-md-6">
+          <div class="pull-right">
+            <a href ng-click="close()">&times;</a>
+          </div>
+        </div>
+      </div>
+    </h5>
+  </div>
+  <div class="modal-body">
+    <div class="schedules-header row">
+      <div class="col-sm-12">
+        <div class="checkbox inline-container"
+             ng-class="{'white-bg': !checkboxModel.simulationGenerated, 'mid-grey-bg': checkboxModel.simulationGenerated, 'white-color': checkboxModel.simulationGenerated}">
+          <label>
+            <input type="checkbox" ng-model="checkboxModel.simulationGenerated" ng-change="filterSchedules()">{{'employee_schedules.SIMULATION'
+            | translate}}/{{'employee_schedules.GENERATED' | translate}}
+          </label>
+        </div>
+        <div class="checkbox inline-container"
+             ng-class="{'white-bg': !checkboxModel.production, 'mid-grey-bg': checkboxModel.production, 'white-color': checkboxModel.production}">
+          <label>
+            <input type="checkbox" ng-model="checkboxModel.production" ng-change="filterSchedules()">{{'employee_schedules.PRODUCTION'
+            | translate}}
+          </label>
+        </div>
+        <div class="checkbox inline-container"
+             ng-class="{'white-bg': !checkboxModel.posted, 'mid-grey-bg': checkboxModel.posted, 'white-color': checkboxModel.posted}">
+          <label>
+            <input type="checkbox" ng-model="checkboxModel.posted" ng-change="filterSchedules()">{{'employee_schedules.POSTED'
+            | translate}}
+          </label>
+        </div>
+        <div class="inline-container" ng-if="loadingState.schedulesLoaded && original.schedules.length > 0">
+          <span class="eml-grid-number text-uppercase">
+            <span>{{'app.SHOWING' | translate}} </span>
+            <span ng-if="schedulesGridOptions.paginationCurrentPage < schedulesGridOptions.numPages">{{schedulesGridOptions.paginationPageSize * (schedulesGridOptions.paginationCurrentPage - 1) + 1}} - {{schedulesGridOptions.paginationPageSize * schedulesGridOptions.paginationCurrentPage}}</span>
+            <span ng-if="schedulesGridOptions.paginationCurrentPage === schedulesGridOptions.numPages">{{schedulesGridOptions.paginationPageSize * (schedulesGridOptions.paginationCurrentPage - 1) + 1}} - {{schedulesGridOptions.totalItems}}</span>
+            <span> {{'app.OF' | translate}} </span>
+            <span>{{schedulesGridOptions.totalItems}}</span>
+          </span>
+        </div>
+        <div class="inline-container">
+          <div loader ng-if="!loadingState.schedulesLoaded" class="schedules-loader"></div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+    <div class="schedules-filter form-group row">
+      <div class="col-sm-6 col-md-3">
+        <div class="input-group">
+          <input type="text" class="form-control" ng-model="filter.scheduleName" ng-enter="filterSchedules()"
+                 placeholder="{{'app.SEARCH'|translate}} {{'employee_schedules.SCHEDULE_NAME'|translate}}...">
+          <span class="input-group-btn">
+            <button class="btn btn-default btn-filter" ng-click="filterSchedules()">
+              <img src="/scheduler-server/emlogis/img/search.svg" width="18">
+            </button>
+          </span>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <select class="form-control select-filter" ng-model="filter.site" ng-change="onSelectedSiteChanged()"
+                ng-options="site as site.name for site in original.sites track by site.id">
+          <option value="">{{'employee_schedules.SELECT_SITE' | translate}}</option>
+        </select>
+        <select class="form-control select-filter" ng-model="filter.team" ng-change="onSelectedTeamChanged()"
+                ng-options="team as team.name for team in original.teams track by team.id">
+          <option value="">{{'employee_schedules.SELECT_TEAM' | translate}}</option>
+        </select>
+      </div>
+      <div class="col-sm-6 col-md-5" ng-hide="filter.site === null">
+        <div class="inline-container label-schedule-date">
+          <label>
+            {{'employee_schedules.SCHEDULE_DATE' | translate}}
+          </label>
+        </div>
+        <div class="inline-container schedule-date-picker-container">
+          <span class="input-group schedule-date-picker eml-datepicker-right">
+            <input type="text" class="form-control" datepicker-popup="dd-MMMM-yyyy"
+                   ng-model="datePickerModel.scheduleDate" ng-change="parseFilteredScheduleDate()"
+                   is-open="datePickerModel.datePickerOpened" datepicker-options="datePickerModel.datePickerOptions"
+                   close-text="Close"/>
+            <span class="input-group-btn">
+              <button type="button" class="btn eml-btn-grey-lightest eml-calendar-btn"
+                      ng-class="{ 'eml-calendar-opened' : datePickerModel.datePickerOpened }"
+                      ng-click="datePickerModel.openDatePicker($event)">
+                <img src="/scheduler-server/emlogis/img/calendar.svg">
+              </button>
+            </span>
+          </span>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+    <div class="schedules-list form-group row">
+      <div class="col-sm-12 eml-grid">
+        <div ui-grid="schedulesGridOptions"
+             ui-grid-resize-columns
+             ui-grid-move-columns
+             class="schedules-grid"></div>
+      </div>
+    </div>
+    <div class="schedules-list-pagination row">
+      <div class="col-sm-12 text-center">
+        <pagination class="pagination-sm"
+                    total-items="schedulesGridOptions.totalItems"
+                    items-per-page="schedulesGridOptions.paginationPageSize"
+                    ng-model="schedulesGridOptions.paginationCurrentPage"
+                    ng-change="navigateSchedulesPage()"
+                    boundary-links="true"
+                    max-size="5"
+                    previous-text="&lsaquo;"
+                    next-text="&rsaquo;"
+                    first-text="&laquo;"
+                    last-text="&raquo;"
+                    num-pages="schedulesGridOptions.numPages">
+        </pagination>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-default green-bg" ng-click="close()">{{'app.CLOSE' | translate}}</button>
+  </div>
+</script>

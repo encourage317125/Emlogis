@@ -1,0 +1,346 @@
+<div ng-controller="HeaderCtrl">
+  <nav class="navbar navbar-inverse eml-top-menu" role="navigation"
+       ng-style="{ 'min-height': onLoginPage() ? '0' : '50px' }">
+
+    <!-- Site-level Message: TEMP: currently SseEvent & Heartbit-->
+    <div ng-include="'modules/_layouts/partials/sse_event.tpl.html'" ng-if="!onLoginPage()"></div>
+
+    <div class="container-fluid">
+      <div class="eml-menu-wrap" ng-if="!onLoginPage()">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" ng-click="navbarCollapsed = !navbarCollapsed">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#" ui-sref="authenticated.home">
+            <img alt="EmLogis" src="img/emlogis_logo.png">
+            <span class="eml-version">14/04<br>7.0</span>
+          </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" collapse="navbarCollapsed">
+          <ul class="nav navbar-nav">
+
+            <!-- Dashboard menu -->
+            <li active-class-on="authenticated.dashboard"
+                ng-if="isLoggedIn() && hasStatePermissionsByName('authenticated.dashboard')">
+              <a href="#" ui-sref="authenticated.dashboard" translate>nav.MY_DASHBOARD</a>
+            </li>
+            <!--<li class="divider-vertical" ng-if="isLoggedIn()"></li>-->
+
+            <!-- Employee Schedules menu -->
+            <li class="dropdown" dropdown ui-sref-active="active"
+                ng-if="isLoggedIn() && hasStatePermissionsByName('authenticated.employeeSchedules')">
+              <a href dropdown-toggle>
+                <span translate>nav.EMPLOYEE_SCHEDULES</span>
+              </a>
+              <ul class="dropdown-menu text-uppercase" role="menu">
+                <li active-class-on="authenticated.employeeSchedules.weekView">
+                  <a href="#" ui-sref="authenticated.employeeSchedules.weekView" translate>nav.employee_schedules.WEEK_VIEW</a>
+                </li>
+                <li active-class-on="authenticated.employeeSchedules.dayView">
+                  <a href="#" ui-sref="authenticated.employeeSchedules.dayView" translate>nav.employee_schedules.DAY_VIEW</a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Schedule Builder menu -->
+            <li class="dropdown"
+                dropdown
+                ui-sref-active="active"
+                ng-if="isLoggedIn() && hasStatePermissionsByName('authenticated.schedule_builder')">
+              <!-- ui-sref-active="authenticated.schedule_builder" -->
+              <a href
+                 ui-sref="authenticated.schedule_builder.create_schedules"
+                 dropdown-toggle
+                 ng-if="isLoggedIn() && hasStatePermissionsByName('authenticated.schedule_builder')">
+                <span translate>nav.SCHEDULE_BUILDER</span>
+              </a>
+
+              <ul class="dropdown-menu text-uppercase" role="menu">
+                <li active-class-on="authenticated.schedule_builder.create_schedules">
+                  <a href="#" ui-sref="authenticated.schedule_builder.create_schedules({id: getPrevScheduleId()})"
+                     ng-if="isLoggedIn() && hasStatePermissionsByName('authenticated.schedule_builder.create_schedules')"
+                     translate>nav.CREATE_SCHEDULES</a>
+                </li>
+                <li active-class-on="authenticated.schedule_builder.shift_patterns">
+                  <a href="#" ui-sref="authenticated.schedule_builder.shift_patterns"
+                     ng-if="isLoggedIn() && hasStatePermissionsByName('authenticated.schedule_builder.shift_patterns')"
+                     translate>nav.SHIFT_PATTERNS</a>
+                </li>
+                <!--<li active-class-on = "authenticated.schedule_builder.shift_bidding" ng-if="hasPermission('Demand_Mgmt')">
+                  <a href="#" ui-sref="authenticated.schedule_builder.shift_bidding" translate>nav.SHIFT_BIDDING</a>
+                </li>-->
+              </ul>
+            </li>
+
+            <!-- Employees menu -->
+            <li ui-sref-active="authenticated.employees"
+                ng-if="isLoggedIn() && hasStatePermissionsByName('authenticated.employees')">
+              <a href ui-sref="authenticated.employees.list">
+                <span translate>nav.EMPLOYEES</span>
+              </a>
+            </li>
+
+            <!-- Reports menu -->
+            <li active-class-on="authenticated.reports"
+                ng-if="isLoggedIn() && hasStatePermissionsByName('authenticated.reports')">
+              <a href="#" ui-sref="authenticated.reports.group({groupId: staffing})" translate>nav.REPORTS</a>
+            </li>
+
+            <!-- Settings menu --> <!-- TODO: this needs refactoring to move Settings under Rules -->
+            <li dropdown
+                ng-if="isLoggedIn() && (hasStatePermissionsByName('authenticated.settings.accounts') || hasStatePermissionsByName('authenticated.rules.general'))">
+              <a class="dropdown-toggle"
+                 dropdown-toggle>
+                <!-- active-class-on="authenticated.rules || authenticated.settings" ui-sref-active="active"  -->
+                <span translate>nav.SETTINGS</span>
+              </a>
+              <!--<a href="#" ui-sref="authenticated.settings" translate>nav.SETTINGS</a>-->
+              <ul class="dropdown-menu text-uppercase" role="menu">
+                <li active-class-on="authenticated.rules"
+                    ng-if="hasStatePermissionsByName('authenticated.rules')">
+                  <a ui-sref="authenticated.rules.general" translate>nav.RULES</a>
+                </li>
+                <li active-class-on="authenticated.settings.accounts"
+                    ng-if="hasStatePermissionsByName('authenticated.settings.accounts')">
+                  <a ui-sref="authenticated.settings.accounts" translate>settings.ACCOUNTS</a>
+                </li>
+                <!--<li active-class-on="authenticated.settings.passwordPolicy"-->
+                <!--ng-if="hasStatePermissionsByName('authenticated.settings.passwordPolicy')">-->
+                <!--<a ui-sref="authenticated.settings.passwordPolicy" translate>settings.PASSWORD_POLICY</a>-->
+                <!--</li>-->
+              </ul>
+            </li>
+
+            <!-- Admin menu -->
+            <li
+                dropdown
+                ui-sref-active="active"
+                ng-if="isLoggedIn() && hasStatePermissionsByName('authenticated.admin')">
+              <a href
+                 dropdown-toggle
+                 ui-sref="authenticated.admin">
+                <span translate>nav.ADMIN</span>
+              </a>
+              <ul class="dropdown-menu text-uppercase" role="menu">
+                <li active-class-on="authenticated.admin.customers">
+                  <a ui-sref="authenticated.admin.customers" translate>admin.CUSTOMERS</a>
+                </li>
+                <li active-class-on="authenticated.admin.notificationDelivery">
+                  <a ui-sref="authenticated.admin.notificationDelivery" translate>admin.NOTIFICATION_DELIVERY</a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Monitoring menu -->
+            <li dropdown
+                ui-sref-active="active"
+                ng-if="isLoggedIn() && hasStatePermissionsByName('authenticated.monitoring')">
+              <a href
+                 dropdown-toggle
+                 ui-sref="authenticated.monitoring">
+                <span translate>nav.MONITORING</span>
+              </a>
+              <ul class="dropdown-menu text-uppercase" role="menu">
+                <li active-class-on="authenticated.monitoring.database">
+                  <a ui-sref="authenticated.monitoring.database.summary" translate>monitoring.DATABASE</a>
+                </li>
+                <li active-class-on="authenticated.monitoring.subsystems">
+                  <a ui-sref="authenticated.monitoring.subsystems.hazelcast" translate>monitoring.SUBSYSTEMS</a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Browser menu -->
+            <li dropdown
+                ui-sref-active="active"
+                ng-if="isLoggedIn()"> <!-- active-class-on="authenticated.browser authenticated.entity" -->
+              <a href
+                 dropdown-toggle
+                 ui-sref="authenticated.browser">
+                <span translate><i class="fa fa-th-large"></i></span>
+              </a>
+              <ul class="dropdown-menu text-uppercase" role="menu">
+                <li ng-if="hasPermissionIn(['OrganizationProfile_View', 'OrganizationProfile_Mgmt'])">
+                  <a href="" ui-sref="authenticated.browser({entity: 'site'})" translate>nav.SITES</a>
+                </li>
+                <li ng-if="hasPermissionIn(['OrganizationProfile_View', 'OrganizationProfile_Mgmt'])">
+                  <a href="" ui-sref="authenticated.browser({entity: 'team'})" translate>nav.TEAMS</a>
+                </li>
+                <li ng-if="hasPermissionIn(['Employee_View', 'Employee_Mgmt'])">
+                  <a href="" ui-sref="authenticated.browser({entity: 'employee'})" translate>nav.EMPLOYEES</a>
+                </li>
+                <li ng-if="hasPermissionIn(['Employee_View', 'Demand_View', 'Employee_Mgmt', 'Demand_Mgmt'])">
+                  <a href="" ui-sref="authenticated.browser({entity: 'contract'})" translate>nav.CONTRACTS</a>
+                </li>
+                <li ng-if="hasPermissionIn(['OrganizationProfile_View', 'OrganizationProfile_Mgmt'])">
+                  <a href="" ui-sref="authenticated.browser({entity: 'skill'})" translate>nav.SKILLS</a>
+                </li>
+                <li ng-if="hasPermissionIn(['OrganizationProfile_View', 'OrganizationProfile_Mgmt'])">
+                  <a href="" ui-sref="authenticated.browser({entity: 'absencetype'})"
+                     translate>nav.ABSENCE_TYPES(NA)</a>
+                </li>
+                <li ng-if="hasPermissionIn(['OrganizationProfile_View', 'OrganizationProfile_Mgmt'])">
+                  <a href="" ui-sref="authenticated.browser({entity: 'shifttype'})"
+                     translate>nav.SHIFT_TYPES</a>
+                </li>
+                <li class="divider"></li>
+                <li ng-if="hasPermissionIn(['Demand_View', 'Demand_Mgmt'])">
+                  <a href="" ui-sref="authenticated.browser({entity: 'schedule'})" translate>nav.SCHEDULES</a>
+                </li>
+                <li ng-if="hasPermissionIn(['Demand_View', 'Demand_Mgmt'])">
+                  <a href="" ui-sref="authenticated.browser({entity: 'shiftstructure'})" translate>ShiftStructures
+                    (temp)</a>
+                </li>
+                <li ng-if="hasPermissionIn(['Demand_View', 'Demand_Mgmt'])">
+                  <a href="" ui-sref="authenticated.browser({entity: 'shiftreq'})" translate>nav.SHIFT_REQS(TEMP)</a>
+                </li>
+                <!--<li class="divider"></li>
+                 <li ng-if="hasPermissionIn(['Account_View', 'Account.Mgmt', 'SystemConfiguration.Mgmt'])">
+                    <a ui-sref="authenticated.browser({entity: 'groupaccount'})" translate>nav.GROUPS</a>
+                </li>
+                <li ng-if="hasPermissionIn(['Account_View', 'Account.Mgmt', 'SystemConfiguration.Mgmt'])">
+                    <a ui-sref="authenticated.browser({entity: 'useraccount'})" translate>nav.USER_ACCOUNTS</a>
+                </li>
+                <li ng-if="hasPermissionIn(['Role_View', 'Role.Mgmt'])">
+                    <a href="" ui-sref="authenticated.browser({entity: 'role'})" translate>nav.ROLES</a>
+                </li>
+                <li ng-if="hasPermissionIn(['Role_View', 'Role.Mgmt'])">
+                    <a href="" ui-sref="authenticated.browser({entity: 'acl'})" translate>nav.ACCESS_CONTROL_LISTS(NA)</a>
+                </li>-->
+                <li class="divider"></li>
+                <li>
+                  <a href="" ui-sref="authenticated.browser({entity: 'appserver'})"
+                     translate>nav.APP_SERVERS</a>
+                </li>
+                <li>
+                  <a href="" ui-sref="authenticated.browser({entity: 'engine'})" translate>nav.ENGINES</a>
+                </li>
+                <li>
+                  <a href="" ui-sref="authenticated.browser({entity: 'session'})" translate>nav.ACTIVE_SESSIONS</a>
+                </li>
+                <li class="divider"></li>
+                <!-- Language -->
+                <li><a href ng-click="setLang('en_US')" translate> nav.ENGLISH </a></li>
+                <li><a href ng-click="setLang('fr_FR')" translate> nav.FRENCH </a></li>
+                <li><a href ng-click="setLang('es_ES')" translate> nav.SPANISH </a></li>
+                <li class="divider"></li>
+                <!-- Impersonation -->
+                <li ng-if="hasPermissionIn(['Impersonate_ViewOnly','Impersonate_ReadWrite'])">
+                  <a href="javascript:void(0);" translate
+                     ng-click="showImpersonationUsersList()">
+                    <i class="fa fa-users"></i>
+                  </a> <!-- nav.SWITCH_USER -->
+                </li>
+                <!-- Unimpersonation menu-->
+                <li ng-if="isImpersonated()"><a href="#" ng-click="unimpersonate()" translate>nav.UNIMPERSONATE</a></li>
+              </ul>
+            </li>
+
+            <!-- Switch language menu-->
+            <!--<li class="dropdown" dropdown>
+              &lt;!&ndash;<a href="#" class="dropdown-toggle"><span translate>nav.LANGUAGES</span> <span class="caret"></span></a>&ndash;&gt;
+              <a href="#" class="dropdown-toggle" dropdown-toggle><i class="fa fa-language"></i></a>
+              <ul class="dropdown-menu text-uppercase" role="menu">
+                <li><a href ng-click="setLang('en_US')" translate> nav.ENGLISH </a></li>
+                <li><a href ng-click="setLang('fr_FR')" translate> nav.FRENCH </a></li>
+                <li><a href ng-click="setLang('es_ES')" translate> nav.SPANISH </a></li>
+              </ul>
+            </li>
+
+            &lt;!&ndash; Impersonation menu&ndash;&gt;
+            <li ng-if="hasPermissionIn(['Impersonate_ViewOnly','Impersonate_ReadWrite'])">
+              <a href="javascript:void(0);" translate
+                 ng-click="showImpersonationUsersList()">
+                <i class="fa fa-users"></i>
+              </a> &lt;!&ndash; nav.SWITCH_USER &ndash;&gt;
+            </li>-->
+
+            <!-- Unimpersonation menu-->
+            <!--<li ng-if="isImpersonated()"><a href="#" ng-click="unimpersonate()" translate>nav.UNIMPERSONATE</a></li>-->
+
+            <!-- TEMP -->
+            <!--<li ng-click="showAlert1 = !showAlert1" style="color: #fff">A1</li>-->
+            <!--<li ng-click="showAlert2 = !showAlert2" style="color: #fff">A2</li>-->
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right" ng-show="isLoggedIn()">
+
+            <!--<li style="margin-top: 15px;color: white;">
+              <span class="">{{getUserName()}}</span>
+            </li>-->
+
+            <li class="dropdown" dropdown
+                ng-style="{ visibility: badgeMsg.newTeamRequests + badgeMsg.newManagerRequests > 0 ? 'visible' : 'hidden' }">
+              <a href="javascript:void(0);" class="dropdown-toggle eml-svg-menu" dropdown-toggle>
+                <span class="messages-number" ng-hide="badgeMsg.newTeamRequests + badgeMsg.newManagerRequests < 1">{{ badgeMsg.newTeamRequests + badgeMsg.newManagerRequests }}</span>
+
+                <div svg-filters></div>
+                <div icon-messages></div>
+              </a>
+              <ul class="dropdown-menu" role="menu">
+
+                <ul class="list-group"> <!-- Dummy data TODO: integrate User Notification API -->
+                  <li class="list-group-item" ng-if="badgeMsg.newManagerRequests>0">
+                    <span class="eml-badge"><div mark-as-read></div></span>
+                    You have {{badgeMsg.newManagerRequests}} new manager approval requests.<br>
+                    <a href ui-sref="authenticated.dashboard.manager_approvals" class="eml-link-color">Manager Approvals</a><br>
+                    <span class="eml-time-ago">5 minutes ago</span>
+                  </li>
+                  <li class="list-group-item" ng-if="badgeMsg.newTeamRequests>0">
+                    <span class="eml-badge"><div mark-as-read></div></span>
+                    You have {{badgeMsg.newTeamRequests}} new peer approval requests.<br>
+                    <a href ui-sref="authenticated.dashboard.team_member_requests" uiclass="eml-link-color">Team Member Requests</a><br>
+                    <span class="eml-time-ago">5 minutes ago</span>
+                  </li>
+                  <!--<li class="list-group-item">-->
+                  <!--<span class="eml-badge"><div mark-as-read></div></span>-->
+                  <!--Travis Rogers called in sick TODAY.<br>-->
+                  <!--<a href="" class="eml-link-color">Approve Time Off</a> | <a href="" class="eml-link-color">Fill Open-->
+                  <!--Shift</a><br>-->
+                  <!--<span class="eml-time-ago">25 minutes ago</span>-->
+                  <!--</li>-->
+                </ul>
+              </ul>
+            </li>
+
+            <li class="dropdown" dropdown>
+              <a href="" class="dropdown-toggle eml-svg-menu" dropdown-toggle>
+                <div icon-profile></div>
+              </a>
+              <ul class="dropdown-menu text-uppercase" role="menu">
+                <li class="text-capitalize eml-logged-user">
+                  <span class="">{{getUserName()}}</span>
+                </li>
+                <li class="divider"></li>
+                <li ng-show="hasStatePermissionsByName('authenticated.profile.detail')">
+                  <a href ui-sref="authenticated.profile.detail" translate>nav.EDIT_PROFILE</a>
+                </li>
+                <li ng-show="hasStatePermissionsByName('authenticated.profile.preferences')"
+                    ng-click="showEmployeePreferences()">
+                  <a href ui-sref="authenticated.profile.preferences" translate>nav.EDIT_PREFERENCES</a>
+                </li>
+                <li ng-show="hasStatePermissionsByName('authenticated.profile.password')">
+                  <a href ng-click="showChangePassword()" translate>nav.CHANGE_PASSWORD</a>
+                </li>
+                <li class="divider"></li>
+                <li><a href ng-click="logout()" translate>nav.LOGOUT</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+      </div>
+
+      <!-- Page-level notifications -->
+      <div notification></div>
+
+    </div>
+    <!-- /.container-fluid -->
+  </nav>
+</div>

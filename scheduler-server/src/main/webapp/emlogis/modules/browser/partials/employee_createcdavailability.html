@@ -1,0 +1,127 @@
+<div class="modal-header">
+    <h3>{{item.title}}</h3>
+</div>
+ 
+    <div class="row">
+        <div class="col-sm-12">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Calendar Dependent Availability Element</h3>
+                </div>
+            <div class="panel-body">
+                <div class="row">
+
+<!--
+
+id;
+  private AvailabilityType availabilityType;
+  private String employeeId;
+  private String absenceTypeId;
+  private String reason;
+  private long startTime;
+  private int durationInMinutes;
+  
+
+availabilityType
+name: 'dayOfTheWeek',
+label: 'Day of week',
+
+name: 'startTime',
+label: 'At',
+
+name: 'durationInMinutes',
+label: 'For (mins)',
+
+name: 'absenceTypeId',
+label: 'Absence Type',
+
+name: 'reason',
+label: 'Absence reason',
+
+name: 'startDate',
+
+name: 'endDate',
+
+{{readonly}}
+-->
+                    <div class="col-sm-4 column">
+                        <form role="form" name="form1" ng-submit="form1.$valid && saveOrCreate()" novalidate>
+
+                            <div class="form-group">
+                                <label for="availabilityType">Type</label>
+                                <select class="form-control" id="availabilityType" data-ng-model="availabilityType" data-ng-options="a.label for a in availabilityTypes">
+                                </select>
+                            </div>
+
+                            <!-- data-ng-show="mode == 'Create'" -->
+                            <div  data-ng-show="availabilityType.val == 'UnAvail'" class="form-group">
+                                 <label for="absenceTypeId">Absence Type (Id)</label>
+                                 <input class="form-control" id="absenceTypeId" ng-model="elt.absenceTypeId" readonly />
+                            </div>
+
+                            <div class="form-group">
+                                 <label for="reason">Reason</label>
+                                 <span class="label label-danger"
+                                      ng-show="form1.reason.$error.required">Required</span>
+                                 <input class="form-control" id="reason" ng-model="elt.reason" />
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="startDate">On</label>
+                                <span class="label label-danger"
+                                      ng-show="form1.startDate.$error.required">Required</span>
+                                <p class="input-group">
+                                    <input id="startDate" name="startDate" type="text" class="form-control" datepicker-popup="yyyy-MM-dd"
+                                           ng-model="elt.startDate" is-open="opened" 
+                                           close-text="Close"/>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event, 'opened')"><i
+                                                    class="glyphicon glyphicon-calendar"></i></button>
+                                        </span>
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                 <label for="startTime">At</label>
+                                <timepicker id="startTime" ng-model="elt.startTime"></timepicker>
+                            </div>
+                            <div class="form-group">
+                                 <label for="durationInMinutes">For (mins after start time)</label>
+                                 <input class="form-control" id="durationInMinutes" ng-model="elt.durationInMinutes" />
+                            </div>
+
+                            <br>
+                            <!-- availability do not have update API, allow only create -->
+                            <!--
+                            <button data-ng-show="mode == 'Create'" type="submit" class="btn btn-default" data-ng-click="saveOrCreate()">{{modeBtn}}
+                            </button>
+                            -->
+                             <button data-ng-show="mode == 'Create'" type="submit" class="btn btn-default">{{modeBtn}}
+                             </button>
+
+                            <button class="btn btn-default" ng-click="cancel()">Cancel
+                            </button>
+                        </form>
+                    </div>
+                    <div class="col-sm-4 column">
+                      <!--
+                        <div ng-include="partials.addInfo"></div>
+                      -->
+                    </div>
+                    <div class="col-sm-4 column">
+                        <!-- 
+                         <button type="button" data-ng-click="backToParent()" class="btn btn-default">Back to Employee
+                        </button>                       
+                        -->
+                        <button type="button" ui-sref="authenticated.entity({entity: 'employee', id: parentEntityId })" class="btn btn-default">Back to Employee
+                        </button>
+   
+                    </div>
+                </div>
+            </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,3 @@
+url|method|json|response_id
+schedules|post|{"startDate":1404190800000,"teamIds":["TeamA"]}|#{scheduleId}
+schedules/#{scheduleId}/ops/execute|post||

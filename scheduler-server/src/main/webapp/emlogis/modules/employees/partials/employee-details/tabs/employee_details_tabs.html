@@ -1,0 +1,19 @@
+<!-- Employee Details Tabs include starts -->
+
+<div id="employee-details-tabs" ng-controller="EmployeeDetailsTabsCtrl">
+  <div class="eml-top-tabs">
+    <ul class="nav nav-tabs">
+      <li role="presentation"
+          ng-repeat="tab in tabs"
+          ui-sref-active="active">
+        <a ui-sref="{{ tab.route }}">{{ tab.heading | translate }}</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="employee-details-tab-content" ui-view="detailsTabContent"></div>
+
+</div>
+
+
+<!-- Employee Details Tabs include ends -->

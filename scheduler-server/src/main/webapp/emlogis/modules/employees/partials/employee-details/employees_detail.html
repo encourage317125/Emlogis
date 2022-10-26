@@ -1,0 +1,32 @@
+<!-- Employee Details page starts -->
+
+<section class="eml-back-to-list container-fluid">
+  <a href ui-sref="authenticated.employees.list" class="text-uppercase">
+    <i class="fa fa-angle-left"></i> {{ "admin.customers.BACK_TO_LISTING" | translate }}
+  </a>
+</section>
+
+<main>
+  <div id="employee-details">
+    <!-- Employee starts -->
+    <section class="flex-column">
+
+      <!-- Employee profile starts -->
+      <section id="employee-profile">
+        <div ng-include="'modules/employees/partials/employee-details/employee_details_profile.html'"></div>
+      </section> <!-- Employee profile ends -->
+
+      <!-- Employee tabs starts -->
+      <section id="employee-tabs">
+        <div ng-include="'modules/employees/partials/employee-details/tabs/employee_details_tabs.html'"></div>
+      </section> <!-- Employee tabs ends -->
+    </section>
+
+    <!-- Sidebar starts -->
+    <section id="employee-sidebar">
+      <div ng-include="'modules/employees/partials/employee-details/employee_details_sidebar.html'"></div>
+    </section> <!-- Sidebar ends -->
+  </div>
+</main>
+
+<!-- Employee Details page ends -->

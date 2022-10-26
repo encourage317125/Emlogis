@@ -1,0 +1,58 @@
+<div class="settings-accounts-users-create">
+  <div class="info-panel" ng-show="hasMgmtPermission()">
+    <form novalidate
+          id="userAccountForm"
+          name="userAccountForm">
+
+      <div class="row form-group">
+        <div class="col-md-12">
+          <div class="pull-right">
+            <div class="btn-container">
+              <button class="btn btn-success" ng-click="createUserAccount()">{{'app.CREATE' | translate}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row form-group">
+        <div class="col-md-2">
+          <label translate>settings.accounts.LOGIN</label>
+          <input type="text"
+                 class="form-control"
+                 name="login"
+                 placeholder="{{ ::'settings.accounts.LOGIN' | translate }}"
+                 required
+                 ng-model="userAccount.login"
+                 focus-me="true">
+          <div validate-messages messages-for="userAccountForm.login" submitted="showValidationMessages"></div>
+        </div>
+        <div class="col-md-2">
+          <label translate>app.FIRST_NAME</label>
+          <input type="text"
+                 class="form-control"
+                 name="firstName"
+                 placeholder="{{ ::'app.FIRST_NAME' | translate }}"
+                 required
+                 ng-model="userAccount.firstName">
+          <div validate-messages messages-for="userAccountForm.firstName" submitted="showValidationMessages"></div>
+        </div>
+        <div class="col-md-2">
+          <label translate>app.LAST_NAME</label>
+          <input type="text"
+                 class="form-control"
+                 name="lastName"
+                 placeholder="{{ ::'app.LAST_NAME' | translate }}"
+                 required
+                 ng-model="userAccount.lastName">
+          <div validate-messages messages-for="userAccountForm.lastName" submitted="showValidationMessages"></div>
+        </div>
+        <div class="col-md-2">
+          <label translate>settings.accounts.WORK_EMAIL</label>
+          <input type="text" class="form-control"
+                 placeholder="{{ ::'settings.accounts.WORK_EMAIL' | translate }}"
+                 ng-model="userAccount.workEmail">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

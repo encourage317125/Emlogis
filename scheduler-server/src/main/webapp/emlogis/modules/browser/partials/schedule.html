@@ -1,0 +1,234 @@
+<!-- controller set autmatically by state( 'browser') in browser.js  -->
+<div class="row-fluid">
+    <div class="col-sm-12 column">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Properties</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+
+                    <div class="col-sm-4 column">
+                        <form name="form1" ng-submit="form1.$valid && saveOrCreate()" novalidate>
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <span class="label label-danger"
+                                      ng-show="form1.name.$error.required">Required</span>
+                                <input class="form-control" id="name" name="name" ng-model="elt.name" required/>
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <input class="form-control" id="description" ng-model="elt.description"/>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="scheduleType">Schedule Type</label>
+                                <select class="form-control" id="scheduleType" data-ng-model="scheduleType"
+                                        data-ng-options="a.label for a in scheduleTypes">
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                               <input type="checkbox" class="form-control" id="preservePreAssignedShifts" ng-model="elt.preservePreAssignedShifts" />Preserve PreAssigned Shifts
+                            </div>
+                            <div class="form-group">
+                               <input type="checkbox" class="form-control" id="preservePostAssignedShifts" ng-model="elt.preservePostAssignedShifts" />Preserve PostAssigned Shifts
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="startDate">Start date</label>
+
+                                <span class="label label-danger"
+                                      ng-show="form1.startDate.$error.required">Required</span>
+
+                                <p class="input-group">
+                                    <input id="startDate" name="startDate" type="text" class="form-control"
+                                           datepicker-popup="yyyy-MM-dd"
+                                           ng-model="elt.startDate" is-open="opened1" required
+                                           close-text="Close"/>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default"
+                                                    ng-click="open($event,'opened1')"><i
+                                                    class="glyphicon glyphicon-calendar"></i></button>
+                                        </span>
+                                </p>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="scheduleLengthInDays">Length (in days)</label>
+                                <span class="label label-danger" ng-show="form1.scheduleLengthInDays.$error.required">Required</span>
+                                <input class="form-control" id="scheduleLengthInDays" name="scheduleLengthInDays"
+                                       ng-model="elt.scheduleLengthInDays" required/>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="maxComputationTime">Max computation time</label>
+                                <select class="form-control" id="maxComputationTime" data-ng-model="maxComputationTime"
+                                        data-ng-options="a.label for a in maxComputationTimes">
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="maximumUnimprovedSecondsSpent">Maximum Unimproved Seconds Spent</label>
+                                <select class="form-control" id="maximumUnimprovedSecondsSpent" data-ng-model="maximumUnimprovedSecondsSpent"
+                                        data-ng-options="a.label for a in maximumUnimprovedSecondsSpents">
+                                </select>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="status">Status</label>
+                                <input class="form-control" id="status" ng-model="elt.status" readonly/>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="button" class="btn btn-default" data-ng-click="editConstraints()">
+                                    Edit Constraints</button>
+                            </div>
+
+                            <button type="submit" class="btn btn-default">{{modeBtn}}</button>
+
+                        </form>
+
+
+
+                    </div>
+
+                    <div class="col-sm-4 column">
+                        <form role="form">
+                            <div class="form-group">
+                                <label for="state">Execution State</label>
+                                <input class="form-control" id="state" ng-model="elt.state" readonly/>
+                            </div>
+                            <div class="form-group">
+                                <label for="completion">Completion</label>
+                                <input class="form-control" id="completion" ng-model="elt.completion" readonly/>
+                            </div>
+                            <div class="form-group">
+                                <label for="completionInfo">Completion Info</label>
+                                <input class="form-control" id="completionInfo" ng-model="elt.completionInfo" readonly/>
+                            </div>
+                            <div class="form-group">
+                                <label for="executionStartDate">Last executed on</label>
+                                <input class="form-control" id="executionStartDate" type="datetime"
+                                       ng-model="elt.executionStartDate" readonly/>
+                                <label>By Engine: {{elt.engineLabel}}</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="executionEndDate">Completed at</label>
+                                <input class="form-control" id="executionEndDate" type="datetime"
+                                       ng-model="elt.executionEndDate" readonly/>
+                            </div>
+                            <div class="form-group">
+                                <label>Total Time: {{totalExeTime}}</label>
+                                <br>
+                                <label>Request Build Time: {{requestBuildTime}}</label>
+                                <br>
+                                <br>
+                                <label> - Shift Data Generation: {{elt.shiftGenerationDuration / 1000}} sec</label>
+                                <br>
+                                <br>
+                                <label> - Employee data Generation: {{elt.employeeGenerationDuration  / 1000}} sec</label>
+                                <br>
+                                <label> - Request data Generation: {{elt.requestGenerationDuration / 1000}} sec</label>
+                                <br>
+
+                                <label>Request Ack Time: {{requestAckTime}}</label>
+                                <br>
+                                <label>Engine Processing Time: {{engineProcessingTime}}</label>
+                                <br>
+                                <label>Response Processing Time: {{responseProcessingTime}}</label>
+                                <br>
+                                <label> - Response Processing Time: {{elt.responseProcessingDuration / 1000}} sec</label>
+                            </div>
+                            <br>
+                                <label>Open Shifts: {{elt.returnedOpenShifts}}</label>
+                                <br>
+                                <label>Assigned Shifts: {{elt.returnedAssignedShifts}}</label>
+                            <br>
+
+                            <div class="form-group">
+                                <label for="requestSentDate">Request sent on</label>
+                                <input class="form-control" id="requestSentDate" type="datetime"
+                                       ng-model="elt.requestSentDate" readonly/>
+                            </div>
+                            <div class="form-group">
+                                <label for="executionAckDate">Acknowledged at</label>
+                                <input class="form-control" id="executionAckDate" type="datetime"
+                                       ng-model="elt.executionAckDate" readonly/>
+                            </div>
+                            <div class="form-group">
+                                <label for="responseReceivedDate">Response received at</label>
+                                <input class="form-control" id="responseReceivedDate" type="datetime"
+                                       ng-model="elt.responseReceivedDate" readonly/>
+                            </div>
+                        </form>
+                        <div ng-include="partials.addInfo"></div>
+                    </div>
+
+                    <div class="col-sm-4 column">
+                        <button type="button" ui-sref="authenticated.browser({entity: entity})" class="btn btn-default">&lt; All
+                            Schedules
+                        </button>
+                        <br><br>
+
+                        <div data-ng-hide="mode == 'Create'">
+                            <button type="button" data-ng-click="refresh()" class="btn btn-default">Refresh
+                            </button>
+                            <br><br>
+                            <button type="button" data-ng-click="generateShifts()" class="btn btn-default">(Re-)generate
+                                Shifts
+                            </button>
+                            <br><br>
+                            <button type="button" data-ng-click="execute()" class="btn btn-default">Execute Schedule
+                            </button>
+                            <br><br>
+                            <button type="button" data-ng-click="executeWithMaxDuration()" class="btn btn-default">
+                                Override Max ComputationTime & Execute (NA)
+                            </button>
+                            <div class="form-group" data-ng-show="elt.state == 'Queued' || elt.state == 'Running' ">
+                                <br>
+                                <label>Executed: {{progress}}%</label>
+                                <br>
+                                <label>Hard constraints score: {{hardScore}}</label>
+                                <br>
+                                <label>Medium constraints score: {{mediumScore}}</label>
+                                <br>
+                                <label>Soft constraints score: {{softScore}}</label>
+                                <br>
+                                <label>{{progressInfo}}</label>
+                            </div>
+                            <br><br>
+                            <button type="button" data-ng-click="abort()" class="btn btn-default">Abort Schedule
+                            </button>
+                            <br><br>
+                            <button type="button" data-ng-click="resetState()" class="btn btn-default">Reset State
+                            </button>
+                            <br><br>
+                            <br><br>0
+                            <button type="button" data-ng-click="promote()" class="btn btn-default">Promote Schedule
+                            </button>
+                            <br><br>
+                            <button type="button" data-ng-click="carryOverNextOrPrev(true)" class="btn btn-default">
+                                Quick Duplicate to next period
+                            </button>
+                            <br><br>
+                            <button type="button" data-ng-click="carryOverNextOrPrev(false)" class="btn btn-default">
+                                Quick Duplicate to previous period
+                            </button>
+                            <br><br>
+                            <button type="button" data-ng-click="duplicate()" class="btn btn-default">Duplicate (NA)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div ng-include="partials.tabs"></div>
+    </div>
+
+</div>

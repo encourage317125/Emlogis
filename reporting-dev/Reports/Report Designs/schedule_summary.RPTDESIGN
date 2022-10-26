@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.4.0.v20150206-1039 Build &lt;4.2.3.v20150206-1039></property>
+    <simple-property-list name="includeResource">
+        <value>Report Designs/config</value>
+    </simple-property-list>
+    <list-property name="scriptLibs"/>
+    <property name="units">in</property>
+    <method name="initialize"><![CDATA[try {
+	emlogis.current.reportName = "Schedule Summary";
+} catch(e){};]]></method>
+    <property name="theme">common.EmlogisGrayScales</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="layoutPreference">auto layout</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">96</property>
+    <list-property name="libraries">
+        <structure>
+            <property name="fileName">emlogis/report-libs/common.RPTLIBRARY</property>
+            <property name="namespace">common</property>
+        </structure>
+    </list-property>
+    <parameters>
+        <scalar-parameter name="restApiUrl" id="3335" extends="common.restApiUrl">
+            <property name="valueType">static</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <cascading-parameter-group name="BasicReportCascadingParameterGroup" id="11073">
+            <text-property name="promptText">Use this group for production, but note that you will not be able to modify it.</text-property>
+            <property name="dataSet">Security DS</property>
+            <property name="dataSetMode">multiple</property>
+            <parameters>
+                <scalar-parameter name="Security" id="11074">
+                    <property name="hidden">true</property>
+                    <property name="valueType">dynamic</property>
+                    <property name="isRequired">true</property>
+                    <property name="dataSetName">Security DS</property>
+                    <expression name="valueExpr">row["security"]</expression>
+                    <expression name="labelExpr">row["security"]</expression>
+                    <property name="dataType">string</property>
+                    <simple-property-list name="defaultValue">
+                        <value type="constant">htran,schedulecreator</value>
+                    </simple-property-list>
+                    <property name="paramType">simple</property>
+                    <property name="controlType">list-box</property>
+                    <property name="fixedOrder">true</property>
+                    <structure name="format"/>
+                </scalar-parameter>
+                <scalar-parameter name="StartDate" id="23">
+                    <text-property name="promptText">Select Start Date</text-property>
+                    <property name="valueType">dynamic</property>
+                    <property name="isRequired">true</property>
+                    <property name="dataSetName">Start Date DS</property>
+                    <expression name="valueExpr">row["startDate"]</expression>
+                    <expression name="labelExpr">row["startDate"]</expression>
+                    <property name="dataType">date</property>
+                    <property name="paramType">simple</property>
+                    <property name="fixedOrder">true</property>
+                    <structure name="format"/>
+                </scalar-parameter>
+                <scalar-parameter name="Site" id="11075">
+                    <property name="valueType">dynamic</property>
+                    <property name="isRequired">true</property>
+                    <property name="dataSetName">Site DS</property>
+                    <expression name="valueExpr">row["siteInfo"]</expression>
+                    <expression name="labelExpr">row["siteName"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="paramType">simple</property>
+                    <property name="controlType">list-box</property>
+                    <property name="fixedOrder">true</property>
+                    <structure name="format"/>
+                </scalar-parameter>
+                <scalar-parameter name="Schedule" id="13382">
+                    <property name="valueType">dynamic</property>
+                    <property name="isRequired">true</property>
+                    <property name="dataSetName">Schedule DS</property>
+                    <expression name="valueExpr">row["id"]</expression>
+                    <expression name="labelExpr">row["name"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="controlType">list-box</property>
+                    <property name="fixedOrder">true</property>
+                    <structure name="format"/>
+                </scalar-parameter>
+            </parameters>
+        </cascading-parameter-group>
+    </parameters>
+    <data-sources>
+        <script-data-source name="Data Source" id="3332" extends="common.Data Source"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="summaryDataSet" id="5">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">0</property>
+                    <property name="name">skill</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">baseline</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">excess</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">unfilled</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">skill</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">Skill</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">baseline</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">Baseline hours</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">excess</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">Excess hours</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">unfilled</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">Unfilled hours</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">skill</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">baseline</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">excess</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">unfilled</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[summaryCount = 0;
+
+if (token) {
+	summaryList = report.getList(token, "schedules/" + params["Schedule"] + "/summaryreport");
+}
+]]></method>
+            <method name="fetch"><![CDATA[if (token != null &amp;&amp; summaryCount < summaryList.size()) {
+    obj = summaryList.get(summaryCount);
+
+    row["skill"] = obj["skillName"];
+    if (obj["baseline"]) {
+        row["baseline"] = obj["baseline"];
+    } else {
+        row["baseline"] = 0;
+    }
+    if (row["excess"]) {
+        row["excess"] = obj["excess"];
+    } else {
+        row["excess"] = 0;
+    }
+    if (row["unfilled"]) {
+        row["unfilled"] = obj["unfilled"];
+    } else {
+        row["unfilled"] = 0;
+    }
+    
+    summaryCount++;
+    
+    return true;
+}
+
+return false;]]></method>
+        </script-data-set>
+        <script-data-set name="Security DS" id="3337" extends="common.Security DS"/>
+        <script-data-set name="Site DS" id="13379" extends="common.Site DS"/>
+        <script-data-set name="Start Date DS" id="13381" extends="common.Start Date DS"/>
+        <script-data-set name="Schedule DS" id="13775" extends="common.Schedule DS"/>
+    </data-sets>
+    <styles>
+        <style name="NewStyle" id="3336">
+            <property name="showIfBlank">true</property>
+            <property name="canShrink">true</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <property name="type">a4</property>
+            <property name="orientation">auto</property>
+            <page-header>
+                <grid name="Report header" id="13737">
+                    <property name="marginLeft">auto</property>
+                    <property name="marginBottom">0pt</property>
+                    <property name="marginRight">auto</property>
+                    <property name="width">100%</property>
+                    <list-property name="boundDataColumns">
+                        <structure>
+                            <property name="name">reportTime</property>
+                            <text-property name="displayName">Report time interval</text-property>
+                            <expression name="expression" type="javascript">"Schedule name: "+ params["Schedule"].displayText + '&lt;br>' +&#13;
+"Schedule date: "+ Formatter.format(params['StartDate'], 'MM/dd/YYYY') ;</expression>
+                            <property name="dataType">string</property>
+                            <property name="allowExport">true</property>
+                        </structure>
+                        <structure>
+                            <property name="name">reportName</property>
+                            <text-property name="displayName">Report Name</text-property>
+                            <expression name="expression" type="javascript">emlogis.current.reportName + ": "+emlogis.current.site.get("name")</expression>
+                            <property name="dataType">string</property>
+                            <property name="allowExport">true</property>
+                        </structure>
+                    </list-property>
+                    <column id="13738">
+                        <property name="width">80%</property>
+                    </column>
+                    <column id="13739"/>
+                    <row id="13740">
+                        <cell id="13741">
+                            <property name="style">emlogis-header-first</property>
+                            <grid name="NewGrid11" id="13742">
+                                <column id="13743"/>
+                                <row id="13744">
+                                    <cell id="13745">
+                                        <property name="style">padding-05em</property>
+                                        <data name="NewData111" id="13746">
+                                            <property name="resultSetColumn">reportName</property>
+                                        </data>
+                                    </cell>
+                                </row>
+                            </grid>
+                        </cell>
+                        <cell id="13747">
+                            <property name="style">emlogis-header-second</property>
+                            <grid name="NewGrid2" id="13748">
+                                <column id="13749"/>
+                                <row id="13750">
+                                    <cell id="13751">
+                                        <text-data id="13774">
+                                            <expression name="valueExpr">"Schedule name: "+ params["Schedule"].displayText + '&lt;br>' +
+"Schedule date: "+ Formatter.format(params['StartDate'], 'MM/dd/YYYY') ;</expression>
+                                            <property name="contentType">html</property>
+                                        </text-data>
+                                    </cell>
+                                </row>
+                            </grid>
+                        </cell>
+                    </row>
+                </grid>
+            </page-header>
+            <page-footer>
+                <grid name="Report footer" id="11235" extends="common.Report footer">
+                    <overridden-values>
+                        <ref-entry baseId="13754" id="13754"/>
+                        <ref-entry baseId="13755" id="13755"/>
+                        <ref-entry baseId="13756" id="13756"/>
+                        <ref-entry baseId="13757" id="13757"/>
+                        <ref-entry baseId="13758" name="NewTextData111" id="13758"/>
+                        <ref-entry baseId="13759" id="13759"/>
+                        <ref-entry baseId="13760" name="NewGrid1111" id="13760"/>
+                        <ref-entry baseId="13761" id="13761"/>
+                        <ref-entry baseId="13762" id="13762"/>
+                        <ref-entry baseId="13763" id="13763"/>
+                        <ref-entry baseId="13764" id="13764"/>
+                        <ref-entry baseId="13765" id="13765"/>
+                        <ref-entry baseId="13766" id="13766"/>
+                        <ref-entry baseId="13767" name="NewText211" id="13767"/>
+                        <ref-entry baseId="13768" id="13768"/>
+                        <ref-entry baseId="13769" name="NewAutoText211" id="13769"/>
+                        <ref-entry baseId="13770" id="13770"/>
+                        <ref-entry baseId="13771" name="NewText1111" id="13771"/>
+                        <ref-entry baseId="13772" id="13772"/>
+                        <ref-entry baseId="13773" name="NewAutoText1111" id="13773"/>
+                    </overridden-values>
+                </grid>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <table id="27">
+            <property name="dataSet">summaryDataSet</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">skill</property>
+                    <text-property name="displayName">Skill</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["skill"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">baseline</property>
+                    <text-property name="displayName">Baseline hours</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["baseline"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">excess</property>
+                    <text-property name="displayName">Excess hours</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["excess"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">unfilled</property>
+                    <text-property name="displayName">Unfilled hours</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["unfilled"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">Aggregation</property>
+                    <property name="dataType">float</property>
+                    <property name="aggregateFunction">SUM</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">row["baseline"]</expression>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">Aggregation_excess</property>
+                    <property name="dataType">float</property>
+                    <property name="aggregateFunction">SUM</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">row["excess"]</expression>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">Aggregation_baseline</property>
+                    <property name="dataType">float</property>
+                    <property name="aggregateFunction">SUM</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">row["baseline"]</expression>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">Aggregation_unfilled</property>
+                    <property name="dataType">float</property>
+                    <property name="aggregateFunction">SUM</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">row["unfilled"]</expression>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">true</property>
+                </structure>
+            </list-property>
+            <column id="51"/>
+            <column id="52"/>
+            <column id="53"/>
+            <column id="54"/>
+            <header>
+                <row id="28">
+                    <cell id="29">
+                        <label id="30">
+                            <text-property name="text">Skill</text-property>
+                        </label>
+                    </cell>
+                    <cell id="31">
+                        <label id="32">
+                            <text-property name="text">Baseline hours</text-property>
+                        </label>
+                    </cell>
+                    <cell id="33">
+                        <label id="34">
+                            <text-property name="text">Excess hours</text-property>
+                        </label>
+                    </cell>
+                    <cell id="35">
+                        <label id="36">
+                            <text-property name="text">Unfilled hours</text-property>
+                        </label>
+                    </cell>
+                </row>
+            </header>
+            <detail>
+                <row id="37">
+                    <cell id="38">
+                        <data id="39">
+                            <property name="resultSetColumn">skill</property>
+                        </data>
+                    </cell>
+                    <cell id="40">
+                        <data id="41">
+                            <property name="resultSetColumn">baseline</property>
+                        </data>
+                    </cell>
+                    <cell id="42">
+                        <data id="43">
+                            <property name="resultSetColumn">excess</property>
+                        </data>
+                    </cell>
+                    <cell id="44">
+                        <data id="45">
+                            <property name="resultSetColumn">unfilled</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+            <footer>
+                <row id="46">
+                    <cell id="47">
+                        <label id="64">
+                            <text-property name="text">All Skills</text-property>
+                        </label>
+                    </cell>
+                    <cell id="48">
+                        <data id="62">
+                            <property name="resultSetColumn">Aggregation_baseline</property>
+                        </data>
+                    </cell>
+                    <cell id="49">
+                        <data id="61">
+                            <property name="resultSetColumn">Aggregation_excess</property>
+                        </data>
+                    </cell>
+                    <cell id="50">
+                        <data id="63">
+                            <property name="resultSetColumn">Aggregation_unfilled</property>
+                        </data>
+                    </cell>
+                </row>
+            </footer>
+        </table>
+    </body>
+</report>

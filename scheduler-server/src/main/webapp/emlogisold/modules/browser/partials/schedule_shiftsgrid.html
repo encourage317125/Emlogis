@@ -1,0 +1,41 @@
+<!--<div ng-controller="ShiftsCtlr">-->
+
+<div>
+    <div ng-show="scheduler.mode == 'timeline'" style="display: inline-block">
+        <label>Group by:</label>
+        <select ng-model="currentGroup" class="form-control" ng-options="l for l in groups"  ng-change="getElements()"
+                style="display: inline-block;width: inherit;">
+        </select>
+    </div>
+    <div>
+        <button data-ng-click="addFilter()">Add filter</button>
+    </div>
+    <div ng-repeat="evt in filters">
+        <select ng-model="evt.type" class="form-control" ng-options="l for l in groups"
+                style="display: inline-block;width: inherit;">
+        </select>
+        <input data-ng-model="evt.value">
+        <button data-ng-click="removeFilter(evt)">remove</button>
+    </div>
+    <div>
+        <button data-ng-click="go()">go</button>
+    </div>
+    <button type="button" class="btn {{selected}}" ng-click="switchOpen()" style="float:right">Manage Open Shifts</button>
+
+</div>
+
+<div id="scheduler_here" data="events" dhx-scheduler style="height:500px; width:100%; min-width: 600px;
+            position: relative; overflow-x: auto">
+    <div class="dhx_cal_prev_button">&nbsp;</div>
+    <div class="dhx_cal_next_button">&nbsp;</div>
+    <div class="dhx_cal_today_button"></div>
+    <div class="dhx_cal_date"></div>
+    <div class="dhx_cal_tab" name="timeline_tab" ></div>
+    <div class="dhx_cal_tab" name="week_tab" ></div>
+
+
+    <!--<div dhx-template="event_bar_text">-->
+    <!--&lt;!&ndash;{{event.text}}&ndash;&gt;-->
+    <!--</div>-->
+</div>
+<!--</div>-->

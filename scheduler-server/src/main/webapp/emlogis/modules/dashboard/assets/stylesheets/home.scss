@@ -1,0 +1,1011 @@
+$approval-info-color: #444953;
+$approval-filter-padding-top: 15px;
+$approval-filter-padding-bottom: 15px;
+.multiSelect > button {
+  min-height: 30px !important;
+}
+
+.home-dashboard-breadcrumb {
+  span.welcome {
+    font-size: 200%;
+  }
+  .settings {
+    font-size: 200%;
+    color: black;
+    padding-top: 3px;
+  }
+
+}
+
+.dashboard-calendar {
+  position: relative;
+  height: 650px;
+
+  .dashboard-mini-calendar {
+    position: absolute;
+    left: 1px;
+    top: 14px;
+    z-index: 91;
+    width: 31px;
+
+    .eml-calendar-btn {
+      padding: 1px 6px;
+      font-size: 18px;
+      color: $eml-dark-blue;
+    }
+  }
+
+  .link-sync-calendar {
+    position: absolute;
+    left: 237px;
+    top: 22px;
+    z-index: 100;
+    .tooltip-inner {
+      width: 200px;
+    }
+  }
+
+  .dashboard-calendar-buttons {
+    position: absolute;
+    top: 15px;
+    right: 0;
+    z-index: 90;
+    .btn {
+      padding: 4px 15px;
+      font-size: $font-size-h5;
+    }
+    .btn-request-time-off {
+      margin-right: 10px;
+    }
+  }
+
+  .dashboard-calendar-info {
+    position: absolute;
+    top: 20px;
+    right: 245px;
+    z-index: 92;
+
+    .calendar-shifts-loader {
+      margin-right: $margin-base-horizontal;
+    }
+  }
+
+  .calendar {
+    position: absolute;
+    left: 0;
+    top: 15px;
+
+    .fc-toolbar {
+      margin-bottom: 10px;
+      .fc-left {
+        float: none;
+        margin-left: 40px;
+        h2 {
+          font-size: $font-size-h5;
+          font-weight: 600;
+          margin-left: 0;
+          margin-top: 10px;
+          width: 135px;
+          text-align: center;
+          text-transform: uppercase;
+        }
+        .fc-next-button {
+          margin-left: 0;
+        }
+        .fc-nav-button {
+          width: 26px;
+          height: 26px;
+          margin-top: 2px;
+          padding: 0;
+          box-shadow: none;
+        }
+      }
+    }
+
+    .fc-view {
+      .fc-widget-header {
+        font-size: $font-size-h5;
+        font-weight: 600;
+        .fc-day-header {
+          padding: 10px;
+          text-align: left !important;
+          text-transform: uppercase;
+          background-color: #ebebeb;
+        }
+      }
+
+      .fc-past {
+        opacity: 0.7;
+      }
+
+      .fc-other-month {
+        color: #f3f3f3 !important;
+      }
+
+      .fc-today,
+      .fc-future {
+        .fc-content-type-regular:hover {
+          .fc-info-block-normal {
+            background-color: #008cbb;
+          }
+
+          .fc-info-block-highlight {
+            background-color: #0063b1;
+          }
+        }
+
+        .fc-content-type-extra:hover {
+          .fc-info-block-normal {
+            background-color: #f19a3f;
+          }
+
+          .fc-info-block-highlight {
+            background-color: #e07100;
+          }
+        }
+
+        .fc-content-type-overtime:hover {
+          .fc-info-block-normal {
+            background-color: #0cae8e;
+          }
+
+          .fc-info-block-highlight {
+            background-color: #089277;
+          }
+        }
+      }
+
+      & > table {
+        & > tbody {
+          & > tr {
+            & > .fc-widget-content {
+              background-color: #f3f3f3;
+              .fc-row {
+                min-height: 162px !important;
+                .fc-bg {
+                  .fc-today {
+                    background-color: #f3f3f3;
+                    box-shadow: none;
+                  }
+                }
+                .fc-content-skeleton {
+                  table {
+                    thead {
+                      .fc-day-number {
+                        text-align: left !important;
+                        font-size: $font-size-h5;
+                        color: #899498;
+                        padding-top: 3px;
+                        padding-bottom: 4px;
+
+                        .date-header-val,
+                        .date-header-requests-info {
+                          float: left;
+                        }
+
+                        .date-header-os-tick {
+                          float: right;
+
+                          .open-shifts-tick {
+                            background-color: #1abc9c;
+                            padding: $padding-xs-horizontal $padding-xs-horizontal;
+                            text-align: center;
+                            border-radius: 4px;
+                            font-size: 10px;
+
+                            a {
+                              color: #ffffff !important;
+                            }
+                          }
+                        }
+
+                        .date-header-val,
+                        .date-header-os-tick {
+                          width: 40px;
+                        }
+
+                        .date-header-requests-info {
+                          width: calc(100% - 80px);
+
+                          .request-icon-container {
+                            padding: 0 $padding-xs-horizontal;
+                          }
+                        }
+                      }
+                    }
+                    tbody {
+                      tr:last-child {
+                        td {
+                          padding-bottom: 25px;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .fc-event {
+      border: 0 !important;
+      background-color: transparent !important;
+      margin: 0;
+    }
+
+    .fc-info-block {
+      padding: 3px;
+      .fc-time-type-skill {
+        height: 14px;
+        .fc-time {
+          font-size: 12px;
+        }
+        .fc-skill {
+          float: right;
+        }
+      }
+      .fc-assignment {
+        height: 14px;
+        color: #e4e4e5;
+      }
+      .fc-team {
+        .team-home-false {
+          display: none;
+        }
+        text-transform: uppercase;
+        font-size: 12px;
+      }
+    }
+
+    .fc-content {
+      text-shadow: 1px 1px #666;
+      position: relative;
+
+      &.has-comment {
+        border-bottom-right-radius: 25px;
+      }
+
+      .fc-request-info {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        padding: 3px 0;
+
+        .request-icon-container {
+          padding: 0 $padding-xs-horizontal;
+        }
+      }
+    }
+
+    .fc-content-type-regular {
+      .fc-info-block-normal {
+        background-color: #0e9ac9;
+      }
+
+      .fc-info-block-highlight {
+        background-color: #007fb5;
+      }
+    }
+
+    .fc-content-type-extra {
+      .fc-info-block-normal {
+        background-color: #ffa84d;
+        color: #444953;
+      }
+
+      .fc-info-block-highlight {
+        background-color: #ee7f00;
+      }
+    }
+
+    .fc-content-type-overtime {
+      .fc-info-block-normal {
+        background-color: #1abc9c;
+      }
+
+      .fc-info-block-highlight {
+        background-color: #16a085;
+      }
+    }
+
+    .company-holiday-container {
+      .fc-content-type-company-holiday {
+        .fc-title {
+          padding: 10px;
+          color: #444953;
+          font-size: $font-size-h5;
+        }
+      }
+    }
+
+    .pto-vacation-container {
+      .fc-content-type-pto-vacation {
+        .fc-title {
+          padding: 0 10px;
+          font-size: $font-size-h5;
+          color: #444953;
+        }
+        .fc-status {
+          padding: 0 10px;
+          color: #899498;
+        }
+      }
+    }
+
+    .company-holiday-container-bg {
+      background-color: #efefef;
+    }
+
+    .pto-vacation-container-bg {
+      background-color: #e8e8e8;
+    }
+
+    .fc-content-request-info {
+      .fc-info-label {
+        color: #000;
+      }
+    }
+  }
+}
+
+.dashboard-approvals {
+
+  padding-bottom: 50px;
+
+  .divider {
+    background-color: whitesmoke;
+  }
+
+  .filter {
+    padding-top: $approval-filter-padding-top;
+    padding-bottom: $approval-filter-padding-bottom;
+
+    .search {
+      width: 250px;
+      margin-top: 2px;
+      
+      button.btn-search {
+        background: $eml-lightest-grey;
+        border: 1px solid $input-border;
+        box-shadow: none;
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+      }
+    }
+    
+    .search, .sites_teams, .reqtypes, .statuses, .days {
+      margin-right: 20px;
+    }
+
+    .days {
+      width: 200px;
+      margin-top: 2px;
+    }
+
+    button.refresh {
+      margin-top: 2px;
+    }
+
+  }
+
+  .main {
+
+    //    height: 550px;
+    padding-top: 5px;
+
+    .detail-view {
+
+      background-color: #d9d9d9;
+      padding-bottom: 20px;
+      padding-top: 10px;
+      box-shadow: inset 2px 2px 10px 2px rgba(0, 0, 0, 0.1);
+      height: 100%;
+
+      .status-ico {
+        font-size: 16px;
+        img {
+          margin-right: 5px;
+          margin-top: -4px;
+        }
+        .declined {
+          color:  #cc0000;
+        }
+        .peer-pending {
+          color:  #ed7e00;
+        }
+        .admin-pending {
+          color:  #0e9ac8;
+        }
+        .approved {
+          color:  #159f85;
+        }
+        .expired {
+          color:  #c0392b;
+        }
+        .deleted {
+          color:  #c0392b;
+        }
+      }
+
+
+      .info {
+        padding-top: 5px;
+        padding-bottom: 10px;
+        overflow: auto;
+        color: $approval-info-color;
+        font-fmaily: 'Lato';
+
+        div {
+          min-height: 15px;
+        }
+
+        textarea.comment {
+          width: 100%;
+          height: 50px;
+          margin-top: 5px;
+        }
+      }
+
+      .row {
+
+        button.btn {
+          margin-left: 5px;
+          margin-right: 5px;
+        }
+
+        span {
+          margin-right: 10px;
+        }
+
+        input[type="text"], select {
+          margin-left: 5px;
+          margin-right: 5px;
+        }
+
+        input[type="radio"] {
+          margin-right: 5px;
+        }
+
+        button.edit {
+          background-color: $eml-light-blue; //#0e9ac9;
+        }
+      }
+
+      .option {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        font-weight: normal;
+      }
+
+      //      WIP Request, Shift Swap Request
+      .recipient {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        overflow: auto;
+
+        input[type="radio"] {
+          margin-right: 5px;
+        }
+
+        input[type="radio"][disabled] {
+          background-color: #red;
+        }
+
+        label {
+          padding-left: 2px;
+        }
+      }
+
+      //      Time Off Request
+      .shift {
+
+        input[type="text"] {
+          width: 70px;
+          margin-left: 5px;
+          margin-right: 5px;
+          text-align: center;
+          background: #e7e7e7;
+          border: 1px solid #e6e6e6;
+          border-radius: 2px;
+        }
+
+        input[type="radio"] {
+          margin-right: 5px;
+        }
+
+        .secondline {
+          margin-left: 20px;
+        }
+
+      }
+
+      .submitter-name {
+        padding-top: 15px;
+      }
+
+      span.accepted-only {
+        padding-left: 5px;
+        border-left: 1px solid whitesmoke;
+        padding-right: 5px;
+      }
+
+    }
+
+    .eml-grid {
+      height: 100%;
+      padding-top: 10px;
+      .ui-grid {
+        margin-top: 0px;
+      }
+    }
+  }
+
+  //  Grid Selected Row Highlight
+  .eml-grid {
+    .ui-grid-row.ui-grid-row-selected [ui-grid-row] .ui-grid-cell {
+      background-color: $eml-blue-transparent-light !important;
+    }
+
+    .ui-grid-row.ui-grid-row-selected:nth-child(even) [ui-grid-row] .ui-grid-cell {
+      background-color: $eml-blue-transparent-dark !important;
+    }
+  }
+
+  .timeoff-msg-modal {
+    padding: 10px;
+  }
+
+}
+
+.dashboard-my-requests {
+
+  padding-bottom: 50px;
+
+  .divider {
+    background-color: whitesmoke;
+  }
+
+  .filter {
+    padding-top: $approval-filter-padding-top;
+    padding-bottom: $approval-filter-padding-bottom;
+
+    .search {
+      width: 250px;
+      margin-top: 2px;
+
+      button.btn-search {
+        background: $eml-lightest-grey;
+        border: 1px solid $input-border;
+        box-shadow: none;
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+      }
+    }
+
+    .search, .sites_teams, .reqtypes, .statuses, .days {
+      margin-right: 20px;
+    }
+
+    .days {
+      width: 200px;
+      margin-top: 2px;
+    }
+
+    button.refresh {
+      margin-top: 2px;
+    }
+  }
+
+  .main {
+
+    //    height: 550px;
+    padding-top: 5px;
+
+    .detail-view {
+
+      background-color: #d9d9d9;
+      padding-bottom: 20px;
+      padding-top: 10px;
+      box-shadow: inset 2px 2px 10px 2px rgba(0, 0, 0, 0.1);
+      height: 100%;
+
+      .info {
+        padding-top: 5px;
+        padding-bottom: 10px;
+        overflow: auto;
+        color: $approval-info-color;
+        font-fmaily: 'Lato';
+
+        div {
+          min-height: 15px;
+        }
+
+        textarea.comment {
+          width: 100%;
+          height: 50px;
+          margin-top: 5px;
+        }
+
+      }
+
+      .row {
+
+        button.btn {
+          margin-left: 5px;
+          margin-right: 5px;
+        }
+
+        span {
+          margin-right: 10px;
+        }
+
+        input[type="text"], select {
+          margin-left: 5px;
+          margin-right: 5px;
+        }
+
+        input[type="radio"] {
+          margin-right: 5px;
+        }
+
+        button.edit {
+          background-color: $eml-light-blue; //#0e9ac9;
+        }
+      }
+
+      .option {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        font-weight: normal;
+      }
+
+      //      WIP Request, Shift Swap Request
+      .recipient {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        overflow: auto;
+
+        input[type="radio"] {
+          margin-right: 5px;
+        }
+
+        input[type="radio"][disabled] {
+          background-color: #red;
+        }
+
+        label {
+          padding-left: 2px;
+        }
+      }
+
+      //      Time Off Request
+      .shift {
+
+        input[type="text"] {
+          width: 70px;
+          margin-left: 5px;
+          margin-right: 5px;
+          text-align: center;
+          background: #e7e7e7;
+          border: 1px solid #e6e6e6;
+          border-radius: 2px;
+        }
+
+        input[type="radio"] {
+          margin-right: 5px;
+        }
+
+        .secondline {
+          margin-left: 20px;
+        }
+      }
+
+      .submitter-name {
+        padding-top: 15px;
+      }
+
+      span.accepted-only {
+        padding-left: 5px;
+        border-left: 1px solid whitesmoke;
+        padding-right: 5px;
+      }
+
+      .status-ico {
+        font-size: 16px;
+        img {
+          margin-right: 5px;
+          margin-top: -4px;
+        }
+        .declined {
+          color:  #cc0000;
+        }
+        .peer-pending {
+          color:  #ed7e00;
+        }
+        .admin-pending {
+          color:  #0e9ac8;
+        }
+        .approved {
+          color:  #159f85;
+        }
+        .expired {
+          color:  #c0392b;
+        }
+        .deleted {
+          color:  #c0392b;
+        }
+      }
+
+    }
+
+    .eml-grid {
+      height: 100%;
+      padding-top: 10px;
+      .ui-grid {
+        margin-top: 0px;
+      }
+    }
+  }
+
+  //  Grid Selected Row Highlight
+  .eml-grid {
+    .ui-grid-row.ui-grid-row-selected [ui-grid-row] .ui-grid-cell {
+      background-color: $eml-blue-transparent-light !important;
+    }
+
+    .ui-grid-row.ui-grid-row-selected:nth-child(even) [ui-grid-row] .ui-grid-cell {
+      background-color: $eml-blue-transparent-dark !important;
+    }
+  }
+}
+
+.dashboard-availability {
+  margin-top: 15px;
+}
+
+.manage-shift-modal {
+  .shift-info {
+    margin-bottom: $margin-large-vertical;
+    .shift-time {
+      font-size: 18px;
+      font-weight: 300;
+      .shift-time-colored {
+        color: #16a085;
+        font-weight: 600;
+      }
+    }
+    .shift-info-inner {
+      font-size: 12px;
+      .shift-info-inner-value {
+        font-weight: 600;
+        margin-right: $margin-base-horizontal;
+      }
+    }
+  }
+
+  .filter-panel {
+    .btn-filter-name {
+      padding: 5px 6px;
+      background: #fff;
+      border: 1px solid #ccc;
+      box-shadow: none;
+      border-top-right-radius: 3px;
+      border-bottom-right-radius: 3px;
+    }
+  }
+
+  .tab-request {
+    margin-left: -15px;
+    margin-right: -15px;
+
+    .nav-tabs {
+      padding-left: 15px;
+      padding-right: 15px;
+
+      & > li {
+        width: 50%;
+        text-align: center;
+      }
+    }
+
+  }
+
+  .shift-swap-request-content {
+    background-color: #e6e7e7;
+    padding: 15px !important;
+    margin: 0 -15px -15px !important;
+
+    .filter-panel {
+      margin-left: 0;
+      margin-right: 0;
+
+      .middle-label {
+        vertical-align: middle;
+      }
+      .date-picker-container {
+        display: inline-flex;
+        width: 110px;
+      }
+
+      .slider-container {
+        padding: $padding-large-vertical 5px $padding-xl-vertical;
+      }
+    }
+
+    .swap-list-title {
+      margin-top: $margin-large-vertical;
+      .swap-loader {
+        display: inline-block;
+        margin-right: $margin-base-horizontal;
+      }
+    }
+
+    .swap-list-grid {
+      height: 260px !important;
+    }
+  }
+
+  .work-in-place-request-content {
+    background-color: #e6e7e7;
+    padding: 15px !important;
+    margin: 0 -15px -15px !important;
+
+    .filter-panel {
+      padding-top: 15px;
+      .employee-list-title {
+        padding-top: 5px;
+      }
+    }
+
+    .wip-loader {
+      display: inline-block;
+      margin-right: $margin-base-horizontal;
+    }
+  }
+}
+
+.open-shifts-modal {
+  .open-shifts-loader {
+    display: inline-block;
+    margin-right: $margin-base-horizontal;
+  }
+}
+
+.pto-request-modal {
+  .length-in-days-container {
+    margin-bottom: -20px;
+    margin-top: -10px;
+
+    .length-in-days-inner-line {
+      border-bottom: 1px solid #ccc;
+      height: 15px;
+      float: left;
+      width: calc(50% - 45px);
+
+      &.length-in-days-inner-left {
+        border-left: 1px solid #ccc;
+        margin-right: 5px;
+      }
+      &.length-in-days-inner-right {
+        border-right: 1px solid #ccc;
+        margin-left: 5px;
+      }
+    }
+
+    .length-in-days-inner-center {
+      float: left;
+      .length-in-days-number {
+        font-size: $font-size-h3;
+        vertical-align: middle;
+      }
+    }
+  }
+}
+
+.sync-calendar-modal {
+  .sync-calendar-link {
+    margin-bottom: 60px;
+  }
+}
+
+.dashboard-team-member-requests {
+  .eml-panel-icons {
+    display: inline-block;
+    width: 20px;
+  }
+
+  .team-member-requests-header {
+    .btn {
+      box-shadow: none;
+      border: 0;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+  }
+
+  .team-member-requests-body {
+    .team-member-request {
+      .team-member-request-header {
+        .eml-panel-header-right {
+          width: 66.66666666%;
+        }
+        .request-title {
+          .panel-header-word {
+            display: inline-block;
+            margin-right: 5px;
+          }
+        }
+        .request-outline {
+          text-align: center;
+          .panel-header-summary-cell {
+            display: inline-block;
+          }
+        }
+        .request-status {
+          .status-PENDING {
+            color: #ee7f00;
+          }
+          .status-ACCEPTED {
+            color: #16a085;
+          }
+          .status-APPROVED {
+            color: #2e3138;
+          }
+          .status-OTHERS {
+            color: #899498;
+          }
+          .panel-header-status {
+            text-transform: capitalize;
+            margin-right: $margin-base-horizontal;
+          }
+        }
+      }
+
+      .team-member-request-body {
+        padding-bottom: 10px;
+        .panel-inner-header {
+          font-size: $font-size-h4;
+          font-weight: 600;
+          color: #2e3138;
+          height: 30px;
+        }
+        .panel-inner-content {
+          color: #2e3138;
+        }
+        .panel-inner-content-grey {
+          color: #899498;
+        }
+        .panel-inline {
+          float: left;
+          padding: 0 $padding-base-horizontal;
+        }
+        .panel-inline-left {
+          width: calc((100% - 60px) / 2);
+          text-align: right;
+        }
+        .panel-inline-center {
+          width: 60px;
+        }
+        .panel-inline-right {
+          width: calc((100% - 60px) / 2);
+          text-align: left;
+        }
+        .wip-content {
+          text-align: center;
+          .panel-inline {
+            display: inline-block;
+            float: none;
+            vertical-align: top;
+          }
+          .panel-inline-right {
+            width: auto;
+          }
+        }
+      }
+    }
+  }
+}
+

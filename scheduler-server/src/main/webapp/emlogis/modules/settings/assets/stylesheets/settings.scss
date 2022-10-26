@@ -1,0 +1,138 @@
+@import "partials/variables";
+@import "partials/mixins";
+
+.settings {
+  .settings-accounts {
+    .control-panel {
+      .result-rows-legend {
+        margin-top: $margin-base-vertical;
+
+        .showing-label {
+          font-size: $small-font-size;
+        }
+      }
+    }
+
+    .access-control-list {
+      .list-item {
+        margin: $margin-base-vertical $margin-base-horizontal;
+        .sub-list-item {
+          display: inline-block;
+          vertical-align: middle;
+          .item-label {
+            text-decoration: underline;
+            padding: 0 $padding-small-horizontal;
+          }
+
+          .item-name {
+            border: 2px solid gray;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+            text-align: center;
+            padding: $padding-large-vertical $padding-large-horizontal;
+          }
+
+          .access-rw {
+            border-color: #000;
+          }
+
+          .access-ro,
+          .access-wo {
+            border-color: $gray-light;
+          }
+
+          .access-no {
+            border-color: $gray-lighter;
+          }
+        }
+
+        .site-expander {
+          cursor: pointer;
+          font-size: $font-size-small;
+        }
+      }
+
+      .team-item {
+        margin-left: 50px;
+      }
+    }
+
+    .permissions {
+      .permission-field {
+        display: inline-block;
+        overflow: hidden;
+      }
+
+      .permission-check {
+        width: 150px;
+      }
+
+      .permission-name {
+        width: 200px;
+      }
+    }
+
+    .settings-accounts-groups {
+      .settings-team-managers-list {
+        padding-bottom: 50px;
+      }
+    }
+  }
+  //
+  // Tags directive
+  // has .eml-tags and .eml-tag classes
+
+  .eml-objects {
+    line-height: 2.2em;
+
+    .btn-group {
+      vertical-align: top;
+    }
+  }
+
+  .eml-object {
+    display: inline-block;
+    font-size: .9em;
+    font-weight: 300;
+    border-radius: 14px;
+    background-color: #fff;
+    color: $eml-blue-highlight;
+    text-transform: uppercase;
+    box-shadow: $eml-el-shadow;
+    margin-right: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    border: 1px solid #fff;
+
+    &.add-tag {
+      padding: 5px 7px;
+    }
+
+    &.deactive {
+      color: $eml-mid-grey;
+
+      &:hover,
+      &:hover .fa-times {
+        color: $eml-dark-grey;
+      }
+    }
+
+    &:hover {
+      color: $eml-blue-highlight-dark;
+      box-shadow: $eml-el-shadow-hover;
+
+      .fa-times {
+        color: $eml-blue-highlight-dark;
+      }
+    }
+
+    .fa-times {
+      position: relative;
+      font-size: .8em;
+      top: -1px;
+      margin-left: 2px;
+      right: -1px;
+      color: #bbb;
+    }
+  }
+}

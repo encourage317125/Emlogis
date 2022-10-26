@@ -1,0 +1,32 @@
+<div class="entity-list {{entityDetails.entityType}}-list grid-panel">
+  <div ng-if="entityDetails.needPagination">
+    <div ui-grid="entityListGridOptions"
+         ui-grid-resize-columns
+         ui-grid-pagination
+         ui-grid-move-columns
+         class="entity-list-grid"></div>
+  </div>
+  <div ng-if="!entityDetails.needPagination">
+    <div ui-grid="entityListGridOptions"
+         ui-grid-resize-columns
+         ui-grid-move-columns
+         class="entity-list-grid"></div>
+</div>
+
+  <!--Pagination Start-->
+  <div class="text-center" ng-if="entityListGridOptions.data && entityListGridOptions.totalItems > 0">
+    <p style="height: 10px;">&nbsp;</p>
+    <pagination class="pagination-sm"
+                total-items="entityListGridOptions.totalItems"
+                items-per-page="entityListGridOptions.paginationPageSize"
+                ng-model="entityListGridOptions.paginationCurrentPage"
+                boundary-links="true"
+                max-size="5"
+                previous-text="&lsaquo;"
+                next-text="&rsaquo;"
+                first-text="&laquo;"
+                last-text="&raquo;">
+    </pagination> <!-- TODO: show only if there are more than 1 page in a table -->
+  </div>
+  <!--Pagination End-->
+</div>

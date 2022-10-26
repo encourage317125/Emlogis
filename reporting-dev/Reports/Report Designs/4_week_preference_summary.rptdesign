@@ -1,0 +1,1352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.4.0.v20150206-1039 Build &lt;4.2.3.v20150206-1039></property>
+    <list-property name="scriptLibs">
+        <structure>
+            <property name="name">libs/activation-1.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/commons-codec-1.6.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/commons-io-2.4.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/commons-logging-1.1.3.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/emlogis-scheduler-rest-api.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/FastInfoset-1.2.7.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/httpclient-4.4.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/httpcore-4.4.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/istack-commons-runtime-2.16.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-annotations-2.4.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-core-2.4.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-core-asl-1.9.12.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-databind-2.4.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-datatype-joda-2.3.0.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-jaxrs-1.9.12.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-jaxrs-base-2.4.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-jaxrs-json-provider-2.4.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-mapper-asl-1.9.12.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-module-afterburner-2.3.0.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-module-jaxb-annotations-2.4.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-xc-1.9.12.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jaxb-api-2.2.7.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jaxb-core-2.2.7.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jaxb-impl-2.2.7.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jaxrs-api-3.0.9.Emlogis.Custom.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jaxrs-api-3.0.9.Final.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jboss-annotations-api_1.1_spec-1.0.1.Final.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jcip-annotations-1.0.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/joda-time-2.3.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/resteasy-client-3.0.9.Final.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/resteasy-jackson-provider-3.0.9.Final.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/resteasy-jaxb-provider-3.0.9.Final.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/resteasy-jaxrs-3.0.9.Final.jar</property>
+        </structure>
+    </list-property>
+    <property name="units">in</property>
+    <method name="initialize"><![CDATA[try {
+	emlogis.current.reportName = "4 Week Availability Summary";
+	
+	var startDate = new Date(params["StartDate"].value.getTime());
+	startDate.setDate(1); //Set first day Of Month to make a moth-view calendar
+	var weeksAmount = 4;
+	emlogis.current.daysInterval = emlogis.date.getReportIntervalDays(startDate, weeksAmount, emlogis.current.site.get("firstDayOfWeek"));
+	
+	params["ReportIntervalStartDate"] = emlogis.current.daysInterval[0].date;
+	params["ReportIntervalEndDate"] = emlogis.current.daysInterval[emlogis.current.daysInterval.length - 1].date;
+	
+	reportContext.setGlobalVariable("reportData", {});
+} catch(e){};
+]]></method>
+    <property name="theme">common.EmlogisGrayScales</property>
+    <text-property name="displayName">One Week Schedule Report</text-property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="layoutPreference">auto layout</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">96</property>
+    <list-property name="libraries">
+        <structure>
+            <property name="fileName">emlogis/report-libs/common.RPTLIBRARY</property>
+            <property name="namespace">common</property>
+        </structure>
+        <structure>
+            <property name="fileName">emlogis/report-libs/debug.rptlibrary</property>
+            <property name="namespace">debug</property>
+        </structure>
+    </list-property>
+    <parameters>
+        <scalar-parameter name="restApiUrl" id="3385" extends="common.restApiUrl"/>
+        <scalar-parameter name="StartDate" id="11322" extends="common.StartDate"/>
+        <scalar-parameter name="ReportIntervalStartDate" id="14907" extends="common.ReportIntervalStartDate"/>
+        <scalar-parameter name="ReportIntervalEndDate" id="14908" extends="common.ReportIntervalEndDate"/>
+        <scalar-parameter name="IsHomeTeamEmployees" id="14945" extends="common.IsHomeTeamEmployees"/>
+        <cascading-parameter-group name="BasicReportCascadingParameterGroup" id="15709" extends="common.BasicReportCascadingParameterGroup">
+            <overridden-values>
+                <ref-entry baseId="11074" name="Security" id="11074"/>
+                <ref-entry baseId="11075" name="Site" id="11075"/>
+                <ref-entry baseId="14682" name="Teams" id="14682"/>
+            </overridden-values>
+        </cascading-parameter-group>
+    </parameters>
+    <data-sources>
+        <script-data-source name="Data Source" id="11098" extends="common.Data Source"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="Site DS" id="8" extends="common.Site DS"/>
+        <script-data-set name="Team DS" id="31" extends="common.Team DS"/>
+        <script-data-set name="Security DS" id="3386" extends="common.Security DS"/>
+        <script-data-set name="CIPreference DS" id="13649" extends="common.CIPreference DS"/>
+        <script-data-set name="CDPreference DS" id="13650" extends="common.CDPreference DS"/>
+        <derived-data-set extensionID="com.actuate.birt.data.join" name="Employees Dates CIP CDP Joined DS" id="14848">
+            <list-property name="computedColumns">
+                <structure>
+                    <property name="name">summary_data</property>
+                    <expression name="expression" type="javascript">1</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">summary_data</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">employeeName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">teamName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">dayName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">dayOfWeek</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">dayOfMonth</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">weekNumber</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">CDPreference DS::id</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">CIPreference DS::id</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">dayOfTheWeek</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">date</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">CDPreference DS::startTime</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">CDPreference DS::endTime</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">CIPreference DS::startTime</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">CIPreference DS::endTime</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+            </list-property>
+            <list-property name="sortHints">
+                <structure>
+                    <property name="columnName">dataSetRow["employeeName"]</property>
+                    <property name="direction">asc</property>
+                    <property name="isOptional">true</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">employeeId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">employeeName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">teamName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">dayName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">dayOfWeek</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">dayOfMonth</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">date</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">weekNumber</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">CDPreference DS::id</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">CDPreference DS::startTime</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">CDPreference DS::endTime</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">CDPreference DS::prefType</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">CIPreference DS::id</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">14</property>
+                        <property name="name">CIPreference DS::startTime</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">15</property>
+                        <property name="name">CIPreference DS::endTime</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">16</property>
+                        <property name="name">dayOfTheWeek</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">17</property>
+                        <property name="name">CIPreference DS::prefType</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">18</property>
+                        <property name="name">preview</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">19</property>
+                        <property name="name">summary_data</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <method name="onFetch"><![CDATA[/**
+ * Put Joined Data Set row's data to global variable "reportData"
+ */
+var team = row["teamName"];
+var employee = row["employeeId"] + "_" + row["employeeName"];
+var weekNumber = row["weekNumber"];
+var dayOfWeek = row["dayOfWeek"];
+var reportData = reportContext.getGlobalVariable("reportData");
+
+/**
+ * Fill needed properties of the object if it is undefined AND assign corresponding cell data
+ */
+if(!reportData[team]){
+	reportData[team] = {};
+	reportData[team][employee] = {};
+	reportData[team][employee][weekNumber] = {};
+} else if(!reportData[team][employee]){
+	reportData[team][employee] = {};
+	reportData[team][employee][weekNumber] = {};
+} else if(!reportData[team][employee][weekNumber]){
+	reportData[team][employee][weekNumber] = {};
+}
+
+assignEmployeesAvailabilityCellData();
+
+function assignEmployeesAvailabilityCellData(){
+	if(!reportData[team][employee][weekNumber][dayOfWeek]){
+		reportData[team][employee][weekNumber][dayOfWeek] = {
+			dayOfMonth: "",
+			dayName: "",
+			cd: [],
+			ci: []
+		};
+	}
+	
+	var currentCell = reportData[team][employee][weekNumber][dayOfWeek];
+	
+	currentCell.dayOfMonth = row["dayOfMonth"];
+	currentCell.dayName = row["dayName"];
+	
+	if(row["CDPreference DS::id"]) {
+		currentCell.cd.push({
+			id: row["CDPreference DS::id"],
+			start: row["CDPreference DS::startTime"],
+			end: row["CDPreference DS::endTime"],
+			pref: row["CDPreference DS::prefType"]
+		});
+	}
+	if(row["CIPreference DS::id"]) {
+		currentCell.ci.push({
+			id: row["CIPreference DS::id"],
+			day: row["dayOfTheWeek"],
+			start: row["CIPreference DS::startTime"],
+			end: row["CIPreference DS::endTime"],
+			pref: row["CIPreference DS::prefType"],
+			preview: row["preview"]
+		});
+	}
+}
+]]></method>
+            <simple-property-list name="inputDataSets">
+                <value>Employees Dates Joined DS</value>
+                <value>CDPreference DS</value>
+                <value>CIPreference DS</value>
+            </simple-property-list>
+            <xml-property name="queryText"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tns:joinedDataSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.actuate.com/birt/dataset_join.xsd" xmlns:tns="http://schemas.actuate.com/birt/dataset_join.xsd">
+<tns:selectColumns>
+<tns:Column>Employees Dates Joined DS::employeeId</tns:Column>
+<tns:Column>Employees Dates Joined DS::employeeName</tns:Column>
+<tns:Column>Employees Dates Joined DS::teamName</tns:Column>
+<tns:Column>Employees Dates Joined DS::dayName</tns:Column>
+<tns:Column>Employees Dates Joined DS::dayOfWeek</tns:Column>
+<tns:Column>Employees Dates Joined DS::dayOfMonth</tns:Column>
+<tns:Column>Employees Dates Joined DS::date</tns:Column>
+<tns:Column>Employees Dates Joined DS::weekNumber</tns:Column>
+<tns:Column>CDPreference DS::id</tns:Column>
+<tns:Column>CDPreference DS::startTime</tns:Column>
+<tns:Column>CDPreference DS::endTime</tns:Column>
+<tns:Column>CDPreference DS::prefType</tns:Column>
+<tns:Column>CIPreference DS::id</tns:Column>
+<tns:Column>CIPreference DS::startTime</tns:Column>
+<tns:Column>CIPreference DS::endTime</tns:Column>
+<tns:Column>CIPreference DS::dayOfTheWeek</tns:Column>
+<tns:Column>CIPreference DS::prefType</tns:Column>
+<tns:Column>CIPreference DS::preview</tns:Column>
+</tns:selectColumns>
+<tns:joins>
+<tns:startingDataSet Index="0" name="Employees Dates Joined DS"/>
+<tns:join>
+<tns:type>leftOuter</tns:type>
+<tns:dataSet Index="1" name="CDPreference DS"/>
+<tns:on>
+<tns:condition>
+<tns:leftColumn>Employees Dates Joined DS::employeeId</tns:leftColumn>
+<tns:rightColumn>CDPreference DS::employeeId</tns:rightColumn>
+<tns:operator>eq</tns:operator>
+</tns:condition>
+<tns:condition>
+<tns:leftColumn>Employees Dates Joined DS::date</tns:leftColumn>
+<tns:rightColumn>CDPreference DS::date</tns:rightColumn>
+<tns:operator>eq</tns:operator>
+</tns:condition>
+</tns:on>
+</tns:join>
+<tns:join>
+<tns:type>leftOuter</tns:type>
+<tns:dataSet Index="2" name="CIPreference DS"/>
+<tns:on>
+<tns:condition>
+<tns:leftColumn>Employees Dates Joined DS::dayId</tns:leftColumn>
+<tns:rightColumn>CIPreference DS::dayOfTheWeek</tns:rightColumn>
+<tns:operator>eq</tns:operator>
+</tns:condition>
+<tns:condition>
+<tns:leftColumn>Employees Dates Joined DS::employeeId</tns:leftColumn>
+<tns:rightColumn>CIPreference DS::employeeId</tns:rightColumn>
+<tns:operator>eq</tns:operator>
+</tns:condition>
+<tns:condition>
+<tns:leftColumn>Employees Dates Joined DS::date</tns:leftColumn>
+<tns:rightColumn>CIPreference DS::effectiveStartDate</tns:rightColumn>
+<tns:operator>ge</tns:operator>
+</tns:condition>
+<tns:condition>
+<tns:leftColumn>Employees Dates Joined DS::date</tns:leftColumn>
+<tns:rightColumn>CIPreference DS::effectiveEndDate</tns:rightColumn>
+<tns:operator>le</tns:operator>
+</tns:condition>
+</tns:on>
+</tns:join>
+</tns:joins>
+</tns:joinedDataSet>]]></xml-property>
+        </derived-data-set>
+        <script-data-set name="Dates Range DS" id="14909" extends="common.Dates Range DS"/>
+        <derived-data-set extensionID="com.actuate.birt.data.join" name="Employees Dates Joined DS" id="15229"
+ extends="common.Employees Dates Joined DS"/>
+        <script-data-set name="Employee DS" id="15230" extends="common.Employee DS"/>
+        <script-data-set name="4 Weeks Calendar DS" id="15283">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">dayOfWeek</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">dayOfMonth</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">date</property>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">weekNumber</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">dayName</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">dayOfWeek</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">dayOfMonth</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">date</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">weekNumber</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">dayName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+            </list-property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">teamName</property>
+                    <property name="dataType">string</property>
+                    <property name="position">1</property>
+                    <expression name="defaultValue" type="javascript">data["teamName"]</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">employee</property>
+                    <property name="dataType">string</property>
+                    <property name="position">2</property>
+                    <expression name="defaultValue" type="javascript">data["employeeId"]+ "_" +data["employeeName"]</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">dayOfWeek</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">dayOfMonth</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">date</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">weekNumber</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">dayName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[weeksCount = 0;
+daysCount = 0;
+daysOfWeek = null;
+daysOfWeekIds = null;
+
+var team = inputParams["teamName"];
+var employee = inputParams["employee"];
+var reportData = reportContext.getGlobalVariable("reportData");
+
+// Get weeks data for current team and employee
+currentCellWeeks = {};
+try { currentCellWeeks = reportData[team][employee]; } catch(e){}
+currentCellWeekIds = emlogis.helper.keySet(currentCellWeeks);]]></method>
+            <method name="fetch"><![CDATA[if(daysOfWeekIds &amp;&amp; daysCount < daysOfWeekIds.length){ //Iterate days of week
+	fillCurrentRow();
+	return true;
+} else if(daysOfWeekIds &amp;&amp; daysCount >= daysOfWeekIds.length) {	//Switch to the next week
+	daysOfWeekIds = null;
+	daysOfWeeks = null;
+	daysCount = 0;
+	weeksCount++;
+}
+
+if(daysOfWeekIds === null &amp;&amp; weeksCount < currentCellWeekIds.length) { //Iterate weeks
+	daysOfWeek = currentCellWeeks[currentCellWeekIds[weeksCount]];
+	daysOfWeekIds = emlogis.helper.keySet(daysOfWeek);
+	fillCurrentRow();
+	return true;
+}
+
+return false;
+
+/*
+if (token != null &amp;&amp; employeesCount < employeesList.size()) {
+	fillCurrentRow();
+    employeesCount++;
+    return true;
+} else if(token != null &amp;&amp; currentDayOfWeek < week.length){
+	currentDayOfWeek++;
+	if(currentDayOfWeek < week.length){
+		employeesCount = 0;
+		fillCurrentRow();
+		employeesCount++;
+	} else {
+		return false;
+	}
+	return true;
+}
+return false; 
+*/
+
+function fillCurrentRow(){
+	var dayOfWeek =  daysOfWeekIds[daysCount];
+	var obj = daysOfWeek[dayOfWeek];
+	row["weekNumber"] = currentCellWeekIds[weeksCount];
+    row["dayOfWeek"] = dayOfWeek;
+    row["dayOfMonth"] = obj.dayOfMonth;
+    row["dayName"] = obj.dayName;
+    daysCount++;
+}]]></method>
+        </script-data-set>
+        <script-data-set name="Availability Calendar Cell DS" id="15692">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">0</property>
+                    <property name="name">Message</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">Message</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+            </list-property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">team</property>
+                    <property name="dataType">string</property>
+                    <property name="position">1</property>
+                    <expression name="defaultValue" type="javascript">row._outer["teamName"]</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">employee</property>
+                    <property name="dataType">string</property>
+                    <property name="position">2</property>
+                    <expression name="defaultValue" type="javascript">row._outer["employeeId"] + "_" + row._outer["employeeName"]</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">week</property>
+                    <property name="dataType">string</property>
+                    <property name="position">3</property>
+                    <expression name="defaultValue" type="javascript">data["weekNumber"]</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">day</property>
+                    <property name="dataType">string</property>
+                    <property name="position">4</property>
+                    <expression name="defaultValue" type="javascript">data["dayOfWeek"]</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">Message</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[flag = true;
+message = getAvailabilityMessage();
+
+function getAvailabilityMessage() {
+	var team = inputParams["team"];
+	var employee = inputParams["employee"];
+	var week = inputParams["week"];
+	var day = inputParams["day"];
+	var reportData = reportContext.getGlobalVariable("reportData");
+	
+	var currentCell = reportData[team][employee][week][day];
+
+	// Get CI time frames for the current team, employee, date from the global JS object
+	var currentCellCITimeFrames = [];
+	try { currentCellCITimeFrames = currentCell.ci; } catch(e){}
+
+	// Get CD time frames for the current team, employee, date from the global JS object
+	var currentCellCDTimeFrames = [];
+	try { currentCellCDTimeFrames = currentCell.cd; } catch(e){}
+
+	// Try to find suitable unavailability
+	var availMessage = "";
+	if(currentCellCDTimeFrames.length || currentCellCITimeFrames.length){
+		for(var i = 0; i < currentCellCDTimeFrames.length; i++){
+			var currentObj = currentCellCDTimeFrames[i];
+			switch(currentObj.pref) {
+				case emlogis.def.pref.type.AVOID_DAY.key:
+					return emlogis.def.pref.type.AVOID_DAY.text;
+				case emlogis.def.pref.type.PREFER_DAY.key:
+					return emlogis.def.pref.type.PREFER_DAY.text;
+				case emlogis.def.pref.type.AVOID_TIMEFRAME.key:
+					availMessage += emlogis.def.pref.type.AVOID_TIMEFRAME.text + " " 
+						+ timeMillisToAMPMTimeIntervalString(currentObj.start, currentObj.end)+ "<br>";
+					break;
+				case emlogis.def.pref.type.PREFER_TIMEFRAME.key:
+					availMessage += emlogis.def.pref.type.PREFER_TIMEFRAME.text + " " 
+						+ timeMillisToAMPMTimeIntervalString(currentObj.start, currentObj.end)+ "<br>";
+					break;
+				default: 
+					availMessage += emlogis.def.pref.type.UNKNOWN.text;
+			}
+		}
+		if(!availMessage){
+			for(var i = 0; i < currentCellCITimeFrames.length; i++){
+				var currentObj = currentCellCITimeFrames[i];
+		 		switch(currentObj.pref) {
+		 			case emlogis.def.pref.type.AVOID_DAY.key:
+						return emlogis.def.pref.type.AVOID_DAY.text;
+					case emlogis.def.pref.type.PREFER_DAY.key:
+						return emlogis.def.pref.type.PREFER_DAY.text;
+					case emlogis.def.pref.type.AVOID_TIMEFRAME.key:
+						availMessage += emlogis.def.pref.type.AVOID_TIMEFRAME.text + " " 
+							+ timeMillisToAMPMTimeIntervalString(currentObj.start, currentObj.end)+ "<br>";
+						break;
+					case emlogis.def.pref.type.PREFER_TIMEFRAME.key:
+						availMessage += emlogis.def.pref.type.PREFER_TIMEFRAME.text + " " 
+							+ timeMillisToAMPMTimeIntervalString(currentObj.start, currentObj.end)+ "<br>";
+						break;
+					default: 
+						availMessage += emlogis.def.pref.type.UNKNOWN.text;
+				}
+			}
+		}
+	}
+
+	return availMessage;
+};
+
+function timeMillisToAMPMTimeIntervalString(startMillis, endMillis) {
+	var startTimeObj = emlogis.date.millisToTime(startMillis);
+	var endTimeObj = emlogis.date.millisToTime(endMillis);
+	return emlogis.date.timeObjectToShort12TimeString(startTimeObj) + " - " + emlogis.date.timeObjectToShort12TimeString(endTimeObj);
+}]]></method>
+            <method name="fetch"><![CDATA[if(flag) {
+	row["Message"] = message;
+	flag = false;
+	return true;
+}
+return false;]]></method>
+        </script-data-set>
+    </data-sets>
+    <cubes>
+        <tabular-cube name="Summary DCube" id="14998">
+            <property name="dimensions">
+                <tabular-dimension name="Group" id="15024">
+                    <property name="defaultHierarchy">NewTabularHierarchy</property>
+                    <property name="hierarchies">
+                        <tabular-hierarchy name="NewTabularHierarchy" id="15025">
+                            <property name="levels">
+                                <tabular-level name="teamName" id="15026">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">teamName</property>
+                                </tabular-level>
+                                <tabular-level name="employeeName" id="15027">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">employeeName</property>
+                                </tabular-level>
+                            </property>
+                        </tabular-hierarchy>
+                    </property>
+                </tabular-dimension>
+                <tabular-dimension name="Group1" id="15118">
+                    <property name="isTimeType">false</property>
+                    <property name="defaultHierarchy">NewTabularHierarchy2</property>
+                    <property name="hierarchies">
+                        <tabular-hierarchy name="NewTabularHierarchy2" id="15119">
+                            <property name="levels">
+                                <tabular-level name="summary_data" id="15231">
+                                    <property name="dataType">integer</property>
+                                    <property name="columnName">summary_data</property>
+                                </tabular-level>
+                            </property>
+                        </tabular-hierarchy>
+                    </property>
+                </tabular-dimension>
+            </property>
+            <property name="measureGroups">
+                <tabular-measure-group name="Summary Field1" id="15125">
+                    <property name="measures">
+                        <tabular-measure name="dayOfMonth1" id="15126">
+                            <property name="function">count</property>
+                            <expression name="measureExpression" type="javascript">dataSetRow["dayOfMonth"]</expression>
+                            <property name="dataType">integer</property>
+                        </tabular-measure>
+                    </property>
+                </tabular-measure-group>
+            </property>
+            <property name="dataSet">Employees Dates CIP CDP Joined DS</property>
+        </tabular-cube>
+        <tabular-cube name="4 Weeks Calendar DCube" id="15284">
+            <property name="dimensions">
+                <tabular-dimension name="Group2" id="15285">
+                    <property name="defaultHierarchy">NewTabularHierarchy1</property>
+                    <property name="hierarchies">
+                        <tabular-hierarchy name="NewTabularHierarchy1" id="15286">
+                            <property name="levels">
+                                <tabular-level name="weekNumber" id="15287">
+                                    <property name="dataType">integer</property>
+                                    <property name="columnName">weekNumber</property>
+                                </tabular-level>
+                            </property>
+                        </tabular-hierarchy>
+                    </property>
+                </tabular-dimension>
+                <tabular-dimension name="Group3" id="15288">
+                    <property name="defaultHierarchy">NewTabularHierarchy3</property>
+                    <property name="hierarchies">
+                        <tabular-hierarchy name="NewTabularHierarchy3" id="15289">
+                            <property name="levels">
+                                <tabular-level name="dayOfWeek" id="15290">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">dayOfWeek</property>
+                                </tabular-level>
+                                <tabular-level name="dayName" id="15699">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">dayName</property>
+                                </tabular-level>
+                            </property>
+                        </tabular-hierarchy>
+                    </property>
+                </tabular-dimension>
+            </property>
+            <property name="measureGroups">
+                <tabular-measure-group name="Summary Field" id="15322">
+                    <property name="measures">
+                        <tabular-measure name="dayOfMonth" id="15323">
+                            <property name="function">first</property>
+                            <property name="isCalculated">false</property>
+                            <expression name="measureExpression" type="javascript">dataSetRow["dayOfMonth"]</expression>
+                            <property name="dataType">string</property>
+                            <property name="isVisible">true</property>
+                        </tabular-measure>
+                    </property>
+                </tabular-measure-group>
+            </property>
+            <property name="dataSet">4 Weeks Calendar DS</property>
+        </tabular-cube>
+    </cubes>
+    <page-setup>
+        <simple-master-page name="Portrait" id="13795">
+            <page-header>
+                <grid name="Report header" id="13796" extends="common.Report header">
+                    <overridden-values>
+                        <ref-entry baseId="13738" id="13738"/>
+                        <ref-entry baseId="13739" id="13739"/>
+                        <ref-entry baseId="13740" id="13740"/>
+                        <ref-entry baseId="13741" id="13741"/>
+                        <ref-entry baseId="13742" name="NewGrid11" id="13742"/>
+                        <ref-entry baseId="13743" id="13743"/>
+                        <ref-entry baseId="13744" id="13744"/>
+                        <ref-entry baseId="13745" id="13745"/>
+                        <ref-entry baseId="13746" name="NewData111" id="13746"/>
+                        <ref-entry baseId="13747" id="13747"/>
+                        <ref-entry baseId="13748" name="NewGrid2" id="13748"/>
+                        <ref-entry baseId="13749" id="13749"/>
+                        <ref-entry baseId="13750" id="13750"/>
+                        <ref-entry baseId="13751" id="13751"/>
+                        <ref-entry baseId="13752" name="NewData21" id="13752"/>
+                        <ref-entry baseId="13775" id="13775"/>
+                        <ref-entry baseId="13776" id="13776"/>
+                        <ref-entry baseId="10833" name="NewGrid" id="10833"/>
+                        <ref-entry baseId="10834" id="10834"/>
+                        <ref-entry baseId="10835" id="10835"/>
+                        <ref-entry baseId="10836" id="10836"/>
+                        <ref-entry baseId="13779" name="NewTextData1" id="13779">
+                            <property name="style">highlighted-text-italic</property>
+                        </ref-entry>
+                    </overridden-values>
+                </grid>
+            </page-header>
+            <page-footer>
+                <grid name="Report footer" id="13797" extends="common.Report footer">
+                    <overridden-values>
+                        <ref-entry baseId="13754" id="13754"/>
+                        <ref-entry baseId="13755" id="13755"/>
+                        <ref-entry baseId="13756" id="13756"/>
+                        <ref-entry baseId="13757" id="13757"/>
+                        <ref-entry baseId="13758" name="NewTextData111" id="13758"/>
+                        <ref-entry baseId="13759" id="13759"/>
+                        <ref-entry baseId="13760" name="NewGrid1111" id="13760"/>
+                        <ref-entry baseId="13761" id="13761"/>
+                        <ref-entry baseId="13762" id="13762"/>
+                        <ref-entry baseId="13763" id="13763"/>
+                        <ref-entry baseId="13764" id="13764"/>
+                        <ref-entry baseId="13765" id="13765"/>
+                        <ref-entry baseId="13766" id="13766"/>
+                        <ref-entry baseId="13767" name="NewText211" id="13767"/>
+                        <ref-entry baseId="13768" id="13768"/>
+                        <ref-entry baseId="13769" name="NewAutoText211" id="13769"/>
+                        <ref-entry baseId="13770" id="13770"/>
+                        <ref-entry baseId="13771" name="NewText1111" id="13771"/>
+                        <ref-entry baseId="13772" id="13772"/>
+                        <ref-entry baseId="13773" name="NewAutoText1111" id="13773"/>
+                    </overridden-values>
+                </grid>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <list id="15409">
+            <list-property name="userProperties">
+                <structure>
+                    <property name="name">__ac_group_collapse_level</property>
+                    <property name="type">string</property>
+                </structure>
+            </list-property>
+            <property name="display">block</property>
+            <property name="dataSet">Employees Dates CIP CDP Joined DS</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">employeeId</property>
+                    <text-property name="displayName">employeeId</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["employeeId"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">employeeName</property>
+                    <text-property name="displayName">employeeName</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["employeeName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">teamName</property>
+                    <text-property name="displayName">teamName</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["teamName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">dayName</property>
+                    <text-property name="displayName">dayName</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["dayName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">dayOfWeek</property>
+                    <text-property name="displayName">dayOfWeek</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["dayOfWeek"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">dayOfMonth</property>
+                    <text-property name="displayName">dayOfMonth</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["dayOfMonth"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">date</property>
+                    <text-property name="displayName">date</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["date"]</expression>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="name">weekNumber</property>
+                    <text-property name="displayName">weekNumber</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["weekNumber"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">CDPreference DS::id</property>
+                    <text-property name="displayName">CDPreference DS::id</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["CDPreference DS::id"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">CDPreference DS::startTime</property>
+                    <text-property name="displayName">CDPreference DS::startTime</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["CDPreference DS::startTime"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">CDPreference DS::endTime</property>
+                    <text-property name="displayName">CDPreference DS::endTime</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["CDPreference DS::endTime"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">CDPreference DS::prefType</property>
+                    <text-property name="displayName">CDPreference DS::prefType</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["CDPreference DS::prefType"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">CIPreference DS::id</property>
+                    <text-property name="displayName">CIPreference DS::id</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["CIPreference DS::id"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">CIPreference DS::startTime</property>
+                    <text-property name="displayName">CIPreference DS::startTime</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["CIPreference DS::startTime"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">CIPreference DS::endTime</property>
+                    <text-property name="displayName">CIPreference DS::endTime</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["CIPreference DS::endTime"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">dayOfTheWeek</property>
+                    <text-property name="displayName">dayOfTheWeek</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["dayOfTheWeek"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">CIPreference DS::prefType</property>
+                    <text-property name="displayName">CIPreference DS::prefType</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["CIPreference DS::prefType"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">preview</property>
+                    <text-property name="displayName">preview</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["preview"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">summary_data</property>
+                    <text-property name="displayName">summary_data</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["summary_data"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+            </list-property>
+            <group id="15410">
+                <property name="groupName">By Team</property>
+                <expression name="keyExpr" type="javascript">row["teamName"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue" type="javascript">row["teamName"]</expression>
+                </structure>
+                <property name="hideDetail">false</property>
+                <property name="pageBreakBefore">always-excluding-first</property>
+                <header>
+                    <grid id="15461">
+                        <column id="15462"/>
+                        <row id="15463">
+                            <cell id="15464">
+                                <property name="style">padding-05em</property>
+                                <data id="15411">
+                                    <property name="style">emlogis-header-first</property>
+                                    <property name="resultSetColumn">teamName</property>
+                                </data>
+                            </cell>
+                        </row>
+                    </grid>
+                </header>
+            </group>
+            <group id="15414">
+                <property name="groupName">By Employee</property>
+                <expression name="keyExpr" type="javascript">row["employeeName"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue" type="javascript">row["employeeName"]</expression>
+                </structure>
+                <property name="hideDetail">false</property>
+                <header>
+                    <grid id="15453">
+                        <column id="15454"/>
+                        <row id="15455">
+                            <cell id="15456">
+                                <property name="style">padding-05em</property>
+                                <data id="15415">
+                                    <property name="style">emlogis-header-second</property>
+                                    <property name="resultSetColumn">employeeName</property>
+                                </data>
+                            </cell>
+                        </row>
+                        <row id="15457">
+                            <cell id="15458"/>
+                        </row>
+                        <row id="15459">
+                            <cell id="15460">
+                                <property name="style">padding-05em</property>
+                                <extended-item extensionName="Crosstab" extensionVersion="3.7.0" id="15434">
+                                    <property name="cube">4 Weeks Calendar DCube</property>
+                                    <property name="measures">
+                                        <extended-item extensionName="MeasureView" id="15435">
+                                            <property name="measure">dayOfMonth</property>
+                                            <property name="detail">
+                                                <extended-item extensionName="AggregationCell" id="15436">
+                                                    <property name="aggregationOnRow">Group2/weekNumber</property>
+                                                    <property name="aggregationOnColumn">Group3/dayName</property>
+                                                    <property name="height">50px</property>
+                                                    <property name="width">14%</property>
+                                                    <property name="content">
+                                                        <grid id="15475">
+                                                            <property name="height">1.5em</property>
+                                                            <column id="15476"/>
+                                                            <column id="15477">
+                                                                <property name="width">1em</property>
+                                                            </column>
+                                                            <row id="15478">
+                                                                <cell id="15479"/>
+                                                                <cell id="15480">
+                                                                    <property name="style">highlighted-text-italic</property>
+                                                                    <data id="15705">
+                                                                        <property name="style">highlighted-text-light</property>
+                                                                        <property name="resultSetColumn">DayOfMonth</property>
+                                                                    </data>
+                                                                </cell>
+                                                            </row>
+                                                            <row id="15481">
+                                                                <cell id="15482">
+                                                                    <property name="colSpan">2</property>
+                                                                    <property name="rowSpan">1</property>
+                                                                    <property name="style">align-center-middle</property>
+                                                                    <grid id="15693">
+                                                                        <property name="dataSet">Availability Calendar Cell DS</property>
+                                                                        <list-property name="boundDataColumns">
+                                                                            <structure>
+                                                                                <property name="name">Message</property>
+                                                                                <text-property name="displayName">Message</text-property>
+                                                                                <expression name="expression" type="javascript">dataSetRow["Message"]</expression>
+                                                                                <property name="dataType">string</property>
+                                                                            </structure>
+                                                                        </list-property>
+                                                                        <column id="15694"/>
+                                                                        <row id="15695">
+                                                                            <cell id="15696">
+                                                                                <property name="style">align-center-middle</property>
+                                                                                <text-data id="15698">
+                                                                                    <expression name="valueExpr">row["Message"]</expression>
+                                                                                    <property name="contentType">html</property>
+                                                                                </text-data>
+                                                                            </cell>
+                                                                        </row>
+                                                                    </grid>
+                                                                </cell>
+                                                            </row>
+                                                        </grid>
+                                                    </property>
+                                                </extended-item>
+                                            </property>
+                                            <property name="header">
+                                                <extended-item extensionName="CrosstabCell" id="15438">
+                                                    <property name="style">empty-cell</property>
+                                                </extended-item>
+                                            </property>
+                                        </extended-item>
+                                    </property>
+                                    <property name="rows">
+                                        <extended-item extensionName="CrosstabView" id="15439">
+                                            <property name="views">
+                                                <extended-item extensionName="DimensionView" id="15440">
+                                                    <property name="dimension">Group2</property>
+                                                    <property name="levels">
+                                                        <extended-item extensionName="LevelView" name="NewLevel View31" id="15441">
+                                                            <property name="level">Group2/weekNumber</property>
+                                                            <property name="member">
+                                                                <extended-item extensionName="CrosstabCell" id="15442">
+                                                                    <property name="display">none</property>
+                                                                    <property name="style">empty-cell</property>
+                                                                </extended-item>
+                                                            </property>
+                                                        </extended-item>
+                                                    </property>
+                                                </extended-item>
+                                            </property>
+                                        </extended-item>
+                                    </property>
+                                    <property name="columns">
+                                        <extended-item extensionName="CrosstabView" id="15444">
+                                            <property name="views">
+                                                <extended-item extensionName="DimensionView" id="15445">
+                                                    <property name="dimension">Group3</property>
+                                                    <property name="levels">
+                                                        <extended-item extensionName="LevelView" name="NewLevel View1" id="15706">
+                                                            <property name="level">Group3/dayOfWeek</property>
+                                                            <property name="member">
+                                                                <extended-item extensionName="CrosstabCell" id="15707">
+                                                                    <property name="style">empty-cell</property>
+                                                                </extended-item>
+                                                            </property>
+                                                        </extended-item>
+                                                        <extended-item extensionName="LevelView" name="NewLevel View" id="15700">
+                                                            <property name="level">Group3/dayName</property>
+                                                            <property name="member">
+                                                                <extended-item extensionName="CrosstabCell" id="15701">
+                                                                    <property name="content">
+                                                                        <data name="dayName" id="15703">
+                                                                            <property name="style">highlighted-text-uppercase</property>
+                                                                            <property name="resultSetColumn">dayName</property>
+                                                                        </data>
+                                                                    </property>
+                                                                </extended-item>
+                                                            </property>
+                                                        </extended-item>
+                                                    </property>
+                                                </extended-item>
+                                            </property>
+                                        </extended-item>
+                                    </property>
+                                    <property name="header">
+                                        <extended-item extensionName="CrosstabCell" id="15708">
+                                            <property name="display">none</property>
+                                            <property name="style">empty-cell</property>
+                                        </extended-item>
+                                        <extended-item extensionName="CrosstabCell" id="15702">
+                                            <property name="display">none</property>
+                                            <property name="style">empty-cell</property>
+                                        </extended-item>
+                                        <extended-item extensionName="CrosstabCell" id="15451">
+                                            <property name="display">none</property>
+                                            <property name="style">empty-cell</property>
+                                        </extended-item>
+                                    </property>
+                                    <list-property name="boundDataColumns">
+                                        <structure>
+                                            <property name="name">weekNumber</property>
+                                            <expression name="expression">dimension["Group2"]["weekNumber"]</expression>
+                                            <property name="dataType">integer</property>
+                                        </structure>
+                                        <structure>
+                                            <property name="name">outer_teamName</property>
+                                            <expression name="expression" type="javascript">data._outer["teamName"]</expression>
+                                            <property name="dataType">blob</property>
+                                        </structure>
+                                        <structure>
+                                            <property name="name">outer_employeeName</property>
+                                            <expression name="expression" type="javascript">data._outer["employeeName"]</expression>
+                                            <property name="dataType">blob</property>
+                                        </structure>
+                                        <structure>
+                                            <property name="name">AvailabilityMessage</property>
+                                            <expression name="expression" type="javascript">getAvailabilityMessage();&#13;
+&#13;
+function getAvailabilityMessage() {&#13;
+	var team = row._outer["teamName"];&#13;
+	var employee = row._outer["employeeName"];&#13;
+	var week = data["weekNumber"];&#13;
+	var day = data["dayOfWeek"];&#13;
+	var reportData = reportContext.getGlobalVariable("reportData");&#13;
+&#13;
+	// Get CI availability for the current team, employee, date from the global JS object&#13;
+	var currentCellCIAvail = {};&#13;
+	try { currentCellCIAvail = schedule[team][employee][date][week][day].ci; } catch(e){}&#13;
+	var currentCellCIAvailIds = emlogis.helper.keySet(currentCellCIAvail);&#13;
+&#13;
+	// Get CD availability for the current team, employee, date from the global JS object&#13;
+	var currentCellCDAvail = {};&#13;
+	try { currentCellCDAvail = schedule[team][employee][week][day].cd; } catch(e){}&#13;
+	var currentCellCDAvailIds = emlogis.helper.keySet(currentCellCDAvail);&#13;
+&#13;
+	var buildTimeIntervalString = function(startDateTime, duration) {&#13;
+		var startTime = emlogis.date.toShort12TimeString(startDateTime);&#13;
+		var endDateTime = startDateTime.setMinutes(startDateTime.getMinutes() + duration);&#13;
+		return startTime + emlogis.date.toShort12TimeString(endDateTime);&#13;
+	}&#13;
+&#13;
+	// Try to find suitable unavailability&#13;
+	var availMessage = "";&#13;
+	if(currentCellCDAvailIds.length || currentCellCIAvailIds.length){&#13;
+		for(var i = 0; i &lt; currentCellCDAvailIds.length; i++){&#13;
+			var currentObj = currentCellCDAvail[currentCellCDAvailIds[i]];&#13;
+			if(currentObj.duration >= emlogis.def.time.minutesInDay) { //Availability for the Whole day&#13;
+				if(currentObj.avail === emlogis.def.avail.type.AVAILABLE.key) {&#13;
+					return "";&#13;
+				} else if(currentObj.avail === emlogis.def.avail.type.NOT_AVAILABLE.key){&#13;
+					return emlogis.def.avail.type.NOT_AVAILABLE.text;&#13;
+				}&#13;
+			} else {&#13;
+				availMessage += buildTimeIntervalString(emlogis.date.parse(currentObj.start), currentObj.duration) + " ";&#13;
+			}&#13;
+		}&#13;
+		// if(!availMessage){&#13;
+		// 	for(var i = 0; i &lt; currentCellCIAvailIds.length; i++){&#13;
+		// 		var currentObj = currentCellCIAvail[currentCellCIAvailIds[i]];&#13;
+		// 		if(currentObj.avail == vars["unavailableString"] &amp;&amp; currentObj.duration >= 1440){ //Unavail for the Whole day&#13;
+		// 			availMessage = currentObj.absence &amp;&amp; currentObj.absence != "null" ? currentObj.absence : vars["notAvailableString"];&#13;
+		// 			break;&#13;
+		// 		}&#13;
+		// 	}&#13;
+		// }&#13;
+		&#13;
+	}&#13;
+&#13;
+	return availMessage;&#13;
+};</expression>
+                                            <property name="dataType">string</property>
+                                        </structure>
+                                        <structure>
+                                            <property name="name">dayOfMonth_Group2/weekNumber</property>
+                                            <expression name="expression">measure["dayOfMonth"]</expression>
+                                            <property name="dataType">string</property>
+                                            <simple-property-list name="aggregateOn">
+                                                <value>Group2/weekNumber</value>
+                                            </simple-property-list>
+                                            <property name="aggregateFunction">FIRST</property>
+                                        </structure>
+                                        <structure>
+                                            <property name="name">dayName</property>
+                                            <expression name="expression">dimension["Group3"]["dayName"]</expression>
+                                            <property name="dataType">string</property>
+                                        </structure>
+                                        <structure>
+                                            <property name="name">dayOfMonth_Group2/weekNumber_Group3/dayName</property>
+                                            <expression name="expression">measure["dayOfMonth"]</expression>
+                                            <property name="dataType">string</property>
+                                            <simple-property-list name="aggregateOn">
+                                                <value>Group2/weekNumber</value>
+                                                <value>Group3/dayName</value>
+                                            </simple-property-list>
+                                            <property name="aggregateFunction">FIRST</property>
+                                        </structure>
+                                        <structure>
+                                            <property name="name">DayOfMonth</property>
+                                            <expression name="expression" type="javascript">data["dayOfMonth_Group2/weekNumber_Group3/dayName"]</expression>
+                                            <property name="dataType">string</property>
+                                        </structure>
+                                        <structure>
+                                            <property name="name">dayOfWeek</property>
+                                            <expression name="expression">dimension["Group3"]["dayOfWeek"]</expression>
+                                            <property name="dataType">string</property>
+                                        </structure>
+                                    </list-property>
+                                </extended-item>
+                            </cell>
+                        </row>
+                    </grid>
+                </header>
+            </group>
+        </list>
+    </body>
+</report>

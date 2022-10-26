@@ -1,0 +1,122 @@
+package com.emlogis.engine.solver.rules.constraints;
+
+import com.emlogis.engine.solver.drools.score.QualificationScoreHolder;
+import com.emlogis.engine.solver.drools.EmployeeOvertimeTotal;
+import com.emlogis.engine.solver.drools.EmployeeOvertimeTotal.OTType;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import org.joda.time.Hours;
+import org.joda.time.Seconds;
+import org.joda.time.Days;
+
+global QualificationScoreHolder scoreHolder;
+
+/*
+ * Base rule that selects a contract for an employee or for a team. If the contract
+ * is for a team it retrieves all employees under that team contrat
+*/ 
+rule "baseEmployeeContractSelector"
+	when
+		$contract : Contract( $contractRefId : contractRefId, $scope : scope )
+		$employeesUnderContract : List() 
+			from accumulate( TeamAssociation($scope == ContractScope.TeamContract, teamId == $contractRefId, $employeeId : employeeId),
+				 collectList($employeeId) )
+		(or 
+			$employee : Employee ($scope == ContractScope.EmployeeContract && employeeId == $contractRefId) 
+			$employee : Employee ($scope == ContractScope.TeamContract, employeeId memberOf $employeesUnderContract) 
+		)
+	then
+	// Nothing should be placed here, this rule is a parent for other contract rules
+end
+
+/*
+ * Calculate and saves daily overtime per each employee 
+ * Saves the number of minutes that employee is over their limit 
+ *
+*/ 
+rule "collectDailyOvertime"
+extends "baseEmployeeContractSelector"
+dialect "mvel" 
+salience 2000 // Should be higher than cost calculators
+enabled true
+	when
+		$info : EmployeeRosterInfo( )
+		$dayInPlanningPeriod : ShiftDate(isInPlanningWindow($info))  
+		$contractLine : MinMaxContractLine( contractLineType == ContractLineType.DAILY_OVERTIME, $overtimeStart : maximumValue, $weight : maximumWeight, 
+											maximumEnabled == true, $contract == contract)
+		accumulate ( $shift : ShiftAssignment( employee != null, employee == $employee
+            								,shiftDate == $dayInPlanningPeriod, $minutes : shiftDurationMinutes )
+           			,$minutesInDay  : sum($minutes)
+           			,$shiftsInvolved : collectList($shift);
+           			 $minutesInDay > $overtimeStart
+		)									
+	then
+		LoggerFactory.getLogger("UtilityRules").trace("Adding " + ($minutesInDay - $overtimeStart) + " Daily Overtime for " + $employee.getFullName() + 
+								" on " + $dayInPlanningPeriod );
+		insertLogical( new EmployeeOvertimeTotal($employee.getEmployeeId(), $dayInPlanningPeriod, 
+							$minutesInDay - $overtimeStart, OTType.DAILY, $shiftsInvolved) );
+end
+
+/*
+ * Calculate and saves weekly overtime per each employee 
+ * Saves the number of minutes that employee is over their limit 
+ *
+*/ 
+rule "collectWeeklyOvertime"
+extends "baseEmployeeContractSelector"
+dialect "mvel" 
+salience 2000 // Should be higher than cost calculators
+enabled true
+	when
+		$info : EmployeeRosterInfo( $firstDayOfWeek : firstDayOfWeek )
+		$firstDayOfWeekShiftDate : ShiftDate(dayOfWeek == $firstDayOfWeek)  
+		$contractLine : MinMaxContractLine( contractLineType == ContractLineType.WEEKLY_OVERTIME, $overtimeStart : maximumValue, $weight : maximumWeight, 
+											maximumEnabled == true, $contract == contract)
+		accumulate ( $shift : ShiftAssignment( employee != null, employee == $employee, startsOnOrAfter($firstDayOfWeekShiftDate)
+            							,shiftDate.isBefore($firstDayOfWeekShiftDate.plusDays(7))
+            							,$minutes : shiftDurationMinutes )
+           			,$minutesInWeek  : sum($minutes)
+           			,$shiftsInvolved : collectList($shift);
+           			 $minutesInWeek > $overtimeStart
+		)									
+	then
+		LoggerFactory.getLogger("UtilityRules").trace("Adding " + ($minutesInWeek - $overtimeStart) + " Weekly Overtime for " + $employee.getFullName() + 
+								" on " + $firstDayOfWeekShiftDate );
+		insertLogical( new EmployeeOvertimeTotal($employee.getEmployeeId(), $firstDayOfWeekShiftDate, 
+							$minutesInWeek - $overtimeStart, OTType.WEEKLY, $shiftsInvolved) );
+end
+
+/*
+ * Calculate and saves weekly overtime per each employee 
+ * Saves the number of minutes that employee is over their limit 
+ *
+*/ 
+rule "collectTwoWeekOvertime"
+extends "baseEmployeeContractSelector"
+dialect "mvel" 
+salience 2000 // Should be higher than cost calculators
+enabled true
+	when
+		$info : EmployeeRosterInfo( $firstDayOfWeek : firstDayOfWeek, $lastShiftDate : lastShiftDate, $overtimeStartDate : twoWeekOvertimeStartDate )
+		$contractLine : MinMaxContractLine( contractLineType == ContractLineType.TWO_WEEK_OVERTIME, $overtimeStart : maximumValue, $weight : maximumWeight, 
+										maximumEnabled == true, $contract == contract)
+		$firstDayOfWeekShiftDate : ShiftDate(dayOfWeek == $firstDayOfWeek, date == $lastShiftDate.plusDays(1).getDate(), 
+									( Days.daysBetween($overtimeStartDate.getDate(), date).getDays() % 14) == 0)  
+        accumulate ( $shift : ShiftAssignment( employee != null, employee == $employee, endsOnOrBefore($firstDayOfWeekShiftDate)
+            				,shiftDate.isAfterOrEquals($firstDayOfWeekShiftDate.minusDays(14))
+            							,$minutes : shiftDurationMinutes )
+           			,$minutesInTwoWeeks  : sum($minutes)
+           			,$shiftsInvolved : collectList($shift);
+           			 $minutesInTwoWeeks > $overtimeStart
+		)							
+	then
+		insertLogical( new EmployeeOvertimeTotal($employee.getEmployeeId(), $firstDayOfWeekShiftDate, 
+							$minutesInTwoWeeks - $overtimeStart, OTType.TWO_WEEK, $shiftsInvolved) );
+end
+
+function int daysBetween(ShiftAssignment a, ShiftAssignment b) {
+	return Days.daysBetween(a.getStartDate(), b.getStartDate()).getDays();
+}
+

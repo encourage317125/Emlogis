@@ -1,0 +1,24 @@
+<div data-ng-hide="mode == 'Create'" class="row-fluid">
+    <form role="form">
+        <div class="form-group">
+            <label for="created">Created</label>
+            <span class="form-control" id="created">{{elt.created|date}}</span>
+        </div>
+        <div class="form-group">
+            <label for="createdBy">By</label>
+            <span class="form-control" id="createdBy">{{elt.createdBy}}</span>
+        </div>
+        <div class="form-group">
+            <label for="updated">Updated</label>
+            <span class="form-control" id="updated">{{elt.updated|date}}</span>
+        </div>
+        <div class="form-group">
+            <label for="updatedBy">By</label>
+            <span class="form-control" id="updatedBy">{{elt.updatedBy}}</span>
+        </div>
+        <div class="form-group">
+            <label for="ownedBy">Owner</label>
+            <span class="form-control" id="ownedBy">{{elt.ownedBy}}</span>
+        </div>
+    </form>
+</div>

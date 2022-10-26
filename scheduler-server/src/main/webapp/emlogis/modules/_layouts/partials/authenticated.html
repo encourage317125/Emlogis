@@ -1,0 +1,38 @@
+<div class="authenticated container-fluid" ng-if = "isLoggedIn">
+    <!-- Notification -->
+    <!--<div ng-include="'modules/_layouts/partials/notification.tpl.html'" class="row" style="margin-top: 23px"></div> &lt;!&ndash; TEMP: for dev only &ndash;&gt;-->
+
+    <div class="row breadcrumb-section"
+         ng-class="{ 'eml-site-alert-visible' : siteMsgIsVisible, 'invisible' : !hasNavBreadcrumb() }"
+         ng-controller="AuthenticatedBreadcrumbCtrl"> <!-- breadcrumb -->
+        <div class="" > <!-- nav-section-->
+            <div class="col-sm-12" ng-if ="hasNavBreadcrumb()"> <!-- nav-breadcrumb -->
+                <!-- It contains general nav using angular breadcrumb -->
+                <ol class="breadcrumb text-uppercase" > <!-- pull-left -->
+                    <li>
+                        <!-- Breadcrumb icon hidden to fit PSD designs
+                        <span class="module-ico {{module.icoClass}}"></span> -->
+                        <a href="#{{module.href}}" >{{module.name}}</a>
+                    </li>
+                    <div ng-show=" module.disableModuleBreadcrumb == false " ncy-breadcrumb></div>
+                </ol>
+            </div>
+
+            <!-- Every module will come up with its breadcrumb -->
+            <div ui-view= "breadcrumb"
+                 class="eml-module-breadcrumb"
+                 ng-class="{'full': hasNavBreadcrumb() == false }" ></div>
+        </div>
+    </div>
+
+    <!--<div class="row divider"></div>-->
+    <div class="row main-section">
+
+        <!-- Every module will come up with its content -->
+        <div ui-view= "content"></div>
+
+    </div>
+</div>
+
+
+

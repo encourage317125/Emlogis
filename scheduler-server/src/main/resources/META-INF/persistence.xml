@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<persistence version="2.0"
+             xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="
+        http://java.sun.com/xml/ns/persistence
+        http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+    <persistence-unit name="EGST" transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <jta-data-source>java:/EGST</jta-data-source>
+
+        <class>com.emlogis.model.schedule.changes.ShiftAddChange</class>
+        <class>com.emlogis.model.schedule.changes.ShiftAssignChange</class>
+        <class>com.emlogis.model.schedule.changes.ShiftDeleteChange</class>
+        <class>com.emlogis.model.schedule.changes.ShiftDropChange</class>
+        <class>com.emlogis.model.schedule.changes.ShiftEditChange</class>
+        <class>com.emlogis.model.schedule.changes.ShiftSwapChange</class>
+        <class>com.emlogis.model.schedule.changes.ShiftWipChange</class>
+        <class>com.emlogis.model.schedule.changes.ScheduleChange</class>
+
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+
+        <properties>
+            <property name="hibernate.connection.autocommit" value="false"/>
+            <property name="hibernate.archive.autodfetection" value="class"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <!--  validate update  create create-drop -->
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+        </properties>
+    </persistence-unit>
+
+
+    <persistence-unit name="EGS" transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <jta-data-source>java:/EGS</jta-data-source>
+        <!--JBPM engine persistence mappings-->
+        <!--<mapping-file>META-INF/mappings/JBPMorm.xml</mapping-file>-->
+        <!--<mapping-file>META-INF/mappings/Taskorm.xml</mapping-file>-->
+        <!--<mapping-file>META-INF/mappings/TaskAuditorm.xml</mapping-file>-->
+        <!--STANDARD EGS business model-->
+        <class>com.emlogis.model.PrimaryKey</class>
+        <class>com.emlogis.model.BaseEntity</class>
+        <class>com.emlogis.model.AOMEntity</class>
+        <class>com.emlogis.model.ACE</class>
+        <class>com.emlogis.model.tenant.Tenant</class>
+        <class>com.emlogis.model.tenant.Organization</class>
+        <class>com.emlogis.model.tenant.ServiceProvider</class>
+        <class>com.emlogis.model.tenant.Account</class>
+        <class>com.emlogis.model.tenant.UserAccount</class>
+        <class>com.emlogis.model.tenant.GroupAccount</class>
+        <class>com.emlogis.model.tenant.Role</class>
+        <class>com.emlogis.model.schedule.Shift</class>
+        <class>com.emlogis.model.tenant.Permission</class>
+        <class>com.emlogis.model.structurelevel.StructureLevel</class>
+        <class>com.emlogis.model.structurelevel.Site</class>
+        <class>com.emlogis.model.structurelevel.Team</class>
+        <class>com.emlogis.model.structurelevel.AOMRelationship</class>
+        <class>com.emlogis.model.aom.AOMTenantMetamodelEntity</class>
+        <class>com.emlogis.model.employee.Employee</class>
+        <class>com.emlogis.model.employee.Skill</class>
+        <class>com.emlogis.model.employee.EmployeeSkill</class>
+        <class>com.emlogis.model.employee.EmployeeTeam</class>
+        <class>com.emlogis.model.employee.AbsenceType</class>
+        <class>com.emlogis.model.employee.CIAvailabilityTimeFrame</class>
+        <class>com.emlogis.model.employee.CDAvailabilityTimeFrame</class>
+        <class>com.emlogis.model.contract.BooleanCL</class>
+        <class>com.emlogis.model.contract.Contract</class>
+        <class>com.emlogis.model.contract.ContractLine</class>
+        <class>com.emlogis.model.contract.IntMinMaxCL</class>
+        <class>com.emlogis.model.contract.PatternCL</class>
+        <class>com.emlogis.model.contract.WeekdayRotationPatternCL</class>
+        <class>com.emlogis.model.contract.WeekendWorkPatternCL</class>
+        <class>com.emlogis.model.contract.SiteContract</class>
+        <class>com.emlogis.model.contract.TeamContract</class>
+        <class>com.emlogis.model.contract.EmployeeContract</class>
+        <class>com.emlogis.model.notification.SendNotification</class>
+        <class>com.emlogis.model.notification.ReceiveNotification</class>
+        <class>com.emlogis.model.notification.ArchivedReceiveQueueNotification</class>
+        <class>com.emlogis.model.notification.ArchivedSendQueueNotification</class>
+        <class>com.emlogis.model.notification.template.NotificationMessageTemplate</class>
+        <class>com.emlogis.model.notification.MsgDeliveryTenantSettings</class>
+        <!--workflow administrative part-->
+        <class>com.emlogis.model.workflow.entities.WflProcess</class>
+        <class>com.emlogis.model.workflow.entities.WflRole</class>
+        <class>com.emlogis.model.workflow.entities.WorkflowRequest</class>
+        <class>com.emlogis.model.workflow.entities.WorkflowRequestPeer</class>
+        <class>com.emlogis.model.workflow.entities.WflSourceScript</class>
+        <class>com.emlogis.model.workflow.entities.WflProcessType</class>
+        <class>com.emlogis.model.workflow.entities.WorkflowRequestLog</class>
+        <class>com.emlogis.model.workflow.entities.WorkflowRequestManager</class>
+
+
+
+        <!--JBPM engine persistence layer-->
+        <!--<class>org.jbpm.persistence.processinstance.ProcessInstanceInfo</class>-->
+        <!--<class>org.drools.persistence.info.SessionInfo</class>-->
+        <!--<class>org.drools.persistence.info.WorkItemInfo</class>-->
+        <!--<class>org.jbpm.process.audit.ProcessInstanceLog</class>-->
+        <!--<class>org.jbpm.process.audit.NodeInstanceLog</class>-->
+        <!--<class>org.jbpm.process.audit.VariableInstanceLog</class>-->
+        <!--<class>org.jbpm.persistence.correlation.CorrelationKeyInfo</class>-->
+        <!--<class>org.jbpm.persistence.correlation.CorrelationPropertyInfo</class>-->
+        <!--<class>org.jbpm.services.task.impl.model.AttachmentImpl</class>-->
+        <!--<class>org.jbpm.services.task.impl.model.ContentImpl</class>-->
+        <!--<class>org.jbpm.services.task.impl.model.BooleanExpressionImpl</class>-->
+        <!--<class>org.jbpm.services.task.impl.model.CommentImpl</class>-->
+        <!--<class>org.jbpm.services.task.impl.model.DeadlineImpl</class>-->
+        <!--<class>org.jbpm.services.task.impl.model.DelegationImpl</class>-->
+        <!--<class>org.jbpm.services.task.impl.model.EscalationImpl</class>-->
+        <!--<class>org.jbpm.services.task.impl.model.GroupImpl</class>-->
+        <!--<class>org.jbpm.services.task.impl.model.I18NTextImpl</class>-->
+        <!--<class>org.jbpm.services.task.impl.model.NotificationImpl</class>-->
+        <!--<class>org.jbpm.services.task.impl.model.EmailNotificationImpl</class>-->
+        <!--<class>org.jbpm.services.task.impl.model.EmailNotificationHeaderImpl</class>-->
+        <!--<class>org.jbpm.services.task.impl.model.PeopleAssignmentsImpl</class>-->
+        <!--<class>org.jbpm.services.task.impl.model.ReassignmentImpl</class>-->
+        <!--<class>org.jbpm.services.task.impl.model.TaskImpl</class>-->
+        <!--<class>org.jbpm.services.task.impl.model.TaskDataImpl</class>-->
+        <!--<class>org.jbpm.services.task.impl.model.UserImpl</class>-->
+        <!--&lt;!&ndash;BAM for task service &ndash;&gt;-->
+        <!--<class>org.jbpm.services.task.audit.impl.model.BAMTaskSummaryImpl</class>-->
+        <!--&lt;!&ndash; Event Classes &ndash;&gt;-->
+        <!--<class>org.jbpm.services.task.audit.impl.model.TaskEventImpl</class>-->
+        <!--&lt;!&ndash; Task Audit Classes &ndash;&gt;-->
+        <!--<class>org.jbpm.services.task.audit.impl.model.AuditTaskImpl</class>-->
+        <!--<exclude-unlisted-classes>true</exclude-unlisted-classes>-->
+        <properties>
+            <property name="hibernate.connection.autocommit" value="false"/>
+            <property name="hibernate.archive.autodfetection" value="class"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+            <property name="hibernate.show_sql" value="false"/>
+            <!--  validate update  create create-drop -->
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+        </properties>
+    </persistence-unit>
+</persistence>

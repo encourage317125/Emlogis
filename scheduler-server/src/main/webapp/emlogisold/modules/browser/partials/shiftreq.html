@@ -1,0 +1,129 @@
+<!-- controller set autmatically by state( 'browser') in browser.js  -->
+<div class="row-fluid">
+	<div class="col-sm-12 column">
+		<div class="panel panel-default">
+  			<div class="panel-heading">
+    			<h3 class="panel-title">Properties</h3>
+  			</div>
+			<div class="panel-body">
+				<div class="row">
+
+					<div class="col-sm-4 column">
+                        <form name="form1" ng-submit="form1.$valid && saveOrCreate()" novalidate>
+                            <div class="form-group">
+                                <label>Start Time</label>
+                                <span class="label label-danger"
+                                      ng-show="form1.startTime.$invalid">Invalid value</span>
+                                <timepicker minute-step="10" name="startTime" ng-model="elt.startTime"></timepicker>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="durationInMins">Length (mins after start time)</label>
+                                <span class="label label-danger"
+                                      ng-show="form1.durationInMins.$invalid">Invalid value</span>
+                                <input class="form-control" type="number" id="durationInMins" name="durationInMins" ng-model="elt.durationInMins" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="dayIndex">Day Index (0-28)</label>
+                                <span class="label label-danger"
+                                      ng-show="form1.dayIndex.$invalid">Invalid value</span>
+                                <input class="form-control" type="number" id="dayIndex" name="dayIndex" ng-model="elt.dayIndex" min="0" max="28" />
+                            </div>
+                            <div data-ng-show="mode == 'Create'" class="form-group">
+                                <label for="shiftLengthId">Shift Type (Id)</label>
+                                <input class="form-control" id="shiftLengthId" name="shiftLengthId" ng-model="elt.shiftLengthId" readonly />
+                            </div>
+                            <div class="form-group">
+                                <label for="excess">Excess</label>
+                                <span class="btn boolean" id="excess" name="excess" ng-click="elt.excess=!elt.excess" ng-model="elt.excess">
+                                    <span class="on btn-primary" ng-show="elt.excess">ON</span>
+                                    <span class="off btn-default" ng-hide="elt.excess">OFF</span>
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <label for="night">Night</label>
+                                <span class="btn boolean" id="night" name="night" ng-click="elt.night=!elt.night" ng-model="elt.night">
+                                    <span class="on btn-primary" ng-show="elt.night">ON</span>
+                                    <span class="off btn-default" ng-hide="elt.night">OFF</span>
+                                </span>
+                            </div>
+
+                            <div data-ng-show="mode == 'Create'" class="form-group">
+                                <label for="skillId">Skill (Id)</label>
+                                <input class="form-control" id="skillId" name="skillId" ng-model="elt.skillId" readonly />
+                            </div>
+                            <div class="form-group">
+                                <label for="employeeCount">Employee Count</label>
+                                <span class="label label-danger"
+                                      ng-show="form1.employeeCount.$invalid">Invalid value</span>
+                                <input class="form-control" type="number" id="employeeCount" name="employeeCount" ng-model="elt.employeeCount" />
+                            </div>
+                            <div class="form-group">
+                                <label for="skillProficiencyLevel">Proficiency Level (0-5)</label>
+                                <select class="form-control" id="skillProficiencyLevel" name="skillProficiencyLevel"
+                                        ng-model="elt.skillProficiencyLevel"
+                                        ng-options="item.id as item.name for item in skillProficiencyLevels"></select>
+                            </div>
+
+                            <br>
+                            <br>
+                            <button type="submit" class="btn btn-default">{{modeBtn}}</button>
+
+                            <button data-ng-show="currentState == 'createchildentity'" class="btn btn-default" ng-click="cancel()">Cancel</button>
+                        </form>
+					</div>
+
+					<div class="col-sm-4 column">
+						<div ng-include="partials.addInfo"></div>
+					</div>
+
+					<div class="col-sm-4 column">
+						 <button type="button" ui-sref="browser({entity: entity})" class="btn btn-default">&lt; Back to ShiftStructure (NA)</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+<!--
+		<div data-ng-hide="mode == 'Create'" class="row-fluid">
+			<div class="panel panel-default">
+	  			<div class="panel-heading">
+	    			<h3 class="panel-title">Relationships</h3>
+	  			</div>
+				<div class="panel-body">
+					<div class="col-md-12 column">
+					  	<tabset id="tabs">		    	
+					  		<tab>
+					    		<tab-heading active="true" >
+					    			<img ng-src="./img/glyphicons/png/team.png" class="cardImage" height="16" width="16">
+					    			<a ui-sref="entity.relatedentity({relatedentity: 'team'})">Teams</a>
+						      	</tab-heading>
+					    	</tab>
+					    	<tab>
+						    	<tab-heading>
+						    		<img ng-src="./img/glyphicons/png/skill.png" class="cardImage" height="16" width="16"> 
+					    			<a ui-sref="entity.relatedentity({relatedentity: 'skill'})">Skills</a>
+					        	</tab-heading>
+					        </tab>
+					    	<tab>
+						    	<tab-heading>
+						    		<img ng-src="./img/glyphicons/png/unknown.png" class="cardImage" height="16" width="16"> 
+					    			<a ui-sref="entity.relatedentity({relatedentity: 'ciavailability'})">CI Availability (NA)</a>
+					        	</tab-heading>
+					        </tab>
+					    	<tab>
+						    	<tab-heading>
+						    		<img ng-src="./img/glyphicons/png/unknown.png" class="cardImage" height="16" width="16"> 
+					    			<a ui-sref="entity.relatedentity({relatedentity: 'cdavailability'})">CD Availability (NA)</a>
+					        	</tab-heading>
+					        </tab>
+					  	</tabset>
+					  	<div ui-view></div>
+					</div>	
+				</div>
+			</div>
+		</div>
+-->
+	</div>
+</div>

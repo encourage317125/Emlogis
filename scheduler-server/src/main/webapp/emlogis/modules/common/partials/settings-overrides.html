@@ -1,0 +1,42 @@
+<div class="overrides-container">
+  <div class="control-panel" style=" padding-bottom: 10px;">
+    <div class="row">
+      <div class="col-xs-6">
+        <input ng-model="employeeSearchText" type="text" class="form-control"
+               placeholder="Filter">
+      </div>
+      <div class="col-xs-3" style="padding-top:5px;">
+        Showing {{gridApi.core.getVisibleRows(grid).length }} of {{overridesData.length}}
+      </div>
+    </div>
+  </div>
+
+  <div class="row top-margin-base">
+    <div class="col-sm-12">
+      <div class="eml-grid" ng-if="overridesData.length>0">
+        <div ui-grid="overridesGridOptions"
+             ui-grid-resize-columns
+             ui-grid-pagination
+             ui-grid-move-columns
+             ui-grid-pinning
+             class="eml-grid">
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="text-center">
+          <pagination class="pagination-sm"
+                      total-items="overridesGridOptions.totalItems"
+                      items-per-page="overridesGridOptions.paginationPageSize"
+                      ng-model="overridesGridOptions.paginationCurrentPage"
+                      boundary-links="true"
+                      max-size="5"
+                      previous-text="&lsaquo;"
+                      next-text="&rsaquo;"
+                      first-text="&laquo;"
+                      last-text="&raquo;">
+          </pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

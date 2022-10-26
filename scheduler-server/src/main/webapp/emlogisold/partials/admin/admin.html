@@ -1,0 +1,46 @@
+<div class="row-fluid">
+    <div class="row">
+        <div class="col-sm-3">
+            <div ng-controller="SystemConfigurationCtrl">
+
+                <label class="checkbox btn-xs">
+                    <div class="checkbox text-left">
+                        <label>
+                            <input type="checkbox" ng-model="oneAtATime">Open only one at a time
+                        </label>
+                    </div>
+                </label>
+                <!--
+                                        <button type="button" class="btn btn-default btn-xs text-left" ng-model="singleModel" btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">Open only one at a time</button>
+                -->
+                <accordion close-others="oneAtATime">
+                    <accordion-group heading="Cloud Accounts">
+                        AWS, Azure, etc config.
+                    </accordion-group>
+                    <accordion-group heading="Appliances">
+                        Appliance registration, config, tests, and health.
+                    </accordion-group>
+                    <accordion-group heading="System Preferences">
+                        Global settings and prefs.
+                    </accordion-group>
+                    <accordion-group heading="Account Management" is-open="true">
+                        Static Header, initially expanded. This content is straight in the template.
+                    </accordion-group>
+                    <accordion-group heading="{{group.title}}" ng-repeat="group in groups">
+                        {{group.content}}
+                    </accordion-group>
+                    <accordion-group heading="Security Policies">
+                        <p>The body of the accordion group grows to fit the contents</p>
+                        <button class="btn btn-default btn-sm" ng-click="addItem()">Add Item</button>
+                        <div ng-repeat="item in items">{{item}}</div>
+                    </accordion-group>
+                </accordion>
+            </div>
+
+        </div>
+        <div class="col-sm-9">Content<br>Content<br>Content<br>Content<br>Content<br>Content<br>Content<br>Content<br>
+        </div>
+    </div>
+</div>
+
+    

@@ -1,0 +1,12 @@
+<label class="col-xs-8 db-label" translate>{{elem.name}}</label>
+<div class="col-xs-4">
+    <span class="form-control db-value">{{elem.value}}</span>
+</div>
+<div ng-if="elem.subTypes">
+    <div data-ng-repeat="subElem in elem.subTypes">
+        <label class="col-xs-8 db-label db-label-nested" translate>  {{subElem.name}}</label>
+        <div class="col-xs-4">
+            <span class="form-control db-value">{{subElem.value}}</span>
+        </div>
+    </div>
+</div>

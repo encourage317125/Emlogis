@@ -1,0 +1,138 @@
+<div class="settings-accounts-groups-group-details">
+  <div class="entity-details-container" >
+    <div class="info-panel">
+      <div class="row form-group">
+        <div class="col-sm-6">
+          <h3>{{entityDetails.name}}</h3>
+        </div>
+        <div class="col-sm-6">
+          <div class="pull-right">
+            <div class="btn-container">
+              <button class="btn btn-default btn-duplicate-entity"
+                      ng-if="hasMgmtPermission() && entityDetails.canDuplicate"
+                      ng-click="openDuplicateEntityModal()">{{'app.DUPLICATE' | translate}} {{entityName | translate}}
+              </button>
+              <button class="btn btn-default btn-edit-entity" ng-if="hasMgmtPermission()"
+                      ng-click="updateEntityDetails(entityForm.$valid)">{{'app.SAVE' | translate}} {{entityName | translate}}
+              </button>
+              <span class="delete-entity-container btn-group" dropdown ng-if="hasMgmtPermission()">
+                  <button dropdown-toggle class="btn btn-danger btn-delete-entity">{{'app.DELETE' |
+                    translate}} {{entityName | translate}}
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a ng-click="" translate>app.NO</a></li>
+                    <li><a ng-click="confirmDeleteEntity()" translate>app.YES</a></li>
+                  </ul>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-9">
+          <div class="row form-group" ng-repeat="infoFieldRow in entityDetails.info">
+            <div class="{{infoField.class}}" ng-repeat="infoField in infoFieldRow">
+              <label ng-style="{ visibility: infoField.hidden ? 'hidden' : 'visible' }" translate>{{infoField.label}}</label>
+              <input ng-style="{ visibility: infoField.hidden ? 'hidden' : 'visible' }" ng-if="infoField.type==='text' || infoField.type==='email'" type="{{infoField.type}}"
+                     class="form-control" ng-model="infoField.value" ng-readonly="hasMgmtPermission() != true " >
+              <select ng-style="{ visibility: infoField.hidden ? 'hidden' : 'visible' }" ng-if="infoField.type==='select'" class="form-control" ng-model="infoField.value"
+                      ng-options="item.value as item.label for item in infoField.options" ng-readonly="hasMgmtPermission() != true "></select>
+            </div>
+          </div>
+        </div>
+        <!--Support Team Area: Reserved-->
+        <div class="col-sm-3">
+
+        </div>
+      </div>
+
+    </div>
+
+    <!--Member Role Site/Teams-->
+    <div class="sub-panel form-group">
+
+      <div class="row">
+        <div class="col-sm-12">
+          <h4>{{'settings.accounts.MEMBERS' | translate}}</h4>
+        </div>
+        <div class="col-sm-12">
+
+          <div eml-objects
+               readonly="!hasMgmtPermission()"
+               list="entityDetails.users.result"
+               delete="removeMemberFromGroup(object)"
+               view="viewUser(object)"
+               show="openUsersModal(entity)"
+               >
+          </div>
+        </div>
+
+        <div class="col-sm-12">
+          <h4>{{'settings.accounts.ROLES' | translate}}</h4>
+        </div>
+        <div class="col-sm-12">
+          <div eml-objects
+               readonly="!hasMgmtPermission()"
+               list="entityDetails.roles.result"
+               delete="removeRoleFromGroup(object)"
+               view="viewRole(object)"
+               show="openRolesModal(entity)"
+              >
+          </div>
+        </div>
+
+        <div ng-if="isTenantType('Customer')">
+          <div class="col-sm-12">
+            <h4>{{'settings.accounts.SITE' | translate}} / {{'settings.accounts.TEAMS' | translate}}</h4>
+          </div>
+          <div class="col-sm-12">
+            <div eml-sites-teams
+                 acl="entityDetails.acl"
+                 show="openAclModal(entity)"
+                >
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!--Created / Updated Fields-->
+    <div class="row form-group" style="margin-top: 25px;">
+      <div class="col-md-6">
+        <label translate>settings.accounts.CREATED_ON</label> <br>
+        {{entity.created | date:'EEEE, MMMM d, y h:mm a'}}
+
+        <span translate> settings.accounts.BY </span>
+        {{entity.createdBy}}
+      </div>
+      <div class="col-md-6">
+        <label translate>settings.accounts.UPDATED_ON</label> <br>
+        {{entity.updated | date:'EEEE, MMMM d, y h:mm a'}}
+        <span translate> settings.accounts.BY </span>
+        {{entity.updatedBy}}
+      </div>
+    </div>
+
+
+    <script type="text/ng-template" id="duplicateEntity.html">
+      <div class="modal-header">
+        <h4 class="modal-title">{{'app.DUPLICATE' | translate}} {{entityDetails.entityName | translate}}</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row form-group" ng-repeat="field in fieldsToRedefineInDuplication">
+          <div class="col-sm-4">
+            <label translate>{{field.label}}</label>:
+          </div>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" ng-model="field.value">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-default" ng-click="confirmDuplicateEntity()" translate>app.OK</button>
+        <button class="btn btn-default" ng-click="cancel()" translate>app.CANCEL</button>
+      </div>
+    </script>
+  </div>
+</div>

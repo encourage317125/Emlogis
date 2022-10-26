@@ -1,0 +1,44 @@
+<!-- Rules Site / Teams Page Start -->
+<div class="rules-site-teams" ng-controller="RulesSiteNewCtrl">
+
+  <!-- Main window -->
+    <div class="container-fluid">
+      <div class="row">  <!-- row -->
+        <div class="col-md-6">
+          <div class="form-inline">
+            <!--<h3>{{ ::"rules.site_teams.CREATE_NEW_SITE" | translate }}</h3>-->
+          </div>
+        </div>
+
+        <div class="col-md-6 text-right">
+          <!--<code>Editing: {{ editing }}</code> <code>Submitted: {{ submitted }}</code>-->
+          <button type="submit"
+                  class="btn navbar-btn"
+                  ng-class="editing ? 'btn-success' : 'btn-default'"
+                  ng-disabled="!editing"
+                  ng-click="submitted = true; siteForm.$invalid && saveNewSite()">{{ ::"rules.site_teams.SAVE_NEW_SITE" | translate }}
+          </button>
+          
+          <button class="btn navbar-btn btn-default"
+                  ng-click="cancelNewSite()">{{ ::"app.CANCEL" | translate }}
+          </button>
+        </div>
+      </div>  <!-- row ends -->
+
+      <div class="row divider"></div>
+
+      <!-- Site Edit section -->
+      <form id="siteForm"
+            name="siteForm"
+            ng-submit="siteForm.$valid"
+            novalidate>
+        
+        <div ng-include="'modules/rules/sites_teams/partials/include/rules_sites-teams_site-edit.html'"></div>
+      </form> <!-- /site form ends -->
+
+      <!-- Teams section -->
+      <!--<div ng-include="'modules/rules/sites_teams/partials/include/rules_sites-teams_teams.html'"></div>-->
+    </div>  <!-- container ends -->
+
+</div>
+<!-- Rules Site / Teams Page End -->

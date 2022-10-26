@@ -1,0 +1,211 @@
+<div class="customer-edit-container" ng-controller="CustomerEditContainerCtrl">
+  <div class="edit-panel top-margin-base">
+    <div class="form-group details">
+      <div class="details-title">
+        <h4><span ng-if="customerDetails.name">{{customerDetails.name}}: </span>{{'app.DETAILS' | translate}}</h4>
+      </div>
+      <div class="details-body well">
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label translate>app.NAME</label>
+              <input type="text" class="form-control" ng-model="customerDetails.name">
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label translate>app.CUSTOMER_IDENTIFIER</label>
+              <input type="text" class="form-control" ng-model="customerDetails.tenantId" ng-disabled="customerDetails.modulesLicenseInfo">
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label translate>app.DESCRIPTION</label>
+              <input type="text" class="form-control" ng-model="customerDetails.description">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group pull-right">
+              <label translate>app.TIME_ZONE</label>
+              <select class="form-control" ng-model="customerDetails.timeZone">
+                <option ng-repeat="timeZone in availableTimeZoneValues" ng-value="timeZone">{{timeZone}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label translate>app.ADDRESS</label>
+              <input type="text" class="form-control" ng-model="customerDetails.address">
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label translate>app.COUNTRY</label>
+              <input type="text" class="form-control" ng-model="customerDetails.country">
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label translate>app.STATE</label>
+              <input type="text" class="form-control" ng-model="customerDetails.state">
+            </div>
+          </div>
+          <div class="col-sm-1">
+            <div class="form-group">
+              <label translate>app.ZIP</label>
+              <input type="text" class="form-control" ng-model="customerDetails.zip">
+            </div>
+          </div>
+          <div class="col-sm-4"></div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group configuration">
+      <div class="configuration-title">
+        <h4><span ng-if="customerDetails.name">{{customerDetails.name}}: </span>{{'app.CONFIGURATION' | translate}}</h4>
+      </div>
+      <div class="configuration-body">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="notification-title">
+              <a class="collapse-tick notification-collapse-tick" ng-click="invertNotificationCollapsedFlag()">
+                <span class="glyphicon glyphicon-minus" ng-if="!isNotificationCollapsed"></span>
+                <span class="glyphicon glyphicon-plus" ng-if="isNotificationCollapsed"></span>
+              </a>
+              <label translate>admin.customers.NOTIFICATION_CONFIGURATION</label>
+            </div>
+          </div>
+          <div class="panel-body">
+            <div class="notification-body" collapse="isNotificationCollapsed">
+              <div class="row">
+                <div class="col-sm-2">
+                  <span translate>admin.customers.SMS</span>
+                </div>
+                <div class="col-sm-3">
+                  <label>{{'admin.customers.CURRENT_PROVIDER_NAME' | translate}}:</label>
+                  <span>{{customerDetails.smsDeliveryTenantSettingsDto.providerName}}</span>
+                </div>
+                <div class="col-sm-3">
+                  <label>{{'admin.customers.CURRENT_PROVIDER_TYPE' | translate}}:</label>
+                  <span>{{customerDetails.smsDeliveryTenantSettingsDto.providerType}}</span>
+                </div>
+                <div class="col-sm-4">
+                  <label>{{'admin.customers.CURRENT_PHONE_NUMBER' | translate}}:</label>
+                  <span>{{customerDetails.smsDeliveryTenantSettingsDto.settings.tenantCallNumber}}</span>
+                </div>
+              </div>
+              <div class="sms-provider-settings well">
+                <div class="sms-provider-settings-collapse">
+                  <a class="collapse-label" ng-click="invertSmsProviderSettingsCollapsedFlag()">
+                    <span ng-if="isSmsProviderSettingsCollapsed" translate>admin.customers.SHOW_SMS_PROVIDER_SETTINGS</span>
+                    <span ng-if="!isSmsProviderSettingsCollapsed" translate>admin.customers.HIDE_SMS_PROVIDER_SETTINGS</span>
+                  </a>
+                </div>
+                <div class="row" collapse="isSmsProviderSettingsCollapsed">
+                  <div class="col-sm-2">
+                    <div class="form-group">
+                      <label>{{'admin.customers.PROVIDER_NAME' | translate}}*</label>
+                      <select class="form-control" ng-model="customerDetails.smsDeliveryTenantSettingsDto.providerId" ng-change="setCurrentSmsProvider()" ng-options="provider.id as provider.name for provider in smsProviders">
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label>{{'admin.customers.PHONE_NUMBER' | translate}}*</label>
+                      <input type="text" class="form-control" ng-model="customerDetails.smsDeliveryTenantSettingsDto.settings.tenantCallNumber">
+                    </div>
+                  </div>
+                  <div class="col-sm-6"></div>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-2">
+                  <span translate>admin.customers.EMAIL</span>
+                </div>
+                <div class="col-sm-3">
+                  <label>{{'admin.customers.CURRENT_PROVIDER_NAME' | translate}}:</label>
+                  <span>{{customerDetails.emailDeliveryTenantSettingsDto.providerName}}</span>
+                </div>
+                <div class="col-sm-3">
+                  <label>{{'admin.customers.CURRENT_PROVIDER_TYPE' | translate}}:</label>
+                  <span>{{customerDetails.emailDeliveryTenantSettingsDto.providerType}}</span>
+                </div>
+                <div class="col-sm-4">
+                  <label>{{'admin.customers.CURRENT_MAIL_BOX' | translate}}:</label>
+                  <span>{{customerDetails.emailDeliveryTenantSettingsDto.settings.tenantMailBox}}</span>
+                </div>
+              </div>
+              <div class="email-provider-settings well">
+                <div class="email-provider-settings-collapse">
+                  <a class="collapse-label" ng-click="invertEmailProviderSettingsCollapsedFlag()">
+                    <span ng-if="isEmailProviderSettingsCollapsed" translate>admin.customers.SHOW_EMAIL_PROVIDER_SETTINGS</span>
+                    <span ng-if="!isEmailProviderSettingsCollapsed" translate>admin.customers.HIDE_EMAIL_PROVIDER_SETTINGS</span>
+                  </a>
+                </div>
+                <div class="row" collapse="isEmailProviderSettingsCollapsed">
+                  <div class="col-sm-2">
+                    <div class="form-group">
+                      <label>{{'admin.customers.PROVIDER_NAME' | translate}}*</label>
+                      <select class="form-control" ng-model="customerDetails.emailDeliveryTenantSettingsDto.providerId" ng-change="setCurrentEmailProvider()" ng-options="provider.id as provider.name for provider in emailProviders">
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label>{{'admin.customers.MAIL_BOX' | translate}}*</label>
+                      <input type="text" class="form-control" ng-model="customerDetails.emailDeliveryTenantSettingsDto.settings.tenantMailBox">
+                    </div>
+                  </div>
+                  <div class="col-sm-6"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default" ng-if="customerDetails.modulesLicenseInfo">
+          <div class="panel-heading">
+            <div class="optional-modules-title">
+              <a class="collapse-tick optional-modules-collapse-tick" ng-click="invertOptionalModulesCollapsedFlag()">
+                <span class="glyphicon glyphicon-minus" ng-if="!isOptionalModulesCollapsed"></span>
+                <span class="glyphicon glyphicon-plus" ng-if="isOptionalModulesCollapsed"></span>
+              </a>
+              <label translate>admin.customers.OPTIONAL_MODULES</label>
+            </div>
+          </div>
+          <div class="panel-body">
+            <div class="optional-modules-body well" collapse="isOptionalModulesCollapsed">
+              <div class="row form-group" ng-repeat="module in customerDetails.modulesLicenseInfo">
+                <div class="col-sm-2">
+                  <input type="checkbox" ng-checked="module.moduleStatus !== 'Disabled'" ng-click="convertModuleStatus(module)">
+                  <span>{{module.moduleName}}</span>
+                </div>
+                <div class="col-sm-3">
+                  <label translate>app.STATUS</label>
+                  <select class="form-control" ng-model="module.moduleStatus" ng-options="status.value as status.label for status in availableStatusValues">
+                  </select>
+                </div>
+                <div class="col-sm-3">
+                  <label ng-if="module.moduleExpirationDateObj <= currentDate" translate>admin.customers.EXPIRED_ON</label>
+                  <label ng-if="module.moduleExpirationDateObj > currentDate" translate>admin.customers.EXPIRES_ON</label>
+                  <span class="input-group">
+                    <input type="text" class="form-control" ng-model="module.moduleExpirationDateObj" ng-change="setModuleExpirationDate(module)" datepicker-popup="dd-MMMM-yyyy" is-open="datePickerOpened[module.moduleName]" datepicker-options="datePickerOptions" ng-required="true" close-text="Close" ng-disabled="module.moduleStatus==='Disabled'"/>
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-default btn-open-date-picker" ng-click="openDatePicker($event, module.moduleName)" ng-disabled="module.moduleStatus==='Disabled'"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                  </span>
+                </div>
+                <div class="col-sm-4">
+                  <label translate>admin.customers.REMAINING</label>
+                  <span>{{module.remaining}} </span><span translate>admin.customers.DAYS</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

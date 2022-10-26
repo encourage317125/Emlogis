@@ -1,0 +1,103 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>optaplanner-engine</artifactId>
+	<name>OptaPlannerEngine</name>
+	<description>Employee Scheduling Optimization Engine implemented with OptaPlanner
+</description>
+	<build>
+		<sourceDirectory>src/main/java</sourceDirectory>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</resource>
+		</resources>
+		<testSourceDirectory>src/main/test</testSourceDirectory>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<properties>
+		<!-- other plugin versions -->
+		<version.compiler.plugin>3.1</version.compiler.plugin>
+		<version.war.plugin>2.1.1</version.war.plugin>
+
+		<!-- maven-compiler-plugin -->
+		<maven.compiler.target>1.7</maven.compiler.target>
+		<maven.compiler.source>1.7</maven.compiler.source>
+		
+		<!-- EmLogis  Begin -->
+		<!--<optaplanner.version>6.2.0.CR4</optaplanner.version>
+		<kieapi.version>6.2.0.CR4</kieapi.version>-->
+        <!-- EmLogis  End -->
+	</properties>
+	
+	<dependencies>
+		<dependency>
+			<groupId>org.kie</groupId>
+			<artifactId>kie-api</artifactId>
+			<version>${kieapi.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.optaplanner</groupId>
+			<artifactId>optaplanner-bom</artifactId>
+			<type>pom</type>
+			<version>${optaplanner.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.optaplanner</groupId>
+			<artifactId>optaplanner-core</artifactId>
+			<version>${optaplanner.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.opencsv</groupId>
+			<artifactId>opencsv</artifactId>
+			<version>2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+			<version>4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.emlogis</groupId>
+			<artifactId>scheduler-common</artifactId>
+			<version>${emlogis.scheduler.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.optaplanner</groupId>
+			<artifactId>optaplanner-benchmark</artifactId>
+			<version>${optaplanner.version}</version>
+			
+		</dependency>
+		<!--dependency>
+			<groupId>com.emlogis</groupId>
+			<artifactId>engine-db-loader-interface</artifactId>
+			<version>${emlogis.scheduler.version}</version>
+		</dependency-->
+		<dependency>
+			<groupId>org.jboss.logging</groupId>
+			<artifactId>jboss-logging</artifactId>
+			<version>3.1.4.GA</version>
+		</dependency>
+	</dependencies>
+	<parent>
+		<groupId>com.emlogis</groupId>
+		<artifactId>emlogis-scheduler</artifactId>
+		<version>1.0</version>
+	</parent>
+	<groupId>com.emlogis</groupId>
+	<version>1.0</version>
+	<url>http://emlogis.com</url>
+</project>

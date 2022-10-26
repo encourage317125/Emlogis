@@ -1,0 +1,13 @@
+<div class="eml-filtering" ng-show="showControl">
+  <span class="title">{{ ::"app.FILTER_BY" | translate }}:</span>
+  <button class="btn btn-xs"
+          ng-class="{ 'btn-default' : selectedFilter === null, 'eml-btn-white' : selectedFilter !== null }"
+          ng-click="filter(null)">{{ ::"app.ALL" | translate }}</button>
+  <span class="vertical-divider">|</span>
+  <span class="filters">
+    <button class="btn btn-xs"
+            ng-repeat="f in filters"
+            ng-class="{ 'btn-default' : f.value === selectedFilter.value, 'eml-btn-white' : f.value !== selectedFilter.value }"
+            ng-click="filter(f)">{{f.buttonLabel}}</button>
+  </span>
+</div>

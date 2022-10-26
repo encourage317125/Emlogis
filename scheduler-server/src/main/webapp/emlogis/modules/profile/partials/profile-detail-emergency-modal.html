@@ -1,0 +1,70 @@
+<div id="eml-profile-ec">
+  <form name="ecForm">
+    <div class="modal-header">
+      <h4 class="modal-title">
+        <strong>{{ ec.employee.firstName }} {{ ec.employee.lastName }}</strong>
+        {{ ::"employees.EMERGENCY_CONTACT" | translate }}
+      </h4>
+    </div>
+
+    <div class="modal-body">
+      <!-- ec Name -->
+      <div class="row">
+        <div class="col-md-5">
+          <p>{{ ::"app.NAME" | translate }}</p>
+        </div>
+        <div class="col-md-7 eml-strong eml-inline-editing">
+          <p ng-hide="ec.isEditing" >{{ ec.employee.emergencyContact}}</p>
+          <span ng-show="ec.isEditing">
+            <input ng-show="ec.isEditing"
+                   focus-me="ec.isEditing"
+                   type="text"
+                   placeholder="Contact Name"
+                   ng-model="ec.employeeForEdit.emergencyContact"/>
+          </span>
+        </div>
+      </div>
+      <!-- ec Relationship -->
+      <div class="row">
+        <div class="col-md-5">
+          <p>{{ ::"employees.RELATIONSHIP" | translate }}</p>
+        </div>
+        <div class="col-md-7 eml-strong eml-inline-editing">
+          <p ng-hide="ec.isEditing">{{ ec.employee.ecRelationship}}</p>
+          <span ng-show="ec.isEditing">
+            <select class="form-control"
+                    ng-model="ec.employeeForEdit.ecRelationship"
+                    ng-options="rel as rel for rel in ec.relationships"></select>
+          </span>
+        </div>
+      </div>
+      <!-- ec Contact -->
+      <div class="row">
+        <div class="col-md-5">
+          <p>{{ ::"employees.PHONE" | translate }}</p>
+        </div>
+        <div class="col-md-7 eml-strong eml-inline-editing">
+          <p ng-hide="ec.isEditing">{{ ec.employee.ecPhoneNumber }}</p>
+          <span ng-show="ec.isEditing">
+            <input ng-show="ec.isEditing"
+                   type="text"
+                   placeholder="Phone Number"
+                   ng-model="ec.employeeForEdit.ecPhoneNumber"/>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer" ng-hide="ec.employee.isDeleted">
+      <span ng-show="ec.isEditing">
+        <button class="btn btn-default" ng-click="ec.cancelEditing()">{{ ::"app.CANCEL" | translate }}</button>
+        <button class="btn btn-success" ng-click="ec.saveEmergencyContact()">{{ ::"app.SAVE" | translate }}</button>
+      </span>
+
+      <span ng-hide="ec.isEditing">
+        <a ng-click="ec.closeEcModal()">{{ ::"app.CLOSE" | translate }}</a>
+        <button class="btn btn-default" ng-click="ec.startEditing()">{{ ::"app.EDIT" | translate }}</button>
+      </span>
+    </div>
+  </form>
+</div>

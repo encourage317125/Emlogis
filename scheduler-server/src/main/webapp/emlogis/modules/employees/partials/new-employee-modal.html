@@ -1,0 +1,125 @@
+<div id="eml-profile-newbie" ng-show="authService.hasPermission('Employee_Mgmt')">
+  <form novalidate name="newbieForm">
+    <div class="modal-header">
+      <h4 class="modal-title">
+        <strong>{{ ::"employees.NEW_EMPLOYEE" | translate }}</strong>
+      </h4>
+    </div>
+
+    <div class="modal-body">
+      <!-- First Name -->
+      <div class="row">
+        <div class="col-md-4 no-right-padding text-uppercase">
+          <p>{{ ::"app.FIRST_NAME" | translate }}</p>
+        </div>
+        <div class="col-md-8 eml-strong eml-inline-editing form-group">
+          <input required
+                 focus-me="true"
+                 name="firstName"
+                 type="text"
+                 placeholder="{{ ::'app.FIRST_NAME' | translate }}"
+                 ng-model="newbie.dto.firstName"/>
+          <!-- Common Directive: Validate-messages starts -->
+          <div validate-messages messages-for="newbieForm.firstName" submitted="newbie.submitted"></div>
+        </div>
+      </div>
+
+      <!-- Last Name -->
+      <div class="row">
+        <div class="col-md-4 no-right-padding text-uppercase">
+          <p>{{ ::"app.LAST_NAME" | translate }}</p>
+        </div>
+        <div class="col-md-8 eml-strong eml-inline-editing form-group">
+          <input required
+                 type="text"
+                 name="lastName"
+                 placeholder="{{ ::'app.LAST_NAME' | translate }}"
+                 ng-model="newbie.dto.lastName"/>
+          <!-- Common Directive: Validate-messages starts -->
+          <div validate-messages messages-for="newbieForm.lastName" submitted="newbie.submitted"></div>
+        </div>
+      </div>
+
+      <!-- Employee ID -->
+      <div class="row">
+        <div class="col-md-4 no-right-padding text-uppercase">
+          <p>{{ ::"employees.EMPLOYEE_IDENTIFIER" | translate }}</p>
+        </div>
+        <div class="col-md-8 eml-strong eml-inline-editing form-group">
+          <input required
+                 type="text"
+                 name="employeeIdentifier"
+                 placeholder="{{ ::'employees.EMPLOYEE_IDENTIFIER' | translate }}"
+                 ng-model="newbie.dto.employeeIdentifier"/>
+          <!-- Common Directive: Validate-messages starts -->
+          <div validate-messages messages-for="newbieForm.employeeIdentifier" submitted="newbie.submitted"></div>
+        </div>
+      </div>
+
+      <!-- Home Team -->
+      <div class="row">
+        <div class="col-md-4 no-right-padding text-uppercase">
+          <p>{{ ::"employees.HOME_TEAM" | translate }}</p>
+        </div>
+        <div class="col-md-8 eml-strong eml-inline-editing form-group">
+          <select required
+                  ng-model="newbie.dto.employeeTeamCreateDto.teamId"
+                  name="homeTeamId"
+                  ng-options="team.id as team.name group by team.site.name
+                              for team in newbie.sitesTeamsTree">
+            <option>---</option>
+          </select>
+          <!-- Common Directive: Validate-messages starts -->
+          <div validate-messages messages-for="newbieForm.homeTeamId" submitted="newbie.submitted"></div>
+        </div>
+      </div>
+
+      <div class="row divider"></div>
+
+      <!-- Login checkbox -->
+      <div class="row">
+        <div class="checkbox col-md-12 no-right-padding">
+          <label>
+            <input type="checkbox"
+                   ng-checked="newbie.loginEqualsId"
+                   ng-model="newbie.loginEqualsId"> {{ ::"employees.LOGIN_TO_EQUAL_ID" | translate }}
+          </label>
+        </div>
+      </div>
+
+      <!-- If Login equals ID -->
+      <div class="row" ng-show="newbie.loginEqualsId">
+        <div class="col-md-4 no-right-padding text-uppercase">
+          <p>{{ ::"employees.LOGIN" | translate }}</p>
+        </div>
+        <div class="col-md-8 eml-strong">
+          <p>{{ newbie.dto.employeeIdentifier }}</p>
+        </div>
+      </div>
+
+      <!-- Login custom input -->
+      <div class="row" ng-hide="newbie.loginEqualsId">
+        <div class="col-md-4 no-right-padding text-uppercase">
+          <p>{{ ::"employees.LOGIN" | translate }}</p>
+        </div>
+        <div class="col-md-8 eml-strong eml-inline-editing form-group">
+          <input ng-required="!newbie.loginEqualsId"
+                 type="text"
+                 name="loginId"
+                 placeholder="{{ ::'employees.LOGIN' | translate }}"
+                 ng-model="newbie.dto.userAccountDto.login"/>
+          <!-- Common Directive: Validate-messages starts -->
+          <div validate-messages messages-for="newbieForm.loginId" submitted="newbie.submitted"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-default"
+              ng-click="newbie.cancelModal()">{{ ::"app.CANCEL" | translate }}</button>
+
+      <button class="btn btn-success"
+              ng-click="newbie.createEmployee()">{{ ::"app.CREATE" | translate }}</button>
+    </div>
+  </form>
+</div>

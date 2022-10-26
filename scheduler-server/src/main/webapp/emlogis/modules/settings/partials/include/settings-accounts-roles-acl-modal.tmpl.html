@@ -1,0 +1,57 @@
+<div id="eml-groups-acl-modal">
+  <div class="modal-header">
+    <h4 class="modal-title">{{'settings.accounts.ACL_MANAGEMENT' | translate}}</h4>
+  </div>
+  <div class="modal-body">
+
+    <!-- All Sites / All Teams-->
+    <div class="all-sites">
+      <label>
+        <input type="checkbox" ng-model="te.acl.allSitesAccessType" ng-true-value="'RW'" ng-false-value="'Void'" ng-change="te.updateAllSitesStatus()" >
+        <span>
+          {{'settings.ALL_SITES' | translate}} / {{'settings.ALL_TEAMS' | translate}}
+        </span>
+      </label>
+    </div>
+    <!-- End All Sites / All Teams-->
+
+    <!-- Site Level-->
+    <div ng-repeat="site in te.acl.result | orderBy:'name'" class="site" >
+      <span>
+        {{::site.name}}
+      </span>
+
+      <!-- Site / All Teams-->
+      <div class="all-teams">
+        <label ng-class = "{'grey-color': te.acl.allSitesAccessType=='RW' }">
+          <input type="checkbox" ng-model="site.teamsDto.allTeamsAccessType" ng-true-value="'RW'" ng-false-value="'Void'"
+                 ng-change="te.updateSiteAllTeamsStatus(site)" ng-disabled="te.acl.allSitesAccessType=='RW'">
+          <span>
+            {{'settings.ALL_TEAMS' | translate}}
+          </span>
+        </label>
+      </div>
+      <!-- End Site / All Teams-->
+
+      <!-- Site / Team-->
+      <div ng-repeat="team in site.teamsDto.teamDtos | orderBy:'name'" class="team">
+        <label ng-class = "{'grey-color': te.acl.allSitesAccessType=='RW' || site.teamsDto.allTeamsAccessType=='RW' }">
+          <input type="checkbox" ng-model="team.accessType" ng-true-value="'RW'" ng-false-value="'Void'" ng-change="te.updateSiteTeamStatus(site,team)"
+                 ng-disabled="te.acl.allSitesAccessType=='RW' || site.teamsDto.allTeamsAccessType=='RW'">
+          <span>
+            {{::team.name}}
+          </span>
+        </label>
+      </div>
+      <!-- End Site / Team-->
+
+    </div>
+    <!-- End of Site Level-->
+
+  </div>
+
+  <div class="modal-footer">
+    <a ng-click="te.closeModal()">{{ ::"app.CLOSE" | translate }}</a>
+    <button class="btn btn-success" ng-click="te.updateGroupAcl()">{{ ::"app.UPDATE" | translate }}</button>
+  </div>
+</div>

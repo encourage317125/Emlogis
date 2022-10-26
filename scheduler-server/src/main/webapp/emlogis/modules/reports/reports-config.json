@@ -1,0 +1,64 @@
+{
+  "_comment": " 'ui' option can apply to group and override for report  0 - use Mercury UI  1 - use BIRT ui ",
+  "ui": 0,
+  "groups": [
+    {
+      "heading": "STAFFING",
+      "id": "staffing",
+      "ui": 0,
+      "reports": [
+        {
+          "id": "one_week_schedule",
+          "name": "ONE_WEEK_SCHEDULE"
+        }, {
+          "id": "schedule_summary",
+          "name": "SCHEDULE_SUMMARY"
+        }, {
+          "id": "schedule_summary_by_employee",
+          "name": "SCHEDULE_SUMMARY_BY_EMPLOYEE",
+          "ui": 0
+        }, {
+          "id": "daily_schedule",
+          "name": "DAILY_SCHEDULE",
+          "ui": 0
+        }, {
+          "id": "daily_roster",
+          "name": "DAILY_ROSTER",
+          "ui": 0
+        }, {
+          "id": "hourly_staffing",
+          "name": "HOURLY_STAFFING",
+          "ui": 0
+        }
+      ]
+    },
+    {
+      "heading": "PLANNING",
+      "id": "planning",
+      "reports": [{
+        "id": "employee_profile",
+        "name": "EMPLOYEE_PROFILE"
+      }
+      ]
+    },
+    {
+      "heading": "WORKFLOW",
+      "id": "workflow",
+      "reports": [
+        {
+          "id": "open_shift_request",
+          "name": "OPEN_SHIFT_REQUEST"
+        }, {
+          "id": "shift_swap_request",
+          "name": "SHIFT_SWAP_REQUEST"
+        }, {
+          "id": "wip_request",
+          "name": "WIP_REQUEST"
+        }, {
+          "id": "time_off_request",
+          "name": "TIME_OFF_REQUEST"
+        }
+      ]
+    }
+  ]
+}

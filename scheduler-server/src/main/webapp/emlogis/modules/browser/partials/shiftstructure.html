@@ -1,0 +1,52 @@
+<!-- controller set autmatically by state( 'browser') in browser.js  -->
+<div class="row-fluid">
+    <div class="col-sm-12 column">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Properties</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+
+                    <div class="col-sm-4 column">
+                        <form name="form1" ng-submit="form1.$valid && saveOrCreate()" novalidate>
+                            <div class="form-group">
+                                <label for="startDate">Start Date</label>
+                                <span class="label label-danger"
+                                      ng-show="form1.startDate.$error.required">Required</span>
+                                <span class="label label-danger"
+                                      ng-show="form1.startDate.$invalid && !form1.startDate.$error.required">Invalid value</span>
+                                <p class="input-group">
+                                    <input id="startDate" name="startDate" type="text" class="form-control" datepicker-popup="yyyy-MM-dd"
+                                           ng-model="elt.startDate" is-open="opened1" required
+                                           close-text="Close"/>
+                                              <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default" ng-click="open($event, 'opened1')"><i
+                                                        class="glyphicon glyphicon-calendar"></i></button>
+                                              </span>
+                                </p>
+                            </div>
+                            <br>
+                            <button type="submit" class="btn btn-default">{{modeBtn}}
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="col-sm-4 column">
+                        <div ng-include="partials.addInfo"></div>
+                    </div>
+                    <div class="col-sm-4 column">
+                        <!--
+                             <button type="button" ui-sref="entity({id: ...we don't have the team Id ...})" class="btn btn-default">&lt; Team (NA)</button>
+                             <br><br>
+                        -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div ng-include="partials.tabs"></div>
+    </div>
+
+</div>

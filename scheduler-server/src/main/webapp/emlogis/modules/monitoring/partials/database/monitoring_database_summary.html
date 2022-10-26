@@ -1,0 +1,29 @@
+<div class="monitoring-database-summary">
+    <div class="container-fluid top-margin-base" >
+        <div class="col-sm-12">
+            <button class="btn btn-default pull-right" data-ng-click="loadData()">
+                <span class="glyphicon glyphicon-refresh" />
+            </button>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div data-ng-repeat="elem in dbInfo" ng-if="$index < 10">
+            <div ng-include="'modules/monitoring/partials/database/monitoring_database_summary.tpl.html'">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div data-ng-repeat="elem in dbInfo" ng-if="$index >= 10 && $index < 14">
+            <div ng-include="'modules/monitoring/partials/database/monitoring_database_summary.tpl.html'">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div data-ng-repeat="elem in dbInfo" ng-if="$index >= 14">
+            <div ng-include="'modules/monitoring/partials/database/monitoring_database_summary.tpl.html'">
+            </div>
+        </div>
+    </div>
+</div>

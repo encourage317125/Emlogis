@@ -1,0 +1,16 @@
+url|method|json|response_id
+sites|POST|{"name":"SiteA", "description":"Site A"}}|#{SiteA}
+teams|POST|{"siteId":"#{SiteA}", "updateDto":{"name":"TeamA", "description":"Team A"}}|#{TeamA}
+skills|POST|{"name":"somename", "abbreviation":"somename", "description":"somename"}|#{skillId}
+demandshiftpatterns|POST|{"updateDto":{"name":"SomeName"}, "skillId":"#{skillId}", "teamId":"#{TeamA}"}|#{patternId}
+demandshiftpatterns|POST|{"updateDto":{"maxEmployeeCount":2}, "teamId":"#{TeamA}"}|#{patternId2}
+demandshiftpatterns/#{patternId}|PUT|{"dayOfWeek":1}|
+demandshiftpatterns/#{patternId}/ops/setdemand|POST|[{"employeeCount":2},{"durationInMins":120},{"startTime":1000010000}]|
+demandshiftpatterns/#{patternId}/ops/setshiftreqs|POST|{"shiftLengths":[1,2,3,4,67],"shiftReqElts":[{"employeeCount":3,"durationInMins":111},{"startTime":222222222}],"excessPatternElts":[{"employeeCount":2},{"durationInMins":120},{"startTime":1000010000}]}|
+demandshiftpatterns|GET||
+demandshiftpatterns/#{patternId}|GET||
+demandshiftpatterns/#{patternId2}|GET||
+skills/#{skillId}|DELETE||
+demandshiftpatterns|GET||
+teams/#{TeamA}|DELETE||
+demandshiftpatterns|GET||

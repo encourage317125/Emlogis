@@ -1,0 +1,32 @@
+
+<div class="container-fluid">
+    <div class="nav-panel top-margin-base">
+        <div class="row">
+            <div class="col-sm-12">
+                <a class="customer-link" ng-click="close()">< {{'admin.customers.BACK_TO_LISTING' | translate}}</a>
+            </div>
+        </div>
+    </div>
+    <div class="control-panel">
+        <div class="row">
+            <div class="col-sm-8">
+                <h3>{{title}}</h3>
+            </div>
+            <div class="col-sm-4">
+                <option-buttons buttons="buttons"></option-buttons>
+            </div>
+        </div>
+    </div>
+    <div class="top-margin-base" data-ng-repeat="group in names">
+        <div class="col-sm-6 col-md-6 col-lg-6 row" data-ng-repeat="key in keys(group)">
+            <label class="col-xs-4">{{group[key] | translate}}:</label>
+            <div ng-if="!options[key]" class="col-xs-8">
+                {{entity[key]}}
+            </div>
+            <div ng-if="options[key]" class="col-xs-8">
+                {{customFilter(entity[key], options[key]['filter'], options[key]['params'])}}
+            </div>
+        </div>
+    </div>
+</div>
+

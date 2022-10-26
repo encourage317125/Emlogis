@@ -1,0 +1,19 @@
+<div class="permissions" ng-controller="RolesPermissionsCtrl">
+  <div class="top-margin-base">
+    <button type="button" class="btn btn-default" ng-click="updatePermissions()" ng-disabled="!isInEdit">
+      {{'app.UPDATE' | translate}} {{'settings.accounts.PERMISSIONS' | translate}}
+    </button>
+  </div>
+  <div ng-repeat="permission in permissions" class="permission top-margin-base">
+    <div class="permission-check permission-field">
+      <input type="checkbox" bs-switch ng-model="permission.associated" switch-on-text="On" switch-off-text="Off"
+             switch-active="{{isInEdit}}">
+    </div>
+    <div class="permission-name permission-field">
+      <span>{{permission.name}}</span>
+    </div>
+    <div class="permission-description permission-field">
+      <span>{{permission.description}}</span>
+    </div>
+  </div>
+</div>

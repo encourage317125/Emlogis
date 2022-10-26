@@ -1,0 +1,141 @@
+<div class="edit-preference-modal">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h3 class="modal-title">{{'availability.MANAGE_PREFERENCE' | translate}}</h3>
+  </div>
+  <div class="modal-body">
+
+    <div class="row">
+      <div class="col-md-9">
+        {{'availability.DATES_SELECTED' | translate}}: <b>{{datesToDisplay}}</b>
+      </div>
+      <div class="col-md-3 text-right">
+        <button type="button" class="btn btn-success" ng-click="updatePreference()">{{'availability.SAVE_AND_CLOSE' | translate}}</button>
+      </div>
+    </div>
+
+    <div class="row divider" style="margin: 15px 0;"></div>
+
+    <div class="row select-title">
+      <div class="col-md-12">
+        {{'availability.SELECT_PREFERENCE' | translate}}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="radio">
+          <label>
+            <input type="radio" name="preferenceOptions" ng-model="action" value="PREFER_DAY">
+            {{'availability.PREFER_DAY' | translate}}
+          </label>
+        </div>
+      </div>
+      <div class="col-md-6" ng-show="availabilityType === 'ci'">
+        <div class="date-input">
+          <div class="date-input-title">{{'availability.STARTS' | translate}}</div>
+          <span class="input-group">
+            <input type="text"
+                   class="form-control"
+                   placeholder="{{ ::'app.DATE' | translate }}"
+                   datepicker-popup="MM/dd/yy"
+                   ng-model="startDate.model"
+                   is-open="startDate.opened"
+                   current-text="{{ ::'calendar.JUMP_TO_TODAY' | translate }}"/>
+            <span class="input-group-btn">
+              <button type="button"
+                      class="btn eml-btn-grey-lightest eml-calendar-btn"
+                      ng-class="{ 'eml-calendar-opened' : startDate.opened }"
+                      ng-click="startDate.open($event)">
+                <img src="/scheduler-server/emlogis/img/calendar.svg">
+              </button>
+            </span>
+          </span>
+        </div>
+        <div class="date-input">
+          <div class="date-input-title">{{'availability.ENDS' | translate}}</div>
+          <span class="input-group">
+            <input type="text"
+                   class="form-control"
+                   placeholder="{{ ::'app.DATE' | translate }}"
+                   datepicker-popup="MM/dd/yy"
+                   ng-model="endDate.model"
+                   is-open="endDate.opened"
+                   current-text="{{ ::'calendar.JUMP_TO_TODAY' | translate }}"/>
+            <span class="input-group-btn">
+              <button type="button"
+                      class="btn eml-btn-grey-lightest eml-calendar-btn"
+                      ng-class="{ 'eml-calendar-opened' : endDate.opened }"
+                      ng-click="endDate.open($event)">
+                <img src="/scheduler-server/emlogis/img/calendar.svg">
+              </button>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="radio">
+          <label>
+            <input type="radio" name="preferenceOptions" ng-model="action" value="AVOID_DAY">
+            {{'availability.AVOID_DAY' | translate}}
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="radio">
+          <label>
+            <input type="radio" name="preferenceOptions" ng-model="action" value="preferTimeframe">
+            {{'availability.PREFER_TIME_FRAME' | translate}}
+          </label>
+        </div>
+        <div class="row" ng-show="action === 'preferTimeframe'">
+          <div class="col-md-12" ng-repeat="t in preferTimeframes">
+            <timepicker class="time-frame" ng-model="t.startTime" minute-step="15" class="time-picker"></timepicker>
+            <span class="time-frame-to">to</span>
+            <timepicker class="time-frame" ng-model="t.endTime" minute-step="15"></timepicker>
+            <button type="button" class="btn btn-default btn-sm eml-btn-white time-frame-number-btn" ng-show="$index == 0" ng-click="addTimeframe('prefer')">
+              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            </button>
+            <button type="button" class="btn btn-default btn-sm eml-btn-white time-frame-number-btn" ng-show="$index > 0" ng-click="removeTimeframe('prefer', $index)">
+              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="radio">
+          <label>
+            <input type="radio" name="preferenceOptions" ng-model="action" value="avoidTimeframe">
+            {{'availability.AVOID_TIME_FRAME' | translate}}
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" ng-show="action === 'avoidTimeframe'">
+      <div class="col-md-12" ng-repeat="t in avoidTimeframes">
+        <timepicker class="time-frame" ng-model="t.startTime" minute-step="15" class="time-picker"></timepicker>
+        <span class="time-frame-to">to</span>
+        <timepicker class="time-frame" ng-model="t.endTime" minute-step="15"></timepicker>
+        <button type="button" class="btn btn-default btn-sm eml-btn-white time-frame-number-btn" ng-show="$index == 0" ng-click="addTimeframe('avoid')">
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="btn btn-default btn-sm eml-btn-white time-frame-number-btn" ng-show="$index > 0" ng-click="removeTimeframe('avoid', $index)">
+          <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>

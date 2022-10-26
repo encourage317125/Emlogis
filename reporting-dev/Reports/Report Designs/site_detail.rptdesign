@@ -1,0 +1,1019 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.4.0.v20150206-1039 Build &lt;4.2.3.v20150206-1039></property>
+    <list-property name="scriptLibs">
+        <structure>
+            <property name="name">libs/activation-1.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/commons-codec-1.6.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/commons-io-2.4.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/commons-logging-1.1.3.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/emlogis-scheduler-rest-api.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/FastInfoset-1.2.7.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/httpclient-4.4.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/httpcore-4.4.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/istack-commons-runtime-2.16.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-annotations-2.4.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-core-2.4.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-core-asl-1.9.12.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-databind-2.4.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-datatype-joda-2.3.0.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-jaxrs-1.9.12.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-jaxrs-base-2.4.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-jaxrs-json-provider-2.4.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-mapper-asl-1.9.12.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-module-afterburner-2.3.0.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-module-jaxb-annotations-2.4.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-xc-1.9.12.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jaxb-api-2.2.7.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jaxb-core-2.2.7.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jaxb-impl-2.2.7.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jaxrs-api-3.0.9.Emlogis.Custom.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jaxrs-api-3.0.9.Final.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jboss-annotations-api_1.1_spec-1.0.1.Final.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jcip-annotations-1.0.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/joda-time-2.3.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/resteasy-client-3.0.9.Final.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/resteasy-jackson-provider-3.0.9.Final.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/resteasy-jaxb-provider-3.0.9.Final.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/resteasy-jaxrs-3.0.9.Final.jar</property>
+        </structure>
+    </list-property>
+    <property name="units">in</property>
+    <method name="initialize"><![CDATA[try {
+	emlogis.current.reportName = "Site Detail";
+}catch(e) {}]]></method>
+    <property name="theme">common.EmlogisGrayScales</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="layoutPreference">auto layout</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">96</property>
+    <list-property name="libraries">
+        <structure>
+            <property name="fileName">/ThemesReportItems31.rptlibrary</property>
+            <property name="namespace">ThemesReportItems31</property>
+        </structure>
+        <structure>
+            <property name="fileName">emlogis/report-libs/common.RPTLIBRARY</property>
+            <property name="namespace">common</property>
+        </structure>
+        <structure>
+            <property name="fileName">emlogis/report-libs/debug.rptlibrary</property>
+            <property name="namespace">debug</property>
+        </structure>
+    </list-property>
+    <parameters>
+        <scalar-parameter name="restApiUrl" id="7" extends="common.restApiUrl"/>
+        <cascading-parameter-group name="Parameters" id="14075">
+            <property name="dataSet">Security DS</property>
+            <property name="dataSetMode">multiple</property>
+            <parameters>
+                <scalar-parameter name="Security" id="11074">
+                    <property name="hidden">true</property>
+                    <property name="valueType">dynamic</property>
+                    <property name="isRequired">true</property>
+                    <property name="dataSetName">Security DS</property>
+                    <expression name="valueExpr">row["security"]</expression>
+                    <expression name="labelExpr">row["security"]</expression>
+                    <property name="dataType">string</property>
+                    <simple-property-list name="defaultValue">
+                        <value type="constant">htran,schedulecreator</value>
+                    </simple-property-list>
+                    <property name="paramType">simple</property>
+                    <property name="controlType">list-box</property>
+                    <property name="fixedOrder">true</property>
+                    <structure name="format"/>
+                </scalar-parameter>
+                <scalar-parameter name="Site" id="275">
+                    <property name="valueType">dynamic</property>
+                    <property name="isRequired">true</property>
+                    <property name="dataSetName">Site DS</property>
+                    <expression name="valueExpr">row["siteInfo"]</expression>
+                    <expression name="labelExpr">row["siteName"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="paramType">simple</property>
+                    <property name="controlType">list-box</property>
+                    <property name="fixedOrder">true</property>
+                    <structure name="format"/>
+                </scalar-parameter>
+            </parameters>
+        </cascading-parameter-group>
+    </parameters>
+    <data-sources>
+        <script-data-source name="Data Source" id="4" extends="common.Data Source"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="Site DS" id="5" extends="common.Site DS"/>
+        <script-data-set name="Security DS" id="10" extends="common.Security DS"/>
+        <script-data-set name="Team DS" id="13801" extends="common.Team DS"/>
+        <script-data-set name="SkillsBySite DS" id="13805" extends="common.SkillsBySite DS"/>
+        <script-data-set name="ShiftType DS" id="13806" extends="common.ShiftType DS"/>
+        <script-data-set name="Skill DS" id="13976" extends="common.Skill DS"/>
+        <script-data-set name="TeamSkills DS" id="31">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">teamId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">teamName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">teamDescription</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">teamAbbreviation</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">skillId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">skillName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">skillDescription</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">skillAbbreviation</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">teamId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">teamName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">teamDescription</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">teamAbbreviation</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">skillId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">skillName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">skillDescription</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">skillAbbreviation</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">teamId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">teamName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">teamDescription</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">teamAbbreviation</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">skillId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">skillName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">skillDescription</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">skillAbbreviation</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[teamsCount = 0;
+skillsCount = 0
+
+teamSkills = null;
+currentTeam = null;
+
+try {
+	teamSkillsList = reportContext.getPersistentGlobalVariable("teamSkillsList");
+}catch(e){
+	teamSkillsList = null;
+}
+
+if (token &amp;&amp; !teamSkillsList) {
+	var siteId = emlogis.current.site.get("id");
+	teamSkillsList = report.getListFromResultSet(token, "sites/" + siteId + "/teamskills?limit=0");
+	reportContext.setPersistentGlobalVariable("teamSkillsList", teamSkillsList);
+}]]></method>
+            <method name="fetch"><![CDATA[if(teamSkills !== null &amp;&amp; skillsCount < teamSkills.size()) {
+	fillCurrentRow();
+	return true;
+} else if(teamSkills !== null &amp;&amp; skillsCount >= teamSkills.size()){
+	teamSkills = null;
+	skillsCount = 0;
+	teamsCount++;
+}
+if (teamSkills === null &amp;&amp; teamsCount < teamSkillsList.size()) {
+	teamSkills = teamSkillsList[teamsCount].skills;
+	fillCurrentRow();
+    return true;
+}
+
+return false;
+
+function fillCurrentRow(){
+	var team =  teamSkillsList[teamsCount];
+	row["teamId"] = team.id;
+    row["teamName"] = team.name;
+    row["teamDescription"] = team.description;
+    row["teamAbbreviation"] = team.abbreviation;
+	
+	if(teamSkills.size() == 0) return;
+	
+	var skill = teamSkills[skillsCount];
+	row["skillId"] = skill.id;
+    row["skillName"] = skill.name;
+    row["skillDescription"] = skill.description;
+    row["skillAbbreviation"] = skill.abbreviation;
+    
+    skillsCount++;
+}]]></method>
+        </script-data-set>
+        <script-data-set name="SiteDetails DS" id="14073" extends="common.SiteDetails DS"/>
+    </data-sets>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <property name="orientation">auto</property>
+            <page-header>
+                <grid name="Report header" id="13737">
+                    <property name="marginLeft">auto</property>
+                    <property name="marginBottom">0pt</property>
+                    <property name="marginRight">auto</property>
+                    <property name="width">100%</property>
+                    <list-property name="boundDataColumns">
+                        <structure>
+                            <property name="name">reportName</property>
+                            <text-property name="displayName">Report Name</text-property>
+                            <expression name="expression" type="javascript">emlogis.current.reportName + ": "+emlogis.current.site.get("name")</expression>
+                            <property name="dataType">string</property>
+                            <property name="allowExport">true</property>
+                        </structure>
+                    </list-property>
+                    <column id="13738">
+                        <property name="width">80%</property>
+                    </column>
+                    <column id="13739"/>
+                    <row id="13740">
+                        <cell id="13741">
+                            <property name="style">emlogis-header-first</property>
+                            <grid name="NewGrid11" id="13742">
+                                <column id="13743"/>
+                                <row id="13744">
+                                    <cell id="13745">
+                                        <property name="style">padding-05em</property>
+                                        <data name="NewData111" id="13746">
+                                            <property name="resultSetColumn">reportName</property>
+                                        </data>
+                                    </cell>
+                                </row>
+                            </grid>
+                        </cell>
+                        <cell id="13747">
+                            <property name="style">emlogis-header-second</property>
+                        </cell>
+                    </row>
+                </grid>
+            </page-header>
+            <page-footer>
+                <grid name="Report footer" id="13780" extends="common.Report footer">
+                    <overridden-values>
+                        <ref-entry baseId="13754" id="13754"/>
+                        <ref-entry baseId="13755" id="13755"/>
+                        <ref-entry baseId="13756" id="13756"/>
+                        <ref-entry baseId="13757" id="13757"/>
+                        <ref-entry baseId="13758" name="NewTextData111" id="13758"/>
+                        <ref-entry baseId="13759" id="13759"/>
+                        <ref-entry baseId="13760" name="NewGrid1111" id="13760"/>
+                        <ref-entry baseId="13761" id="13761"/>
+                        <ref-entry baseId="13762" id="13762"/>
+                        <ref-entry baseId="13763" id="13763"/>
+                        <ref-entry baseId="13764" id="13764"/>
+                        <ref-entry baseId="13765" id="13765"/>
+                        <ref-entry baseId="13766" id="13766"/>
+                        <ref-entry baseId="13767" name="NewText211" id="13767"/>
+                        <ref-entry baseId="13768" id="13768"/>
+                        <ref-entry baseId="13769" name="NewAutoText211" id="13769"/>
+                        <ref-entry baseId="13770" id="13770"/>
+                        <ref-entry baseId="13771" name="NewText1111" id="13771"/>
+                        <ref-entry baseId="13772" id="13772"/>
+                        <ref-entry baseId="13773" name="NewAutoText1111" id="13773"/>
+                    </overridden-values>
+                </grid>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <grid id="14039">
+            <column id="14040"/>
+            <row id="14041">
+                <cell id="14042">
+                    <property name="style">padding-05em</property>
+                    <grid id="13807">
+                        <property name="style">medium-font</property>
+                        <property name="dataSet">SiteDetails DS</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">id</property>
+                                <text-property name="displayName">id</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["id"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">name</property>
+                                <text-property name="displayName">name</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["name"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">description</property>
+                                <text-property name="displayName">description</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["description"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">dailyOvertimeMins</property>
+                                <text-property name="displayName">dailyOvertimeMins</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["dailyOvertimeMins"]</expression>
+                                <property name="dataType">integer</property>
+                            </structure>
+                            <structure>
+                                <property name="name">weeklyOvertimeMins</property>
+                                <text-property name="displayName">weeklyOvertimeMins</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["weeklyOvertimeMins"]</expression>
+                                <property name="dataType">integer</property>
+                            </structure>
+                            <structure>
+                                <property name="name">biweeklyOvertimeMins</property>
+                                <text-property name="displayName">biweeklyOvertimeMins</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["biweeklyOvertimeMins"]</expression>
+                                <property name="dataType">integer</property>
+                            </structure>
+                            <structure>
+                                <property name="name">maxConsecutiveDays</property>
+                                <text-property name="displayName">maxConsecutiveDays</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["maxConsecutiveDays"]</expression>
+                                <property name="dataType">integer</property>
+                            </structure>
+                            <structure>
+                                <property name="name">hoursOffBetweenDays</property>
+                                <text-property name="displayName">hoursOffBetweenDays</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["hoursOffBetweenDays"]</expression>
+                                <property name="dataType">integer</property>
+                            </structure>
+                            <structure>
+                                <property name="name">shiftBackToBackTimeMin</property>
+                                <text-property name="displayName">shiftBackToBackTimeMin</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["shiftBackToBackTimeMin"]</expression>
+                                <property name="dataType">integer</property>
+                            </structure>
+                            <structure>
+                                <property name="name">displayStartTime</property>
+                                <text-property name="displayName">displayStartTime</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["displayStartTime"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">displayEndTime</property>
+                                <text-property name="displayName">displayEndTime</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["displayEndTime"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <column id="13808">
+                            <property name="width">10em</property>
+                        </column>
+                        <column id="13809"/>
+                        <column id="13810"/>
+                        <row id="13811">
+                            <cell id="13812">
+                                <property name="style">padding-05em</property>
+                                <label id="13823">
+                                    <text-property name="text">Name:</text-property>
+                                </label>
+                            </cell>
+                            <cell id="13813">
+                                <property name="style">padding-05em</property>
+                                <text-data id="14071">
+                                    <expression name="valueExpr">row["name"]</expression>
+                                    <property name="contentType">html</property>
+                                </text-data>
+                            </cell>
+                            <cell id="13814">
+                                <property name="style">padding-05em</property>
+                            </cell>
+                        </row>
+                        <row id="13815">
+                            <cell id="13816">
+                                <property name="style">padding-05em</property>
+                                <label id="13824">
+                                    <text-property name="text">Site Description:</text-property>
+                                </label>
+                            </cell>
+                            <cell id="13817">
+                                <property name="style">padding-05em</property>
+                                <text-data id="14072">
+                                    <expression name="valueExpr">row["description"]</expression>
+                                    <property name="contentType">html</property>
+                                </text-data>
+                            </cell>
+                            <cell id="13818">
+                                <property name="style">padding-05em</property>
+                            </cell>
+                        </row>
+                        <row id="13819">
+                            <cell id="13820">
+                                <property name="style">padding-05em</property>
+                                <label id="13825">
+                                    <text-property name="text">HR Categories:</text-property>
+                                </label>
+                            </cell>
+                            <cell id="13821">
+                                <property name="style">padding-05em</property>
+                            </cell>
+                            <cell id="13822">
+                                <property name="style">padding-05em</property>
+                            </cell>
+                        </row>
+                        <row id="13826">
+                            <cell id="13827">
+                                <property name="colSpan">3</property>
+                                <property name="rowSpan">1</property>
+                                <property name="style">padding-05em</property>
+                                <text-data id="13869">
+                                    <expression name="valueExpr">"Daily overtime " + "&lt;i>" + row["dailyOvertimeMins"] + "&lt;/i>"</expression>
+                                    <property name="contentType">html</property>
+                                </text-data>
+                            </cell>
+                        </row>
+                        <row id="13830">
+                            <cell id="13831">
+                                <property name="colSpan">3</property>
+                                <property name="rowSpan">1</property>
+                                <property name="style">padding-05em</property>
+                                <text-data id="13846">
+                                    <expression name="valueExpr">"Weekly overtime after " + row["weeklyOvertimeMins"] + " hours" //(MINUTES FOR NOW! FIX!!!)</expression>
+                                    <property name="contentType">html</property>
+                                </text-data>
+                            </cell>
+                        </row>
+                        <row id="13834">
+                            <cell id="13835">
+                                <property name="colSpan">3</property>
+                                <property name="rowSpan">1</property>
+                                <property name="style">padding-05em</property>
+                                <text-data id="13847">
+                                    <expression name="valueExpr">"Bi-weekly overtime " + row["biweeklyOvertimeMins"]</expression>
+                                    <property name="contentType">html</property>
+                                </text-data>
+                            </cell>
+                        </row>
+                        <row id="13838">
+                            <cell id="13839">
+                                <property name="colSpan">3</property>
+                                <property name="rowSpan">1</property>
+                                <property name="style">padding-05em</property>
+                                <text-data id="13848">
+                                    <expression name="valueExpr">"Limit employees to " + row["maxConsecutiveDays"] + " maximum consecutive scheduled days."</expression>
+                                    <property name="contentType">html</property>
+                                </text-data>
+                            </cell>
+                        </row>
+                        <row id="13849">
+                            <cell id="13850">
+                                <property name="colSpan">3</property>
+                                <property name="rowSpan">1</property>
+                                <property name="style">padding-05em</property>
+                                <text-data id="13857">
+                                    <expression name="valueExpr">"Provide at least " + row["hoursOffBetweenDays"] + " hours off between days."</expression>
+                                    <property name="contentType">html</property>
+                                </text-data>
+                            </cell>
+                        </row>
+                        <row id="13853">
+                            <cell id="13854">
+                                <property name="colSpan">3</property>
+                                <property name="rowSpan">1</property>
+                                <property name="style">padding-05em</property>
+                                <text-data id="13858">
+                                    <expression name="valueExpr">"Shift back-to-back time is " + row["shiftBackToBackTimeMin"] + " minutes"</expression>
+                                    <property name="contentType">html</property>
+                                </text-data>
+                            </cell>
+                        </row>
+                        <row id="13859">
+                            <cell id="13860">
+                                <property name="colSpan">3</property>
+                                <property name="rowSpan">1</property>
+                                <property name="style">padding-05em</property>
+                                <text-data id="13867">
+                                    <expression name="valueExpr">"Display start time is " + row["displayStartTime"]</expression>
+                                    <property name="contentType">html</property>
+                                </text-data>
+                            </cell>
+                        </row>
+                        <row id="13863">
+                            <cell id="13864">
+                                <property name="colSpan">3</property>
+                                <property name="rowSpan">1</property>
+                                <property name="style">padding-05em</property>
+                                <text-data id="13868">
+                                    <expression name="valueExpr">"Display end time is " + row["displayEndTime"]</expression>
+                                    <property name="contentType">html</property>
+                                </text-data>
+                            </cell>
+                        </row>
+                    </grid>
+                </cell>
+            </row>
+        </grid>
+        <label id="13870">
+            <property name="style">emlogis-header-second</property>
+            <property name="pageBreakBefore">always</property>
+            <text-property name="text">Skills</text-property>
+        </label>
+        <grid id="13871">
+            <column id="13872"/>
+            <row id="13873">
+                <cell id="13874">
+                    <property name="style">padding-05em</property>
+                    <table id="13875">
+                        <property name="dataSet">SkillsBySite DS</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">skillName</property>
+                                <text-property name="displayName">skillName</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["skillName"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">skillId</property>
+                                <text-property name="displayName">skillId</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["skillId"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">teamId</property>
+                                <text-property name="displayName">teamId</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["teamId"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">abbreviation</property>
+                                <text-property name="displayName">abbreviation</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["abbreviation"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">description</property>
+                                <text-property name="displayName">description</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["description"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">joinColumn</property>
+                                <text-property name="displayName">joinColumn</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["joinColumn"]</expression>
+                                <property name="dataType">integer</property>
+                            </structure>
+                        </list-property>
+                        <column id="13909"/>
+                        <column id="13912"/>
+                        <column id="13913"/>
+                        <header>
+                            <row id="13876">
+                                <cell id="13877">
+                                    <label id="13878">
+                                        <text-property name="text">Name</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="13883">
+                                    <label id="13884">
+                                        <text-property name="text">Abbreviation</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="13885">
+                                    <label id="13886">
+                                        <text-property name="text">Description</text-property>
+                                    </label>
+                                </cell>
+                            </row>
+                        </header>
+                        <detail>
+                            <row id="13889">
+                                <cell id="13890">
+                                    <data id="13891">
+                                        <property name="resultSetColumn">skillName</property>
+                                    </data>
+                                </cell>
+                                <cell id="13896">
+                                    <data id="13897">
+                                        <property name="resultSetColumn">abbreviation</property>
+                                    </data>
+                                </cell>
+                                <cell id="13898">
+                                    <data id="13899">
+                                        <property name="resultSetColumn">description</property>
+                                    </data>
+                                </cell>
+                            </row>
+                        </detail>
+                        <footer>
+                            <row id="13902">
+                                <cell id="13903">
+                                    <property name="style">empty-cell</property>
+                                </cell>
+                                <cell id="13906">
+                                    <property name="style">empty-cell</property>
+                                </cell>
+                                <cell id="13907">
+                                    <property name="style">empty-cell</property>
+                                </cell>
+                            </row>
+                        </footer>
+                    </table>
+                </cell>
+            </row>
+        </grid>
+        <label id="13915">
+            <property name="style">emlogis-header-second</property>
+            <text-property name="text">Teams</text-property>
+        </label>
+        <grid id="13916">
+            <column id="13917"/>
+            <row id="13918">
+                <cell id="13919">
+                    <property name="style">padding-05em</property>
+                    <table id="13977">
+                        <list-property name="userProperties">
+                            <structure>
+                                <property name="name">__ac_group_collapse_level</property>
+                                <property name="type">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="dataSet">TeamSkills DS</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">teamId</property>
+                                <text-property name="displayName">teamId</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["teamId"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">teamName</property>
+                                <text-property name="displayName">teamName</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["teamName"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">teamDescription</property>
+                                <text-property name="displayName">teamDescription</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["teamDescription"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">teamAbbreviation</property>
+                                <text-property name="displayName">teamAbbreviation</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["teamAbbreviation"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">skillId</property>
+                                <text-property name="displayName">skillId</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["skillId"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">skillName</property>
+                                <text-property name="displayName">skillName</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["skillName"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">skillDescription</property>
+                                <text-property name="displayName">skillDescription</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["skillDescription"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">skillAbbreviation</property>
+                                <text-property name="displayName">skillAbbreviation</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["skillAbbreviation"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <column id="14022"/>
+                        <column id="14023"/>
+                        <column id="14026"/>
+                        <header>
+                            <row id="13978">
+                                <cell id="13981">
+                                    <property name="style">only-bottom-border</property>
+                                    <label id="13982">
+                                        <text-property name="text">Name</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="13983">
+                                    <property name="style">only-bottom-border</property>
+                                    <label id="13984">
+                                        <text-property name="text">Skills</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="13989">
+                                    <property name="style">only-bottom-border</property>
+                                    <label id="13990">
+                                        <text-property name="text">Description</text-property>
+                                    </label>
+                                </cell>
+                            </row>
+                        </header>
+                        <group id="14029">
+                            <property name="groupName">By Team</property>
+                            <expression name="keyExpr" type="javascript">row["teamName"]</expression>
+                            <structure name="toc">
+                                <expression name="expressionValue" type="javascript">row["teamName"]</expression>
+                            </structure>
+                            <property name="hideDetail">false</property>
+                            <header>
+                                <row id="14030">
+                                    <property name="style">only-top-border</property>
+                                    <cell id="14031">
+                                        <property name="style">border-top</property>
+                                        <data id="14038">
+                                            <property name="resultSetColumn">teamName</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="14032">
+                                        <property name="style">border-top</property>
+                                    </cell>
+                                    <cell id="14033">
+                                        <property name="style">border-top</property>
+                                        <data id="14001">
+                                            <property name="resultSetColumn">teamDescription</property>
+                                        </data>
+                                    </cell>
+                                </row>
+                            </header>
+                            <footer>
+                                <row id="14034">
+                                    <cell id="14035">
+                                        <property name="style">empty-cell</property>
+                                    </cell>
+                                    <cell id="14036">
+                                        <property name="style">empty-cell</property>
+                                    </cell>
+                                    <cell id="14037">
+                                        <property name="style">empty-cell</property>
+                                    </cell>
+                                </row>
+                            </footer>
+                        </group>
+                        <detail>
+                            <row id="13995">
+                                <cell id="13998">
+                                    <property name="style">no-borders</property>
+                                </cell>
+                                <cell id="14000">
+                                    <property name="style">no-borders</property>
+                                    <data id="14007">
+                                        <property name="resultSetColumn">skillName</property>
+                                    </data>
+                                </cell>
+                                <cell id="14006">
+                                    <property name="style">no-borders</property>
+                                </cell>
+                            </row>
+                        </detail>
+                        <footer>
+                            <row id="14012">
+                                <cell id="14014">
+                                    <property name="style">empty-cell</property>
+                                </cell>
+                                <cell id="14015">
+                                    <property name="style">empty-cell</property>
+                                </cell>
+                                <cell id="14018">
+                                    <property name="style">empty-cell</property>
+                                </cell>
+                            </row>
+                        </footer>
+                    </table>
+                </cell>
+            </row>
+        </grid>
+        <label id="14043">
+            <property name="style">emlogis-header-second</property>
+            <property name="pageBreakBefore">always</property>
+            <text-property name="text">Shifts Summary:</text-property>
+        </label>
+        <label id="14044">
+            <property name="style">emlogis-header-second</property>
+            <text-property name="text">Standard Shifts:</text-property>
+        </label>
+        <grid id="14045">
+            <column id="14046"/>
+            <row id="14047">
+                <cell id="14048">
+                    <property name="style">padding-05em</property>
+                    <table id="14049">
+                        <property name="dataSet">ShiftType DS</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">name</property>
+                                <text-property name="displayName">name</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["name"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">paidTimeInMin</property>
+                                <text-property name="displayName">paidTimeInMin</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["paidTimeInMin"]/60</expression>
+                                <property name="dataType">integer</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">shiftLengthLength</property>
+                                <text-property name="displayName">shiftLengthLength</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["shiftLengthLength"]/60</expression>
+                                <property name="dataType">integer</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                        </list-property>
+                        <column id="14068"/>
+                        <column id="14069"/>
+                        <column id="14070"/>
+                        <header>
+                            <row id="14050">
+                                <cell id="14051">
+                                    <label id="14052">
+                                        <text-property name="text">Name</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="14053">
+                                    <label id="14056">
+                                        <text-property name="text">Duration</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="14055">
+                                    <label id="14054">
+                                        <text-property name="text">Paid Hours</text-property>
+                                    </label>
+                                </cell>
+                            </row>
+                        </header>
+                        <detail>
+                            <row id="14057">
+                                <cell id="14058">
+                                    <property name="style">no-borders</property>
+                                    <data id="14059">
+                                        <property name="resultSetColumn">name</property>
+                                    </data>
+                                </cell>
+                                <cell id="14060">
+                                    <property name="style">no-borders</property>
+                                    <data id="14063">
+                                        <property name="resultSetColumn">shiftLengthLength</property>
+                                    </data>
+                                </cell>
+                                <cell id="14062">
+                                    <property name="style">no-borders</property>
+                                    <data id="14061">
+                                        <property name="resultSetColumn">paidTimeInMin</property>
+                                    </data>
+                                </cell>
+                            </row>
+                        </detail>
+                        <footer>
+                            <row id="14064">
+                                <cell id="14065">
+                                    <property name="style">empty-cell</property>
+                                </cell>
+                                <cell id="14066">
+                                    <property name="style">empty-cell</property>
+                                </cell>
+                                <cell id="14067">
+                                    <property name="style">empty-cell</property>
+                                </cell>
+                            </row>
+                        </footer>
+                    </table>
+                </cell>
+            </row>
+        </grid>
+    </body>
+</report>

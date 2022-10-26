@@ -1,0 +1,20 @@
+<div class="row top-margin-base">
+  <div class="col-sm-12">
+    <div ng-if="relatedEntity.entityDetails.needPagination">
+      <entity-selection-list original-entity-details="originalEntityDetails"
+                             entity-details="relatedEntity.entityDetails" need-operation-buttons="true"
+                             get-entity-list="relatedEntity.getEntityList(gridOptions, paginationOptions)"
+                             convert-entity-to-grid-row="relatedEntity.convertEntityToGridRow(message)"
+                             add-selection-list="addRelatedEntities(entityDetails, selectedEntityIds)"
+                             remove-selection-list="removeRelatedEntities(entityDetails, selectedEntities)"></entity-selection-list>
+    </div>
+    <div ng-if="!relatedEntity.entityDetails.needPagination">
+      <entity-selection-list original-entity-details="originalEntityDetails"
+                             entity-details="relatedEntity.entityDetails" need-operation-buttons="true"
+                             get-entity-list="relatedEntity.getEntityList()"
+                             convert-entity-to-grid-row="relatedEntity.convertEntityToGridRow(message)"
+                             add-selection-list="addRelatedEntities(entityDetails, selectedEntityIds)"
+                             remove-selection-list="removeRelatedEntities(entityDetails, selectedEntities)"></entity-selection-list>
+    </div>
+  </div>
+</div>

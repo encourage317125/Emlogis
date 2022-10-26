@@ -1,0 +1,217 @@
+<div ng-controller="RulesTeamsCtrl"> <!-- ng-show="selectedSiteChildren.site.children.length > 0" -->
+
+  <div class="row">
+    <div class="col-xs-6 text-left">
+      <h3>{{ selectedSiteDetails.name }}: {{ ::"rules.site_teams.TEAMS_AND_SKILLS" | translate }}</h3>
+    </div> <!--  - {{selectedSiteChildren.site.children.length}} -->
+    <div class="col-xs-6 text-right">
+      <div class="form-inline">
+        <button type="button"
+                ng-if="hasMgmtPermission()"
+                class="btn btn-default navbar-btn"
+                ng-click="addNewTeam()"
+                ng-disabled="selectedSiteChildren.site.allTeams.length > selectedSiteChildren.site.children.length">
+          {{ ::"rules.site_teams.ADD_TEAM" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- <p>Teams that belong to Site ID <code>{{ selectedSite.id }}</code></p> -->
+
+  <!-- Common Component: Collapsable Panel panels.configuration.title -->
+  <div collapsable-panel
+       name="::team.panelName"
+       is-collapsable="true"
+       is-collapsed="team.isPanelCollapsed"
+       ng-repeat="team in selectedSiteChildren.site.allTeams"
+       ng-hide="team.isDeleted"
+       ng-class="{ 'eml-new-panel' : !team.id.length > 0, 'eml-selected' : team.isSelected }"
+       ng-click="team.panelOpenedOnce || loadAllDetailsForTeam(team); team.panelOpenedOnce = true"> <!-- !team.isPanelCollapsed && loadAllDetailsForTeam(team)" -->
+
+    <div transclude-to="panel-head">
+      <abbr class="eml-panel-header-left">
+        <h4 ng-show="team.panelAbbreviation">({{ team.panelAbbreviation }})</h4>
+      </abbr>
+      <div class="eml-panel-header-right">
+        <label class="checkbox-inline">
+          <input type="checkbox"
+                 ng-model="team.active"
+                 ng-disabled="!hasMgmtPermission()"
+                 ng-change="updateEditing()">Active
+        </label>
+        <span tooltip="Team can't be deleted"
+              tooltip-placement="left"
+              tooltip-trigger="{{{true:'mouseenter',false:'never'}[team.initSkills.length > 1]}}"
+              ng-if="hasMgmtPermission()">
+          <i ng-class="{ 'disabled' : team.initSkills.length > 0  || !hasMgmtPermission()}"
+             class="fa fa-trash-o"
+             ng-click="team.initSkills.length < 1 && deleteTeam(team) || !team.id && deleteTeam(team)"></i>
+        </span>
+      </div>
+    </div>
+
+    <div transclude-to="panel-body">
+      <!-- Common Component: Edit-well -->
+      <div edit-well
+           name="rules.site_teams.TEAM_SETTINGS"
+           is-collapsable="true"
+           is-collapsed="team.isWellCollapsed">
+
+        <div transclude-to="well-head"></div>
+
+        <div transclude-to="well-body">
+          <div class="row">
+            <div class="col-sm-8">
+              <div class="row">
+                <ng-form name="teamForm">
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label for="teamName">Team Name</label>
+                      <input type="text"
+                             name="teamName"
+                             class="form-control"
+                             id="teamName"
+                             placeholder="Enter team name"
+                             ng-model="team.name"
+                             ng-change="page.submitted = true; teamForm.$valid && updateEditing()"
+                             focus-me="!team.isWellCollapsed"
+                             required
+                             ng-required="true"
+                             maxlength="50"
+                             ng-maxlength="50"
+                             ng-disabled="!hasMgmtPermission()">
+
+                      <!-- Common Directive: Validate-messages  -->
+                      <div validate-messages
+                           messages-for="teamForm.teamName"
+                           submitted="page.submitted"></div>
+                    </div>
+                  </div>
+
+
+                  <div class="col-sm-2">
+                    <div class="form-group">
+                      <label for="teamAbbreviation">Abbreviation</label>
+                      <input type="text"
+                             class="form-control"
+                             id="teamAbbreviation"
+                             name="teamAbbreviation"
+                             placeholder="Enter"
+                             ng-model="team.abbreviation"
+                             ng-change="page.submitted = true; teamForm.$valid && updateEditing()"
+                             required
+                             ng-required="true"
+                             maxlength="5"
+                             ng-maxlength="5"
+                             ng-disabled="!hasMgmtPermission()">
+
+                      <!-- Common Directive: Validate-messages -->
+                      <div validate-messages
+                           messages-for="teamForm.teamAbbreviation"
+                           submitted="page.submitted"></div>
+                    </div>
+                  </div>
+
+
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label for="teamDescription">Description</label>
+                      <input type="text"
+                             class="form-control"
+                             name="teamDescription"
+                             id="teamDescription"
+                             placeholder="Enter optional description..."
+                             ng-model="team.description"
+                             ng-change="updateEditing()"
+                             ng-disabled="!hasMgmtPermission()">
+                    </div>
+                  </div>
+                </ng-form>
+              </div>
+            </div>
+
+
+            <div class="col-sm-4">
+              <div class="row">
+                <div class="col-sm-4">
+                  <!--<code ng-repeat="skill in team.skills">{{ skill.name }}</code>-->
+                </div>
+              </div>
+            </div>
+          </div> <!-- row ends -->
+          <!--<code>{{team.skillsToAdd}}</code>-->
+        </div>
+      </div> <!-- Edit Well directive ends -->
+
+      <div class="row">
+        <div class="col-sm-12">
+
+          <!-- Tags Directive displays all Skills associated to a Team -->
+          <div tags
+               readonly="!hasMgmtPermission()"
+               tagslist="team.associatedSkills"
+               deletetag="removeSkill(tag, team)"
+               addtagslist="team.skillsToAdd"
+               addtag="attachSkillToTeam(newTag, team)"
+               ng-if="team.associatedSkills && team.skillsToAdd"></div> <!-- team.allSkills  -->
+        </div>
+      </div>
+
+      <!-- Team's Employees list -->
+      <div id="eml-teams-remove-employees" ng-if="team.gridOptions.data">
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="input-group eml-search">
+              <input type="text" class="form-control" placeholder="Employee Name...">
+              <!--<span class="input-group-addon"><img src="img/search.svg" alt="Search"/></span>-->
+              <span class="input-group-btn">
+                <button class="btn btn-default"><img src="img/search.svg" alt="Search"/></button>
+              </span>
+            </div><!-- /input-group -->
+          </div>
+          <div class="col-md-6 text-right text-uppercase space-between-btns">
+            <span class="eml-grid-number">
+              {{ team.associatedEmployees.data.length }}<span ng-show="team.associatedEmployees.total > -1"> Out of {{ team.associatedEmployees.total }}</span> Employees
+            </span>
+
+            <button class="btn btn-default"
+                      ng-if="hasMgmtPermission()"
+                    ng-click="openEmployeesModal(team)">{{ ::"rules.site_teams.ADD_EMPLOYEES" | translate }}</button>
+
+            <button class="btn"
+                    ng-if="hasMgmtPermission()"
+                    ng-class="team.gridApi.selection.getSelectedRows().length > 0 ? 'btn-danger' : 'btn-default'"
+                    ng-click="removeEmployeesFromTeam(team, team.employeesSelected)"
+                    ng-disabled="team.gridApi.selection.getSelectedRows().length < 1">Remove Selected</button>
+          </div>
+        </div> <!-- /row -->
+
+        <div class="row">
+          <div class="eml-grid col-sm-12">
+            <div ui-grid="team.gridOptions"
+                 ui-grid-pagination
+                 ui-grid-selection></div>
+
+            <div class="text-center">
+              <pagination ng-if="team.gridOptions.data && team.gridOptions.totalItems > 0"
+                          class="pagination-sm"
+                          total-items="team.gridOptions.totalItems"
+                          items-per-page="team.gridOptions.paginationPageSize"
+                          ng-model="team.gridOptions.paginationCurrentPage"
+                          boundary-links="true"
+                          max-size="5"
+                          previous-text="&lsaquo;"
+                          next-text="&rsaquo;"
+                          first-text="&laquo;"
+                          last-text="&raquo;">
+              </pagination> <!-- TODO: show only if there are more than 1 page in a table -->
+            </div>
+          </div>
+        </div> <!-- /row -->
+      </div> <!-- /eml-grid -->
+    </div>
+  </div>  <!-- panel body ends -->
+</div> <!-- end of panels ng-repeat -->
+</div>

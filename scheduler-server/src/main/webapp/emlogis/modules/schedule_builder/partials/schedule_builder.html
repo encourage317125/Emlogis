@@ -1,0 +1,16 @@
+<!-- Schedule Builder Page Start -->
+<div class="schedule-builder" >
+
+    <tabset class="eml-top-tabs">
+        <tab
+            ng-repeat="t in tabs"
+            heading="{{t.heading | translate}}"
+            select="goState(t)"
+            active="t.active"
+            ng-hide="t.hide">
+        </tab>
+    </tabset>
+    <div ui-view= "scheduleBuilderContent"></div>
+</div>
+
+<!-- Schedule Builder Page End -->

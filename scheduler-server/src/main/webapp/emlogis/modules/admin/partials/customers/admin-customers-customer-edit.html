@@ -1,0 +1,84 @@
+<div class="admin-customers-customer-edit">
+  <div class="nav-panel top-margin-base">
+    <div class="row">
+      <div class="col-sm-12">
+        <a class="customer-link" ng-click="goToCustomerListState()">< {{'admin.customers.BACK_TO_LISTING' | translate}}</a>
+      </div>
+    </div>
+  </div>
+  <div class="control-panel form-group top-margin-base">
+    <div class="row">
+      <div class="col-sm-6">
+        <h3 class="customer-name">{{customerDetails.name}}</h3>
+      </div>
+      <div class="col-sm-6">
+        <div class="pull-right">
+          <button class="btn btn-success" ng-click="saveCustomer()" translate>
+            app.SAVE
+          </button>
+          <button class="btn btn-danger btn-delete-entity" ng-if="hasMgmtPermission()" ng-click="deleteCustomer()" translate>
+            app.DELETE
+          </button>
+          <button class="btn btn-default" ng-click="goToCustomerListState()" translate>
+            app.CLOSE
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="overview-panel form-group top-margin-base">
+    <div class="row">
+      <div class="col-sm-7">
+        <div class="status outline">
+          <label><h4>{{'admin.customers.CUSTOMER_STATUS' | translate}}:</h4></label>
+          <select class="form-control" ng-model="customerDetails.productLicenseInfo.moduleStatus" ng-disabled="!overviewInEditMode" ng-options="status.value as status.label for status in availableStatusValues">
+          </select>
+        </div>
+        <div class="created-on outline">
+          <label>{{'admin.customers.CREATED_ON' | translate}}:</label><span>{{customerDetails.created.toString()}}</span>
+        </div>
+        <div class="expiration-date outline">
+          <label ng-if="customerDetails.productLicenseInfo.moduleExpirationDateObj <= currentDate">{{'admin.customers.EXPIRED_ON' | translate}}:</label>
+          <label ng-if="customerDetails.productLicenseInfo.moduleExpirationDateObj > currentDate">{{'admin.customers.EXPIRES_ON' | translate}}:</label>
+          <span class="input-group">
+            <input type="text" class="form-control" datepicker-popup="dd-MMMM-yyyy" ng-model="customerDetails.productLicenseInfo.moduleExpirationDateObj" is-open="datePickerOpened.statusExpired" datepicker-options="datePickerOptions" ng-required="true" close-text="Close" ng-change="setExpirationRelatedValues()" ng-readonly="!overviewInEditMode"/>
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default btn-open-date-picker" ng-click="openDatePicker($event, 'statusExpired')" ng-disabled="!overviewInEditMode"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+          </span>
+        </div>
+        <div class="remaining outline">
+          <label>{{'admin.customers.REMAINING' | translate}}:</label><span ng-class="{'red-content-cell': customerDetails.productLicenseInfo.remaining < 30}">{{customerDetails.productLicenseInfo.remaining}} {{'admin.customers.DAYS' | translate}}</span>
+        </div>
+      </div>
+      <div class="col-sm-5">
+        <div class="row">
+          <div class="col-sm-2">
+            <div class="sites">
+              <div class="sites-value">{{customerDetails.nbOfSites}}</div>
+              <label translate>admin.customers.SITES</label>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="teams">
+              <div class="teams-value">{{customerDetails.nbOfTeams}}</div>
+              <label translate>admin.customers.TEAMS</label>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="employees">
+              <div class="employees-value">{{customerDetails.nbOfEmployees}}</div>
+              <label translate>admin.customers.EMPLOYEES</label>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="edit-status pull-right">
+              <button class="btn btn-default" ng-class="{'red-button': customerDetails.productLicenseInfo.remaining < 30}" ng-click="switchEditMode()">{{overviewEditButtonLabel | translate}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div ng-include="'modules/admin/partials/customers/include/customer-edit-container.html'"></div>
+</div>

@@ -1,0 +1,51 @@
+<div class="open-schedule-modal">
+  <div class="actions">
+    <span class="big pull-left">{{'schedule_builder.OPEN_SCHEDULE' | translate }}</span>
+    <button ng-click="close()" class="btn btn-default action-btn pull-right" translate>app.CLOSE</button>
+    <button ng-click="refresh()" class="btn btn-default action-btn pull-right" translate>app.REFRESH</button>
+  </div>
+  <div style="clear:both"></div>
+  <div class="actions">
+    <div style="clear:both" class="input-group pull-left">
+      <input type="text" class="form-control filter pull-left" ng-model="browser.filterTxt"
+             placeholder="{{'app.SEARCH'|translate}} {{'nav.SCHEDULES'|translate}}..."
+             typeahead="record for record in getName($viewValue)" typeahead-loading="loadingSchedules"
+             ng-keydown="userFilterKeyDown($event)"
+          />
+
+        <span class="input-group-btn pull-left">
+          <button class="btn btn-default" ng-click="listSchedules()"><i class="glyphicon glyphicon-search"></i></button>
+        </span>
+    </div>
+
+    <select class="pull-left status" ng-model="browser.filterStatus"
+            ng-change="listSchedules()"
+            ng-options="status as status.title for status in statuses">
+      <option value="">{{'app.ALL' | translate}}</option>
+    </select>
+
+    <span class="records_info pull-right"> {{gridOptions.data.length}} {{'app.OF'|translate}} {{browser.totalRecords}} {{'nav.SCHEDULES'|translate}} </span>
+    <span class="showing pull-right"> {{ 'app.SHOWING' | translate }}:  </span>
+  </div>
+
+  <div style="clear:both"></div>
+  <div class="eml-grid">
+    <div ui-grid="gridOptions" class="schedule-list">
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <pagination total-items="browser.totalRecords"
+                ng-model="browser.currentPage"
+                max-size="5"
+                class="pagination-sm"
+                boundary-links="true"
+                rotate="false"
+                items-per-page="browser.pageSize"
+                num-pages="browser.numPages"
+                first-text="<<" last-text=">>" previous-text="<" next-text=">"
+                ng-change="pageChanged()">
+    </pagination>
+  </div>
+
+</div>

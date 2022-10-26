@@ -1,0 +1,201 @@
+/*  EmLogis animation starts  */
+
+// Import variables
+@import 'bootstrap_variables.scss';
+@import 'emlogis_variables.scss';
+
+
+
+//--------------------------------------------------------------------
+// Animations to show/hide different elements and views
+//--------------------------------------------------------------------
+
+
+/* you can also define the transition style
+   on the base class as well (.repeat-item) */
+
+//.eml-fade.ng-enter,
+//.eml-fade.ng-leave {
+//  -webkit-transition:2s linear all;
+//  transition:2s linear all;
+//}
+//
+//.eml-fade.ng-enter,
+//.eml-fade.ng-leave.ng-leave-active {
+//  opacity:0;
+//}
+//.eml-fade.ng-leave,
+//.eml-fade.ng-enter.ng-enter-active {
+//  opacity:1;
+//}
+
+/* you can use natural CSS transitions just
+   as you would without using ngAnimate */
+.my-elm {
+  -webkit-transition:0.5s linear all;
+  transition:0.5s linear all;
+  opacity:1;
+}
+
+.my-elm.ng-hide {
+  opacity:0;
+}
+
+.my-elm.ng-hide-add, .my-elm.ng-hide-remove {
+  /* this needs to be here to make it visible during the animation
+     since the .ng-hide class is already on the element rendering
+     it as hidden. */
+  display:block!important;
+}
+
+
+
+//--------------------------------------------------------------------
+// Load spinner
+//--------------------------------------------------------------------
+
+.circularG{
+  position: relative;
+  width: $eml-el-height;
+  height: $eml-el-height;
+}
+
+.circularG_0{
+  position:absolute;
+  background-color:$eml-dark-blue;
+  width:7px;
+  height:7px;
+  -moz-border-radius:19px;
+  -moz-animation-name:bounce_circularG;
+  -moz-animation-duration:1.12s;
+  -moz-animation-iteration-count:infinite;
+  -moz-animation-direction:normal;
+  -webkit-border-radius:19px;
+  -webkit-animation-name:bounce_circularG;
+  -webkit-animation-duration:1.12s;
+  -webkit-animation-iteration-count:infinite;
+  -webkit-animation-direction:normal;
+  -ms-border-radius:19px;
+  -ms-animation-name:bounce_circularG;
+  -ms-animation-duration:1.12s;
+  -ms-animation-iteration-count:infinite;
+  -ms-animation-direction:normal;
+  -o-border-radius:19px;
+  -o-animation-name:bounce_circularG;
+  -o-animation-duration:1.12s;
+  -o-animation-iteration-count:infinite;
+  -o-animation-direction:normal;
+  border-radius:19px;
+  animation-name:bounce_circularG;
+  animation-duration:1.12s;
+  animation-iteration-count:infinite;
+  animation-direction:normal;
+}
+
+.circularG_1{
+  left:0;
+  top:12px;
+  -moz-animation-delay:0.42s;
+  -webkit-animation-delay:0.42s;
+  -ms-animation-delay:0.42s;
+  -o-animation-delay:0.42s;
+  animation-delay:0.42s;
+}
+
+.circularG_2{
+  left:3px;
+  top:3px;
+  -moz-animation-delay:0.56s;
+  -webkit-animation-delay:0.56s;
+  -ms-animation-delay:0.56s;
+  -o-animation-delay:0.56s;
+  animation-delay:0.56s;
+}
+
+.circularG_3{
+  top:0;
+  left:12px;
+  -moz-animation-delay:0.7s;
+  -webkit-animation-delay:0.7s;
+  -ms-animation-delay:0.7s;
+  -o-animation-delay:0.7s;
+  animation-delay:0.7s;
+}
+
+.circularG_4{
+  right:3px;
+  top:3px;
+  -moz-animation-delay:0.84s;
+  -webkit-animation-delay:0.84s;
+  -ms-animation-delay:0.84s;
+  -o-animation-delay:0.84s;
+  animation-delay:0.84s;
+}
+
+.circularG_5{
+  right:0;
+  top:12px;
+  -moz-animation-delay:0.98s;
+  -webkit-animation-delay:0.98s;
+  -ms-animation-delay:0.98s;
+  -o-animation-delay:0.98s;
+  animation-delay:0.98s;
+}
+
+.circularG_6{
+  right:3px;
+  bottom:3px;
+  -moz-animation-delay:1.12s;
+  -webkit-animation-delay:1.12s;
+  -ms-animation-delay:1.12s;
+  -o-animation-delay:1.12s;
+  animation-delay:1.12s;
+}
+
+.circularG_7{
+  left:12px;
+  bottom:0;
+  -moz-animation-delay:1.26s;
+  -webkit-animation-delay:1.26s;
+  -ms-animation-delay:1.26s;
+  -o-animation-delay:1.26s;
+  animation-delay:1.26s;
+}
+
+.circularG_8{
+  left:3px;
+  bottom:3px;
+  -moz-animation-delay:1.4s;
+  -webkit-animation-delay:1.4s;
+  -ms-animation-delay:1.4s;
+  -o-animation-delay:1.4s;
+  animation-delay:1.4s;
+}
+
+@-moz-keyframes bounce_circularG {
+  0%{-moz-transform:scale(1)}
+  100%{-moz-transform:scale(.3)}
+}
+
+@-webkit-keyframes bounce_circularG {
+  0%{-webkit-transform:scale(1)}
+  100%{-webkit-transform:scale(.3)}
+}
+
+@-ms-keyframes bounce_circularG {
+  0%{-ms-transform:scale(1)}
+  100%{-ms-transform:scale(.3)}
+}
+
+@-o-keyframes bounce_circularG {
+  0%{-o-transform:scale(1)}
+  100%{-o-transform:scale(.3)}
+}
+
+@keyframes bounce_circularG {
+  0%{transform:scale(1)}
+  100%{transform:scale(.3)}
+}
+
+
+/* EmLogis animation ends */

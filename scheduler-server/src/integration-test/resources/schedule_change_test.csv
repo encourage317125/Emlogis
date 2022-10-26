@@ -1,0 +1,27 @@
+url|method|json|response_id
+skills|post|{"name":"Charge Nurse", "abbreviation":"CN", "description":"Charge Nurse"}|#{skillCN}
+skills|post|{"name":"Registered Nurse", "abbreviation":"RN", "description":"Registered Nurse"}|#{skillRN}
+shifttypes|post|{"name":"X", "shiftLength":"4", "paidHours":"4"}|#{shiftTypeX}
+shifttypes|post|{"name":"Y", "shiftLength":"6", "paidHours":"5"}|#{shiftTypeY}
+shiftstructures|post|{"startDate":1404190800000}|#{shiftStructure1}
+shiftstructures/#{shiftStructure1}/shiftreqs|post|{"startTime":8,"endTime":12,"employeeCount":1,"dayIndex":1,"skillProficiencyLevel":"standard","skillId":"#{skillRN}","shiftLengthId":"#{shiftTypeX}"}|
+shiftstructures/#{shiftStructure1}/shiftreqs|post|{"startTime":8,"endTime":12,"employeeCount":1,"dayIndex":1,"skillProficiencyLevel":"standard","skillId":"#{skillCN}","shiftLengthId":"#{shiftTypeX}"}|
+shiftstructures/#{shiftStructure1}/shiftreqs|post|{"startTime":8,"endTime":14,"employeeCount":2,"dayIndex":3,"skillProficiencyLevel":"standard","skillId":"#{skillRN}","shiftLengthId":"#{shiftTypeY}"}|
+shiftstructures/#{shiftStructure1}/shiftreqs|post|{"startTime":8,"endTime":14,"employeeCount":1,"dayIndex":3,"skillProficiencyLevel":"standard","skillId":"#{skillCN}","shiftLengthId":"#{shiftTypeY}"}|
+shiftstructures/#{shiftStructure1}/shiftreqs|post|{"startTime":8,"endTime":12,"employeeCount":1,"dayIndex":4,"skillProficiencyLevel":"standard","skillId":"#{skillRN}","shiftLengthId":"#{shiftTypeX}"}|
+shiftstructures/#{shiftStructure1}/shiftreqs|post|{"startTime":8,"endTime":12,"employeeCount":1,"dayIndex":5,"skillProficiencyLevel":"standard","skillId":"#{skillCN}","shiftLengthId":"#{shiftTypeX}"}|
+shiftstructures/#{shiftStructure1}/shiftreqs|post|{"startTime":14,"endTime":18,"employeeCount":1,"dayIndex":5,"skillProficiencyLevel":"standard","skillId":"#{skillCN}","shiftLengthId":"#{shiftTypeX}"}|
+schedules|post|{"startDate":1404190800000,"endDate":1404709200000,"teamIds":["TeamA"]}|#{scheduleId}
+schedules/#{scheduleId}/ops/execute|post||
+schedules/#{scheduleId}/ops/execute|post||
+schedules/#{scheduleId}/ops/execute|post||
+schedules/#{scheduleId}/ops/execute|post||
+schedules/#{scheduleId}/ops/execute|post||
+schedules/#{scheduleId}|put|{"startDate":1404190900000,"endDate":1404709300000,"teamIds":["TeamB"]}|#{scheduleId}
+schedules/#{scheduleId}|put|{"startDate":1404191000000,"endDate":1404709400000,"teamIds":["TeamA"]}|#{scheduleId}
+schedules/#{scheduleId}|put|{"startDate":1404191000000,"endDate":1404709400000,"teamIds":["TeamA"]}|#{scheduleId}
+schedules/#{scheduleId}/changes?type=SCHEDULECREATE|get||
+schedules/#{scheduleId}/changes?startdate=1404180900000&type=SCHEDULECREATE|get||
+schedules/#{scheduleId}/changes?startdate=1404180900000&type=SCHEDULERERUN|get||
+schedules/#{scheduleId}/changes?type=SHIFTADD|get||
+schedules/#{scheduleId}/changes|get||

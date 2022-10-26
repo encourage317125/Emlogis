@@ -1,0 +1,15 @@
+<!-- Rules Page Start -->
+<div id="rules">
+  <div class="eml-top-tabs">
+    <ul class="nav nav-tabs">
+      <li role="presentation"
+          ng-repeat="tab in tabs"
+          ui-sref-active="active">
+        <a ui-sref="{{ tab.route }}">{{ tab.heading | translate }}</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="rules-tab-content" ui-view="rulesContent"></div>
+</div>
+<!-- Rules Page End -->

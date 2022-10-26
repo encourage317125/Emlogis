@@ -1,0 +1,27 @@
+<div class="admin-customers-create">
+  <div class="nav-panel top-margin-base">
+    <div class="row">
+      <div class="col-sm-12">
+        <a class="customer-link" ng-click="goToCustomerListState()">< {{'admin.customers.BACK_TO_LISTING' | translate}}</a>
+      </div>
+    </div>
+  </div>
+  <div class="control-panel form-group top-margin-base">
+    <div class="row">
+      <div class="col-sm-6">
+        <h3 class="customer-name">{{customerDetails.name}}</h3>
+      </div>
+      <div class="col-sm-6">
+        <div class="pull-right">
+          <button class="btn btn-default" ng-click="createCustomer()" translate>
+            app.CREATE
+          </button>
+          <button class="btn btn-default" ng-click="goToCustomerListState()" translate>
+            app.CLOSE
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div ng-include="'modules/admin/partials/customers/include/customer-edit-container.html'"></div>
+</div>

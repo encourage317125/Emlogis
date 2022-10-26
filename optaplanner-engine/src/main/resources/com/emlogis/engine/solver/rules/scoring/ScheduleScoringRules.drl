@@ -1,0 +1,376 @@
+package com.emlogis.engine.solver.rules.scoring;
+
+import java.util.ArrayList;
+
+import com.emlogis.engine.domain.*;
+import com.emlogis.engine.domain.timeoff.*;
+import com.emlogis.engine.domain.organization.*;
+import com.emlogis.engine.domain.contract.patterns.*;
+import com.emlogis.engine.domain.contract.patterns.WeekdayRotationPattern.RotationPatternType;
+import com.emlogis.engine.domain.contract.*;
+import com.emlogis.engine.solver.drools.*;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import org.joda.time.*;
+
+/*
+ * Award extra points for placing employee on a team their on vs floating on
+ * Award 2x as many points for putting an employee unto their hometeam in a shift
+ * The rule is disabled if the PreferTeamScattering option is turned on
+ *
+*/ 
+rule "TeamPreference"
+	when
+	 	$info : EmployeeRosterInfo(getRuleWeightMultiplier("TeamPreference") >= 1 && getRuleWeightMultiplier("PreferTeamScattering") == 0)
+		$shift : ShiftAssignment(employee != null, $teamId : teamId)
+		$teamProf : TeamAssociation(teamId == $teamId, type == TeamAssociationType.ON, $homeTeam : homeTeam)
+	then
+		int scoreLevel = $info.getScoringRuleScoreLevel("TeamPreference");
+		int weightMultiplier = $info.getRuleWeightMultiplier("TeamPreference");
+		if($homeTeam) 
+			weightMultiplier *= 2;
+	    scoreHolder.addSoftConstraintMatch(kcontext, scoreLevel, weightMultiplier);
+end
+
+/*
+ * Award points for placing an employee unto a shift that matches their primary skill
+ *
+*/ 
+rule "PreferPrimarySkill"
+	when
+	 	$info : EmployeeRosterInfo(getRuleWeightMultiplier("PreferPrimarySkill") >= 1)
+		$shift : ShiftAssignment(employee != null, $skillId : skillId)
+		$skillProf : SkillProficiency(skillId == $skillId, primarySkill)
+	then
+		int scoreLevel = $info.getScoringRuleScoreLevel("PreferPrimarySkill");
+		int weightMultiplier = $info.getRuleWeightMultiplier("PreferPrimarySkill");
+	    scoreHolder.addSoftConstraintMatch(kcontext, scoreLevel, weightMultiplier);
+end
+
+
+/*
+ * Deduct score points whenever there are back-2-back shifts
+ * that require two different skills
+ *
+*/
+rule "AvoidSkillChange"
+enabled true
+	when
+	 	$info : EmployeeRosterInfo(getRuleWeightMultiplier("AvoidSkillChange") >= 1)
+		$shiftA : ShiftAssignment(employee != null, $empA : employee, $stopDateTime : shiftEndDateTime, $skillId : skillId)
+		$shiftB : ShiftAssignment(this != $shiftA, employee == $empA, shiftStartDateTime == $stopDateTime, skillId != $skillId )
+	then
+		int scoreLevel = $info.getScoringRuleScoreLevel("AvoidSkillChange");
+		int weightMultiplier = $info.getRuleWeightMultiplier("AvoidSkillChange");
+	    scoreHolder.addSoftConstraintMatch(kcontext, scoreLevel, -weightMultiplier);
+end
+
+/*
+ * Deduct score points whenever there are back-2-back shifts
+ * that require two different teams
+ *
+*/
+rule "AvoidTeamChange"
+enabled true
+	when
+	 	$info : EmployeeRosterInfo(getRuleWeightMultiplier("AvoidTeamChange") >= 1)
+		$shiftA : ShiftAssignment(employee != null, $empA : employee, $stopDateTime : shiftEndDateTime, $teamId : teamId)
+		$shiftB : ShiftAssignment(this != $shiftA, employee == $empA, shiftStartDateTime == $stopDateTime, teamId != $teamId )
+	then
+		int scoreLevel = $info.getScoringRuleScoreLevel("AvoidTeamChange");
+		int weightMultiplier = $info.getRuleWeightMultiplier("AvoidTeamChange");
+	    scoreHolder.addSoftConstraintMatch(kcontext, scoreLevel, -weightMultiplier);
+end
+
+/*
+ * Punish the schedule for putting open shifts 
+ * on the same day or consecutively. 
+ *
+ */
+rule "OpenShiftSeparation"
+enabled false
+	when
+	   	$info : EmployeeRosterInfo(getRuleWeightMultiplier("OpenShiftSeparation") >= 1)
+	//    $weekdayShifts : ArrayList( size > 8000 ) 
+		//			from collect( ShiftAssignment( employee != null)
+			//				) 
+		$shiftA : ShiftAssignment(employee == null, $firstDate : shiftStartDateTime)
+		$shiftB : ShiftAssignment(this != $shiftA, employee == null, shiftStartDateTime == $firstDate || shiftStartDateTime == $firstDate.plusDays(1))
+	then
+		int scoreLevel = $info.getScoringRuleScoreLevel("OpenShiftSeparation");
+		int weightMultiplier = $info.getRuleWeightMultiplier("OpenShiftSeparation");
+	    scoreHolder.addSoftConstraintMatch(kcontext, scoreLevel, -weightMultiplier);
+end
+
+/*
+ * Punish the schedule for putting excess shifts 
+ * on the same day or consecutively. 
+ *
+*/
+rule "ExcessShiftSeparation"
+enabled true
+	when
+	   	$info : EmployeeRosterInfo(getRuleWeightMultiplier("ExcessShiftSeparation") >= 1)
+		$shiftA : ShiftAssignment(employee != null, excessShift, $firstDate : shiftDate)
+		$shiftB : ShiftAssignment(this != $shiftA, excessShift, employee != null, shiftDate == $firstDate || shiftDate == $firstDate.plusDays(1))
+	then
+		int scoreLevel = $info.getScoringRuleScoreLevel("ExcessShiftSeparation");
+		int weightMultiplier = $info.getRuleWeightMultiplier("ExcessShiftSeparation");
+	    scoreHolder.addSoftConstraintMatch(kcontext, scoreLevel, -weightMultiplier);
+end
+
+
+/*
+ * Reward engine for putting employee shifts on consecutive days
+ *
+*/
+rule "HorizontalClustering"
+enabled true
+	when
+	   	$info : EmployeeRosterInfo(getRuleWeightMultiplier("HorizontalClustering") >= 1)
+		$shiftA : ShiftAssignment(employee != null, $employee : employee, $firstDate : shiftDate)
+		$shiftB : ShiftAssignment(this != $shiftA, employee == $employee, shiftDate == $firstDate || shiftDate == $firstDate.plusDays(1))
+	then
+		int scoreLevel = $info.getScoringRuleScoreLevel("HorizontalClustering");
+		int weightMultiplier = $info.getRuleWeightMultiplier("HorizontalClustering");
+	    scoreHolder.addSoftConstraintMatch(kcontext, scoreLevel, weightMultiplier);
+end
+
+/*
+ * If two shifts for the same employee are on the same day
+ * 
+ *
+*/
+rule "VerticalClustering"
+enabled true
+	when
+	   	$info : EmployeeRosterInfo(getRuleWeightMultiplier("VerticalClustering") >= 1)
+		$shiftA : ShiftAssignment(employee != null, $employee : employee, $firstDate : shiftDate, $shiftAEnd : shiftEndDateTime)
+		$shiftB : ShiftAssignment(this != $shiftA, employee == $employee, shiftDate == $firstDate,
+								 startsAfterShiftEnds($shiftA), $shiftBStart : shiftStartDateTime)
+	then
+		int hoursBetween = Hours.hoursBetween($shiftBStart, $shiftAEnd).getHours();
+		int deduction = (int) hoursBetween / 2 - 1; // min -1 for any separation > 0h
+		int scoreLevel = $info.getScoringRuleScoreLevel("VerticalClustering");
+		int weightMultiplier = $info.getRuleWeightMultiplier("VerticalClustering");
+	    scoreHolder.addSoftConstraintMatch(kcontext, scoreLevel, deduction * weightMultiplier);
+end
+
+
+
+/*
+ * Checks shift assignments that either meet or go against a user preference window. Raises
+ * or lowers score based on whether the window is prefered or not preferred 
+ *
+*/
+rule "cdPrefRule"
+enabled true
+	when
+		$preference : CDPreference(  $employeeId : employeeId, $dayOffStartTime : startDateTime, $dayOffEndTime : endDateTime,
+					$startTime : startTime, $endTime : endTime, $weight : weight)
+		Employee ( employeeId == $employeeId, $name : fullName) //To ensure every constraint justification list has an employee
+		$info : EmployeeRosterInfo(getRuleWeightMultiplier("cdPrefRule") >= 1, $firstDayOfWeek : firstDayOfWeek )
+        $shift : ShiftAssignment( employee != null, employee.getEmployeeId() == $employeeId
+        					,startsAfter($dayOffStartTime) && startsBefore($dayOffEndTime) || endsAfter($dayOffStartTime) && endsBefore($dayOffEndTime)
+        					|| startsOnOrBefore($dayOffStartTime) && endsOnOrAfter($dayOffEndTime)
+        					,isInPlanningWindow($info)
+       )
+	then
+		LoggerFactory.getLogger("ScoringRules").trace("Adding CD Preference score of: " + 
+								$weight * $shift.getShiftDurationHours() + " for " + $name
+								 +  " on " + $shift.getShiftStartDateTime());
+		int scoreLevel = $info.getScoringRuleScoreLevel("cdPrefRule");
+		int weightMultiplier = $info.getRuleWeightMultiplier("cdPrefRule");
+	    scoreHolder.addSoftConstraintMatch(kcontext, scoreLevel, $weight * $shift.getShiftDurationHours() * weightMultiplier);
+end
+
+
+/*
+ * Checks shift assignments that either meet or go against a user preference window. Raises
+ * or lowers score based on whether the window is prefered or not preferred 
+ *
+*/
+rule "ciPrefRule"
+enabled true
+	when
+		$timeOff : CIPreference(  $employeeId : employeeId, $dayOfWeekOff : dayOfWeek
+					,$startTime : startTime, $endTime : endTime, $weight : weight)
+		Employee ( employeeId == $employeeId, $name : fullName) //To ensure every constraint justification list has an employee
+		$info : EmployeeRosterInfo(getRuleWeightMultiplier("ciPrefRule") >= 1, $firstDayOfWeek : firstDayOfWeek )
+        $shift : ShiftAssignment( employee != null, employee.getEmployeeId() == $employeeId, dayOfWeek == $dayOfWeekOff
+        					,(startsAfter($startTime) && startsBefore($endTime) || endsAfter($startTime) && endsBefore($endTime)
+        					|| startsOnOrBefore($startTime) && (endsOnOrAfter($endTime) || shiftEndTime.equals(LocalTime.MIDNIGHT)))
+        					,isInPlanningWindow($info)
+        )
+        // Make sure the CI Preference hasn't been overridden by a CD Preference
+        not  CDPreference(  $employeeId == employeeId, dayOffStart.getDayOfWeek() == $dayOfWeekOff.getJodaValue() || dayOffEnd.getDayOfWeek() == $dayOfWeekOff.getJodaValue())
+	then
+		LoggerFactory.getLogger("ScoringRules").trace("Adding CI Preference score of: " + 
+								$weight * $shift.getShiftDurationHours() + " for " + $name
+								 +  " on " + $shift.getShiftStartDateTime());
+		int scoreLevel = $info.getScoringRuleScoreLevel("ciPrefRule");
+		int weightMultiplier = $info.getRuleWeightMultiplier("ciPrefRule");
+	    scoreHolder.addSoftConstraintMatch(kcontext, scoreLevel, $weight * $shift.getShiftDurationHours() * weightMultiplier);
+end
+
+/*
+ * Sums up the cost of each employee in a schedule(include OT) 
+ * Employee cost in these rules is an APPROXIMATION which ignores
+ * minutes and uses 1 hour as the min length of a shift. 
+*/
+rule "ScheduleCost"
+salience -1000 // This should fire after all other Cost related rules
+enabled true
+    when
+   		$info : EmployeeRosterInfo(getRuleWeightMultiplier("ScheduleCost") >= 1)
+        accumulate ( EmployeeCostTotal($employeeCost : totalCost)
+           			, $totalCost : sum($employeeCost)
+		)		
+    then
+    	int totalCostPerHour = (int) $totalCost.intValue(); //Rounding is fine, no need to be exact
+    	int scoreLevel = $info.getScoringRuleScoreLevel("ScheduleCost");
+    	int weightMultiplier = $info.getRuleWeightMultiplier("ScheduleCost");
+    	scoreHolder.addSoftConstraintMatch(kcontext, scoreLevel, -totalCostPerHour * weightMultiplier);
+end
+
+/*
+ * Sums up the overtime of all employee's in a schedule
+*/
+rule "ScheduleOvertime"
+salience -1000 
+enabled true 
+    when
+    	$info : EmployeeRosterInfo(getRuleWeightMultiplier("ScheduleOvertime") >= 1)
+        accumulate ( EmployeeOvertimeTotal($overtimeValue : numOTMinutes)
+           			, $totalOvertime : sum($overtimeValue)
+		)		
+    then
+    	int scoreLevel = $info.getScoringRuleScoreLevel("ScheduleOvertime");
+    	int weightMultiplier = $info.getRuleWeightMultiplier("ScheduleOvertime");
+    	scoreHolder.addSoftConstraintMatch(kcontext, scoreLevel, -$totalOvertime.intValue() / 60 * weightMultiplier);
+end
+
+/*
+ * Sums up the cost of each employee in a schedule by multiplying the duration of each shift
+ * (in minutes) times the hourly rate of the employee working it. 
+*/
+rule "EmployeeCost"
+salience 1000 // This rule should fire before other cost rules
+enabled true
+    when
+        $emp : Employee ( $employeeId : employeeId, $rate : hourlyRate) 
+        accumulate ( $shift : ShiftAssignment( employee != null, employee.getEmployeeId() == $employeeId, 
+        							$durationInHours : shiftDurationHours)
+           			, $totalShiftHours : sum($durationInHours)
+		)		
+    then
+    	int totalCostForEmployee = $rate*$totalShiftHours.intValue();
+    	insertLogical( new EmployeeCostTotal($employeeId, totalCostForEmployee));
+end
+
+rule "PreferTeamScattering"
+	when
+		$info : EmployeeRosterInfo(getRuleWeightMultiplier("PreferTeamScattering") >= 1)
+        $emp : Employee ( $employeeId : employeeId, $teams : teamIds) 
+        $teamId : String() from $teams
+		accumulate ( $shift : ShiftAssignment( employee == $emp, isInScheduleWindow($info) )
+           			,$totalShifts  : count($shift)
+		)
+		accumulate ( $teamShift : ShiftAssignment( employee == $emp, teamId == $teamId, isInScheduleWindow($info) )
+           			,$totalShiftsForTeam  : count($teamShift);
+           			$totalShifts.intValue()/$teams.size() - $totalShiftsForTeam.intValue() != 0
+		)
+	then
+		LoggerFactory.getLogger("ScoringRules").trace($totalShiftsForTeam + " shifts for team " + $teamId + " for " + $emp + 
+								" out of " + $totalShifts + " total employee shifts");
+		int shiftsPerTeamExpectedAvg = $totalShifts.intValue()/$teams.size();
+		int deviationFromAvg = Math.abs(shiftsPerTeamExpectedAvg - $totalShiftsForTeam.intValue());
+		LoggerFactory.getLogger("ScoringRules").trace("Deviation of " + deviationFromAvg + " from average of " + shiftsPerTeamExpectedAvg);
+		int scoreLevel = $info.getScoringRuleScoreLevel("PreferTeamScattering");
+		int weightMultiplier = $info.getRuleWeightMultiplier("PreferTeamScattering");
+	    scoreHolder.addSoftConstraintMatch(kcontext, scoreLevel, -weightMultiplier*deviationFromAvg);	
+end
+
+/*
+ * For any daily overtime add the additional cost of overtime hours
+*/ 
+rule "ScheduleOvertimeCost"
+dialect "mvel"
+no-loop
+enabled true
+    when
+        $emp : Employee ( $employeeId : employeeId, $rate : hourlyRate) 
+        // Get the largest overtime value (daily, weekly, two week) and use it for cost calc
+		EmployeeOvertimeTotal(employeeId == $employeeId, numOTMinutes > 0, $numOTMinutes : numOTMinutes, $otType : type)
+		not	EmployeeOvertimeTotal(employeeId == $employeeId, numOTMinutes > $numOTMinutes)
+		$empCostTotal : EmployeeCostTotal(employeeId == $employeeId, totalCost > 0)
+    then
+    	long totalOTCostForEmployee = (long)( 0.5*$rate*$numOTMinutes/60 ); // OT minutes are priced at 1.5x the normal rate
+    	LoggerFactory.getLogger("ScoringRules").trace("Overtime cost: " + totalOTCostForEmployee + " for " + $employeeId + " based on " + $otType);
+    	$empCostTotal.addCost(totalOTCostForEmployee);
+    	update($empCostTotal);
+end
+
+
+rule "SeniorityRanking"
+enabled true
+	when
+		$info : EmployeeRosterInfo(getRuleWeightMultiplier("SeniorityRanking") >= 1)
+        $assignment : ShiftAssignment(employee != null, $employee : employee , !isExcessShift(),  isInPlanningWindow($info))
+     	Employee( this == $employee, $seniority : seniority )
+	then
+    	int scoreLevel = $info.getScoringRuleScoreLevel("SeniorityRanking");
+    	int weightMultiplier = $info.getRuleWeightMultiplier("SeniorityRanking");
+		scoreHolder.addSoftConstraintMatch(kcontext, scoreLevel,  $seniority  * weightMultiplier);
+end
+
+rule "ExtraShiftDeduction"
+enabled true
+	when
+		$info : EmployeeRosterInfo(getRuleWeightMultiplier("ExtraShiftDeduction") >= 1)
+        $assignment : ShiftAssignment(employee != null, $employee : employee , isExcessShift(),  isInPlanningWindow($info))
+     	Employee( this == $employee, $seniority : seniority )
+	then
+	    int scoreLevel = $info.getScoringRuleScoreLevel("ExtraShiftDeduction");
+	    int weightMultiplier = $info.getRuleWeightMultiplier("ExtraShiftDeduction");
+		scoreHolder.addSoftConstraintMatch(kcontext, scoreLevel, -$seniority * weightMultiplier);
+end
+
+rule "SetMostSeniorEmployees"
+enabled true
+	salience 4
+	when
+		$emp : Employee( seniority == -1, $startDate : startDate  )
+		not Employee( startDate.isBefore($startDate) )
+	then
+		$emp.setSeniority(100);
+		update($emp);
+end
+
+rule "SetMostJuniorEmployees"
+enabled true
+	salience 4
+	when
+		$emp : Employee( seniority == -1, $startDate : startDate  )
+		not Employee( startDate.isAfter($startDate) )
+	then
+		$emp.setSeniority(1);
+		update($emp);
+end
+
+rule "SetEmployeeSeniority"
+enabled true
+	salience 3
+	when
+		$emp : Employee( seniority == -1, $startDate : startDate  )
+		Employee ( seniority == 100, $earliestStartDate : startDate)
+		Employee ( seniority == 1,  $latestHireDate : startDate)
+	then
+		double daysBetween = Days.daysBetween($earliestStartDate, $latestHireDate).getDays();
+		double empDayRank  = Days.daysBetween($earliestStartDate, $startDate).getDays();
+		int seniority = (int) Math.round(100  - empDayRank * (100/daysBetween));
+		$emp.setSeniority(seniority);
+		update($emp);
+end

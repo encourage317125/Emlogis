@@ -1,0 +1,111 @@
+<div id="schedule-generation-summary" class="child-tab">
+
+  <!--<div class="divider"></div>-->
+  <tabset>
+    <tab select="selectSubTab('scheduleOverview')"
+         heading="{{ 'schedule_builder.SCHEDULE_OVERVIEW' | translate }}"></tab>
+    <tab select="selectSubTab('openShifts')"
+         heading="{{ 'schedule_builder.OPEN_SHIFTS' | translate }}"></tab>
+  </tabset>
+
+  <div id="scheduleOverview" class="tab-content"
+       ng-if="selectedSubTab === 'scheduleOverview'">
+    <div ng-if="readyEmployeeGridData">
+      <div class="row top-margin-base">
+        <div class="col-sm-12">
+
+          <div style="font-weight: bold">Overview:</div>
+          <table class="table">
+            <tr>
+              <th>Regular</th>
+              <th>Excess</th>
+              <th>Total</th>
+              <th>Resources</th>
+            </tr>
+            <tr data-ng-repeat="(key, val) in scheduleOverview" ng-init="item=report.scheduleOverview[key]">
+              <td>{{showValue(item.regular)}} <span> {{val.name}}</span></td>
+              <td>{{showValue(item.excess)}} <span> {{val.name}}</span></td>
+              <td>
+                <span style="font-weight: bold">{{showValue(item.total)}}</span> {{val.name}}
+              </td>
+              <td>
+                                <span ng-if="key==='shifts' || key==='shiftsAssignments'">
+                                    <span style="font-weight: bold">{{item.employees[0]}}</span> Employees
+                                </span>
+                <span ng-if="key==='hours'">{{item.employees[0]}} Available Hours</span>
+                <span ng-if="key==='hoursAssignments'">{{item.employees[0]}} Assigned Hours</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div ng-if="schedule.returnedOpenShifts > 0" style="font-weight: bold">
+        <span>Assignments:</span>
+        <span style="font-size: xx-large" class="goodCell">&#9632;</span> [99 to 90%]
+        <span style="font-size: xx-large" class="mediumCell">&#9632;</span> [90 to 60%]
+        <span style="font-size: xx-large" class="hardCell">&#9632;</span> < 60%
+      </div>
+      <div class="row top-margin-base">
+        <div class="col-sm-12">
+          <div class="list-view grid-panel eml-grid">
+            <div class="gridStyle data-grid"
+                 ui-grid="summaryBySkillOptions"
+                 ui-grid-pagination></div>
+          </div>
+          <div class="text-center">
+            <pagination class="pagination-sm"
+                        total-items="summaryBySkillOptions.totalItems"
+                        items-per-page="summaryBySkillOptions.paginationPageSize"
+                        ng-model="summaryBySkillOptions.paginationCurrentPage"
+                        boundary-links="true"
+                        max-size="5"
+                        previous-text="&lsaquo;"
+                        next-text="&rsaquo;"
+                        first-text="&laquo;"
+                        last-text="&raquo;">
+            </pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="openShifts" class="tab-content"
+       ng-if="selectedSubTab === 'openShifts'">
+    <div class="control-panel" style=" padding-bottom: 10px;">
+      <div class="row">
+        <div class="col-xs-3">
+          <input ng-model="tempsearchtext" type="text" class="form-control"
+                 placeholder="Filter">
+        </div>
+        <div class="col-xs-offset-6 col-xs-3">
+          Showing {{gridApi.core.getVisibleRows(grid).length }} of {{openShiftsGridOptions.totalItems}}
+        </div>
+      </div>
+    </div>
+
+    <div class="row top-margin-base">
+      <div class="col-sm-12">
+        <div class="list-view grid-panel eml-grid">
+          <div class="gridStyle data-grid"
+               ui-grid="openShiftsGridOptions"
+               ui-grid-pagination></div>
+        </div>
+        <div class="text-center">
+          <pagination class="pagination-sm"
+                      total-items="openShiftsGridOptions.totalItems"
+                      items-per-page="openShiftsGridOptions.paginationPageSize"
+                      ng-model="openShiftsGridOptions.paginationCurrentPage"
+                      boundary-links="true"
+                      max-size="5"
+                      previous-text="&lsaquo;"
+                      next-text="&rsaquo;"
+                      first-text="&laquo;"
+                      last-text="&raquo;">
+          </pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

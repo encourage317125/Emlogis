@@ -1,0 +1,23 @@
+<div class="eml-tags"> <!-- EmLogis Tags global component -->
+  <!-- Tags list -->
+  <span class="eml-tag label label-default" 
+        ng-repeat="tag in tagslist"
+        ng-click="!readonly ? deletetag({tag: tag}) : null"
+        ng-class="{ 'deactive': !tag.active }"> <!-- TODO: all Skills.active are currently null  -->
+    {{ ::tag.name }} <i ng-if="!readonly" class="fa fa-times"></i>
+  </span> <!-- end of Tags list -->
+
+  <!-- Plus button -->
+  <div class="btn-group" dropdown is-open="isDropdownnOpen" ng-show="!noMoreTagsToAdd && !readonly">
+    <span class="eml-tag add-tag dropdown-toggle label label-default" dropdown-toggle>
+      <i class="fa fa-plus-circle"></i>
+    </span>
+    <ul class="dropdown-menu" role="menu">
+      <li ng-repeat="newTag in dropDownList">
+        <a href ng-click="addtag({newTag: newTag})">
+          {{ ::newTag.name }}
+        </a>
+      </li>
+    </ul>
+  </div> <!-- end of Plus button -->
+</div>

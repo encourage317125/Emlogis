@@ -1,0 +1,68 @@
+<!-- Login Section -->
+<div class="login-container" ng-controller="LoginController">
+  <img src="/scheduler-server/emlogis/img/login/login_shine.png" class="login-shine">
+  <div id="login-holder">
+
+    <img src="/scheduler-server/emlogis/img/login/login_logo.png">
+
+    <form ng-submit="login()" ng-show="showForm == forms[0]">
+      <div class="form-group" ng-show="showTenantIdInput">
+        <label>Organization</label>
+        <input type="text" class="form-control" ng-model="tenantId" placeholder="Organization">
+      </div>
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" class="form-control" ng-model="userName" placeholder="Username">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" class="form-control" ng-model="password" placeholder="Password">
+      </div>
+      <div class="button-section pull-right">
+        <span ng-click="showForm = forms[1]">Forgot password?</span>
+        <button type="submit" class="btn btn-success">Login</button>
+      </div>
+    </form>
+
+    <form ng-submit="requestPasswordReset()" ng-show="showForm == forms[1]">
+      <div class="form-group">
+        <label>Login</label>
+        <input type="text" class="form-control" ng-model="userName" placeholder="Email">
+      </div>
+      <div class="button-section pull-right">
+        <span ng-click="showForm = forms[0]">Cancel</span>
+        <button type="submit" class="btn btn-success">Send instructions</button>
+      </div>
+    </form>
+
+    <form ng-submit="changePassword()" ng-show="showForm == forms[2]">
+      <div class="form-group">
+        <label>Organization</label>
+        <input type="text" class="form-control" ng-model="tenantId" placeholder="Organization">
+      </div>
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" class="form-control" ng-model="userName" placeholder="Username">
+      </div>
+      <div class="form-group">
+        <label>Old Password</label>
+        <input type="password" class="form-control" ng-model="oldPassword" placeholder="Old Password">
+      </div>
+      <div class="form-group new-pwd">
+        <label>New Password</label>
+        <input type="password" class="form-control" ng-model="newPassword" placeholder="New Password">
+        <span class="glyphicon glyphicon-ok" aria-hidden="true" ng-show="newPassword"></span>
+      </div>
+      <div class="form-group repeat-pwd">
+        <label>Repeat Password</label>
+        <input type="password" class="form-control" ng-model="repeatPassword" placeholder="Repeat Password">
+        <span class="glyphicon glyphicon-ok" aria-hidden="true" ng-show="passwordsMatch()"></span>
+      </div>
+      <div class="button-section pull-right">
+        <span ng-click="showForm = forms[0]">Cancel</span>
+        <button type="submit" class="btn btn-success" ng-disabled="!passwordsMatch()">Change & Login</button>
+      </div>
+    </form>
+  </div>
+  <img src="/scheduler-server/emlogis/img/login/login_bgr.png" class="bottom-image">
+</div>

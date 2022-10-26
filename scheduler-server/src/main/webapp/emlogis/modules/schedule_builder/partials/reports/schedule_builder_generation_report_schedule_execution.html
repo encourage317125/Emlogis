@@ -1,0 +1,81 @@
+<div id="schedule-execution-report" class="child-tab">
+
+  <div class="divider"></div>
+  <tabset>
+    <tab ng-repeat="report in report.completionReport"
+         ng-init="constrName = 'constraints.' + toUpperCaseUnderscore(report.constraintName)"
+         select="selectSubTab(report.constraintName)">
+      <tab-heading>
+        {{constrName | translate}}
+        <div>(<span class='{{extScope.isHard(report.weightTotal, report.constraintName)}}'>
+                    <span ng-if="report.constraintName == 'requiredEmployeeSizePerShift'">{{Math.abs(report.weightTotal)}}</span>
+                    <span ng-if="report.constraintName != 'requiredEmployeeSizePerShift'">{{report.weightTotal}}</span>
+                </span>)
+        </div>
+      </tab-heading>
+    </tab>
+  </tabset>
+
+  <div id="{{report.constraintName}}" class="tab-content" ng-repeat="report in report.completionReport"
+       ng-if="selectedSubTab === report.constraintName">
+    <div class="control-panel" style=" padding-bottom: 10px;">
+      <div class="row">
+        <div class="col-xs-3">
+          <input ng-model="tempsearchtext" type="text" class="form-control"
+                 placeholder="Filter">
+        </div>
+        <div ng-if="report.constraintName == 'requiredEmployeeSizePerShift'" class="col-xs-offset-6 col-xs-3">
+          Showing {{gridApi.core.getVisibleRows(grid).length }} of {{openShiftsGridOptions.totalItems}}
+        </div>
+        <div ng-if="report.constraintName != 'requiredEmployeeSizePerShift'" class="col-xs-offset-6 col-xs-3">
+          Showing {{gridApi.core.getVisibleRows(grid).length }} of {{report.scheduleExecReport.length}}
+        </div>
+      </div>
+    </div>
+
+    <div ng-if="report.constraintName == 'requiredEmployeeSizePerShift'">
+      <div class="row top-margin-base">
+        <div class="col-sm-12">
+          <div class="list-view grid-panel eml-grid">
+            <div class="gridStyle data-grid" ui-grid="openShiftsGridOptions" ui-grid-pagination></div>
+          </div>
+          <div class="text-center">
+            <pagination class="pagination-sm"
+                        total-items="openShiftsGridOptions.totalItems"
+                        items-per-page="openShiftsGridOptions.paginationPageSize"
+                        ng-model="openShiftsGridOptions.paginationCurrentPage"
+                        boundary-links="true"
+                        max-size="5"
+                        previous-text="&lsaquo;"
+                        next-text="&rsaquo;"
+                        first-text="&laquo;"
+                        last-text="&raquo;">
+            </pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div ng-if="report.constraintName != 'requiredEmployeeSizePerShift'">
+      <div class="row top-margin-base">
+        <div class="col-sm-12">
+          <div class="list-view grid-panel eml-grid">
+            <div class="gridStyle data-grid" ui-grid="report.gridOptions" ui-grid-pagination></div>
+          </div>
+          <div class="text-center">
+            <pagination class="pagination-sm"
+                        total-items="report.gridOptions.totalItems"
+                        items-per-page="report.gridOptions.paginationPageSize"
+                        ng-model="report.gridOptions.paginationCurrentPage"
+                        boundary-links="true"
+                        max-size="5"
+                        previous-text="&lsaquo;"
+                        next-text="&rsaquo;"
+                        first-text="&laquo;"
+                        last-text="&raquo;">
+            </pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

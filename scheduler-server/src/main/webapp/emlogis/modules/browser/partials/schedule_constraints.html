@@ -1,0 +1,27 @@
+<div class="modal-header">
+    <h3>Edit Constraints</h3>
+</div>
+<div class="modal-body">
+    <div class="container-fluid">
+        <div class="row" data-ng-repeat="(rule, val) in rules">
+            <div>
+                <input type="checkbox" data-ng-model="rulesIsEnable[rule]" id="{{'rule'+rule}}"
+                       data-ng-change="disableEnableRule(rule)">
+                <label for="{{'rule'+rule}}">{{rule}}</label>
+                <a title="Reset" data-ng-click="resetRule(rule)">
+                    <span class="glyphicon glyphicon-pencil"/>
+                </a>
+            </div>
+            <div class="col-xs-11">
+                <input ng-model="rules[rule]" type="range" min="1" step="1" max="100"
+                       ng-disabled="rulesIsEnable[rule]==false">
+            </div>
+            <div class="col-xs-1">{{val}}</div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
+    <button class="btn btn-default" ng-click="resetAllRules()">Reset</button>
+    <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+</div>

@@ -1,0 +1,286 @@
+/*
+* Modal Paddings
+*/
+$modal-padding-left: 10px;
+$modal-padding-right: 10px;
+$modal-padding-top: 10px;
+$modal-padding-bottom: 10px;
+$modal-window-width: 900px;
+$schedule-list-height: 400px;
+
+$pattern-header-bg-color :#ccc;
+$normal-demand-circle-bg-color: #95A5A5;
+$extra-demand-circle-bg-color: #EDC30A;
+
+.disabled {
+  color: $btn-link-disabled-color;
+}
+
+a.disabled:link {
+  color: $btn-link-disabled-color;
+}
+
+/* visited link */
+a.disabled:visited {
+  color: $btn-link-disabled-color;
+}
+
+/* mouse over link */
+a.disabled:hover {
+  color: $btn-link-disabled-color;
+}
+
+/* selected link */
+a.disabled:active {
+  color: $btn-link-disabled-color;
+}
+
+//  Profile Breadcrumb
+.profile-breadcrumb {
+
+  .profile-detail-breadcrumb {
+
+  }
+
+}
+
+.profile {
+
+    $margin-right: 10px;
+    $margin-left: 10px;
+
+    // Profile Detail Page: Tab
+    .profile-detail {
+
+      padding-top: 10px;
+      padding-bottom: 50px;
+
+      display: flex;
+      flex-direction: row;
+
+      h4 {
+        font-size: 1.5em;
+      }
+
+//      Employee Profile Summary Top
+      .profile-top {
+        background-color: $eml-lightest-grey;
+
+        .employee-profile-flex {
+          display: flex;
+          flex-direction: row;
+        }
+
+        .eml-btn-white {
+          border-color: transparent;
+          text-shadow: none;
+
+          &:hover,
+          &:focus,
+          &:active {
+            border-color: transparent;
+            text-shadow: none;
+            background-color: #fff;
+          }
+        }
+      }
+
+//      Employee Profile Sidebar
+      .profile-sidebar {
+        width: 320px;
+        background-color: #d9d9d9;
+
+        h4 {
+          margin: 15px 0;
+        }
+
+        .panel {
+          text-transform: uppercase;
+          box-shadow: $eml-el-shadow;
+        }
+
+        .panel-body {
+          padding: 0 12px;
+          position: relative;
+
+          .btn {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+          }
+        }
+
+        .eml-strong,
+        .eml-strong td {
+          font-weight: 400;
+          color: $eml-black;
+        }
+
+        .table {
+          @include top-border-radius($border-radius-large);
+          thead {
+            th {
+              @include top-border-radius($border-radius-large);
+              border-bottom: 1px solid #c5c5c5;
+            }
+          }
+        }
+
+        .checkbox label,
+        tbody td {
+          color: $eml-dark-grey;
+          font-weight: 300;
+        }
+
+        .table,
+        .list-group-item {
+          background-color: $eml-lightest-grey;
+        }
+
+        .panel-heading,
+        thead {
+          background-color: #e9e9e9;
+        }
+
+        .panel-heading {
+          @include bottom-border-radius(0);
+          border-bottom: 1px solid #c5c5c5;
+          //box-shadow: $eml-el-shadow;
+        }
+
+        .panel-footer {
+          @include bottom-border-radius($border-radius-large);
+        }
+
+        .panel-heading,
+        .list-group-item,
+        .panel-footer,
+        .table-condensed > thead > tr > th,
+        .table-condensed > thead > tr > td,
+        .table-condensed > tbody > tr > th,
+        .table-condensed > tbody > tr > td,
+        .table-condensed > tfoot > tr > th,
+        .table-condensed > tfoot > tr > td {
+          padding: 5px 12px;
+        }
+      }
+
+//      Profile Settings Section
+      .profile-settings {
+        padding-top: 20px;
+
+        .panel-title {
+          margin-left: 7px;
+        }
+
+        .panel-body {
+          margin-top: 10px;
+
+          .row:nth-child(2) {
+            margin-top: 40px;
+          }
+
+          .btn-success {
+            margin: 20px 0;
+          }
+        }
+
+        table.hours {
+          width: 100%;
+          td.key {
+            width: 170px;
+          }
+        }
+      }
+    }
+
+  // Employee Preferences tab
+  .employee-preferences {
+    font-size: $font-size-h4;
+    margin-top: 15px;
+
+    .light-font {
+      font-weight: 300;
+    }
+
+    .panel-title {
+      font-weight: 500;
+      font-size: $font-size-h4;
+      margin: 0 0 13px;
+    }
+
+    .panel-heading {
+      padding: 0 15px;
+      label {
+        font-weight: 300;
+      }
+    }
+
+    .panel-body {
+      background-color: #fafafa;
+    }
+
+    .notification-checkbox {
+      display: inline-block;
+      min-width: 200px;
+      margin-right: 15px;
+
+      div:first-child {
+        margin-bottom: 7px;
+      }
+    }
+
+    .notificztion-button {
+      display: inline-block;
+      div:first-child {
+        margin-bottom: 7px;
+      }
+    }
+
+    input[type="checkbox"] {
+      margin-top: 5px;
+    }
+
+    .delivery-method {
+      .panel-heading {
+        padding: 5px 15px;
+        label {
+          font-weight: 300;
+        }
+      }
+      .panel-body {
+        padding: 10px 15px;
+      }
+      .checkbox {
+        margin: 3px 0;
+      }
+      .btn {
+        margin-right: 3px;
+      }
+      .eml-btn-white {
+        color: rgb(17, 138, 185);
+        text-shadow: none !important;
+      }
+    }
+
+    .submit-block {
+      margin-bottom: 5px;
+    }
+  }
+
+  // Change Password tab
+  .change-password-tab {
+    margin-top: 25px;
+    .pwd-inputs {
+      width: 500px;
+      margin: 0 auto;
+      .glyphicon-ok {
+        color: #16A085;
+        line-height: 25px;
+        font-size: 15px;
+        margin-left: -15px;
+      }
+    }
+  }
+
+}

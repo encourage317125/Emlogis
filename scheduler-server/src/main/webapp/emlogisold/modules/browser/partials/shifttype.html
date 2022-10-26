@@ -1,0 +1,47 @@
+<!-- controller set autmatically by state( 'browser') in browser.js  -->
+<div class="row-fluid">
+	<div class="col-sm-12 column">
+		<div class="panel panel-default">
+  			<div class="panel-heading">
+    			<h3 class="panel-title">Properties</h3>
+  			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-sm-4 column">
+                        <form name="form1" ng-submit="form1.$valid && saveOrCreate()" novalidate>
+							<div class="form-group">
+								 <label for="name">Name</label>
+                                <span class="label label-danger" ng-show="form1.name.$error.required">Required</span>
+								 <input class="form-control" id="name" name="name" ng-model="elt.name" />
+							</div>
+							<div class="form-group">
+								 <label for="description">Description</label>
+								 <input class="form-control" id="description" ng-model="elt.description" />
+							</div>
+							<div class="form-group">
+								 <label for="shiftLength">Shift Length</label>
+								 <input class="form-control" id="shiftLength" ng-model="elt.shiftLength" />
+							</div>
+							<div class="form-group">
+								 <label for="paidHours">Paid Hours</label>
+								 <input class="form-control" id="paidHours" ng-model="elt.paidHours" />
+							</div>
+							<br>
+							<br>
+							<button type="submit" class="btn btn-default">{{modeBtn}}</button>
+						</form>
+					</div>
+
+                    <div class="col-sm-4 column">
+                        <div ng-include="partials.addInfo"></div>
+                    </div>
+					<div class="col-sm-4 column">
+						 <button type="button" ui-sref="browser({entity: entity})" class="btn btn-default">&lt; All Shift Types</button>
+						 <br><br>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

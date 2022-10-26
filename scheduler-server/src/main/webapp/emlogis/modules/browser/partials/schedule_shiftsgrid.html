@@ -1,0 +1,190 @@
+<!--<div ng-controller="ShiftsCtlr">-->
+
+<div>
+    <div ng-show="scheduler.mode == 'timeline'" style="display: inline-block">
+        <label>Group by:</label>
+        <select ng-model="currentGroup" class="form-control" ng-options="l for l in groups"  ng-change="getElements()"
+                style="display: inline-block;width: inherit;">
+        </select>
+    </div>
+    <div>
+        <button data-ng-click="addFilter()">Add filter</button>
+    </div>
+    <div ng-repeat="evt in filters">
+        <select ng-model="evt.type" class="form-control" ng-options="l for l in groups"
+                style="display: inline-block;width: inherit;">
+        </select>
+        <input data-ng-model="evt.value">
+        <button data-ng-click="removeFilter(evt)">remove</button>
+    </div>
+    <div>
+        <button data-ng-click="go()">go</button>
+    </div>
+    <button type="button" class="btn {{selected}}" ng-click="switchOpen()" style="float:right">Manage Open Shifts</button>
+
+</div>
+
+<div id="scheduler_here" data="events" dhx-browser-scheduler style="height:500px; width:100%; min-width: 600px;
+            position: relative; overflow-x: auto">
+    <div class="dhx_cal_prev_button">&nbsp;</div>
+    <div class="dhx_cal_next_button">&nbsp;</div>
+    <div class="dhx_cal_today_button"></div>
+    <div class="dhx_cal_date"></div>
+    <div class="dhx_cal_tab" name="timeline_tab" ></div>
+    <div class="dhx_cal_tab" name="week_tab" ></div>
+
+    <!--<div dhx-template="event_bar_text">-->
+    <!--&lt;!&ndash;{{event.text}}&ndash;&gt;-->
+    <!--</div>-->
+
+</div>
+<!--</div>-->
+
+
+<div id="shift-edit-form" ng-controller="ShiftEditCtlr">
+    <div class="modal-header">
+        Manage Shift
+        <a style="float: right; color: #a5a5a5;" title="Close" data-ng-click="close()">
+            <span class="glyphicon glyphicon-remove"/>
+        </a>
+    </div>
+    <div class="modal-body">
+        <div>
+            <div class="text-def">{{startDate | date: 'EEE d/M/yy'}}</div>
+
+            <div class="scale-opt">
+                <a title="Zoom Out" data-ng-click="zoomOut()"><span class="glyphicon glyphicon-zoom-out" /></a>
+                <a title="Zoom In" data-ng-click="zoomIn()"><span class="glyphicon glyphicon-zoom-in" /></a>
+                <a title="Zoom Best" data-ng-click="zoomBest()"><span class="glyphicon glyphicon-screenshot" /></a>
+            </div>
+            <div class="timeline-container" style="position: relative">
+                <div class="timeline">
+                    <div shift-timeline firstpos="shiftModel.start" endpos="shiftModel.width" step="step" width=560
+                         class="{{openShift}}"
+                         ng-style="{left: shiftModel.start, width: shiftModel.width}">
+                        <div data-ng-show="shiftModel.width > 75" class="timeline-content">
+                            {{startDate | date: 'h:mma'}} - {{endDate | date: 'h:mma'}}</div>
+                        <div style="height: inherit;" data-ng-show="shiftModel.width <= 75"
+                             title="{{startDate | date: 'h:mma'}} - {{endDate | date: 'h:mma'}}"></div>
+                    </div>
+                    <div data-ng-show="hasNewShift()" class="pto" ng-style="{left: newShiftModel.start, width: newShiftModel.width}">
+                        <div data-ng-show="newShiftModel.width > 75" class="timeline-content">
+                            {{startPtoDate | date: 'h:mma'}} - {{endPtoDate | date: 'h:mma'}}</div>
+                        <div style="height: inherit;" data-ng-show="newShiftModel.width <= 75"
+                             title="{{startPtoDate | date: 'h:mma'}} - {{endPtoDate | date: 'h:mma'}}"></div>
+                    </div>
+                </div>
+                <table style="width: 560px">
+                    <tr>
+                        <th data-ng-repeat="hour in hours">{{hour | date: 'h:mma'}}</th>
+                    </tr>
+                    <tr>
+                        <td data-ng-repeat="hour in hours"></td>
+                    </tr>
+                </table>
+            </div>
+
+            <span class="hintItalic">Drag ends of shifts to edit shift length</span>
+
+            <hr>
+
+            <div class="row" data-ng-show="currentShift.employeeId">
+                <button class="btn btn-default btn-right" data-ng-click="dropShift()">Drop Shift</button>
+                <button class="btn btn-default btn-right" data-ng-click="test()">Swap Shift</button>
+                <span class="hint">Currently Scheduled</span><br>
+                <span class="employee-name">{{currentShift.employeeName}}</span>
+                <a>View Profile</a>
+                <div ng-show="hasNewShift()">
+                    <input id="checkbox1" type="checkbox" name="checkbox" data-ng-model="changeToPto">
+                    <label for="checkbox1"><span></span>
+                        <div class="text-def">Change {{startPtoDate | date: 'h:mma'}}
+                            - {{endPtoDate | date: 'h:mma'}} to PTO for {{currentShift.employeeName | limitTo: 12 }}
+                        </div>
+                    </label>
+                    <div class="emp-select">
+                        <div multi-select
+                             input-model="absenceTypes"
+                             output-model="selectAbsenceTypes"
+                             button-label="name"
+                             item-label="name"
+                             tick-property="ticked"
+                             max-labels = "1"
+                             selection-mode="single">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" data-ng-show="!currentShift.employeeId">
+                <div class="text-def">Fill {{startDate | date: 'h:mma'}}
+                    to {{endDate | date: 'h:mma'}} with
+                    <!--<select class="form-control emp-select" data-ng-model=""-->
+                    <!--data-ng-options="a.label for a in maxComputationTimes">-->
+                    <!--</select>-->
+                    <div class="emp-select">
+                        <div multi-select
+                             input-model="employees"
+                             output-model="selectEmployeeToAssign"
+                             button-label="name"
+                             item-label="name"
+                             tick-property="ticked"
+                             max-labels = "1"
+                             selection-mode="single">
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-default btn-right" data-ng-click="assignShift()">Assign Shift</button>
+            </div>
+
+            <hr>
+
+
+            <div ng-show="hasNewShift()">
+                <div>
+                    <input id="radio1" type="radio" ng-model="dropfill" value="drop">
+                    <label for="radio1"><span><span></span></span>
+                        <div class="text-def">Drop {{startPtoDate | date: 'h:mma'}}
+                            - {{endPtoDate | date: 'h:mma'}} and do not fill </div>
+                    </label>
+                </div>
+                <div>
+                    <input id="radio2" type="radio" ng-model="dropfill" value="fill">
+                    <label for="radio2"><span><span></span></span>
+                        <div class="text-def">Fill {{startPtoDate | date: 'h:mma'}}
+                        to {{endPtoDate | date: 'h:mma'}} with
+                        <!--<select class="form-control emp-select" data-ng-model=""-->
+                                <!--data-ng-options="a.label for a in maxComputationTimes">-->
+                        <!--</select>-->
+                        </div>
+                    </label>
+                    <div class="emp-select">
+                        <div multi-select
+                             input-model="employees"
+                             output-model="selectEmployee"
+                             button-label="name"
+                             item-label="name"
+                             tick-property="ticked"
+                             max-labels = "1"
+                             selection-mode="single">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <button class="btn btn-default btn-right" data-ng-click="saveAndApply()">Save & Apply</button>
+                <button class="btn btn-default btn-right" data-ng-click="deleteShift()">Delete</button>
+            </div>
+
+            <div>
+                <div class="text-def">Add comment</div>
+                <textarea class="form-control" placeholder="Enter comment here..."></textarea>
+            </div>
+        </div>
+    </div>
+
+
+    <!--<input type="button" name="save" value="Save" id="save" style="width:100px;" data-ng-click="save_form()">-->
+    <!--<input type="button" name="close" value="Close" id="close" style="width:100px;" data-ng-click="close_form()">-->
+    <!--<input type="button" name="delete" value="Delete" id="delete" style="width:100px;" data-ng-click="delete_event()">-->
+</div>

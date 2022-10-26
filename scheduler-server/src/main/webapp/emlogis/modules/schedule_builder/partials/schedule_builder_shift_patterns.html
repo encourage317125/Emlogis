@@ -1,0 +1,321 @@
+<!--Schedule Builder Shift Pattern page Start -->
+<div class="schedule-builder-shift-patterns" ng-init="init()">
+
+  <!-- Custom Filters -->
+  <div class="actions container-fluid">
+
+    <div class="btn-group" dropdown is-open="status.isopen" style="float: left;">
+      <a href class="dropdown-toggle" dropdown-toggle>
+          <div class="glyphicon glyphicon-tasks filter-ico"></div>
+      </a>
+      <div class="dropdown-menu tree-panel" role="menu" ng-show = "shiftPatternsTree.length > 0" >
+        <div ng-repeat="site in shiftPatternsTree" class="site" >
+          <span>{{site.name}}</span>
+          <div ng-repeat="team in site.teams" class="team" >
+            <span>{{team.name}}</span>
+            <div ng-repeat="skill in team.skills" class="skill" ng-if="skill.generalPatterns.length > 0 || skill.specificPatterns.length > 0">
+
+              <div class="pull-left">
+                  <a href ng-click="updateShiftPatternFilters(site,team,skill)" ng-if="skill.generalPatterns.length + skill.specificPatterns.length > 0">
+                      {{skill.name}}
+                  </a>
+                  <!--<span ng-if="skill.generalPatterns.length <= 0" translate>app.NONE</span>-->
+              </div>
+
+              <div class="pull-right">
+                  <a href ng-click="updateShiftPatternFilters(site,team,skill)" ng-if="skill.generalPatterns.length + skill.specificPatterns.length > 0">
+                      {{skill.generalPatterns.length + skill.specificPatterns.length}} {{'schedule_builder.PATTERNS' | translate}}
+                  </a>
+                  <span ng-if="skill.generalPatterns.length + skill.specificPatterns.length <= 0" translate>app.NONE</span>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sites Filter -->
+    <div class="sites">
+        <div isteven-multi-select
+             input-model="sites"
+             output-model="selectedSites"
+             button-label="name"
+             item-label="name"
+             tick-property="ticked"
+             max-labels = "1"
+             selection-mode="single"
+             on-item-click="loadTeams(data,null)"
+             on-reset = "resetSitesFilter()"
+             max-height="200px"
+                >
+        </div>
+    </div>
+
+    <!-- Teams Filter -->
+    <div class="teams">
+        <div isteven-multi-select
+             output-model="selectedTeams"
+             input-model="teams"
+             button-label="name"
+             item-label="name"
+             tick-property="ticked"
+             max-labels = "1"
+             selection-mode="single"
+             on-item-click="loadSkills(data,null)"
+             on-reset = "resetTeamsFilter()"
+             max-height="200px"
+                >
+        </div>
+    </div>
+
+    <!-- Skills Filter -->
+    <div class="skills">
+        <div isteven-multi-select
+             input-model="skills"
+             output-model="selectedSkills"
+             button-label="name"
+             item-label="name"
+             tick-property="ticked"
+             max-labels = "1"
+             selection-mode="single"
+             on-item-click="assignShiftPatterns(data)"
+             on-reset = "resetSkillsFilter()"
+             max-height="200px"
+                >
+        </div>
+    </div>
+
+    <button type="button" class="btn btn-default save pull-right" ng-disabled="!site || !team || !skill || !patternCalendar.currentShiftPattern.id" ng-click = "saveAs()">
+        {{'app.SAVE_AS' | translate}}
+    </button>
+
+    <button type="button" class="btn btn-success generate pull-right" ng-disabled="!site || !team || !skill || !patternCalendar.currentShiftPattern.name" ng-click = "save()" >
+        {{'app.SAVE' | translate}}
+    </button>
+
+    <button type="button" class="btn btn-default generate pull-right" ng-disabled="!patternCalendar.currentShiftPattern.hasOwnProperty('name')" ng-click = "delete()" ng-disabled="!patternCalendar.currentShiftPattern" >
+        {{'app.DELETE' | translate}}
+    </button>
+    <br/>
+
+  </div>
+  <div class="divider"></div>
+
+  <div class="container-fluid" style="padding-top: 10px; padding-bottom: 10px;">
+      <span ng-show = "shiftPatterns.length > 0"> Saved Shift Patterns - select saved shift pattern to edit, </span>
+      <span ng-show = "shiftPatterns.length == 0"> Saved Shift Patterns - No saved shift patterns.select, </span>
+      select to add new or <a href ng-click="duplicateShiftPattern()">Duplicate</a> a different job for Role/Skill.
+  </div>
+
+  <div class="container-fluid">
+      <!--
+          Calls shiftPatternList directive
+           pass patternCalendar.currentShiftPattern and PatternDay for page update
+      -->
+      <div class="shift-pattern-list" save="save()" site="site" team="team" skill="skill"></div>
+  </div>
+
+  <!-- Shift Pattern Info-->
+  <div class="shift-pattern-info container-fluid">
+
+
+      <span class="label"> {{'schedule_builder.SHIFT_PATTERN' | translate}} {{'app.NAME' | translate}}: {{patternCalendar.currentShiftPatternDay.display | translate}}</span>
+      <input type="text" class="form-control name" ng-model="patternCalendar.currentShiftPattern.name" placeholder="{{'schedule_builder.ENTER_SHIFT_PATTERN_NAME' | translate}}..." ng-minlength=1 ng-change="updateEditing()">
+      <span class="label" style="margin-left: 10px" ng-show="patternCalendar.option.editing"> {{'schedule_builder.EDITING' | translate}} </span>
+      <button type="button" class="btn btn-default default-name" ng-disabled="!site || !team || !skill" ng-click="genDefaultName()" >
+        {{'schedule_builder.DEFAULT_NAME' | translate}}
+      </button>
+      <button type="button" class="btn btn-default duplicate pull-right" ng-click="duplicateShiftPattern()" ng-disabled="!patternCalendar.currentShiftPattern.id">
+        {{'schedule_builder.DUPLICATE' | translate}}
+      </button>
+
+      <div class="info pull-right">
+          <span > {{'schedule_builder.BASE' | translate}}: {{patternCalendar.currentShiftPattern.base | number:2}}</span>
+          <span> {{'schedule_builder.NET' | translate}}: {{(patternCalendar.currentShiftPattern.base + patternCalendar.currentShiftPattern.excess) | number:2 }} </span>
+          <span> {{'schedule_builder.EXCESS' | translate}}: {{patternCalendar.currentShiftPattern.excess}}</span>
+      </div>
+
+      <div style = "clear:both"></div>
+
+      <!-- Shift Pattern For Date-->
+      <div class="date-type">
+          <span class="label pull-left"> {{'schedule_builder.SHIFT_PATTERN_FOR' | translate}}:</span>
+          <div class="options pull-left">
+              <input type="radio" class="pull-left" id="general" ng-model="patternCalendar.option.dayType" value="GENERAL" checked>
+              <label for="general" class="pull-left" translate> schedule_builder.GENERAL_DAY_OF_THE_WEEK </label>
+              <input type="radio" class="pull-left" id="specific" ng-model="patternCalendar.option.dayType" value="SPECIFIC" >
+              <label for="specific" class="pull-left" translate> schedule_builder.SPECIFIC_DATE </label>
+          </div>
+
+          <div class="input-group specific-date pull-left">
+            <input type="text" class="form-control" datepicker-popup="shortDate" min-date="minCalendarDate" ng-model="patternCalendar.option.cdDate" is-open="cdDateOpened" ng-required="true" ng-change="updateEditing()" close-text="Close" ng-disabled="patternCalendar.option.dayType=='GENERAL'" />
+            <span class="input-group-btn ">
+              <button type="button" class="btn btn-calendar" ng-click="showDate($event)" ng-disabled="patternCalendar.option.dayType=='GENERAL'">
+                <img src="/scheduler-server/emlogis/img/calendar.svg">
+              </button>
+            </span>
+          </div>
+      </div>
+  </div>
+
+  <!-- Shift Pattern Area-->
+  <div class="shift-pattern-area container-fluid">
+    <!-- Shift Settings Area-->
+    <div class="shift-settings">
+      <div class="pull-left left">
+          <span class="label" translate>schedule_builder.SHIFT_SETTINGS</span>
+      </div>
+
+      <div class="pull-left generation-type">
+        <div translate> schedule_builder.SELECT_SHIFT_GENERATION_TYPE </div>
+        <div class="divider"></div>
+        <div style="height: 10px;"></div>
+        <div class="options">
+          <input ng-click="setDemandPatternGenerated(false); refreshWholeGraphs()" type="radio" name="patternType" ng-model="patternCalendar.option.patternType" value="Demand" id="Demand" > <label for="Demand" translate> schedule_builder.AUTOMATICALLY_DEMAND-BASED </label>
+        </div>
+        <div class="options">
+          <input ng-click="refreshWholeGraphs()" type="radio" name="patternType" ng-model="patternCalendar.option.patternType" value="Set" id="Set" checked > <label for="Set" translate> schedule_builder.CREATE_MANUALLY </label>
+        </div>
+
+      </div>
+
+      <!-- Select Shifts : For Manual Shifts-->
+      <div class="pull-left select-shifts" ng-if=" patternCalendar.option.patternType=='Set' ">
+        <table class="shifts" id="pattern-shift-reqs">
+
+          <tr class="shift" ng-repeat="shift in patternCalendar.currentShiftPattern.shifts track by $index">
+            <td> {{'schedule_builder.SHIFT_LENGTH' | translate}}: {{key}}</td>
+            <td>
+              <!-- Shift Length Name Filter -->
+              <select  ng-model="patternCalendar.currentShiftPattern.shiftLengths[$index]" ng-options="shiftLength.name for shiftLength in site.manualShiftLengths" ng-change="updatePatternGraph($index)">
+                <option value="">{{'app.SELECT' | translate}}</option>
+              </select>
+            </td>
+            <td> {{'app.NAME' | translate}}: {{key}} </td>
+            <td>
+              <!-- Shift Type Name Filter -->
+              <select  ng-model="patternCalendar.currentShiftPattern.shiftIds[$index]"
+                       ng-options="shiftType.id as shiftType.name for shiftType in site.shiftTypes | filter:{'shiftLengthId': patternCalendar.currentShiftPattern.shiftLengths[$index].id}:strict  | orderBy:['shiftLengthLength','startTime'] " ng-change="updateShiftFromId($index);updatePatternGraph($index)">
+                  <option value="">{{'app.SELECT' | translate}}</option>
+              </select>
+            </td>
+            <td> {{'schedule_builder.START' | translate}}:  </td>
+            <td class="hour"> {{shift.startHourStr}}  </td>
+            <td> {{'schedule_builder.END' | translate}}:  </td>
+            <td class="hour"> {{shift.endHourStr}} </td>
+            <td> {{'schedule_builder.LENGTH' | translate}}:  </td>
+            <td class="hour" >
+              {{ (shift.shiftLengthLength / 60 | number:2) || ''}}
+              <span ng-if="shift.shiftLengthLength /60 <= 1">{{'schedule_builder.HOUR' | translate}}</span>
+              <span ng-if="shift.shiftLengthLength / 60 > 1">{{'schedule_builder.HOURS' | translate}}</span>
+              <span ng-if="!shift.shiftLengthLength"></span>
+            </td>
+            <td> {{'schedule_builder.REQUIRED' | translate}}:  </td>
+            <td> <input class="form-control required" ng-model="patternCalendar.currentShiftPattern.hours[$index].required" ng-keyup="filterZero($event)" ng-change="updatePatternGraph($index)" min="0"> </td>
+            <td> {{'schedule_builder.EXCESS' | translate}}:  </td>
+            <td> <input class="form-control excess" ng-model="patternCalendar.currentShiftPattern.hours[$index].excess" ng-keyup="filterZero($event)" ng-change="updatePatternGraph($index)" min="0"> </td>
+            <td class="text-right">
+                <a href="" ng-click="removeShift($index)"> <span class="glyphicon glyphicon-trash"></span></a>
+            </td>
+          </tr>
+        </table>
+
+        <div>
+            <a href="" ng-class="{ disabled: !patternCalendar.currentShiftPattern.hasOwnProperty('name') }" ng-click="!patternCalendar.currentShiftPattern.hasOwnProperty('name') || addShift()" translate>schedule_builder.ADD_A_SHIFT</a>
+        </div>
+      </div>
+
+      <!-- Select Shifts : For Automatic Shifts-->
+      <div class="pull-left select-shifts" ng-if=" patternCalendar.option.patternType=='Demand' ">
+        <table class="shift-lengths" >
+          <tr class="first">
+            <td > {{'schedule_builder.SELECT_SHIFTS_LENGTHS' | translate}} </td>
+            <td class="text-right">
+              <a href="" ng-click="checkAllDemandShiftLengths()" translate>app.ALL</a> |
+              <a href="" ng-click="uncheckAllDemandShiftLengths()" translate>app.NONE</a>
+            </td>
+          </tr>
+          <tr class="lengths">
+            <td colspan="2" style="width: 100%;">
+              <div ng-repeat="ele in patternCalendar.demandShiftLengths" class="col-md-2 col-lg-2 col-sm-4">
+                <label style="font-weight: normal;"><input type="checkbox" ng-model="ele.checked" ng-click="updateDemandShiftLengths(true)"/>{{ele.name}}</label>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div style="clear:both"></div>
+
+    <!-- Shift Demand Dto, Dots Area-->
+    <div class="demand" ng-show=" patternCalendar.option.patternType=='Demand' ">
+      <div class="pull-left left">
+        <span class="label" translate>schedule_builder.DEMAND</span> <br/>
+        <label>
+            {{'schedule_builder.MAX' | translate}}
+        </label>
+        <select ng-model="patternCalendar.option.demandCount" ng-options="demandCount.row as demandCount.row for demandCount in patternCalendar.currentShiftPattern.demands" >
+        </select>
+
+      </div>
+
+      <div class="pull-left graph">
+        <label class="pull-left" translate>schedule_builder.ENTER_DEMAND_NUMBERS_AND_OR_CLICK_TO_ADD_DEMAND_DOTS</label>
+
+        <!-- Demand Item Dots -->
+        <div class="shift-demands-graph unselectable" ng-mouseleave="setDemandMouseDown(false, null, null)" >
+          <table class="table-bordered" >
+            <thead>
+              <tr class="demand-header" >
+                <td ng-repeat="ele in patternCalendar.currentShiftPattern.demandHeaderItems" ng-show = "inOptimumCols($index)" class="text-center" >
+                  <input type="text" class="demand-time-frame-count" ng-model="ele.value" ng-change="updateDemandHeaderItems(ele, $index)" >
+                </td>
+              <tr>
+                <th ng-repeat="gridTime in ::graph.gridTimes" ng-bind="::gridTime.label" colspan="{{::gridTime.colspan}}" ng-show = "inOptimumCols($index, true)"></th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr ng-repeat="demand in patternCalendar.currentShiftPattern.demands track by $index" class="demand-items" >
+                  <td ng-repeat="demandEle in demand.data track by $index" ng-mouseenter="updateDemandCircles(demand, $index)"
+                      ng-if = "inOptimumCols($index)" class="demand-item" ng-mousedown="setDemandMouseDown(true, demand, $index)" ng-mouseup="setDemandMouseDown(false, demand, $index)">
+                    <label class="circle" ng-if="demandEle==1"></label>
+                    <label class="circle extra" ng-if="demandEle==2" ></label>
+                  </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Shift Patterns Area which is rendered from shifts-->
+    <div class="shift-pattern">
+      <div class="pull-left left">
+          <span class="label" translate>schedule_builder.SHIFT_PATTERNS</span>
+      </div>
+
+      <div class="pull-left graph" ng-show="patternCalendar.option.patternType=='Set' ">
+          <!-- Calls shiftPattern Graph directive -->
+          <div class="shift-pattern-graph" select-shift-in-graph="selectShiftInGraph(shift)"></div>
+      </div>
+
+
+      <div class="pull-left graph" ng-show=" patternCalendar.option.patternType=='Demand' " style="text-align: center;">
+          <!-- Calls Demand shiftPattern Graph directive -->
+        <div class="shift-pattern-graph" ng-show = "patternCalendar.option.demandPatternGenerated==true"  select-shift-in-graph="selectShiftInGraph(shift)"></div>
+        <button class="btn btn-default" ng-show = "patternCalendar.option.demandPatternGenerated==false" ng-disabled="!patternCalendar.currentShiftPattern.id" ng-click = "generateShiftReqs()" translate>
+          schedule_builder.GENERATE_SHIFT_PATTERNS
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+<!--Schedule Builder Shift Pattern page End -->

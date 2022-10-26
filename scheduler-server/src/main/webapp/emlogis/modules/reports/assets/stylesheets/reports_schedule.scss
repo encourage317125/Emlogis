@@ -1,0 +1,252 @@
+$window-padding-left: 25px;
+$window-padding-right: 25px;
+$window-padding-bottom: 25px;
+//$window-width: 960px;
+
+.reports-schedule-details {
+
+  padding-left: $window-padding-left;
+  padding-bottom: $window-padding-bottom;
+  padding-right: $window-padding-right;
+
+  // Diaglog box window position
+  //    .modal-dialog {
+  //        margin-top: 100px;
+  //    }
+
+  .nav-tabs {
+    margin: 0px -25px;
+  }
+
+  .tab-content {
+    padding-top: 15px;
+  }
+
+  button.pull-right {
+    margin-left: 5px;
+    margin-bottom: 5px;
+  }
+
+  .child-tab {
+    padding-left: $window-padding-left;
+    padding-bottom: $window-padding-bottom;
+    padding-right: $window-padding-right;
+  }
+
+  .overflow-table {
+    overflow-x: auto;
+  }
+
+  .gridCell {
+    padding: 5px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .hardCell {
+    color: rgb(255, 0, 0);
+  }
+
+  .softCell {
+    color: rgb(0, 0, 0);
+  }
+
+  .gridStyle {
+    height: 500px;
+  }
+
+  .ui-grid-header-cell .ui-grid-cell-contents {
+    white-space: normal;
+  }
+
+  .ui-grid-icon-my {
+    //        position: absolute;
+    //        right: 0;
+  }
+
+  .ui-grid-column-menu-button {
+    top: inherit;
+    bottom: 5px;
+  }
+
+  .last-generation {
+    .left-col-table {
+      vertical-align: top;
+      padding-right: 10px;
+    }
+  }
+}
+//
+//.actuateParameterContainer {
+//
+//  table tr td {
+//    float: left;
+//  }
+//  table tr td {
+//    clear: both;
+//  }
+//
+//  .paramRow {
+//    display: inline-block !important;
+//    width: inherit !important;
+//    padding-right: 5px;
+//  }
+//  .paramDisplayName {
+//    width: inherit !important;
+//    padding-left: 6px;
+//  }
+//
+//  .groupDisplayName {
+//    display: none;
+//  }
+//  input, select {
+//    @extend .form-control;
+//    min-width: 130px;
+//  }
+//  .paramDisplayName {
+//    @extend label;
+//  }
+//
+//  .paramTable {
+//    @extend .form-group;
+//  }
+//
+//  td.paramCommon td {
+//    float: none !important;
+//  }
+//}
+
+
+
+#viewer {
+  margin: 15px;
+  border-radius: 5px;
+  background: white;
+
+  table.viewer_style_1 {
+    width: 100%;
+  }
+}
+
+#viewer *, .actuate-window * {
+  -webkit-box-sizing: content-box !important;
+  -moz-box-sizing: content-box !important;
+  box-sizing: content-box !important;
+}
+
+#NavigationBar * {
+  -webkit-box-sizing: border-box !important;
+  -moz-box-sizing: border-box !important;
+  box-sizing: border-box !important;
+}
+
+
+//#run {
+//  vertical-align: top;
+//  margin-top: 20px;
+//}
+
+.hidden-opt {
+  display: none !important;
+  //  visibility: hidden;
+}
+
+.visible-opt {
+  display: block !important;
+}
+
+.reports {
+  .btn-columns {
+    //-webkit-column-count: 4;
+    //-moz-column-count: 4;
+    //column-count: 4;
+    //
+    //-webkit-column-rule: 1px outset rgba(0, 0, 0, 0.15);
+    //-moz-column-rule: 1px outset rgba(0, 0, 0, 0.15);
+    //column-rule: 1px outset rgba(0, 0, 0, 0.15);
+    //
+    //-webkit-column-gap: 0px;
+    //-moz-column-gap: 0px;
+    //column-gap: 0px;
+
+    .report-item {
+      background-color: rgba(0, 0, 0, 0) !important;
+      border-color: rgba(0, 0, 0, 0) !important;
+      color: #007fb5 !important;
+      box-shadow: 0 2px 2px rgba(0, 0, 0, 0) !important;
+      text-shadow: none;
+      text-transform: none;
+      font-weight: 400;
+      border-radius: 0px;
+      text-align: left;
+      padding: 0px 15px;
+      font-size: medium;
+      margin: 0px;
+      border: 0px;
+      border-right: 1px solid rgba(0, 0, 0, 0.15) !important;
+    }
+
+    .report-item:hover, .report-item.active {
+      background-color: #A0A3A8 !important;
+      box-shadow: 0 2px 2px rgba(0, 0, 0, 0);
+      border-color: #A0A3A8 !important;
+      color: #fff !important;
+    }
+  }
+
+  .parameters-container {
+
+    .parameter-date {
+      min-width: 170px;
+    }
+
+    .parameter {
+      width: inherit;
+    }
+
+    .param-label {
+      display: block;
+      padding-right: 20px;
+    }
+
+    ul[datepicker-popup-wrap] {
+      right: inherit !important;
+      z-index: 999;
+    }
+
+    .btn.eml-calendar-btn.eml-calendar-opened {
+      z-index: 999;
+    }
+
+    .multiSelect > button {
+      min-height: 30px !important;
+      width: 100%;
+    }
+
+    // override dropdown component
+    .eml-dropdown {
+      width: 100%;
+
+      .dropdown-toggle {
+        width: auto;
+        flex: 0 0 auto
+      }
+
+      .dropdown-current {
+        width: 100%;
+        text-align: left;
+      }
+
+      .btn-group {
+        display: flex;
+      }
+
+      .text-block-left, .text-block-top {
+        display: none;
+      }
+    }
+  }
+
+}
+

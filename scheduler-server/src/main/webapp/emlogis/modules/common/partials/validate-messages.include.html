@@ -1,0 +1,45 @@
+<div class="emlogis-validate-icon">
+  
+  <i class="fa fa-asterisk"></i>
+  <i class="fa fa-check-circle"></i>
+
+  <div ng-messages="messagesFor.$error"
+       ng-show="messagesFor.$error && messagesFor.$touched && !messagesFor.$pristine ||
+       submitted && messagesFor.$error">
+
+    <div ng-message="required">
+      <i class="fa fa-times-circle"></i>
+      <span class="validate-message">Please fill this field</span>
+    </div>
+
+    <div ng-message="minlength">
+      <i class="fa fa-times-circle"></i>
+      <span class="validate-message">It still seems to be a bit too short</span>
+    </div>
+    <div ng-message="maxlength">
+      <i class="fa fa-times-circle"></i>
+      <span class="validate-message">Now that is way too much!</span>
+    </div>
+    <div ng-message="date">
+      <i class="fa fa-times-circle"></i>
+      <span class="validate-message">Should be a date</span>
+    </div>
+    <div ng-message="pattern">
+      <i class="fa fa-times-circle"></i>
+      <span class="validate-message">{{patternErrorMessage}}</span>
+    </div>
+    <div ng-message="number">
+      <i class="fa fa-times-circle"></i>
+      <span class="validate-message">Should be a number</span>
+    </div>
+    <div ng-message="max">
+      <i class="fa fa-times-circle"></i>
+      <span class="validate-message">The number is greater than expected</span>
+    </div>
+    <div ng-message="min">
+      <i class="fa fa-times-circle"></i>
+      <span class="validate-message">The number is less than expected</span>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,69 @@
+<!--Home Dashboard page Start -->
+<div class="home-dashboard" ng-if="hasPermissionIn(['Employee_View','Schedule_View'])">
+  <div class="row-fluid">
+    <div class="col-xs-12 col-md-12">
+      <!--<tabset>-->
+      <!--<tab ng-repeat="tab in tabs"  >-->
+      <!--<tab-heading ng-if="tab.visible" select="selectSubTab(tab)">-->
+      <!--{{tab.title | translate}}-->
+      <!--</tab-heading>-->
+      <!--</tab>-->
+      <!--</tabset>-->
+      <div class="eml-top-tabs">
+        <ul class="nav nav-tabs">
+          <li role="presentation"
+              ng-repeat="tab in tabs"
+              ng-if="tab.visible"
+              ui-sref-active="active">
+            <a ui-sref="{{ tab.route }}">{{ tab.heading | translate }}
+              <span class="badge" ng-if="tab.heading=='home.MANAGER_APPROVALS' && badgeMsg.pendingManagerRequests > 0 ">
+                {{badgeMsg.pendingManagerRequests}}</span>
+              <span class="badge"
+                    ng-if="tab.heading=='home.TEAM_MEMBER_REQUESTS' && badgeMsg.pendingTeamRequests > 0 ">
+                {{badgeMsg.pendingTeamRequests}}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="dashboard-calendar" ng-if="selectedTab === tabs[0] && selectedTab.visible">
+        <dashboard-calendar get-account-info="getAccountInfo()"
+                            get-shifts="getAccountAvailabilityAndShifts(startDate, endDate)"
+                            manager-view="false"
+                            get-eligible-entities="getEligibleEntities(tabType, shiftId)"
+                            get-open-shifts="getAccountOpenShifts(startDate, endDate)"
+                            |
+                            submit-selected-eligible-entities="processSubmittedEligibleEntities(tabType, originatorShift, selectedEligibleEntities)"
+                            submit-selected-open-shifts="processSubmittedOpenShifts(tickInfo, selectedOpenShifts)"
+                            submit-pto-request="processSubmittedPtoRequest(requestData)">
+        </dashboard-calendar>
+      </div>
+      <div class="dashboard-approvals"
+           ng-if="selectedTab === tabs[1] && hasPermissionIn(['Availability_RequestMgmt', 'ShiftSwap_RequestMgmt', 'WIP_RequestMgmt'])">
+        <div ng-include="'modules/dashboard/partials/dashboard_approvals.html'"
+             ng-controller="DashboardApprovalsCtrl">
+        </div>
+      </div>
+
+      <div class="dashboard-my-requests" ng-if="selectedTab === tabs[2]">
+        <div ng-include="'modules/dashboard/partials/dashboard_team_requests.html'"
+             ng-controller="DashboardTeamRequestsCtrl">
+        </div>
+      </div>
+      <div class="dashboard-my-requests" ng-if="selectedTab === tabs[3] ">
+        <div ng-include="'modules/dashboard/partials/dashboard_my_requests.html'"
+             ng-controller="DashboardMyRequestsCtrl">
+        </div>
+      </div>
+      <div class="dashboard-availability" ng-if="selectedTab === tabs[4] ">
+        <availability-calendar calendar-mode="employee"
+                               employee-id="currentAccountInfo.employeeId"
+                               site-time-zone="currentAccountInfo.timezone"
+                               first-day-of-week="currentAccountInfo.siteFirstDayOfweek">
+        </availability-calendar>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!--Home Dashboard page End -->

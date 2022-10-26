@@ -1,0 +1,15 @@
+<div class="eml-objects"> <!-- EmLogis Tags global component -->
+  <!-- Objects list -->
+  <span class="eml-object label label-default" 
+        ng-repeat="object in list | orderBy : 'name' "
+        ng-class="{ 'deactive': !object.active }"> <!-- TODO: all Skills.active are currently null  -->
+    <a href ng-click="view({object: object})" >{{ ::object.name }}</a>
+    <i class="fa fa-times" ng-if="!readonly" ng-click="!readonly ? delete({object: object}) : null"></i>
+  </span> <!-- end of Object list -->
+
+  <!-- Plus button -->
+  <span class="eml-object add-tag label label-default" ng-if="!readonly" ng-click="show()">
+      <i class="fa fa-plus-circle"></i>
+    </span>
+  <!-- end of Plus button -->
+</div>

@@ -1,0 +1,369 @@
+<div class="dashboard-calendar">
+  <span class="input-group eml-datepicker-right dashboard-mini-calendar">
+    <input type="text" class="form-control" datepicker-popup="dd-MMMM-yyyy" ng-model="selectedDate" is-open="datePickerOpened" datepicker-options="datePickerOptions" close-text="Close" style="display: none;"/>
+    <span class="input-group-btn">
+      <button type="button"
+              class="btn eml-btn-grey-lightest eml-calendar-btn"
+              ng-class="{ 'eml-calendar-opened' : datePickerOpened }"
+              ng-click="openDatePicker($event)">
+        <span class="fa fa-calendar"></span>
+      </button>
+    </span>
+  </span>
+  <span class="link-sync-calendar">
+    <a href ng-click="openSyncCalendarPopup()" tooltip="{{syncCalendarToolTip}}" tooltip-placement="right">{{'home.SYNC_CALENDAR' | translate}}</a>
+  </span>
+  <div class="dashboard-calendar-info" ng-style="managerView && {'right': '85px'}">
+    <div loader ng-if="!shiftsLoaded" class="calendar-shifts-loader pull-left"></div>
+    <div class="dashboard-calendar-timezone pull-right">
+      <span>{{'app.TIME_ZONE' | translate}}: </span>
+      <span>{{accountInfo.timezone}}</span>
+    </div>
+  </div>
+  <div class="dashboard-calendar-buttons">
+    <button class="btn btn-default btn-request-time-off" ng-click="requestTimeOff()" ng-if="!managerView" translate>home.REQUEST_TIME_OFF</button>
+    <!--<button class="btn btn-default" translate>app.PRINT</button>-->
+  </div>
+  <div ui-calendar="calendarConfig.calendar" class="calendar" ng-model="shiftsSource" calendar="dashboardCalendar"></div>
+</div>
+<script type="text/ng-template" id="manageShiftPopupModal.html">
+  <div class="modal-header">
+    <h5 class="modal-title">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="pull-left">{{'home.CREATE_REQUEST' | translate}}</div>
+        </div>
+        <div class="col-md-6">
+          <div class="pull-right">
+            <a href ng-click="close()">&times;</a>
+          </div>
+        </div>
+      </div>
+    </h5>
+  </div>
+  <div class="modal-body">
+    <div class="shift-info text-center">
+      <div class="shift-time">
+        <span>{{'home.YOUR_SHIFT' | translate}}: </span>
+        <span class="shift-time-colored">
+          {{originatorShiftDate}} {{originatorShiftStartEndTime}}
+        </span>
+      </div>
+      <div class="shift-info-inner">
+        <span>{{'home.TEAM' | translate}}: </span>
+        <span class="shift-info-inner-value">{{originatorShift.team}} </span>
+        <span>{{'home.SKILL' | translate}}: </span>
+        <span class="shift-info-inner-value">{{originatorShift.skill}} </span>
+        <span>{{'home.LENGTH' | translate}}: </span>
+        <span class="shift-info-inner-value">{{originatorShiftDuration}}</span>
+      </div>
+    </div>
+    <div class="row" ng-if="selectedTab === null">
+      <div class="col-md-6">
+        <button class="form-control btn btn-default" ng-click="toggleRequestButton('swap')" translate>home.SHIFT_SWAP_REQUEST</button>
+      </div>
+      <div class="col-md-6">
+        <button class="form-control btn btn-default" ng-click="toggleRequestButton('wip')" translate>home.WORK_IN_PLACE_REQUEST</button>
+      </div>
+    </div>
+    <tabset class="tab-request" ng-if="selectedTab !== null">
+      <tab ng-repeat="tab in tabs" heading="{{tab.heading | translate}}" select="selectSubTab(tab)" active="tab.selected"></tab>
+    </tabset>
+    <div class="shift-swap-request-content" ng-if="tabs[0].selected">
+      <div class="filter-panel row">
+        <div edit-well
+             name="home.FILTERS"
+             is-collapsable="true"
+             is-collapsed="true">
+          <div transclude-to="well-body">
+            <div class="row">
+              <div class="col-md-4">
+                <p class="input-group">
+                  <input type="text" class="form-control" placeholder="Enter Name..."
+                         ng-model="filterConf.swap.teamMemberName" ng-change="onSwapFilterChange()"/>
+                  <span class="input-group-btn">
+                    <button class="btn btn-default btn-filter-name" ng-click="onSwapFilterChange()">
+                      <img src="/scheduler-server/emlogis/img/search.svg" width="18">
+                    </button>
+                  </span>
+                </p>
+              </div>
+              <div class="col-md-4">
+                <span class="middle-label text-uppercase">
+                  {{'home.LIMIT_PERIOD_FROM' | translate}}
+                </span>
+                <span class="input-group filter-from date-picker-container eml-datepicker-right">
+                  <input type="text" class="form-control" datepicker-popup="yyyy-MM-dd"
+                         ng-model="filterConf.swap.dateFrom" is-open="datePickerConf.opened.from"
+                         datepicker-options="datePickerConf.options" ng-change="onSwapFilterChange()" close-text="Close"/>
+                  <span class="input-group-btn">
+                    <button type="button" class="btn eml-btn-grey-lightest eml-calendar-btn"
+                            ng-class="{ 'eml-calendar-opened' : datePickerConf.opened.from }"
+                            ng-click="openDatePicker($event, 'from')">
+                      <img src="/scheduler-server/emlogis/img/calendar.svg">
+                    </button>
+                  </span>
+                </span>
+              </div>
+              <div class="col-md-4">
+                <span class="middle-label text-uppercase">
+                  {{'home.TO' | translate}}
+                </span>
+                <span class="input-group filter-to date-picker-container eml-datepicker-right">
+                  <input type="text" class="form-control" datepicker-popup="yyyy-MM-dd" ng-model="filterConf.swap.dateTo"
+                         is-open="datePickerConf.opened.to" datepicker-options="datePickerConf.options"
+                         ng-change="onSwapFilterChange()" close-text="Close"/>
+                  <span class="input-group-btn">
+                    <button type="button" class="btn eml-btn-grey-lightest eml-calendar-btn"
+                            ng-class="{ 'eml-calendar-opened' : datePickerConf.opened.to }"
+                            ng-click="openDatePicker($event, 'to')">
+                      <img src="/scheduler-server/emlogis/img/calendar.svg">
+                    </button>
+                  </span>
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <span class="text-uppercase" translate>home.LIMIT_SHIFT_START_TIME</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="slider-container form-group">
+                  <input ng-model="filterConf.swap.time" type="text" slider options="filterConf.swap.sliderOptions" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="swap-list-title row">
+        <div class="col-sm-12">
+          <div class="pull-right form-group">
+            <div loader ng-if="!loadingState.swapEligibleShiftsLoaded" class="swap-loader"></div>
+            <label>{{filtered.swapEligibleShiftsCount}} {{'app.OUT_OF' | translate}} {{original.swapEligibleShiftsCount}} {{'home.SHIFTS' | translate}} {{'home.ELIGIBLE_FOR_SWAPPING' | translate}}</label>
+          </div>
+        </div>
+      </div>
+      <div class="swap-list row">
+        <div class="col-sm-12">
+          <div ui-grid="swapListGridOptions" ui-grid-resize-columns ui-grid-selection ui-grid-move-columns
+               class="eml-grid swap-list-grid"></div>
+        </div>
+      </div>
+    </div>
+    <div class="work-in-place-request-content" ng-if="tabs[1].selected">
+      <div class="filter-panel row">
+        <div class="col-sm-6">
+          <p class="input-group">
+            <input type="text" class="form-control" placeholder="Enter Name..." ng-model="filterConf.wip.teamMemberName"
+                   ng-change="onWipFilterChange()"/>
+            <span class="input-group-btn">
+              <button class="btn btn-default btn-filter-name" ng-click="onWipFilterChange()">
+                <img src="/scheduler-server/emlogis/img/search.svg" width="18">
+              </button>
+            </span>
+          </p>
+        </div>
+        <div class="col-sm-6">
+          <div class="pull-right form-group employee-list-title">
+            <div loader ng-if="!loadingState.wipEligibleEmployeesLoaded" class="wip-loader"></div>
+            <label>{{filtered.wipEligibleEmployeesCount}} {{'app.OUT_OF' | translate}} {{original.wipEligibleEmployeesCount}} {{'home.EMPLOYEES' | translate}} {{'home.ELIGIBLE_FOR_WORK_IN_PLACE' | translate}}</label>
+          </div>
+        </div>
+      </div>
+      <div class="wip-list row">
+        <div class="col-sm-12">
+          <div ui-grid="wipListGridOptions" ui-grid-resize-columns ui-grid-selection ui-grid-move-columns
+               class="eml-grid wip-list-grid"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer" ng-if="selectedTab !== null">
+    <span class="pull-left">
+      <i class="glyphicon glyphicon-exclamation-sign"></i>
+      <span class="exclamation" translate>home.MULTIPLE_PEERS_APPROVAL_FIRST_COME_FIRST_SERVE</span>
+    </span>
+    <a href ng-click="close()" translate>app.CANCEL</a>
+    <button class="btn btn-default green-bg" ng-click="submitRequest()" ng-disabled="(tabs[0].selected && selected.swapEligibleShifts.length === 0) || (tabs[1].selected && selected.wipEligibleEmployees.length === 0)">{{selectedTab.submitLabel | translate}}</button>
+  </div>
+</script>
+<script type="text/ng-template" id="openShiftsPopupModal.html">
+  <div class="modal-header">
+    <h5 class="modal-title">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="pull-left">{{'home.REQUEST_OPEN_SHIFTS' | translate}}</div>
+        </div>
+        <div class="col-md-6">
+          <div class="pull-right">
+            <a href ng-click="close()">&times;</a>
+          </div>
+          <div class="pull-right">
+            <div loader ng-if="!loadingState.openShiftsLoaded" class="open-shifts-loader"></div>
+          </div>
+        </div>
+      </div>
+    </h5>
+  </div>
+  <div class="modal-body">
+    <div class="open-shifts-list row">
+      <div class="col-sm-12">
+        <div ui-grid="openShiftsGridOptions" ui-grid-resize-columns ui-grid-selection ui-grid-move-columns
+             class="eml-grid open-shifts-grid"></div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a href ng-click="close()">{{'app.CANCEL' | translate}}</a>
+    <button class="btn btn-default green-bg" ng-click="submitOpenShiftsRequest()" ng-disabled="selected.openShifts.length === 0">{{'app.SUBMIT' | translate}}</button>
+  </div>
+</script>
+<script type="text/ng-template" id="ptoRequestPopupModal.html">
+  <div class="modal-header">
+    <h5 class="modal-title">
+      <div class="row">
+        <div class="col-md-10">
+          <div class="pull-left">{{'home.REQUEST_TIME_OFF' | translate}}</div>
+        </div>
+        <div class="col-md-2">
+          <div class="pull-right">
+            <a href ng-click="close()">&times;</a>
+          </div>
+        </div>
+      </div>
+    </h5>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-4">
+        <div class="alert alert-danger" role="alert" ng-if="!dateInputsValidation">{{dateInputsInvalidMsg}}</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label class="control-label">{{'home.TIME_OFF_TYPE' | translate}}</label>
+          <select class="form-control" ng-model="data.timeOffType" ng-options="timeOffType as timeOffType.description for timeOffType in modelList.timeOffTypes track by timeOffType.id">
+            <option value="">---{{'app.SELECT' | translate}}---</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-sm-9">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label class="control-label">{{'home.START_DATE' | translate}}</label>
+              <span class="input-group eml-datepicker-right">
+                <input type="text" class="form-control" datepicker-popup="dd-MMMM-yyyy" ng-model="datePickerModel.startDate" ng-change="onSelectedDateChanged('start')" is-open="datePickerModel.startDateOpened" datepicker-options="datePickerModel.datePickerOptions"/>
+                <span class="input-group-btn">
+                  <button type="button"
+                          class="btn eml-btn-grey-lightest eml-calendar-btn"
+                          ng-class="{ 'eml-calendar-opened' : datePickerModel.startDateOpened }"
+                          ng-click="datePickerModel.openDatePicker($event, 'startDate')">
+                    <img src="/scheduler-server/emlogis/img/calendar.svg">
+                  </button>
+                </span>
+              </span>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label class="control-label">{{'home.END_DATE' | translate}}</label>
+              <span class="input-group eml-datepicker-right">
+                <input type="text" class="form-control" datepicker-popup="dd-MMMM-yyyy" ng-model="datePickerModel.endDate" ng-change="onSelectedDateChanged('end')" is-open="datePickerModel.endDateOpened" datepicker-options="datePickerModel.datePickerOptions"/>
+                <span class="input-group-btn">
+                  <button type="button"
+                          class="btn eml-btn-grey-lightest eml-calendar-btn"
+                          ng-class="{ 'eml-calendar-opened' : datePickerModel.endDateOpened }"
+                          ng-click="datePickerModel.openDatePicker($event, 'endDate')">
+                    <img src="/scheduler-server/emlogis/img/calendar.svg">
+                  </button>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-4">
+        <div class="length-in-days-container">
+          <div class="length-in-days-inner-left length-in-days-inner-line"></div>
+          <div class="length-in-days-inner-center">
+            <span>{{'home.TOTAL_DAYS' | translate}}: </span>
+            <span class="length-in-days-number blue-color">{{data.lengthInDays}}</span>
+          </div>
+          <div class="length-in-days-inner-right length-in-days-inner-line"></div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label class="control-label">{{'home.NOTE' | translate}}</label>
+          <textarea class="form-control" ng-model="data.note"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a href ng-click="close()">{{'app.CANCEL' | translate}}</a>
+    <button class="btn btn-default green-bg" ng-click="submitPtoRequest()" ng-disabled="!dateInputsValidation || data.timeOffType === null">{{'app.SUBMIT' | translate}}</button>
+  </div>
+</script>
+<script type="text/ng-template" id="syncCalendarPopupModal.html">
+  <div class="modal-header">
+    <h5 class="modal-title">
+      <div class="row">
+        <div class="col-md-10">
+          <div class="pull-left">{{'home.SYNC_URL' | translate}}</div>
+        </div>
+        <div class="col-md-2">
+          <div class="pull-right">
+            <a href ng-click="close()">&times;</a>
+          </div>
+        </div>
+      </div>
+    </h5>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-sm-12 text-center">
+        <div class="sync-calendar-link">
+          <h4><a href="{{calendarSyncUrl}}">{{calendarSyncUrl}}</a></h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</script>
+<script type="text/ng-template" id="actionResultPopupModal.html">
+  <div class="modal-header">
+    <h5 class="modal-title">
+      <div class="row">
+        <div class="col-md-10">
+          <div class="pull-left">{{'home.RESULT' | translate}}</div>
+        </div>
+        <div class="col-md-2">
+          <div class="pull-right">
+            <a href ng-click="close()">&times;</a>
+          </div>
+        </div>
+      </div>
+    </h5>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-sm-12 text-center">
+        <div class="action-result">
+          <div ng-repeat="result in results" class="result-message">
+            <span>{{result.message}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</script>

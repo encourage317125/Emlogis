@@ -1,0 +1,27 @@
+<div ng-controller="RulesOverwriteOrgCtrl as over">
+
+  <div id="eml-shift">
+
+    <div class="row eml-action-bar">
+      <div class="col-xs-6">
+        <h3>...for Site: <strong>{{ over.site.name }}</strong></h3>
+      </div>
+      <div class="col-xs-6 text-right">
+        <div ng-if="hasMgmtPermission()">
+          <button type="button" class="btn btn-default" ng-click="abs.addNewType()">
+            {{ ::"rules.site_teams.ADD_TYPE" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+
+        <!-- Content -->
+        <div rg-range-picker="myDatetimeRange" labels="myDatetimeLabels"></div>
+
+      </div>
+    </div>
+  </div>
+</div>

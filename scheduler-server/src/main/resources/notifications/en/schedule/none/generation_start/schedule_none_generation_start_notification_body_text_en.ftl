@@ -1,0 +1,1 @@
+Shifts generation has been started for schedule ${scheduleName} on ${scheduleStartDate}.

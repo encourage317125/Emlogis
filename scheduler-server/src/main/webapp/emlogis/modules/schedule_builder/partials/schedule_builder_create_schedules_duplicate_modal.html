@@ -1,0 +1,36 @@
+<div class="create-schedule-duplicate-modal">
+  <h2>{{'schedule_builder.DUPLICATE_SCHEDULE' | translate}}</h2>
+  <div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+      <label for="scheduleName" class="pull-left"  translate>app.NAME</label>
+      <input type="text" id="scheduleName" class="form-control pull-left name" ng-model="schedule.name">
+      <label for="dupStartDate" class="pull-left">{{'schedule_builder.START_DATE' | translate}}: </label>
+      <div class="input-group start-date pull-left" >
+        <input type="text" id="dupStartDate" class="form-control"
+               datepicker-popup="shortDate"
+               ng-model="schedule.startDate"
+               is-open="startDateOpened"
+               ng-required="true"
+               datepicker-options="dateOptions"
+               date-disabled="calendarDisabled(date, mode)" close-text="Close" />
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="showDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12"  style="padding-top: 5px;">
+      <label for="mode" class="pull-left"  translate>schedule_builder.MANUALLY_ASSIGNED_SHIFTS</label>
+      <select class="form-control length pull-left" ng-model="schedule.mode" id="mode"
+          ng-options="mode.display for mode in modes" style="width: 200px;">
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12" style="overflow: hidden; padding-top: 10px; clear: both;">
+      <button ng-click="duplicateAction()" ng-disabled = "!schedule.startDate || !schedule.name" class="btn btn-default save-btn pull-right" translate>schedule_builder.DUPLICATE</button>
+      <button ng-click="close()" class="btn btn-default close-btn pull-right" translate>app.CLOSE</button>
+    </div>
+  </div>
+</div>

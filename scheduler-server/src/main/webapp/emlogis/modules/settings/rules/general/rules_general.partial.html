@@ -1,0 +1,265 @@
+<!-- Rules General Page Start -->
+
+<div class="container-fluid">
+  <div class="text-right eml-action-bar">
+    <!--<code>msg.visible: {{msg.visible}}</code>
+    <code>page.editing: {{page.editing}}</code>-->
+
+    <button type="submit"
+            form="scheduleSettingsForm"
+            class="btn"
+            ng-class="page.editing ? 'btn-info' : 'btn-default'"
+            ng-disabled="!page.editing"
+            ng-if="hasMgmtPermission()">{{ ::"app.SAVE" | translate }}
+    </button>
+  </div>
+
+  <form novalidate
+        id="scheduleSettingsForm"
+        name="scheduleSettingsForm"
+        ng-submit="scheduleSettingsForm.$valid && updateOrgSettings()">
+
+    <!-- Rules: General: Site Configuration -->
+    <div collapsable-panel
+         name="panels.configuration.title"
+         is-collapsable="true"
+         is-collapsed="true">
+
+      <div transclude-to="panel-head"></div>
+
+      <div transclude-to="panel-body">
+        <table class="table table-bordered table-striped">
+          <thead>
+          <tr class="text-uppercase">
+            <th class="col-md-2">Setting</th>
+            <th class="col-md-3">Function</th>
+            <th class="col-md-7">Description</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="set in panels.configuration.settings">
+            <td class="text-center">
+              <label class="eml-switch">
+                <input type="checkbox"
+                       class="eml-switch-input"
+                       ng-model="set.value"
+                       ng-disabled="!hasMgmtPermission()"
+                       ng-checked="set.value"
+                       ng-change="updateEditing()">
+                <span class="eml-switch-label" data-on="{{ ::'app.ON' | translate }}" data-off="{{ ::'app.OFF' | translate }}"></span>
+                <span class="eml-switch-handle"></span>
+              </label>
+            </td>
+            <td>{{ ::set.function | translate }}</td>
+            <td>{{ ::set.description | translate }}</td> <!-- - <code>{{set.value}}</code> -->
+          </tr>
+          <!-- end of Configuration settings ng-repeat -->
+
+          <!-- For Configuration panel with drop-down - Set Consecutive Limit -->
+          <tr>
+            <td>
+              <select class="form-control"
+                      ng-model="panels.configuration.setConsecutiveLimit.value"
+                      ng-options="option as option | toTranslate: 'rules.' | addDaysToTranslate | translate
+                                                for option in panels.configuration.setConsecutiveLimit.options"
+                      ng-disabled="!hasMgmtPermission()"
+                      ng-change="updateEditing()"></select>
+            </td>
+            <td>{{ ::panels.configuration.setConsecutiveLimit.function | translate }}</td>
+            <td>{{ ::panels.configuration.setConsecutiveLimit.description | translate }}
+              <!--<code>- {{panels.configuration.setConsecutiveLimit.value}}</code>-->
+            </td>
+          </tr>
+          <!-- End of Consecutive Limit -->
+
+          <!-- For Configuration panel with drop-down - Set Profile Day Type -->
+          <tr>
+            <td>
+              <select class="form-control"
+                      ng-model="panels.configuration.setProfileDayType.value"
+                      ng-options="option as option | toTranslate: 'rules.general.' | translate
+                                                for option in panels.configuration.setProfileDayType.options"
+                      ng-disabled="!hasMgmtPermission()"
+                      ng-change="updateEditing()"></select>
+            </td>
+            <td>{{ ::panels.configuration.setProfileDayType.function | translate }}</td>
+            <td>{{ ::panels.configuration.setProfileDayType.description | translate }}
+              <!--- <code>{{panels.configuration.setProfileDayType.value}}</code>-->
+            </td>
+          </tr>
+          <!-- End of Profile Day Type -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- end of Rules: General: Site Customization -->
+
+
+    <!-- Rules: General: Site Optimizations -->
+    <div collapsable-panel
+         name="panels.optimization.title"
+         is-collapsable="true"
+         is-collapsed="true">
+
+      <div transclude-to="panel-head"></div>
+
+      <div transclude-to="panel-body">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr class="text-uppercase">
+              <th class="eml-col-priority text-info"><i class="fa fa-sort-amount-desc"></i></th>
+              <th class="col-md-2">Setting</th>
+              <th class="col-md-3">Function</th>
+              <th class="col-md-7">Description</th>
+            </tr>
+            </thead>
+          <tbody ui-sortable="sortableOptions" ng-model="panels.optimization.settings">
+            <tr ng-repeat="set in panels.optimization.settings" style="cursor: move;">
+              <td class="text-info text-center">{{ $index + 1 }}</td>
+              <td class="text-center">
+                <label class="eml-switch" ng-if="!set.options">
+                  <input type="checkbox"
+                         class="eml-switch-input"
+                         ng-model="set.value"
+                         ng-disabled="!hasMgmtPermission()"
+                         ng-checked="set.value"
+                         ng-change="updateEditing()">
+                  <span class="eml-switch-label" data-on="{{ ::'app.ON' | translate }}" data-off="{{ ::'app.OFF' | translate }}"></span>
+                  <span class="eml-switch-handle"></span>
+                </label>
+                <select ng-if="set.options"
+                        class="form-control"
+                        ng-model="set.value"
+                        ng-options="option as option | toTranslate: 'rules.general.' | translate
+                                                  for option in set.options"
+                        ng-disabled="!hasMgmtPermission()"
+                        ng-change="updateEditing()"></select>
+              </td>
+              <td>{{ ::set.function | translate }}</td>
+              <td>{{ ::set.description | translate }}</td> <!--  - <code>{{set.value}}</code> -->
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- end of Rules: General: Site Optimization -->
+
+
+    <!-- Rules: General: Other Settings -->
+    <div collapsable-panel
+         name="panels.general.title"
+         is-collapsable="true"
+         is-collapsed="false">
+
+      <div transclude-to="panel-head"></div>
+
+      <div transclude-to="panel-body">
+        <div class="row clearfix">
+          <div class="col-md-3 form-group">
+            <label for="generalAddress" class="">{{ ::"app.ADDRESS" | translate }}</label>
+            <input id="generalAddress"
+                   name="generalAddress"
+                   type="text"
+                   class="form-control"
+                   placeholder="Enter address"
+                   ng-disabled="!hasMgmtPermission()"
+                   ng-model="org.address"
+                   ng-change="updateEditing()"
+                   ng-required="true"
+                   required>
+
+            <div validate-messages messages-for="scheduleSettingsForm.generalAddress" submitted="scheduleSettingsForm.$submitted"></div>
+          </div>
+
+
+          <div class="col-md-2 form-group">
+            <label for="generalCity" class="">{{ ::"app.CITY" | translate }}</label>
+            <input id="generalCity"
+                   name="generalCity"
+                   type="text"
+                   class="form-control"
+                   placeholder="Enter city"
+                   ng-model="org.city"
+                   ng-disabled="!hasMgmtPermission()"
+                   ng-change="updateEditing()"
+                   ng-required="true"
+                   required>
+
+            <div validate-messages messages-for="scheduleSettingsForm.generalCity" submitted="scheduleSettingsForm.$submitted"></div>
+          </div>
+
+
+          <div class="col-md-2 form-group">
+            <label for="generalCountry" class="">{{ ::"app.COUNTRY" | translate }}</label>
+            <select id="generalCountry"
+                    name="generalCountry"
+                    class="form-control"
+                    ng-model="org.country"
+                    ng-options="country as country | translate
+                                            for country in panels.general.countries"
+                    ng-change="updateEditing()"
+                    ng-disabled="!hasMgmtPermission()"
+                    ng-required="true"
+                    required>
+            </select>
+
+            <div validate-messages messages-for="scheduleSettingsForm.generalCountry" submitted="scheduleSettingsForm.$submitted"></div>
+          </div>
+
+
+          <div class="col-md-2 form-group">
+            <label for="generaState" class="">{{ ::"app.STATE" | translate }}</label>
+            <input id="generaState"
+                   name="generaState"
+                   type="text"
+                   class="form-control"
+                   placeholder="Enter state"
+                   ng-model="org.state"
+                   ng-disabled="!hasMgmtPermission()"
+                   ng-change="updateEditing()"
+                   ng-required="true"
+                   required>
+
+            <div validate-messages messages-for="scheduleSettingsForm.generaState" submitted="scheduleSettingsForm.$submitted"></div>
+          </div>
+
+
+          <div class="col-md-1 form-group"> <!-- ng-class="{'has-error': submitted && scheduleSettingsForm.generalZip.$invalid }" -->
+
+            <label for="generalZip" class="">{{ ::"app.ZIP" | translate }}</label>
+            <input id="generalZip"
+                   name="generalZip"
+                   type="text"
+                   class="form-control"
+                   placeholder="Enter ZIP"
+                   ng-model="org.zip"
+                   ng-change="updateEditing()"
+                   ng-disabled="!hasMgmtPermission()"
+                   ng-minlength="5"
+                   ng-required="true"
+                   required>
+
+            <div validate-messages messages-for="scheduleSettingsForm.generalZip" submitted="scheduleSettingsForm.$submitted"></div>
+          </div>
+
+
+          <div class="col-md-1 form-group pull-right">
+
+            <label for="generalTimeZone" class="">{{ ::"app.TIME_ZONE" | translate }}</label>
+            <select id="generalTimeZone"
+                    name="generalTimeZone"
+                    class="form-control"
+                    ng-model="org.timeZone"
+                    ng-options="zone as zone | translate
+                                            for zone in timeZones"
+                    ng-disabled="!hasMgmtPermission()"
+                    ng-change="updateEditing()"
+                    ng-required="true"
+                    required>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div> <!-- end of Rules: General: Other Settings -->
+  </form>
+</div> <!-- end of Rules: General -->

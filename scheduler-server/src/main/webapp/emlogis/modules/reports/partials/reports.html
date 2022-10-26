@@ -1,0 +1,13 @@
+<div loader ng-show="loadingReportsList"></div>
+<div class="reports">
+    <tabset class="eml-top-tabs">
+        <tab
+                ng-repeat="t in tabs"
+                heading="{{'reports.groups.' + t.heading | translate}}"
+                select="goState(t)"
+                active="t.active"
+                ng-hide="t.hide">
+        </tab>
+    </tabset>
+    <div ui-view= "reportContent"></div>
+</div>

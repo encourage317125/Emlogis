@@ -1,0 +1,30 @@
+<div class="entities-top-breadcrumb">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <button class="btn btn-default btn-new pull-right"
+                        ng-if="hasMgmtPermission()"
+                        ng-click="goToNewEntityState()">
+                  {{'app.NEW' | translate}} {{entityName | translate}}
+                </button>
+                <div class="input-group search-entity pull-right" style="margin-right: 10px;" ng-if="hasViewPermission()">
+                    <span class="refresh"><i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i></span>
+                    <input type="text"
+                           class="form-control txt-search pull-right"
+                           ng-model="search.txt"
+                           placeholder="{{'app.SEARCH'|translate}} {{entityName |translate}}..."
+                           typeahead="record as record.label for record in getSearchValues($viewValue)"
+                           typeahead-loading="loadingLocations"
+                           typeahead-on-select="selectSearchValue($item, $model, $label)"
+                           ng-enter="listKeywords()"
+                           typeahead-min-length="2">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" ng-click="listEntities()">
+                          <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

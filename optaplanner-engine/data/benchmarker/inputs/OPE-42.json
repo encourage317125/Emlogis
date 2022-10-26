@@ -1,0 +1,4312 @@
+{
+  "maxComputationTime": -1,
+  "maximumUnimprovedSecondsSpent": 0,
+  "employeeRosterDto": {
+    "firstShiftDate": {
+      "dayIndex": 0,
+      "date": [
+        2015,
+        4,
+        5
+      ]
+    },
+    "lastShiftDate": {
+      "dayIndex": 0,
+      "date": [
+        2015,
+        4,
+        11
+      ]
+    },
+    "planningWindowStart": {
+      "dayIndex": 0,
+      "date": [
+        2015,
+        4,
+        5
+      ]
+    },
+    "twoWeekOvertimeStartDate": {
+      "dayIndex": 0,
+      "date": [
+        2014,
+        5,
+        6
+      ]
+    },
+    "firstDayOfWeek": "SUNDAY",
+    "weekendDefinition": "SATURDAY_SUNDAY",
+    "ruleWeightMultipliers": {
+      "OVERLAPPING_SHIFTS_RULE": 10,
+      "REQUIRED_EMPLOYEES_MATCH_RULE": 1,
+      "DAYS_OFF_BEFORE_WEEKEND_RULE": 1,
+      "COUPLED_WEEKEND_RULE": 1,
+      "TEAM_ASSOCIATION_CONSTRAINT_FLOAT": 10,
+      "DAYS_OFF_AFTER_WEEKEND_RULE": 1,
+      "AVOID_DAILY_OVERTIME_RULE": 1,
+      "MAX_HOURS_PER_WEEK_CONSTRAINT": 1,
+      "MIN_HOURS_PER_DAY_CONSTRAINT": 1,
+      "MIN_HOURS_PER_WEEK_CONSTRAINT": 1,
+      "WEEKDAY_ROTATION_PATTERN_RULE": 1,
+      "CI_TIME_OFF_CONSTRAINT": 5,
+      "SKILL_MATCH_RULE": 40,
+      "AVOID_TWO_WEEK_OVERTIME_RULE": 1,
+      "MIN_HOURS_BETWEEN_DAYS_RULE": 1,
+      "MIN_HOURS_PER_WEEK_PRIME_SKILL_CONSTRAINT": 1,
+      "CD_TIME_OFF_CONSTRAINT": 5,
+      "MAX_CONSECUTIVE_DAYS_CONSTRAINT": 1,
+      "AVOID_WEEKLY_OVERTIME_RULE": 1,
+      "MAX_HOURS_PER_DAY_CONSTRAINT": 1,
+      "MAX_DAYS_PER_WEEK_CONSTRAINT": 1,
+      "TEAM_ASSOCIATION_CONSTRAINT": 10
+    },
+    "scoringRulesToScoreLevelMap": {
+       "TEAM_PREFERENCE_RULE": 9,
+      "OPEN_SHIFT_SEPARATION_RULE": 2,
+      "VERTICAL_CLUSTERING_RULE": 11,
+      "SCHEDULE_OVERTIME_RULE": 5,
+      "EXCESS_SHIFT_SEPARATION_RULE": 12,
+      "EXTRA_SHIFT_RULE": 3,
+      "AVOID_SKILL_CHANGE_RULE": 8,
+      "HORIZONTAL_CLUSTERING_RULE": 10,
+      "COUPLED_WEEKEND_RULE": 0,
+      "WORKED_WEEKENDS_SEPARATION_RULE": 4,
+      "SCHEDULE_COST_RULE": 5,
+      "AVOID_TEAM_CHANGE_RULE": 8,
+      "PREFER_PRIMARY_SKILL_RULE": 6,
+      "CI_PREFERENCE_RULE": 5,
+      "CD_PREFERENCE_RULE": 5,
+      "PREFER_TEAM_SCATTERING_RULE": 7
+    }
+  },
+  "constraintOverrideDtos": [],
+  "skillDtos": [
+    {
+      "id": "4",
+      "name": "Engineer",
+      "abbreviation": null
+    }
+  ],
+  "employeeDtos": [
+    {
+      "id": "6",
+      "firstName": "B1",
+      "lastName": "Employee",
+      "startDate": 1400734800000,
+      "stopDate": 1716440399000,
+      "seniority": -1,
+      "scheduleable": true,
+      "employeeTimeOffDtos": [
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            4,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            16,
+            0,
+            0,
+            0
+          ],
+          "employeeId": "6",
+          "weight": -1,
+          "dayOfWeek": "MONDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            4,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            16,
+            0,
+            0,
+            0
+          ],
+          "employeeId": "6",
+          "weight": -1,
+          "dayOfWeek": "TUESDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            4,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            16,
+            0,
+            0,
+            0
+          ],
+          "employeeId": "6",
+          "weight": -1,
+          "dayOfWeek": "WEDNESDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            4,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            16,
+            0,
+            0,
+            0
+          ],
+          "employeeId": "6",
+          "weight": -1,
+          "dayOfWeek": "THURSDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            4,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            16,
+            0,
+            0,
+            0
+          ],
+          "employeeId": "6",
+          "weight": -1,
+          "dayOfWeek": "FRIDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            4,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "6",
+          "weight": -1,
+          "dayOfWeek": "SATURDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "6",
+          "weight": -1,
+          "dayOfWeek": "SUNDAY",
+          "pto": false,
+          "allDay": true
+        }
+      ]
+    },
+    {
+      "id": "7",
+      "firstName": "B2",
+      "lastName": "Employee",
+      "startDate": 1400734800000,
+      "stopDate": 1716440399000,
+      "seniority": -1,
+      "scheduleable": true,
+      "employeeTimeOffDtos": [
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            4,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "7",
+          "weight": -1,
+          "dayOfWeek": "SATURDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "7",
+          "weight": -1,
+          "dayOfWeek": "SUNDAY",
+          "pto": false,
+          "allDay": true
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            4,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            16,
+            0,
+            0,
+            0
+          ],
+          "employeeId": "7",
+          "weight": -1,
+          "dayOfWeek": "MONDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            4,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            16,
+            0,
+            0,
+            0
+          ],
+          "employeeId": "7",
+          "weight": -1,
+          "dayOfWeek": "TUESDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            4,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            16,
+            0,
+            0,
+            0
+          ],
+          "employeeId": "7",
+          "weight": -1,
+          "dayOfWeek": "WEDNESDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            4,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            16,
+            0,
+            0,
+            0
+          ],
+          "employeeId": "7",
+          "weight": -1,
+          "dayOfWeek": "THURSDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            4,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            16,
+            0,
+            0,
+            0
+          ],
+          "employeeId": "7",
+          "weight": -1,
+          "dayOfWeek": "FRIDAY",
+          "pto": false,
+          "allDay": false
+        }
+      ]
+    },
+    {
+      "id": "18",
+      "firstName": "A1",
+      "lastName": "Employee",
+      "startDate": 1402462800000,
+      "stopDate": 1718168399000,
+      "seniority": -1,
+      "scheduleable": true,
+      "employeeTimeOffDtos": [
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            20,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "18",
+          "weight": -1,
+          "dayOfWeek": "MONDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            8,
+            0,
+            0,
+            0
+          ],
+          "employeeId": "18",
+          "weight": -1,
+          "dayOfWeek": "MONDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            20,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "18",
+          "weight": -1,
+          "dayOfWeek": "TUESDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            8,
+            0,
+            0,
+            0
+          ],
+          "employeeId": "18",
+          "weight": -1,
+          "dayOfWeek": "TUESDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            20,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "18",
+          "weight": -1,
+          "dayOfWeek": "WEDNESDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            8,
+            0,
+            0,
+            0
+          ],
+          "employeeId": "18",
+          "weight": -1,
+          "dayOfWeek": "WEDNESDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            20,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "18",
+          "weight": -1,
+          "dayOfWeek": "THURSDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            8,
+            0,
+            0,
+            0
+          ],
+          "employeeId": "18",
+          "weight": -1,
+          "dayOfWeek": "THURSDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            20,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "18",
+          "weight": -1,
+          "dayOfWeek": "FRIDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            8,
+            0,
+            0,
+            0
+          ],
+          "employeeId": "18",
+          "weight": -1,
+          "dayOfWeek": "FRIDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "18",
+          "weight": -1,
+          "dayOfWeek": "SUNDAY",
+          "pto": false,
+          "allDay": true
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "18",
+          "weight": -1,
+          "dayOfWeek": "SATURDAY",
+          "pto": false,
+          "allDay": true
+        }
+      ]
+    },
+    {
+      "id": "19",
+      "firstName": "A2",
+      "lastName": "Employee",
+      "startDate": 1402462800000,
+      "stopDate": 1718168399000,
+      "seniority": -1,
+      "scheduleable": true,
+      "employeeTimeOffDtos": [
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            20,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "19",
+          "weight": -1,
+          "dayOfWeek": "MONDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            8,
+            0,
+            0,
+            0
+          ],
+          "employeeId": "19",
+          "weight": -1,
+          "dayOfWeek": "MONDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            20,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "19",
+          "weight": -1,
+          "dayOfWeek": "TUESDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            8,
+            0,
+            0,
+            0
+          ],
+          "employeeId": "19",
+          "weight": -1,
+          "dayOfWeek": "TUESDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            20,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "19",
+          "weight": -1,
+          "dayOfWeek": "WEDNESDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            8,
+            0,
+            0,
+            0
+          ],
+          "employeeId": "19",
+          "weight": -1,
+          "dayOfWeek": "WEDNESDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            20,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "19",
+          "weight": -1,
+          "dayOfWeek": "THURSDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            8,
+            0,
+            0,
+            0
+          ],
+          "employeeId": "19",
+          "weight": -1,
+          "dayOfWeek": "THURSDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            20,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "19",
+          "weight": -1,
+          "dayOfWeek": "FRIDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            8,
+            0,
+            0,
+            0
+          ],
+          "employeeId": "19",
+          "weight": -1,
+          "dayOfWeek": "FRIDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "19",
+          "weight": -1,
+          "dayOfWeek": "SUNDAY",
+          "pto": false,
+          "allDay": true
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "19",
+          "weight": -1,
+          "dayOfWeek": "SATURDAY",
+          "pto": false,
+          "allDay": true
+        }
+      ]
+    },
+    {
+      "id": "23",
+      "firstName": "A3",
+      "lastName": "Employee",
+      "startDate": 1410843600000,
+      "stopDate": 1726549199000,
+      "seniority": -1,
+      "scheduleable": true,
+      "employeeTimeOffDtos": [
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            20,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "23",
+          "weight": -1,
+          "dayOfWeek": "MONDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            8,
+            0,
+            0,
+            0
+          ],
+          "employeeId": "23",
+          "weight": -1,
+          "dayOfWeek": "MONDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            20,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "23",
+          "weight": -1,
+          "dayOfWeek": "TUESDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            8,
+            0,
+            0,
+            0
+          ],
+          "employeeId": "23",
+          "weight": -1,
+          "dayOfWeek": "TUESDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            20,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "23",
+          "weight": -1,
+          "dayOfWeek": "WEDNESDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            8,
+            0,
+            0,
+            0
+          ],
+          "employeeId": "23",
+          "weight": -1,
+          "dayOfWeek": "WEDNESDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            20,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "23",
+          "weight": -1,
+          "dayOfWeek": "THURSDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            8,
+            0,
+            0,
+            0
+          ],
+          "employeeId": "23",
+          "weight": -1,
+          "dayOfWeek": "THURSDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            20,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "23",
+          "weight": -1,
+          "dayOfWeek": "FRIDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            8,
+            0,
+            0,
+            0
+          ],
+          "employeeId": "23",
+          "weight": -1,
+          "dayOfWeek": "FRIDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "23",
+          "weight": -1,
+          "dayOfWeek": "SUNDAY",
+          "pto": false,
+          "allDay": true
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "23",
+          "weight": -1,
+          "dayOfWeek": "SATURDAY",
+          "pto": false,
+          "allDay": true
+        }
+      ]
+    },
+    {
+      "id": "24",
+      "firstName": "B3",
+      "lastName": "Employee",
+      "startDate": 1410843600000,
+      "stopDate": 1726549199000,
+      "seniority": -1,
+      "scheduleable": true,
+      "employeeTimeOffDtos": [
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            4,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            16,
+            0,
+            0,
+            0
+          ],
+          "employeeId": "24",
+          "weight": -1,
+          "dayOfWeek": "MONDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            4,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            16,
+            0,
+            0,
+            0
+          ],
+          "employeeId": "24",
+          "weight": -1,
+          "dayOfWeek": "TUESDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            4,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            16,
+            0,
+            0,
+            0
+          ],
+          "employeeId": "24",
+          "weight": -1,
+          "dayOfWeek": "WEDNESDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            4,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            16,
+            0,
+            0,
+            0
+          ],
+          "employeeId": "24",
+          "weight": -1,
+          "dayOfWeek": "THURSDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            4,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            16,
+            0,
+            0,
+            0
+          ],
+          "employeeId": "24",
+          "weight": -1,
+          "dayOfWeek": "FRIDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            4,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "24",
+          "weight": -1,
+          "dayOfWeek": "SATURDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "24",
+          "weight": -1,
+          "dayOfWeek": "SUNDAY",
+          "pto": false,
+          "allDay": true
+        }
+      ]
+    },
+    {
+      "id": "25",
+      "firstName": "C1",
+      "lastName": "Employee",
+      "startDate": 1410843600000,
+      "stopDate": 1726549199000,
+      "seniority": -1,
+      "scheduleable": true,
+      "employeeTimeOffDtos": [
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            12,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "25",
+          "weight": -1,
+          "dayOfWeek": "MONDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            12,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "25",
+          "weight": -1,
+          "dayOfWeek": "TUESDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            12,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "25",
+          "weight": -1,
+          "dayOfWeek": "WEDNESDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            12,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "25",
+          "weight": -1,
+          "dayOfWeek": "THURSDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            12,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "25",
+          "weight": -1,
+          "dayOfWeek": "FRIDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "25",
+          "weight": -1,
+          "dayOfWeek": "SUNDAY",
+          "pto": false,
+          "allDay": true
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "25",
+          "weight": -1,
+          "dayOfWeek": "SATURDAY",
+          "pto": false,
+          "allDay": true
+        }
+      ]
+    },
+    {
+      "id": "26",
+      "firstName": "C2",
+      "lastName": "Employee",
+      "startDate": 1410843600000,
+      "stopDate": 1726549199000,
+      "seniority": -1,
+      "scheduleable": true,
+      "employeeTimeOffDtos": [
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "26",
+          "weight": -1,
+          "dayOfWeek": "SUNDAY",
+          "pto": false,
+          "allDay": true
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "26",
+          "weight": -1,
+          "dayOfWeek": "SATURDAY",
+          "pto": false,
+          "allDay": true
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            12,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "26",
+          "weight": -1,
+          "dayOfWeek": "MONDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            12,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "26",
+          "weight": -1,
+          "dayOfWeek": "TUESDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            12,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "26",
+          "weight": -1,
+          "dayOfWeek": "WEDNESDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            12,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "26",
+          "weight": -1,
+          "dayOfWeek": "THURSDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            12,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "26",
+          "weight": -1,
+          "dayOfWeek": "FRIDAY",
+          "pto": false,
+          "allDay": false
+        }
+      ]
+    },
+    {
+      "id": "27",
+      "firstName": "C3",
+      "lastName": "Employee",
+      "startDate": 1410843600000,
+      "stopDate": 1726549199000,
+      "seniority": -1,
+      "scheduleable": true,
+      "employeeTimeOffDtos": [
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "27",
+          "weight": -1,
+          "dayOfWeek": "SUNDAY",
+          "pto": false,
+          "allDay": true
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "27",
+          "weight": -1,
+          "dayOfWeek": "SATURDAY",
+          "pto": false,
+          "allDay": true
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            12,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "27",
+          "weight": -1,
+          "dayOfWeek": "MONDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            12,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "27",
+          "weight": -1,
+          "dayOfWeek": "TUESDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            12,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "27",
+          "weight": -1,
+          "dayOfWeek": "WEDNESDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            12,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "27",
+          "weight": -1,
+          "dayOfWeek": "THURSDAY",
+          "pto": false,
+          "allDay": false
+        },
+        {
+          "@class": "com.emlogis.engine.domain.timeoff.dto.CITimeOffDto",
+          "startTime": [
+            12,
+            0,
+            0,
+            0
+          ],
+          "endTime": [
+            23,
+            59,
+            59,
+            0
+          ],
+          "employeeId": "27",
+          "weight": -1,
+          "dayOfWeek": "FRIDAY",
+          "pto": false,
+          "allDay": false
+        }
+      ]
+    }
+  ],
+  "employeeSkillDtos": [
+    {
+      "employeeId": "8",
+      "skillId": "4",
+      "skillLevel": "1",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "6",
+      "skillId": "4",
+      "skillLevel": "1",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "18",
+      "skillId": "4",
+      "skillLevel": "1",
+      "primarySkill": true
+    },
+    {
+      "employeeId": "7",
+      "skillId": "4",
+      "skillLevel": "1",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "19",
+      "skillId": "4",
+      "skillLevel": "1",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "23",
+      "skillId": "4",
+      "skillLevel": "1",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "24",
+      "skillId": "4",
+      "skillLevel": "1",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "25",
+      "skillId": "4",
+      "skillLevel": "1",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "26",
+      "skillId": "4",
+      "skillLevel": "1",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "27",
+      "skillId": "4",
+      "skillLevel": "1",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "8",
+      "skillId": "4",
+      "skillLevel": "1",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "6",
+      "skillId": "4",
+      "skillLevel": "1",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "18",
+      "skillId": "4",
+      "skillLevel": "1",
+      "primarySkill": true
+    },
+    {
+      "employeeId": "7",
+      "skillId": "4",
+      "skillLevel": "1",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "19",
+      "skillId": "4",
+      "skillLevel": "1",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "23",
+      "skillId": "4",
+      "skillLevel": "1",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "24",
+      "skillId": "4",
+      "skillLevel": "1",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "25",
+      "skillId": "4",
+      "skillLevel": "1",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "26",
+      "skillId": "4",
+      "skillLevel": "1",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "27",
+      "skillId": "4",
+      "skillLevel": "1",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "8",
+      "skillId": "4",
+      "skillLevel": "1",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "6",
+      "skillId": "4",
+      "skillLevel": "1",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "18",
+      "skillId": "4",
+      "skillLevel": "1",
+      "primarySkill": true
+    },
+    {
+      "employeeId": "7",
+      "skillId": "4",
+      "skillLevel": "1",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "19",
+      "skillId": "4",
+      "skillLevel": "1",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "23",
+      "skillId": "4",
+      "skillLevel": "1",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "24",
+      "skillId": "4",
+      "skillLevel": "1",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "25",
+      "skillId": "4",
+      "skillLevel": "1",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "26",
+      "skillId": "4",
+      "skillLevel": "1",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "27",
+      "skillId": "4",
+      "skillLevel": "1",
+      "primarySkill": false
+    }
+  ],
+  "contractDtos": [
+    {
+      "id": "19",
+      "scope": "EmployeeContract",
+      "contractLineDtos": [
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": "19",
+          "minimumEnabled": true,
+          "minimumValue": 240,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 960,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": "19",
+          "minimumEnabled": true,
+          "minimumValue": 240,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 960,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": "19",
+          "minimumEnabled": true,
+          "minimumValue": 2400,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 2640,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": "19",
+          "minimumEnabled": true,
+          "minimumValue": 2400,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 2640,
+          "maximumWeight": -1
+        }
+      ]
+    },
+    {
+      "id": "18",
+      "scope": "EmployeeContract",
+      "contractLineDtos": [
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": "18",
+          "minimumEnabled": true,
+          "minimumValue": 240,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 960,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": "18",
+          "minimumEnabled": true,
+          "minimumValue": 240,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 960,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": "18",
+          "minimumEnabled": true,
+          "minimumValue": 2400,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 2640,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": "18",
+          "minimumEnabled": true,
+          "minimumValue": 2400,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 2640,
+          "maximumWeight": -1
+        }
+      ]
+    },
+    {
+      "id": "23",
+      "scope": "EmployeeContract",
+      "contractLineDtos": [
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": "23",
+          "minimumEnabled": true,
+          "minimumValue": 240,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 960,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": "23",
+          "minimumEnabled": true,
+          "minimumValue": 240,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 960,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": "23",
+          "minimumEnabled": true,
+          "minimumValue": 2400,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 2640,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": "23",
+          "minimumEnabled": true,
+          "minimumValue": 2400,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 2640,
+          "maximumWeight": -1
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "scope": "EmployeeContract",
+      "contractLineDtos": [
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": "6",
+          "minimumEnabled": true,
+          "minimumValue": 240,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 960,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": "6",
+          "minimumEnabled": true,
+          "minimumValue": 240,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 960,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": "6",
+          "minimumEnabled": true,
+          "minimumValue": 2400,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 2640,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": "6",
+          "minimumEnabled": true,
+          "minimumValue": 2400,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 2640,
+          "maximumWeight": -1
+        }
+      ]
+    },
+    {
+      "id": "7",
+      "scope": "EmployeeContract",
+      "contractLineDtos": [
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": "7",
+          "minimumEnabled": true,
+          "minimumValue": 240,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 960,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": "7",
+          "minimumEnabled": true,
+          "minimumValue": 240,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 960,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": "7",
+          "minimumEnabled": true,
+          "minimumValue": 2400,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 2640,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": "7",
+          "minimumEnabled": true,
+          "minimumValue": 2400,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 2640,
+          "maximumWeight": -1
+        }
+      ]
+    },
+    {
+      "id": "25",
+      "scope": "EmployeeContract",
+      "contractLineDtos": [
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": "25",
+          "minimumEnabled": true,
+          "minimumValue": 240,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 960,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": "25",
+          "minimumEnabled": true,
+          "minimumValue": 240,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 960,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": "25",
+          "minimumEnabled": true,
+          "minimumValue": 2400,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 2640,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": "25",
+          "minimumEnabled": true,
+          "minimumValue": 2400,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 2640,
+          "maximumWeight": -1
+        }
+      ]
+    },
+    {
+      "id": "24",
+      "scope": "EmployeeContract",
+      "contractLineDtos": [
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": "24",
+          "minimumEnabled": true,
+          "minimumValue": 240,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 960,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": "24",
+          "minimumEnabled": true,
+          "minimumValue": 240,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 960,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": "24",
+          "minimumEnabled": true,
+          "minimumValue": 2400,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 2640,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": "24",
+          "minimumEnabled": true,
+          "minimumValue": 2400,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 2640,
+          "maximumWeight": -1
+        }
+      ]
+    },
+    {
+      "id": "27",
+      "scope": "EmployeeContract",
+      "contractLineDtos": [
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": "27",
+          "minimumEnabled": true,
+          "minimumValue": 240,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 960,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": "27",
+          "minimumEnabled": true,
+          "minimumValue": 240,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 960,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": "27",
+          "minimumEnabled": true,
+          "minimumValue": 2400,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 2640,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": "27",
+          "minimumEnabled": true,
+          "minimumValue": 2400,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 2640,
+          "maximumWeight": -1
+        }
+      ]
+    },
+    {
+      "id": "26",
+      "scope": "EmployeeContract",
+      "contractLineDtos": [
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": "26",
+          "minimumEnabled": true,
+          "minimumValue": 240,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 960,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": "26",
+          "minimumEnabled": true,
+          "minimumValue": 240,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 960,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": "26",
+          "minimumEnabled": true,
+          "minimumValue": 2400,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 2640,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": "26",
+          "minimumEnabled": true,
+          "minimumValue": 2400,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 2640,
+          "maximumWeight": -1
+        }
+      ]
+    }
+  ],
+  "employeeTeamDtos": [
+    {
+      "employeeId": "6",
+      "teamId": "2",
+      "type": "ON",
+      "homeTeam": false
+    },
+    {
+      "employeeId": "7",
+      "teamId": "2",
+      "type": "ON",
+      "homeTeam": false
+    },
+    {
+      "employeeId": "18",
+      "teamId": "1",
+      "type": "ON",
+      "homeTeam": false
+    },
+    {
+      "employeeId": "19",
+      "teamId": "1",
+      "type": "ON",
+      "homeTeam": false
+    },
+    {
+      "employeeId": "23",
+      "teamId": "1",
+      "type": "ON",
+      "homeTeam": false
+    },
+    {
+      "employeeId": "24",
+      "teamId": "2",
+      "type": "ON",
+      "homeTeam": false
+    },
+    {
+      "employeeId": "25",
+      "teamId": "6",
+      "type": "ON",
+      "homeTeam": false
+    },
+    {
+      "employeeId": "26",
+      "teamId": "6",
+      "type": "ON",
+      "homeTeam": false
+    },
+    {
+      "employeeId": "27",
+      "teamId": "6",
+      "type": "ON",
+      "homeTeam": false
+    },
+    {
+      "employeeId": "18",
+      "teamId": "2",
+      "type": "ON",
+      "homeTeam": false
+    },
+    {
+      "employeeId": "19",
+      "teamId": "2",
+      "type": "ON",
+      "homeTeam": false
+    },
+    {
+      "employeeId": "23",
+      "teamId": "2",
+      "type": "ON",
+      "homeTeam": false
+    },
+    {
+      "employeeId": "6",
+      "teamId": "6",
+      "type": "ON",
+      "homeTeam": false
+    },
+    {
+      "employeeId": "7",
+      "teamId": "6",
+      "type": "ON",
+      "homeTeam": false
+    },
+    {
+      "employeeId": "24",
+      "teamId": "6",
+      "type": "ON",
+      "homeTeam": false
+    },
+    {
+      "employeeId": "25",
+      "teamId": "2",
+      "type": "FLOAT",
+      "homeTeam": false
+    },
+    {
+      "employeeId": "26",
+      "teamId": "2",
+      "type": "FLOAT",
+      "homeTeam": false
+    },
+    {
+      "employeeId": "27",
+      "teamId": "2",
+      "type": "FLOAT",
+      "homeTeam": false
+    },
+    {
+      "employeeId": "25",
+      "teamId": "1",
+      "type": "ON",
+      "homeTeam": false
+    },
+    {
+      "employeeId": "26",
+      "teamId": "1",
+      "type": "ON",
+      "homeTeam": false
+    },
+    {
+      "employeeId": "27",
+      "teamId": "1",
+      "type": "ON",
+      "homeTeam": false
+    }
+  ],
+  "shiftDtos": [
+    {
+      "id": "7531",
+      "startDateTime": 1428307200000,
+      "endDateTime": 1428321600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7532",
+      "startDateTime": 1428321600000,
+      "endDateTime": 1428336000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7533",
+      "startDateTime": 1428321600000,
+      "endDateTime": 1428336000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7534",
+      "startDateTime": 1428307200000,
+      "endDateTime": 1428321600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7535",
+      "startDateTime": 1428321600000,
+      "endDateTime": 1428336000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7536",
+      "startDateTime": 1428321600000,
+      "endDateTime": 1428336000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7537",
+      "startDateTime": 1428307200000,
+      "endDateTime": 1428321600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7538",
+      "startDateTime": 1428307200000,
+      "endDateTime": 1428321600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7539",
+      "startDateTime": 1428393600000,
+      "endDateTime": 1428408000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7540",
+      "startDateTime": 1428408000000,
+      "endDateTime": 1428422400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7541",
+      "startDateTime": 1428408000000,
+      "endDateTime": 1428422400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7542",
+      "startDateTime": 1428393600000,
+      "endDateTime": 1428408000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7543",
+      "startDateTime": 1428408000000,
+      "endDateTime": 1428422400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7544",
+      "startDateTime": 1428408000000,
+      "endDateTime": 1428422400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7545",
+      "startDateTime": 1428393600000,
+      "endDateTime": 1428408000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7547",
+      "startDateTime": 1428480000000,
+      "endDateTime": 1428494400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7553",
+      "startDateTime": 1428480000000,
+      "endDateTime": 1428494400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7555",
+      "startDateTime": 1428566400000,
+      "endDateTime": 1428580800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7561",
+      "startDateTime": 1428566400000,
+      "endDateTime": 1428580800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7563",
+      "startDateTime": 1428652800000,
+      "endDateTime": 1428667200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7569",
+      "startDateTime": 1428652800000,
+      "endDateTime": 1428667200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7570",
+      "startDateTime": 1428652800000,
+      "endDateTime": 1428667200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7546",
+      "startDateTime": 1428393600000,
+      "endDateTime": 1428408000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7566",
+      "startDateTime": 1428652800000,
+      "endDateTime": 1428667200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7562",
+      "startDateTime": 1428566400000,
+      "endDateTime": 1428580800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7558",
+      "startDateTime": 1428566400000,
+      "endDateTime": 1428580800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7554",
+      "startDateTime": 1428480000000,
+      "endDateTime": 1428494400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7550",
+      "startDateTime": 1428480000000,
+      "endDateTime": 1428494400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7548",
+      "startDateTime": 1428494400000,
+      "endDateTime": 1428508800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7549",
+      "startDateTime": 1428494400000,
+      "endDateTime": 1428508800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7556",
+      "startDateTime": 1428580800000,
+      "endDateTime": 1428595200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7557",
+      "startDateTime": 1428580800000,
+      "endDateTime": 1428595200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7564",
+      "startDateTime": 1428667200000,
+      "endDateTime": 1428681600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7565",
+      "startDateTime": 1428667200000,
+      "endDateTime": 1428681600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7567",
+      "startDateTime": 1428667200000,
+      "endDateTime": 1428681600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7568",
+      "startDateTime": 1428667200000,
+      "endDateTime": 1428681600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7559",
+      "startDateTime": 1428580800000,
+      "endDateTime": 1428595200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7560",
+      "startDateTime": 1428580800000,
+      "endDateTime": 1428595200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7551",
+      "startDateTime": 1428494400000,
+      "endDateTime": 1428508800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7552",
+      "startDateTime": 1428494400000,
+      "endDateTime": 1428508800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "1",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7631",
+      "startDateTime": 1428336000000,
+      "endDateTime": 1428350400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7632",
+      "startDateTime": 1428336000000,
+      "endDateTime": 1428350400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7633",
+      "startDateTime": 1428350400000,
+      "endDateTime": 1428364800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7634",
+      "startDateTime": 1428350400000,
+      "endDateTime": 1428364800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7635",
+      "startDateTime": 1428350400000,
+      "endDateTime": 1428364800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7751",
+      "startDateTime": 1428278400000,
+      "endDateTime": 1428292800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7752",
+      "startDateTime": 1428278400000,
+      "endDateTime": 1428292800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7753",
+      "startDateTime": 1428292800000,
+      "endDateTime": 1428307200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7754",
+      "startDateTime": 1428292800000,
+      "endDateTime": 1428307200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7755",
+      "startDateTime": 1428292800000,
+      "endDateTime": 1428307200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7665",
+      "startDateTime": 1428508800000,
+      "endDateTime": 1428523200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7677",
+      "startDateTime": 1428595200000,
+      "endDateTime": 1428609600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7679",
+      "startDateTime": 1428681600000,
+      "endDateTime": 1428696000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7680",
+      "startDateTime": 1428681600000,
+      "endDateTime": 1428696000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7689",
+      "startDateTime": 1428681600000,
+      "endDateTime": 1428696000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7643",
+      "startDateTime": 1428422400000,
+      "endDateTime": 1428436800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7644",
+      "startDateTime": 1428422400000,
+      "endDateTime": 1428436800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7641",
+      "startDateTime": 1428336000000,
+      "endDateTime": 1428350400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7653",
+      "startDateTime": 1428422400000,
+      "endDateTime": 1428436800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7655",
+      "startDateTime": 1428508800000,
+      "endDateTime": 1428523200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7656",
+      "startDateTime": 1428508800000,
+      "endDateTime": 1428523200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7667",
+      "startDateTime": 1428595200000,
+      "endDateTime": 1428609600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7668",
+      "startDateTime": 1428595200000,
+      "endDateTime": 1428609600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7672",
+      "startDateTime": 1428595200000,
+      "endDateTime": 1428609600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7673",
+      "startDateTime": 1428595200000,
+      "endDateTime": 1428609600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7660",
+      "startDateTime": 1428508800000,
+      "endDateTime": 1428523200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7661",
+      "startDateTime": 1428508800000,
+      "endDateTime": 1428523200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7654",
+      "startDateTime": 1428422400000,
+      "endDateTime": 1428436800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7642",
+      "startDateTime": 1428336000000,
+      "endDateTime": 1428350400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7648",
+      "startDateTime": 1428422400000,
+      "endDateTime": 1428436800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7649",
+      "startDateTime": 1428422400000,
+      "endDateTime": 1428436800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7636",
+      "startDateTime": 1428336000000,
+      "endDateTime": 1428350400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7637",
+      "startDateTime": 1428336000000,
+      "endDateTime": 1428350400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7690",
+      "startDateTime": 1428681600000,
+      "endDateTime": 1428696000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7678",
+      "startDateTime": 1428595200000,
+      "endDateTime": 1428609600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7666",
+      "startDateTime": 1428508800000,
+      "endDateTime": 1428523200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7684",
+      "startDateTime": 1428681600000,
+      "endDateTime": 1428696000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7685",
+      "startDateTime": 1428681600000,
+      "endDateTime": 1428696000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7681",
+      "startDateTime": 1428696000000,
+      "endDateTime": 1428710400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7682",
+      "startDateTime": 1428696000000,
+      "endDateTime": 1428710400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7683",
+      "startDateTime": 1428696000000,
+      "endDateTime": 1428710400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7645",
+      "startDateTime": 1428436800000,
+      "endDateTime": 1428451200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7646",
+      "startDateTime": 1428436800000,
+      "endDateTime": 1428451200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7647",
+      "startDateTime": 1428436800000,
+      "endDateTime": 1428451200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7657",
+      "startDateTime": 1428523200000,
+      "endDateTime": 1428537600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7658",
+      "startDateTime": 1428523200000,
+      "endDateTime": 1428537600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7659",
+      "startDateTime": 1428523200000,
+      "endDateTime": 1428537600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7669",
+      "startDateTime": 1428609600000,
+      "endDateTime": 1428624000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7670",
+      "startDateTime": 1428609600000,
+      "endDateTime": 1428624000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7671",
+      "startDateTime": 1428609600000,
+      "endDateTime": 1428624000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7674",
+      "startDateTime": 1428609600000,
+      "endDateTime": 1428624000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7675",
+      "startDateTime": 1428609600000,
+      "endDateTime": 1428624000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7676",
+      "startDateTime": 1428609600000,
+      "endDateTime": 1428624000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7662",
+      "startDateTime": 1428523200000,
+      "endDateTime": 1428537600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7663",
+      "startDateTime": 1428523200000,
+      "endDateTime": 1428537600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7664",
+      "startDateTime": 1428523200000,
+      "endDateTime": 1428537600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7638",
+      "startDateTime": 1428350400000,
+      "endDateTime": 1428364800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7639",
+      "startDateTime": 1428350400000,
+      "endDateTime": 1428364800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7640",
+      "startDateTime": 1428350400000,
+      "endDateTime": 1428364800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7650",
+      "startDateTime": 1428436800000,
+      "endDateTime": 1428451200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7651",
+      "startDateTime": 1428436800000,
+      "endDateTime": 1428451200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7652",
+      "startDateTime": 1428436800000,
+      "endDateTime": 1428451200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7686",
+      "startDateTime": 1428696000000,
+      "endDateTime": 1428710400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7687",
+      "startDateTime": 1428696000000,
+      "endDateTime": 1428710400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7688",
+      "startDateTime": 1428696000000,
+      "endDateTime": 1428710400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "2",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7763",
+      "startDateTime": 1428451200000,
+      "endDateTime": 1428465600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7764",
+      "startDateTime": 1428451200000,
+      "endDateTime": 1428465600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7761",
+      "startDateTime": 1428278400000,
+      "endDateTime": 1428292800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7773",
+      "startDateTime": 1428451200000,
+      "endDateTime": 1428465600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7775",
+      "startDateTime": 1428364800000,
+      "endDateTime": 1428379200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7776",
+      "startDateTime": 1428364800000,
+      "endDateTime": 1428379200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7787",
+      "startDateTime": 1428537600000,
+      "endDateTime": 1428552000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7788",
+      "startDateTime": 1428537600000,
+      "endDateTime": 1428552000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7785",
+      "startDateTime": 1428364800000,
+      "endDateTime": 1428379200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7797",
+      "startDateTime": 1428537600000,
+      "endDateTime": 1428552000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7799",
+      "startDateTime": 1428624000000,
+      "endDateTime": 1428638400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7800",
+      "startDateTime": 1428624000000,
+      "endDateTime": 1428638400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7809",
+      "startDateTime": 1428624000000,
+      "endDateTime": 1428638400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7810",
+      "startDateTime": 1428624000000,
+      "endDateTime": 1428638400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7804",
+      "startDateTime": 1428624000000,
+      "endDateTime": 1428638400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7805",
+      "startDateTime": 1428624000000,
+      "endDateTime": 1428638400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7798",
+      "startDateTime": 1428537600000,
+      "endDateTime": 1428552000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7786",
+      "startDateTime": 1428364800000,
+      "endDateTime": 1428379200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7792",
+      "startDateTime": 1428537600000,
+      "endDateTime": 1428552000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7793",
+      "startDateTime": 1428537600000,
+      "endDateTime": 1428552000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7780",
+      "startDateTime": 1428364800000,
+      "endDateTime": 1428379200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7781",
+      "startDateTime": 1428364800000,
+      "endDateTime": 1428379200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7774",
+      "startDateTime": 1428451200000,
+      "endDateTime": 1428465600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7762",
+      "startDateTime": 1428278400000,
+      "endDateTime": 1428292800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7768",
+      "startDateTime": 1428451200000,
+      "endDateTime": 1428465600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7769",
+      "startDateTime": 1428451200000,
+      "endDateTime": 1428465600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7756",
+      "startDateTime": 1428278400000,
+      "endDateTime": 1428292800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7757",
+      "startDateTime": 1428278400000,
+      "endDateTime": 1428292800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7765",
+      "startDateTime": 1428465600000,
+      "endDateTime": 1428480000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7766",
+      "startDateTime": 1428465600000,
+      "endDateTime": 1428480000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7767",
+      "startDateTime": 1428465600000,
+      "endDateTime": 1428480000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7777",
+      "startDateTime": 1428379200000,
+      "endDateTime": 1428393600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7778",
+      "startDateTime": 1428379200000,
+      "endDateTime": 1428393600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7779",
+      "startDateTime": 1428379200000,
+      "endDateTime": 1428393600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7789",
+      "startDateTime": 1428552000000,
+      "endDateTime": 1428566400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7790",
+      "startDateTime": 1428552000000,
+      "endDateTime": 1428566400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7791",
+      "startDateTime": 1428552000000,
+      "endDateTime": 1428566400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7801",
+      "startDateTime": 1428638400000,
+      "endDateTime": 1428652800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7802",
+      "startDateTime": 1428638400000,
+      "endDateTime": 1428652800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7803",
+      "startDateTime": 1428638400000,
+      "endDateTime": 1428652800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": false
+    },
+    {
+      "id": "7806",
+      "startDateTime": 1428638400000,
+      "endDateTime": 1428652800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7807",
+      "startDateTime": 1428638400000,
+      "endDateTime": 1428652800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7808",
+      "startDateTime": 1428638400000,
+      "endDateTime": 1428652800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7794",
+      "startDateTime": 1428552000000,
+      "endDateTime": 1428566400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7795",
+      "startDateTime": 1428552000000,
+      "endDateTime": 1428566400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7796",
+      "startDateTime": 1428552000000,
+      "endDateTime": 1428566400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7782",
+      "startDateTime": 1428379200000,
+      "endDateTime": 1428393600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7783",
+      "startDateTime": 1428379200000,
+      "endDateTime": 1428393600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7784",
+      "startDateTime": 1428379200000,
+      "endDateTime": 1428393600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7758",
+      "startDateTime": 1428292800000,
+      "endDateTime": 1428307200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7759",
+      "startDateTime": 1428292800000,
+      "endDateTime": 1428307200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7760",
+      "startDateTime": 1428292800000,
+      "endDateTime": 1428307200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7770",
+      "startDateTime": 1428465600000,
+      "endDateTime": 1428480000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7771",
+      "startDateTime": 1428465600000,
+      "endDateTime": 1428480000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    },
+    {
+      "id": "7772",
+      "startDateTime": 1428465600000,
+      "endDateTime": 1428480000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "4",
+      "teamId": "6",
+      "beingQualified": false,
+      "beingSwapped": false,
+      "excessShift": true
+    }
+  ],
+  "shiftAssignmentDtos": []
+}

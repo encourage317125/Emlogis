@@ -1,0 +1,23 @@
+<div data-ng-hide="mode == 'Create'" class="row-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Relationships</h3>
+        </div>
+        <div class="panel-body">
+            <div class="col-md-12 column">
+                <div class="divider"></div>
+                <tabset id="tabs">
+                    <tab ng-repeat="tab in tabs"
+                         ui-sref="authenticated.entity.relatedentity({relatedentity: '{{tab.name}}'})">
+                        <tab-heading active="true">
+                            <img ng-src={{tab.icon}} class="cardImage" height="16" width="16">
+                            <!--<a ui-sref="entity.relatedentity({relatedentity: 'useraccount'})">Users</a>-->
+                            {{tab.label}}
+                        </tab-heading>
+                    </tab>
+                </tabset>
+                <div ui-view></div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="eml-sorting" ng-show="showControl">
+  <span class="title">{{ ::"app.SORT_BY" | translate }}:</span>
+  <span ng-repeat="f in fields">
+    <button class="btn btn-xs"
+            ng-class="{ 'btn-default' : f.name === selectedField.name, 'eml-btn-white' : f.name !== selectedField.name}"
+            ng-click="selectField(f); sort()">{{f.buttonLabel}}</button>
+  </span>
+  <span class="vertical-divider">|</span>
+  <img src="/scheduler-server/emlogis/img/sort.svg"
+       class="sort-icon"
+       ng-class="{ 'up' : !order }"
+       ng-click="order = !order; sort()">
+</div>

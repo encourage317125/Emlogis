@@ -1,0 +1,15 @@
+<div class="container-fluid" style="padding: 15px">
+    <div class="btn-group btn-columns" style="width: 100%;">
+        <label data-ng-repeat="r in reports"
+               class="btn btn-primary report-item col-sm-4 col-md-3"
+               ng-model="reportsModel.current"
+               ng-change="changeReport(r.id)"
+               btn-radio="r.id" >{{'reports.' + group + '.' + r.name | translate}}
+        </label>
+    </div>
+</div>
+<hr>
+
+<div ui-view= "birtReportContent"></div>
+
+

@@ -1,0 +1,152 @@
+<div class="employee-preferences">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <h4 class="panel-title">{{ ::"nav.employeePreferences.SELECT_DELIVERY_METHOD" | translate }}</h4>
+      </div>
+    </div>
+    <div class="panel panel-default delivery-method">
+      <div class="panel-heading">
+        <div class="checkbox">
+          <label><input type="checkbox" ng-model="employeePreferences.isNotificationEnabled">
+            {{ ::"nav.employeePreferences.ENABLE_NOTIFICATIONS" | translate }}</label>
+        </div>
+      </div>
+      <div class="panel-body">
+        <form>
+          <fieldset ng-disabled="!employeePreferences.isNotificationEnabled">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="notification-checkbox">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" ng-model="notificationConfig('CorporateEmail').enabled" ng-disabled="!employeePreferences.workEmail">
+                      {{ ::"nav.employeePreferences.CORPORATE_EMAIL_ADDRESS" | translate }} -
+                      <span class="light-font">{{employeePreferences.workEmail || emailShouldBeSpecified}}</span>
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" ng-model="notificationConfig('PersonalEmail').enabled" ng-disabled="!employeePreferences.homeEmail">
+                      {{ ::"nav.employeePreferences.PERSONAL_EMAIL_ADDRESS" | translate }} -
+                      <span class="light-font">{{employeePreferences.homeEmail || emailShouldBeSpecified}}</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="notificztion-button">
+                  <div>
+                    <button class="btn btn-xs"
+                            ng-class="{'btn-default': !hasHTMLFormat('CorporateEmail'), 'eml-btn-white': hasHTMLFormat('CorporateEmail')}"
+                            ng-click="notificationConfig('CorporateEmail').format = notificationFormats.PLAIN_TEXT">
+                      Plain text
+                    </button>
+                    <button class="btn btn-xs"
+                            ng-class="{'btn-default': hasHTMLFormat('CorporateEmail'), 'eml-btn-white': !hasHTMLFormat('CorporateEmail')}"
+                            ng-click="notificationConfig('CorporateEmail').format = notificationFormats.HTML">
+                      HTML
+                    </button>
+                  </div>
+                  <div>
+                    <button class="btn btn-xs"
+                            ng-class="{'btn-default': hasHTMLFormat('PersonalEmail'), 'eml-btn-white': !hasHTMLFormat('PersonalEmail')}"
+                            ng-click="notificationConfig('PersonalEmail').format = notificationFormats.HTML">
+                      Plain text
+                    </button>
+                    <button class="btn btn-xs"
+                            ng-class="{'btn-default': !hasHTMLFormat('PersonalEmail'), 'eml-btn-white': hasHTMLFormat('PersonalEmail')}"
+                            ng-click="notificationConfig('PersonalEmail').format = notificationFormats.PLAIN_TEXT">
+                      HTML
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" ng-model="notificationConfig('SMS').enabled" ng-disabled="!employeePreferences.mobilePhone">
+                {{ ::"nav.employeePreferences.TEXT_MESSAGE" | translate }} -
+                <span class="light-font">{{employeePreferences.mobilePhone || phoneShouldBeSpecified}}</span>
+              </label>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+
+    <h4 class="panel-title">{{ ::"nav.employeePreferences.SELECT_NOTIFICATIONS" | translate }}</h4>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <div class="checkbox">
+          <label><input type="checkbox" ng-model="allSystemNotifications" ng-change="selectAllNotifications()">
+            {{ ::"nav.employeePreferences.ALL_SYSTEM_NOTIFICATIONS" | translate }}
+          </label>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="checkbox">
+          <label><input type="checkbox" ng-model="employeePreferences.notificationTypes.TIME_OFF_REQUEST">
+            {{ ::"nav.employeePreferences.TIME_OFF_REQUEST" | translate }} -
+            <span class="light-font">Notify me when there is a change in status</span>
+          </label>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" ng-model="employeePreferences.notificationTypes.SWAP_REQUEST">
+            {{ ::"nav.employeePreferences.SHIFT_SWAP_REQUEST" | translate }} -
+            <span class="light-font">{{ ::"nav.employeePreferences.NOTIFY_CHANGE_STATUS" | translate }}</span>
+          </label>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" ng-model="employeePreferences.notificationTypes.WIP_REQUEST">
+            {{ ::"nav.employeePreferences.WORK_IN_PLACE_REQUEST" | translate }} -
+            <span class="light-font">{{ ::"nav.employeePreferences.NOTIFY_CHANGE_STATUS" | translate }}</span>
+          </label>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" ng-model="employeePreferences.notificationTypes.OPEN_SHIFT_REQUEST">
+            {{ ::"nav.employeePreferences.REQUEST_OPEN_SHIFT" | translate }} -
+            <span class="light-font">{{ ::"nav.employeePreferences.NOTIFY_CHANGE_STATUS" | translate }}</span>
+          </label>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" ng-model="employeePreferences.notificationTypes.SCHEDULE_DELETED">
+            {{ ::"nav.employeePreferences.SCHEDULE_DELETED" | translate }} -
+            <span class="light-font">{{ ::"nav.employeePreferences.NOTIFY_SCHEDULE_DELETED" | translate }}</span>
+          </label>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" ng-model="employeePreferences.notificationTypes.SCHEDULE_POSTED">
+            {{ ::"nav.employeePreferences.SCHEDULE_POSTED" | translate }} -
+            <span class="light-font">{{ ::"nav.employeePreferences.NOTIFY_SCHEDULE_POSTED" | translate }}</span>
+          </label>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" ng-model="employeePreferences.notificationTypes.OPEN_SHIFT_POSTED">
+            {{ ::"nav.employeePreferences.OPEN_SHIFTS_POSTED" | translate }} -
+            <span class="light-font">{{ ::"nav.employeePreferences.NOTIFY_OPEN_SHIFT_POSTED" | translate }}</span>
+          </label>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" ng-model="employeePreferences.notificationTypes.AVAILABILITY_REQUEST">
+            {{ ::"nav.employeePreferences.CHANGE_AVAILABILITY_REQUEST" | translate }} -
+            <span class="light-font">{{ ::"nav.employeePreferences.NOTIFY_CHANGE_AVAILABILITY" | translate }}</span>
+          </label>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" ng-model="employeePreferences.notificationTypes.PTO_DAY_REMOVED">
+            {{ ::"nav.employeePreferences.PTO_DAY_REMOVED" | translate }} -
+            <span class="light-font">{{ ::"nav.employeePreferences.NOTIFY_PTO_DAY_REMOVED" | translate }}</span>
+          </label>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" ng-model="employeePreferences.notificationTypes.MY_SCHEDULE_CHANGE">
+            {{ ::"nav.employeePreferences.CHANGE_IN_MY_SCHEDULE" | translate }} -
+            <span class="light-font">{{ ::"nav.employeePreferences.NOTIFY_SCHEDULE_CHANGED" | translate }}</span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="submit-block">
+      <button class="btn btn-success" ng-click="updateEmployeePreferences()">{{ ::"app.UPDATE" | translate }}</button>
+    </div>
+  </div>
+</div>

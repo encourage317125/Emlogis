@@ -1,0 +1,119 @@
+//@import "partials/variables";
+@import "partials/mixins";
+
+// monitoring Breadcrumb
+.monitoring-breadcrumb {
+  .control-bar {
+    width: 170px;
+  }
+}
+
+.monitoring {
+
+  .control-bar {
+    padding: $padding-large-vertical $padding-large-horizontal;
+    border-bottom: 1px solid $panel-border-color;
+  }
+
+  .nav-panel {
+    padding: 0 15px 15px;
+    margin-left: -15px;
+    margin-right: -15px;
+    border-bottom: 1px solid #ddd;
+    .customer-link {
+      cursor: pointer;
+    }
+  }
+
+  .control-panel {
+    padding: $padding-large-vertical 0;
+
+    .result-rows-legend {
+      margin-top: $margin-base-vertical;
+
+      .showing-label {
+        font-size: $small-font-size;
+      }
+
+    }
+
+    .glyphicon-filter {
+      font-size: $large-font-size;
+      color: $gray-color;
+      vertical-align: middle;
+    }
+
+  }
+
+  .btn-container {
+    margin-top: $margin-ml-vertical;
+
+    .delete-entity-container {
+      .dropdown-menu {
+        a {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+
+//  .entity-list-grid {
+//    height: 550px;
+//
+//  }
+
+  .ui-grid-viewport {
+    overflow: auto !important;
+  }
+
+  .nav.nav-tabs {
+    cursor: auto;
+    li {
+      cursor: pointer;
+    }
+  }
+
+  .inner-addon {
+    position: relative;
+    display: inline-block;
+  }
+
+  .inner-addon .glyphicon {
+    position: absolute;
+    padding: $padding-large-vertical $padding-base-horizontal;
+    pointer-events: none;
+    color: #808080;
+  }
+
+  .left-addon .glyphicon {
+    left: 0px;
+  }
+
+  .right-addon .glyphicon {
+    right: 0px;
+  }
+
+  .left-addon input {
+    padding-left: $padding-xl-horizontal;
+  }
+
+  .right-addon input {
+    padding-right: $padding-large-horizontal;
+  }
+
+  .db-label{
+    padding-top: 6px;
+  }
+
+  .db-label-nested{
+    padding-left: 25px;
+  }
+
+  .db-value{
+    text-align: center;
+    margin: 3px;
+    height: 28px;
+    padding: 3px 10px;
+  }
+}

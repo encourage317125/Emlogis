@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>jar</packaging>
+    <groupId>com.emlogis</groupId>
+    <artifactId>ihub-security</artifactId>
+    <version>1.0</version>
+
+    <properties>
+        <!-- plugin versions -->
+        <version.compiler.plugin>3.1</version.compiler.plugin>
+        <version.jar.plugin>2.6</version.jar.plugin>
+        <version.assembly.plugin>2.5.5</version.assembly.plugin>
+
+        <!-- maven-compiler-plugin -->
+        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.compiler.source>1.7</maven.compiler.source>
+
+        <!--library versions-->
+        <version.resteasy.client>3.0.13.Final</version.resteasy.client>
+        <version.resteasy.jackson.provider>3.0.13.Final</version.resteasy.jackson.provider>
+        <version.servlet.api>2.5</version.servlet.api>
+        <version.xerces>2.11.0</version.xerces>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-client</artifactId>
+            <version>${version.resteasy.client}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jackson-provider</artifactId>
+            <version>${version.resteasy.jackson.provider}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>${version.servlet.api}</version>
+        </dependency>
+        <dependency>
+            <groupId>xerces</groupId>
+            <artifactId>xercesImpl</artifactId>
+            <version>${version.xerces}</version>
+        </dependency>
+
+        <!--Classpath dependencies-->
+        <dependency>
+            <groupId>com.actuate.iportal</groupId>
+            <artifactId>iportal</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/com.actuate.iportal.jar</systemPath>
+            <classifier>project</classifier>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.actuate.webcommon</groupId>
+            <artifactId>webcommon</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/com.actuate.webcommon.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.actuate.jsp-api</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.1</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/jsp-api-2.1.jar</systemPath>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>EmlogisIhubSecurityAdapter</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${version.jar.plugin}</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${version.compiler.plugin}</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+

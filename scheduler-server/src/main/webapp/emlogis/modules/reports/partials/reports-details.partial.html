@@ -1,0 +1,106 @@
+<div class="parameters-container clearfix" data-ng-show="reportInfo.ui == 0" >
+  <form novalidate
+        id="reportParamsForm"
+        name="reportParamsForm"
+        >
+    <!-- todo remove p.Name!='SelectedSiteInfo'-->
+    <div data-ng-repeat="p in parameters" ng-if="!p.IsHidden && p.Name!='SelectedSiteInfo'">
+      <div class="col-sm-1 parameter-date form-group" ng-if="p._type == 'Date'">
+        <label for="{{p.Name}}" class="param-label">{{p.DisplayName}}</label>
+        <span class="input-group date-input">
+          <input type="text"
+                 class="form-control"
+                 id="{{p.Name}}"
+                 name="{{p.Name}}"
+                 placeholder="{{ ::'app.DATE' | translate }}"
+                 datepicker-popup="MM/dd/yy"
+                 ng-model="p.value"
+                 is-open="p.dateOpened"
+                 current-text="{{ ::'calendar.JUMP_TO_TODAY' | translate }}"
+                 data-ng-change="fetchNextFromUI($index)"
+                 ng-required="p.IsRequired"/>
+          <span class="input-group-btn">
+            <button type="button"
+                    class="btn eml-btn-grey-lightest eml-calendar-btn"
+                    ng-class="{ 'eml-calendar-opened' : p.dateOpened }"
+                    ng-click="openCalendar($event, p, 'dateOpened')">
+              <img src="/scheduler-server/emlogis/img/calendar.svg">
+            </button>
+          </span>
+        </span>
+        <div validate-messages messages-for="reportParamsForm[p.Name]" submitted="submitted"></div>
+      </div>
+
+      <div class="col-sm-1 parameter parameter form-group" ng-if="p._type == 'Select' ">
+        <label for="{{p.Name}}" class="param-label">{{p.DisplayName}}</label>
+        <eml-dropdown
+                model="p.value"
+                options="p.SelectNameValueList.NameValuePair"
+                property="Name"
+                on-select="fetchNextFromUI($index)">
+        </eml-dropdown>
+        <select name="{{p.Name}}"
+                id="{{p.Name}}"
+                style="display: none"
+                class="form-control"
+                ng-model="p.value"
+                ng-options="obj.Name for obj in p.SelectNameValueList.NameValuePair"
+                ng-change="fetchNextFromUI($index)"
+                required>
+        </select>
+        <div validate-messages messages-for="reportParamsForm[p.Name]" submitted="submitted"></div>
+      </div>
+
+      <div class="col-sm-1 parameter form-group" ng-if="p._type == 'MultiSelect'">
+        <label for="{{p.Name}}" class="param-label">{{p.DisplayName}}</label>
+        <span isteven-multi-select
+              input-model="p.SelectNameValueList.NameValuePair"
+              output-model="p.selectedValues"
+              button-label="Name"
+              item-label="Name"
+              tick-property="ticked"
+              max-labels="1"
+              on-item-click="fetchNextFromUI($index)"
+              on-select-all="fetchNextFromUI($index)"
+              on-select-none="fetchNextFromUI($index)"
+            >
+        </span>
+        <input type="text" ng-model="p._Value" name="{{p.Name}}" style="display:none" ng-required="p.IsRequired" />
+        <div validate-messages messages-for="reportParamsForm[p.Name]" submitted="submitted"></div>
+      </div>
+
+      <div class="col-sm-1 parameter form-group" ng-if="p._type == 'Boolean'">
+        <label for="{{p.Name}}" class="param-label">{{p.DisplayName}}</label>
+
+        <label class="eml-switch">
+          <input type="checkbox" class="eml-switch-input" ng-model="p._Value" >
+          <span class="eml-switch-label" data-on="{{ ::'app.ON' | translate }}" data-off="{{ ::'app.OFF' | translate }}"></span>
+          <span class="eml-switch-handle"></span>
+        </label>
+        <div validate-messages messages-for="reportParamsForm[p.Name]" submitted="submitted"></div>
+      </div>
+    </div>
+  </form>
+
+  <div class="col-sm-1 parameter form-group">
+    <label class="param-label">&nbsp;</label>
+    <button class="btn btn-success"
+            data-ng-show="parameters.length>0"
+            ng-click="runReport($event, reportParamsForm.$valid)">
+      Run Report
+    </button>
+  </div>
+
+  <div class="col-sm-1 parameter form-group">
+    <label class="param-label">&nbsp;</label>
+    <div loader ng-show="parameterIsLoading"></div>
+  </div>
+
+</div>
+
+<div id="parameters-container" ng-show="reportInfo.ui == 1" class="container-fluid">
+  <div id="parameters" ></div>
+  <input type="button" style="display: none" class="btn btn-success" name="run" id="run" value="Run Report" data-ng-click="processParameters( )">
+</div>
+
+<div id="viewer"></div>

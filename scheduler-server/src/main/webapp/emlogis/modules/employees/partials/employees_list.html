@@ -1,0 +1,85 @@
+<div class="employees-list container-fluid">
+  <div class="row eml-action-bar">
+    <div class="col-md-6">
+      <div class="form-inline">
+        <span isteven-multi-select
+             input-model="sites"
+             output-model="selectedSites"
+             button-label="name"
+             item-label="name"
+             tick-property="ticked"
+             max-labels = "1"
+             selection-mode="single"
+             on-item-click="loadTeamsForSite(data.id)"
+             on-reset="loadTeamsForSite()">
+        </span>
+        <span isteven-multi-select
+             input-model="teams"
+             output-model="selectedTeams"
+             button-label="name"
+             item-label="name"
+             tick-property="ticked"
+             max-labels = "1">
+        </span>
+        <span isteven-multi-select
+              input-model="activityTypes"
+              output-model="selectedActivityTypes"
+              button-label="name"
+              item-label="name"
+              tick-property="ticked"
+              helper-elements="all, none, reset"
+              max-labels = "1">
+        </span>
+      </div>
+    </div>
+
+    <div class="col-md-6 text-right">
+      <!--<button type="button" class="btn btn-default print pull-right">-->
+        <!--{{'app.PRINT' | translate }}-->
+      <!--</button>-->
+    </div>
+  </div>
+
+  <div class="row divider"></div>
+
+  <div class="row">
+    <div class="col-md-2">
+      <input type="text"
+             class="form-control"
+             placeholder="{{ ::'employees.FILTER_BY_NAME' | translate }}..."
+             ng-model="nameFilter"
+             ng-show="haveEmployees() || nameFilter">
+    </div>
+    <div class="col-md-10 text-right grid-number-text" ng-show="haveEmployees()">
+      <span class="text-uppercase">
+        {{ 'app.SHOWING' | translate }} {{gridOptions.data.length }}
+        {{ 'app.OF'|translate}} {{gridOptions.totalItems}} {{'nav.EMPLOYEES' | translate }}
+      </span>
+    </div>
+  </div>
+
+  <div class="row" ng-show="haveEmployees()">
+    <div class="eml-grid employee-list-grid col-md-12">
+      <div ui-grid="gridOptions"
+           ui-grid-pagination>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="text-center">
+        <pagination class="pagination-sm"
+                    total-items="gridOptions.totalItems"
+                    items-per-page="gridOptions.paginationPageSize"
+                    ng-model="gridOptions.paginationCurrentPage"
+                    boundary-links="true"
+                    max-size="5"
+                    previous-text="&lsaquo;"
+                    next-text="&rsaquo;"
+                    first-text="&laquo;"
+                    last-text="&raquo;">
+        </pagination>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="text-center" ng-show="!haveEmployees()">{{ ::'employees.NO_EMPLOYEE_MATCH_FILTER' | translate }}</h3>
+</div>

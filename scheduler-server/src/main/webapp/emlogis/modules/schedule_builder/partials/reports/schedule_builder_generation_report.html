@@ -1,0 +1,146 @@
+<!-- schedule builder create report start-->
+<div class="schedule-builder-report">
+
+  <h3>
+    <div class="btn-group" dropdown is-open="status.isopen" style="float: left;">
+      <a href class="btn btn-primary open-schedule-btn" ng-click="openScheduleAction()">
+        <span class="filter-ico fa fa-calendar"></span>
+      </a>
+    </div>
+    {{'schedule_builder.SCHEDULE_GENERATION_REPORT' | translate }} ({{schedule.name}})
+  </h3>
+
+  <div data-ng-show="isScheduleEmpty()"> no schedule</div>
+  <div data-ng-hide="isScheduleEmpty()">
+    <div class="row">
+      <div
+          ng-include="'modules/schedule_builder/partials/schedule_builder_create_schedules_last_generation.html'"></div>
+    </div>
+    <div data-ng-show="schedule.shiftGenerationDuration == -1"> no report</div>
+    <div data-ng-show="schedule.shiftGenerationDuration != -1">
+      <!--<div class="divider"></div>-->
+      <tabset>
+        <tab heading="{{ 'schedule_builder.SCHEDULE_GENERATION_SUMMARY' | translate }}"
+             select="selectMainTab('scheduleGenerationSummary')"></tab>
+
+        <tab select="selectMainTab('employeeSummaryReport')">
+          <tab-heading>
+            {{'schedule_builder.EMPLOYEE_SUMMARY_REPORT' | translate }}
+                        <span ng-if="employeeSummaryGridData.length>0">(<span class='softCell'>
+                            {{employeeSummaryGridData.length}}</span>)</span>
+          </tab-heading>
+        </tab>
+
+        <tab select="selectMainTab('employeeScheduleReport')">
+          <tab-heading>
+            {{'schedule_builder.EMPLOYEE_SCHEDULE_REPORT' | translate }}
+            <span ng-if="getHardTotal()>0">(<span class='hardCell'>{{getHardTotal()}}</span>)</span>
+          </tab-heading>
+        </tab>
+
+        <tab heading="{{ 'schedule_builder.SCHEDULE_EXECUTION_REPORT' | translate }}"
+             select="selectMainTab('scheduleExecutionReport')"></tab>
+      </tabset>
+
+      <div ng-if="!readyEmployeeGridData">loading...</div>
+
+      <div class="tab-content" ng-if="selectedMainTab === 'scheduleGenerationSummary'">
+        <div
+            ng-include="'modules/schedule_builder/partials/reports/schedule_builder_generation_report_schedule_summary.html'"></div>
+      </div>
+      <div id="employeeSummaryReport" class="tab-content" ng-if="selectedMainTab === 'employeeSummaryReport'">
+        <div ng-if="report.completionReport!==null">
+          <div class="control-panel" style=" padding-bottom: 10px;">
+            <div class="row">
+              <div class="col-xs-3">
+                <input ng-model="employeeSummarySearchText" type="text" class="form-control"
+                       placeholder="Filter">
+              </div>
+              <div class="col-xs-offset-6 col-xs-3">
+                Showing {{gridApi.core.getVisibleRows(grid).length }} of {{employeeSummaryGridData.length}}
+              </div>
+            </div>
+          </div>
+          <div class="row top-margin-base">
+            <div class="col-sm-12">
+              <div class="list-view grid-panel eml-grid">
+                <div class="gridStyle data-grid"
+                     ui-grid="employeeSummaryGridOptions"
+                     ui-grid-pagination></div>
+              </div>
+              <div class="text-center">
+                <pagination class="pagination-sm"
+                            total-items="employeeSummaryGridOptions.totalItems"
+                            items-per-page="employeeSummaryGridOptions.paginationPageSize"
+                            ng-model="employeeSummaryGridOptions.paginationCurrentPage"
+                            boundary-links="true"
+                            max-size="5"
+                            previous-text="&lsaquo;"
+                            next-text="&rsaquo;"
+                            first-text="&laquo;"
+                            last-text="&raquo;">
+                </pagination>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div ng-if="report.completionReport===null">
+          No report data available
+        </div>
+      </div>
+
+      <div id="employeeScheduleReport" class="tab-content"
+           ng-if="selectedMainTab === 'employeeScheduleReport' && readyEmployeeGridData">
+        <div ng-if="report.completionReport!==null">
+          <div class="control-panel" style=" padding-bottom: 10px;">
+            <div class="row">
+              <div class="col-xs-3">
+                <input ng-model="employeeScheduleSearchText" type="text" class="form-control"
+                       placeholder="Filter">
+              </div>
+              <div class="col-xs-offset-6 col-xs-3">
+                Showing {{gridApi.core.getVisibleRows(grid).length }} of {{employeeGridData.length}}
+              </div>
+            </div>
+          </div>
+
+          <div class="row top-margin-base">
+            <div class="col-sm-12">
+              <div class="list-view grid-panel eml-grid">
+                <div class="gridStyle data-grid"
+                     ui-grid="employeeGridOptions"
+                     ui-grid-pagination></div>
+              </div>
+              <div class="text-center">
+                <pagination class="pagination-sm"
+                            total-items="employeeGridOptions.totalItems"
+                            items-per-page="employeeGridOptions.paginationPageSize"
+                            ng-model="employeeGridOptions.paginationCurrentPage"
+                            boundary-links="true"
+                            max-size="5"
+                            previous-text="&lsaquo;"
+                            next-text="&rsaquo;"
+                            first-text="&laquo;"
+                            last-text="&raquo;">
+                </pagination>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div ng-if="report.completionReport===null">
+          No report data available
+        </div>
+      </div>
+
+      <div class="tab-content" ng-if="selectedMainTab === 'scheduleExecutionReport'">
+        <div ng-if="report.completionReport!==null"
+             ng-include="'modules/schedule_builder/partials/reports/schedule_builder_generation_report_schedule_execution.html'"></div>
+        <div ng-if="report.completionReport===null">
+          No report data available
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- schedule builder create report end-->

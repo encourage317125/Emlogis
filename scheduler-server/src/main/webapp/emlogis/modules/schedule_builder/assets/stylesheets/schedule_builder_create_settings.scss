@@ -1,0 +1,128 @@
+$window-padding-left: 25px;
+$window-padding-right: 25px;
+$window-padding-bottom: 25px;
+//$window-width: 960px;
+
+.schedule-builder-create-settings {
+
+  padding-left: $window-padding-left;
+  padding-bottom: $window-padding-bottom;
+  padding-right: $window-padding-right;
+
+  // Diaglog box window position
+  .modal-dialog {
+    margin-top: 100px;
+  }
+
+  .nav-tabs {
+    margin: 0px -25px;
+  }
+
+  .tab-content {
+    padding-top: 15px;
+  }
+
+  button.pull-right {
+    margin-left: 5px;
+    margin-bottom: 5px;
+  }
+
+  .child-tab {
+    padding-left: $window-padding-left;
+    padding-bottom: $window-padding-bottom;
+    padding-right: $window-padding-right;
+  }
+
+  .overflow-table {
+    overflow-x: auto;
+  }/*
+
+  .gridCell {
+    padding: 5px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .hardCell {
+    color: rgb(255, 0, 0);
+  }
+
+  .softCell {
+    color: rgb(0, 0, 0);
+  }
+
+  .mediumCell {
+    color: rgb(255, 136, 0);
+  }
+
+  .goodCell {
+    color: rgb(0, 127, 255);
+  }
+
+  .gridStyle {
+    height: 500px;
+  }
+
+  .ui-grid-header-cell .ui-grid-cell-contents {
+    //white-space: normal;
+  }
+
+  .ui-grid-column-menu-button {
+    top: inherit;
+    bottom: 5px;
+  }
+
+  .ui-grid-header-cell {
+    height: inherit !important;
+  }
+*/
+  .last-generation {
+    .left-col-table {
+      vertical-align: top;
+      padding-right: 10px;
+    }
+  }
+
+  .ngcell {
+    display: table-cell;
+    height: auto !important;
+    overflow: visible;
+    position: static;
+  }
+
+  .ngcell-contents {
+    height: auto !important;
+    white-space: normal;
+    overflow: visible;
+  }
+
+  .ngrow {
+    display: table-row;
+    height: auto !important;
+    position: static;
+  }
+}
+
+
+.schedule-builder-create-settings {
+  .modal-dialog {
+    width: 960px;
+  }
+}
+
+@media (max-width: 1020px) {
+  .schedule-builder-create-settings {
+    .modal-dialog {
+      width: 600px;
+    }
+  }
+}
+
+@media (min-width: 1600px) {
+  .schedule-builder-create-settings {
+    .modal-dialog {
+      width: 1200px;
+    }
+  }
+}

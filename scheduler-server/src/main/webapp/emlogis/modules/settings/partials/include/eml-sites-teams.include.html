@@ -1,0 +1,32 @@
+<div class="eml-objects"> <!-- EmLogis Tags global component -->
+
+  <!-- All Sites / All Teams-->
+  <span class="eml-object label label-default" ng-if = "acl.allSitesAccessType == 'RW' "
+        >
+    {{'settings.ALL_SITES' | translate}} / {{'settings.ALL_TEAMS' | translate}}
+  </span>
+  <!-- End All Sites / All Teams-->
+
+  <!-- Site Level-->
+  <div ng-repeat="site in acl.result | orderBy:'name'" style="display:inline-block;"
+        ng-if = "acl.allSitesAccessType != 'RW'">
+
+    <!-- Site / All Teams-->
+    <span class="eml-object label label-default" ng-if = "site.teamsDto.allTeamsAccessType == 'RW' "
+          >
+      {{::site.name}} / {{'settings.ALL_TEAMS' | translate}}
+    </span>
+    <!-- End Site / All Teams-->
+
+    <!-- Site / Team-->
+    <span class="eml-object label label-default"
+          ng-repeat="team in site.teamsDto.teamDtos | orderBy:'name' "
+          ng-if = "site.teamsDto.allTeamsAccessType != 'RW' && team.accessType == 'RW' ">
+      {{::site.name}} / {{::team.name}}
+    </span>
+    <!-- Site / Team-->
+
+  </div>
+  <!-- End of Site Level-->
+  <a href translate ng-click="show()">settings.SET_SITE_TEAMS_ACCESS</a>
+</div>

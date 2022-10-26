@@ -1,0 +1,292 @@
+<div ng-controller="RulesShiftsCtrl as shift">
+
+  <div id="eml-shift">
+
+    <!-- Shift Lengths -->
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="row eml-action-bar">
+          <div class="col-xs-6 text-uppercase">
+            <h4>{{ ::"rules.site_teams.SHIFT" | translate }} <strong>{{ ::"rules.site_teams.LENGTHS" | translate }}</strong></h4>
+          </div>
+          <div class="col-xs-6 text-right">
+            <div ng-if="hasMgmtPermission()">
+              <button type="button" class="btn btn-default" ng-click="shift.addNewShiftLengths()" translate>
+                {{ ::"rules.site_teams.ADD_SHIFT_LENGTHS" }}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="panel panel-default">
+
+              <!-- Shift Lengths body -->
+              <div class="panel-body">
+                <!-- Length row -->
+                <div class="shift-length-row" ng-repeat="hour in shift.fullHoursList | orderBy">
+                  <!-- Length title -->
+                  <span class="shift-length-title text-uppercase">
+                    {{ hour }}-{{ ::"rules.site_teams.HOUR" | translate }}
+                    <span class="eml-grey"> {{ ::"rules.site_teams.SHIFT_LENGTH" | translate }}:</span>
+                  </span>
+
+                  <!-- Shift Length -->
+                  <span ng-repeat="length in shift.lengths | orderBy:'lengthInMin' | filterOutHour:hour"
+                        class="shift-length"
+                        ng-class="{ 'selected' : length.lengthInMin === shift.selectedLength.lengthInMin,
+                                    'inactive' : !length.active }"
+                        ng-click="shift.selectLength(length)">
+
+                    <label class="checkbox-inline">
+                      <input type="checkbox"
+                             ng-checked="length.active"
+                             ng-model="length.active"
+                             ng-change="shift.updLengthsEditing(length)"
+                             ng-disabled="!hasMgmtPermission()"
+                             ng-click="shift.stopPropagation($event)"> <span>.</span>
+                    </label>
+
+                    <span class="shift-length-text">{{ length.lengthInMin | displayAsHoursMinutes }}</span> <!-- ng-class="{ 'inactive' : !length.active }" -->
+                  </span>
+                </div>
+              </div> <!-- / shift lengths body -->
+
+              <div class="panel-footer text-right">
+                <button type="button"
+                        ng-if="hasMgmtPermission()"
+                        class="btn btn-success"
+                        ng-disabled="!shift.isLengthsEditing"
+                        ng-click="shift.saveShiftLengths()"> <!-- ng-class="{ 'invisible' : !shift.isLengthsEditing }" -->
+                  {{ ::"app.SAVE" | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shift Types -->
+    <div class="row">
+      <div class="col-md-8">
+
+        <div class="row eml-action-bar">
+          <div class="col-xs-6 text-uppercase">
+            <h4>{{ ::"rules.site_teams.SHIFT" | translate }} <strong>{{ ::"rules.site_teams.TYPES" | translate }}</strong></h4>
+          </div>
+          <div class="col-xs-6 text-right">
+            <div ng-if="hasMgmtPermission()">
+              <button type="button"
+                      class="btn btn-default"
+                      ng-disabled="!shift.selectedLength"
+                      ng-click="shift.addBulkNewShiftTypes()"
+                      translate>{{ ::"rules.site_teams.BULK_ADD_SHIFT_TYPES" }}</button>
+              <button type="button"
+                      class="btn btn-default"
+                      ng-disabled="!shift.selectedLength"
+                      ng-click="shift.addCustomShiftTypeRow()"
+                      translate>{{ ::"rules.site_teams.ADD_CUSTOM_SHIFT_TYPE" }}</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="panel panel-default">
+
+              <!-- Editable table -->
+              <table class="table eml-editable-table eml-table-striped">
+                <thead class="text-uppercase">
+                <tr>
+                  <th>{{ ::'rules.site_teams.SHIFT_TYPES_FOR' | translate }} <strong>{{ ::'rules.site_teams.LENGTHS' | translate }}
+                    <span class="text-lowercase"
+                          ng-if="shift.selectedLength">{{ shift.selectedLength.lengthInMin | displayAsHoursMinutes }}</span></strong>
+                  </th>
+                  <th translate>{{ ::'rules.site_teams.START_TIME' }}</th>
+                  <th translate>{{ ::'rules.site_teams.END_TIME' }}</th>
+                  <th translate>{{ ::'app.STATUS' }}</th>
+                  <th></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                  <!-- Row for Custom Shift Type adding -->
+                  <tr ng-show="shift.customShiftType" class="eml-row-selected">
+                    <td>{{ shift.customShiftType.name }}</td>
+                    <td>{{ shift.customShiftType.startTime | startTimeMomentFormat }}</td>
+                    <td>{{ shift.customShiftType.startTime | startTimeToEndTimeMoment:shift.customShiftType.shiftLengthLength }}</td>
+                    <td>
+                      <label class="eml-switch">
+                        <input type="checkbox"
+                               class="eml-switch-input"
+                               ng-model="shift.customShiftType.active"
+                               ng-disabled="!hasMgmtPermission()"
+                               ng-checked="shift.customShiftType.active">
+                        <span class="eml-switch-label"
+                              data-on="{{ ::'app.YES' | translate }}"
+                              data-off="{{ ::'app.NO' | translate }}"></span>
+                        <span class="eml-switch-handle"></span>
+                      </label>
+                    </td>
+                    <td></td>
+                  </tr>
+
+                  <!-- Existing Shift Types rows -->
+                  <tr ng-repeat="type in shift.types | orderBy:'startTime'"
+                      ng-class="{ 'eml-row-selected' : type.isEditing }">
+
+                    <td>{{ type.name }}</td>
+                    <td>{{ type.startTime | milisecondsToTime }}</td>
+                    <td>{{ type.startTime | startTimeToEndTime:type.shiftLengthLength }}</td>
+                    <td>
+                      <label class="eml-switch">
+                        <input type="checkbox"
+                               class="eml-switch-input"
+                               ng-model="type.active"
+                               ng-disabled="!hasMgmtPermission()"
+                               ng-checked="type.active"
+                               ng-change="shift.updTypesEditing()">
+                        <span class="eml-switch-label"
+                              data-on="{{ ::'app.YES' | translate }}"
+                              data-off="{{ ::'app.NO' | translate }}"></span>
+                        <span class="eml-switch-handle"></span>
+                      </label>
+                    </td>
+                    <td class="eml-last-column text-right">
+                      <button type="button"
+                              ng-if="hasMgmtPermission()"
+                              class="btn eml-btn-white btn-xs eml-table-edit"
+                              ng-click="shift.selectType(type)"
+                              ng-hide="type.isEditing" translate>{{ ::'app.EDIT' }}
+                      </button>
+                      <div class="eml-table-remove"
+                           ng-if="hasMgmtPermission()"
+                           ng-click="shift.deleteShiftType(type, $event)">
+                        <i class="fa fa-trash-o"></i>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table> <!-- /editable table -->
+
+              <div class="panel-footer text-right">
+                <button type="button"
+                        ng-if="hasMgmtPermission()"
+                        class="btn btn-success"
+                        ng-disabled="!shift.wereTypesEdited"
+                        ng-click="shift.updShiftTypesActivation()">
+                  {{ ::"app.SAVE" | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4" ng-show="shift.selectedType">
+        <div class="row eml-action-bar">
+          <div class="col-xs-6">
+            <div></div>
+          </div>
+          <div class="col-xs-6 text-uppercase text-right">
+            <h4>{{ ::'app.EDIT' | translate }} <strong>{{ ::'rules.site_teams.TYPE' | translate }}</strong></h4>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="panel panel-default">
+              <div class="panel-body">
+
+                <form name="selectedTypeForm" novalidate>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="selectedTypeName" translate>{{ ::'rules.site_teams.TYPE_NAME' }}</label>
+                        <input type="text"
+                               name="selectedTypeName"
+                               class="form-control"
+                               id="selectedTypeName"
+                               placeholder="Enter Type Name"
+                               ng-model="shift.selectedType.name"
+                               ng-change="shift.updSelectedTypeEditing()"
+                               required
+                               ng-required="true"
+                               maxlength="50"
+                               ng-maxlength="50">
+                        <!-- Common Directive: Validate-messages -->
+                        <div validate-messages
+                             messages-for="selectedTypeForm.selectedTypeName"
+                             submitted="shift.selectedType.isSubmitted"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-3 form-group">
+                      <label translate>{{ ::'rules.site_teams.LENGTH' }}</label>
+                      <span class="eml-selected-type-length">{{ shift.selectedType.shiftLengthLength | displayAsHMM }}</span>
+                    </div>
+
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="paidTime" translate>{{ ::'rules.site_teams.PAID_HOURS' }}</label>
+                        <input type="number"
+                               name="paidTime"
+                               class="form-control"
+                               id="paidTime"
+                               placeholder="Enter Paid Time"
+                               ng-model="shift.selectedType.paidTimeInHours"
+                               ng-change="shift.updSelectedTypeEditing()"
+                               required
+                               ng-required="true"
+                               min="0"
+                               max="24"> <!-- max="{{ shift.selectedType.shiftLengthLength / 60 }}" -->
+                        <!-- Common Directive: Validate-messages -->
+                        <div validate-messages
+                             messages-for="selectedTypeForm.paidTime"
+                             submitted="shift.selectedType.isSubmitted"></div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-5" ng-if="!shift.selectedType.id">
+                      <div class="form-group">
+                        <label translate>{{ ::'rules.site_teams.START_TIME' }}</label>
+                        <timepicker class="timepicker"
+                                    name="startTime"
+                                    ng-model="shift.selectedType.startTime"
+                                    ng-change="shift.updSelectedTypeEditing()"
+                                    hour-step="1"
+                                    minute-step="5"
+                                    show-meridian="false"
+                                    arrowkeys="false"
+                                    required
+                                    ng-required="true"></timepicker>
+                        <!-- Common Directive: Validate-messages -->
+                        <div validate-messages
+                             messages-for="selectedTypeForm.startTime"
+                             submitted="shift.selectedType.isSubmitted"></div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+              <div class="panel-footer text-right">
+                <button type="button"
+                        class="btn btn-success"
+                        ng-disabled="!shift.isTypeEdited"
+                        ng-click="shift.selectedType.isSubmitted = true; selectedTypeForm.$valid && shift.saveShiftType()">
+                  {{ ::"app.SAVE" | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

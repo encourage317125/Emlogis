@@ -1,0 +1,8 @@
+<div class="customer-selection-list grid-panel">
+    <div ng-if="customerDetails.needPagination">
+        <div ui-grid="customerListGridOptions" ui-grid-resize-columns ui-grid-pagination ui-grid-move-columns class="entity-selection-list-grid"></div>
+    </div>
+    <div ng-if="!customerDetails.needPagination">
+        <div ui-grid="customerListGridOptions" ui-grid-resize-columns ui-grid-move-columns class="entity-selection-list-grid"></div>
+    </div>
+</div>

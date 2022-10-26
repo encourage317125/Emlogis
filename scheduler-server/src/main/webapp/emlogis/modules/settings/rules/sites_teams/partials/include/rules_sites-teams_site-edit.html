@@ -1,0 +1,398 @@
+<div ng-controller="RulesSiteEditCtrl">
+  <form id="siteForm"
+        name="siteForm"
+        ng-submit="siteForm.$valid"
+        novalidate>
+
+    <div class="row"> <!-- ng-show="selectedSiteDetailsToDisplay.id" -->
+      <div class="col-sm-6">
+        <h3 ng-show="selectedSiteDetails.name">{{ selectedSiteDetails.name }} <span ng-show="selectedSiteDetails.abbreviation">({{ selectedSiteDetails.abbreviation }})</span></h3>
+      </div>
+      <div class="col-sm-6 text-right">
+        <div class="checkbox check-box-above-edit">
+          <label>
+            <input type="checkbox"
+                   ng-model="selectedSiteDetailsToDisplay.isNotificationEnabled"
+                   ng-disabled="!hasMgmtPermission()"
+                   ng-change="updateEditing()">
+            Enable Notifications
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Common Directive: Edit-well -->
+    <div edit-well
+         name="rules.site_teams.SITE_SETTINGS"
+         is-collapsable="true"
+         is-collapsed="isEditWellCollapsed"
+         ng-show="selectedSiteDetailsToDisplay">
+
+      <div transclude-to="well-body">
+        <!-- Transcluded content for directive Edit-well starts here -->
+        <div class="row">
+          <div class="col-sm-8">
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="siteName">Site Name</label>
+                  <input type="text"
+                         name="siteName"
+                         class="form-control"
+                         id="siteName"
+                         placeholder="Enter site name"
+                         ng-model="selectedSiteDetailsToDisplay.name"
+                         ng-change="updateEditing()"
+                         ng-minlength="5"
+                         required
+                         ng-disabled="!hasMgmtPermission()">
+                  <!-- Common Directive: Validate-messages -->
+                  <div validate-messages messages-for="siteForm.siteName" submitted="page.submitted"></div>
+                </div>
+              </div>
+
+
+              <div class="col-sm-2">
+                <div class="form-group">
+                  <label for="siteAbbreviation">Abbreviation</label>
+                  <input type="text"
+                         class="form-control"
+                         id="siteAbbreviation"
+                         name="siteAbbreviation"
+                         placeholder="Enter"
+                         ng-model="selectedSiteDetailsToDisplay.abbreviation"
+                         ng-change="updateEditing()"
+                         required
+                         ng-disabled="!hasMgmtPermission()">
+                  <!-- Common Directive: Validate-messages -->
+                  <div validate-messages messages-for="siteForm.siteAbbreviation" submitted="page.submitted"></div>
+                </div>
+              </div>
+
+
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="site-description">Description</label>
+                  <input type="text"
+                         class="form-control"
+                         id="site-description"
+                         placeholder="Enter optional description..."
+                         ng-model="selectedSiteDetailsToDisplay.description"
+                         ng-change="updateEditing()"
+                         ng-disabled="!hasMgmtPermission()">
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-sm-2">
+                <div class="form-group" >
+                  <label for="firstDayOfWeek">Start Week On</label>
+                  <select id="firstDayOfWeek"
+                          name="firstDayOfWeek"
+                          class="form-control"
+                          ng-model="selectedSiteDetailsToDisplay.firstDayOfWeek"
+                          ng-options="option as option | toTranslate: 'calendar.' | translate
+                                              for option in siteOptions.weekDays"
+                          ng-change="updateEditing()"
+                          required
+                          ng-disabled="!hasMgmtPermission()">
+                  </select>
+
+                  <!-- Dropdown TODO for dropdown styling -->
+                  <!--<div class="btn-group" dropdown>
+                    <button id="split-button" type="button" class="btn btn-danger">{{ selectedSiteDetailsToDisplay.firstDayOfWeek }}</button>
+                    <button type="button" class="btn btn-danger" dropdown-toggle>
+                      <span class="caret"></span>
+                      <span class="sr-only">Split button!</span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="split-button">
+                      <li ng-repeat="option in siteOptions.weekDays"
+                          role="menuitem" >{{ option | toTranslate: 'calendar.' | translate }}</li>
+                    </ul>
+                  </div>
+
+                  <input type="text"
+                         id="firstDayOfWeek"
+                         name="firstDayOfWeek"
+                         ng-model="selectedSiteDetailsToDisplay.firstDayOfWeek"
+                         ng-change="updateEditing()"
+                         hidden
+                         required />-->
+
+                  <!-- Common Directive: Validate-messages -->
+                  <div validate-messages messages-for="siteForm.firstDayOfWeek" submitted="page.submitted"></div>
+                </div>
+              </div>
+
+
+              <div class="col-sm-2">
+                <div class="form-group" >
+                  <label for="site-shift-increments">Shift Increments</label>
+                  <select id="site-shift-increments"
+                          class="form-control"
+                          ng-model="selectedSiteDetailsToDisplay.shiftIncrements"
+                          ng-options="option as option | addMinutesToTranslate | toTranslate: 'rules.' | translate
+                                              for option in siteOptions.shiftIncrements"
+                          ng-change="updateEditing()"
+                          ng-disabled="!hasMgmtPermission()">
+                  </select>
+                </div>
+              </div>
+
+
+              <div class="col-sm-2" >
+                <div class="form-group">
+                  <label for="shiftOverlaps">Shift Overlap</label>
+                  <select id="shiftOverlaps"
+                          name="shiftOverlaps"
+                          class="form-control"
+                          ng-model="selectedSiteDetailsToDisplay.shiftOverlaps"
+                          ng-options="option as option | addMinutesToTranslate | toTranslate: 'rules.' | translate
+                                              for option in siteOptions.shiftOverlaps"
+                          ng-change="updateEditing()"
+                          required
+                          ng-disabled="!hasMgmtPermission()">
+                  </select>
+                  <!-- Common Directive: Validate-messages -->
+                  <div validate-messages messages-for="siteForm.shiftOverlaps" submitted="page.submitted"></div>
+                </div>
+              </div>
+
+
+              <div class="col-sm-2">
+                <div class="form-group">
+                  <label>WIP Fragments</label>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox"
+                             ng-model="selectedSiteDetailsToDisplay.enableWIPFragments"
+                             ng-change="updateEditing()"
+                             ng-disabled="!hasMgmtPermission()">
+                      Enable
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="col-sm-2">
+                <div class="form-group">
+                  <label for="maxConsecutiveShifts">Max Consecutive</label>
+                  <select id="maxConsecutiveShifts"
+                          name="maxConsecutiveShifts"
+                          class="form-control"
+                          ng-model="selectedSiteDetailsToDisplay.maxConsecutiveShifts"
+                          ng-options="option as option | addDaysToTranslate | toTranslate: 'rules.' | translate
+                                              for option in siteOptions.maxConsecutiveShifts"
+                          ng-change="updateEditing()"
+                          ng-disabled="!hasMgmtPermission()">
+                  </select>
+                </div>
+              </div>
+
+
+              <div class="col-sm-2">
+                <div class="form-group field-with-side-text">
+                  <label for="timeOffBetweenShifts">Between Shifts</label>
+                  <div class="col-sm-6">
+                    <input id="timeOffBetweenShifts"
+                           name="timeOffBetweenShifts"
+                           class="form-control"
+                           placeholder="8"
+                           ng-model="selectedSiteDetailsToDisplay.timeOffBetweenShifts"
+                           ng-change="updateEditing()"
+                           ng-disabled="!hasMgmtPermission()">
+                  </div>
+                  <div class="col-sm-6">
+                    <p class="label-text side-text">Hours</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div id="begin-overtime" class="col-sm-2 form-horizontal">
+            <p class="label-text">Begin Overtime After</p>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-sm-4">
+                  <input type="text"
+                         class="form-control"
+                         id="site-overtime-2weeks"
+                         ng-model="selectedSiteDetailsToDisplay.overtimeDto.biweeklyOvertimeMins"
+                         ng-change="updateEditing()"
+                         placeholder="80"
+                         ng-disabled="!hasMgmtPermission()">
+                </div>
+                <label for="site-overtime-2weeks" class="col-sm-8 control-label text-left">Hours per 2 Weeks</label>
+              </div>
+
+
+              <div class="row">
+                <div class="col-sm-4">
+                  <input type="text"
+                         class="form-control"
+                         id="site-overtime-week"
+                         ng-model="selectedSiteDetailsToDisplay.overtimeDto.weeklyOvertimeMins"
+                         ng-change="updateEditing()"
+                         placeholder="40"
+                         ng-disabled="!hasMgmtPermission()">
+                </div>
+                <label for="site-overtime-week" class="col-sm-8 control-label text-left">Hours per Week</label>
+              </div>
+
+
+              <div class="col-sm-4">
+                <input type="text"
+                       class="form-control"
+                       id="site-overtime-day"
+                       ng-model="selectedSiteDetailsToDisplay.overtimeDto.dailyOvertimeMins"
+                       ng-change="updateEditing()"
+                       placeholder="8"
+                       ng-disabled="!hasMgmtPermission()">
+              </div>
+              <label for="site-overtime-day" class="col-sm-8 control-label text-left">Hours per Day</label>
+            </div>
+          </div>
+
+
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="twoWeeksOvertimeStartDate">Start 2-week OT</label>
+              <div class="input-group">
+
+                <input id="twoWeeksOvertimeStartDate"
+                       name="twoWeeksOvertimeStartDate"
+                       type="text"
+                       class="form-control"
+                       placeholder="{{ ::'app.DATE' | translate }}"
+                       datepicker-popup="MM/dd/yy"
+                       ng-model="selectedSiteDetailsToDisplay.twoWeeksOvertimeStartDate"
+                       ng-change="updateEditing()"
+                       is-open="siteOptions.datepickerOpened"
+                       ng-disabled="!hasMgmtPermission()"> <!-- TODO: opened & test if update date is correct -->
+
+                <span class="input-group-btn">
+                  <button type="button"
+                          ng-disabled="!hasMgmtPermission()"
+                          class="btn eml-btn-grey-lightest eml-calendar-btn"
+                          ng-class="{ 'eml-calendar-opened' : siteOptions.datepickerOpened }"
+                          ng-click="siteOptions.openDatepicker($event)">
+                    <img src="/scheduler-server/emlogis/img/calendar.svg">
+                  </button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div> <!-- row ends -->
+
+        <!--<div class="row divider"></div>-->
+
+        <div class="row clearfix well-dark">
+          <div class="col-md-8">
+            <div class="row">
+              <div class="col-md-4 form-group">
+                <label for="siteAddress" class="">Address</label>
+                <input id="siteAddress"
+                       name="siteAddress"
+                       type="text"
+                       class="form-control"
+                       placeholder="Enter address"
+                       ng-model="selectedSiteDetailsToDisplay.address"
+                       ng-change="updateEditing()"
+                       required
+                       ng-disabled="!hasMgmtPermission()">
+                <!-- Common Directive: Validate-messages -->
+                <div validate-messages messages-for="siteForm.siteAddress" submitted="page.submitted"></div>
+              </div>
+
+
+              <div class="col-md-2 form-group">
+                <label for="siteCity" class="">City</label>
+                <input id="siteCity"
+                       name="siteCity"
+                       type="text"
+                       class="form-control"
+                       placeholder="Enter city"
+                       ng-model="selectedSiteDetailsToDisplay.city"
+                       ng-change="updateEditing()"
+                       required
+                       ng-disabled="!hasMgmtPermission()">
+                <!-- Common Directive: Validate-messages -->
+                <div validate-messages messages-for="siteForm.siteCity" submitted="page.submitted"></div>
+              </div>
+
+
+              <div class="col-md-2 form-group">
+                <label for="siteCountry" class="">Country</label>
+                <select id="siteCountry"
+                        name="siteCountry"
+                        class="form-control"
+                        ng-model="selectedSiteDetailsToDisplay.country"
+                        ng-options="option as option for option in countriesList"
+                        ng-change="updateEditing()"
+                        required
+                        ng-disabled="!hasMgmtPermission()">
+                </select>
+                <!-- Common Directive: Validate-messages -->
+                <div validate-messages messages-for="siteForm.siteCountry" submitted="page.submitted"></div>
+              </div>
+
+
+              <div class="col-md-2 form-group">
+                <label for="generaState" class="">State</label>
+                <input id="generaState"
+                       name="generaState"
+                       type="text"
+                       class="form-control"
+                       placeholder="Enter state"
+                       ng-model="selectedSiteDetailsToDisplay.state"
+                       ng-change="updateEditing()"
+                       required
+                       ng-disabled="!hasMgmtPermission()">
+                <!-- Common Directive: Validate-messages -->
+                <div validate-messages messages-for="siteForm.generaState" submitted="page.submitted"></div>
+              </div>
+
+              <div class="col-md-2 form-group">
+                <label for="generalZip" class="">ZIP</label>
+                <input id="generalZip"
+                       name="generalZip"
+                       type="text"
+                       class="form-control"
+                       placeholder="Enter ZIP"
+                       ng-model="selectedSiteDetailsToDisplay.zip"
+                       ng-change="updateEditing()"
+                       required
+                       ng-disabled="!hasMgmtPermission()">
+                <!-- Common Directive: Validate-messages -->
+                <div validate-messages messages-for="siteForm.generalZip" submitted="page.submitted"></div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-md-4">
+            <div class="row">
+              <div class="col-md-8"></div>
+              <div class="col-md-4 form-group">
+                <label for="timeZone" class="">Time Zone</label>
+                <select id="timeZone"
+                        name="timeZone"
+                        class="form-control"
+                        ng-model="selectedSiteDetailsToDisplay.timeZone"
+                        ng-options="zone as zone for zone in timeZones"
+                        ng-change="updateEditing()"
+                        ng-disabled="!hasMgmtPermission()">
+                </select>
+              </div>
+            </div>
+          </div>
+        </div> <!-- / row ends -->
+      </div>
+    </div> <!-- / edit-well -->
+  </form> <!-- /site form ends -->
+</div>

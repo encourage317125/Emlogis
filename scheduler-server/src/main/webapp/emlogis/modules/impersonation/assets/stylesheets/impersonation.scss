@@ -1,0 +1,89 @@
+//  Variables
+$modal-window-width: 800px;
+$users-list-height: 500px;
+
+//  Impersonation Dialog Window
+.impersonation-users-window {
+
+    // Diaglog box window position
+    .modal-dialog {
+        //width: $modal-window-width;
+        margin-top: 100px;
+    }
+
+    // Filter input box & search icon
+    .input-group-btn > .btn {
+        background: #f3f3f3;
+        border: 1px solid #ccc;
+        box-shadow: none;
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+    }
+
+    /* stop the glowing blue shadow */
+    .add-on .form-control:focus {
+        box-shadow: none;
+        -webkit-box-shadow: none;
+        border-color: #cccccc;
+    }
+
+    .filter {
+        border-right-width: 0px;
+        width: 150px;
+    }
+
+    // Button Area
+    .actions {
+        margin-top: 10px;
+        overflow: hidden;
+        .records_info {
+            text-transform: uppercase;
+        }
+    }
+
+    .page-nav {
+        .refresh-btn {
+            margin-top: 20px;
+        }
+
+        .pagination {
+            margin-bottom: 0px;
+        }
+    }
+}
+
+// Search Grid list
+.impersonation-users-list {
+    clear: both;
+    //width: $modal-window-width - $window-padding-right - $window-padding-left;
+    //height: $users-list-height;
+    margin-top: 20px;
+
+    // Impersonate a tag positioning
+    .action-cell {
+        text-align: center;
+        padding-top: 5px;
+
+        // Cursor Pointer
+        a {
+            cursor: pointer;
+        }
+    }
+
+}
+
+// for Tablet
+@media (max-width: 1024px) {
+    .impersonation-users-list {
+        height: 300px;
+        width: 500px;
+    }
+
+    .impersonation-users-window {
+        .modal-dialog {
+            width: 600px;
+        }
+    }
+
+}
+

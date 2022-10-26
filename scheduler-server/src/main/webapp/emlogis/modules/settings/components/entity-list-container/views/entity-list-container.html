@@ -1,0 +1,59 @@
+<div class="entity-list-container" ng-controller="EntityListContainerCtrl">
+  <div class="control-panel top-margin-base form-group">
+    <div class="row">
+      <div class="col-sm-6">
+        <span class="glyphicon glyphicon-filter"></span>
+        <span class="inner-addon left-addon">
+            <span class="glyphicon glyphicon-search"></span>
+            <input type="text" class="txt-filter form-control" placeholder="{{'app.FILTER'|translate}}"
+                   ng-model="filter.filterTxt" ng-enter="filterList()">
+        </span>
+      </div>
+      <div class="col-sm-6">
+        <div class="row">
+          <div class="col-sm-5 col-sm-offset-5">
+            <!--<div class="result-rows-legend">
+                <span class="showing-label" translate>app.SHOWING</span>
+                <span class="result-rows">
+                    <span ng-if="pagination.offset + pagination.pageSize <= pagination.totalCount">
+                        {{pagination.offset + 1}} - {{pagination.offset + pagination.pageSize}}
+                    </span>
+                    <span ng-if="pagination.offset + pagination.pageSize > pagination.totalCount">
+                        {{pagination.offset + 1}} - {{pagination.totalCount}}
+                    </span>
+                </span>
+                <span class="showing-label" translate>app.OF</span>
+                <span class="total-rows">{{pagination.totalCount}}</span>
+                <span class="showing-label" translate>app.ROWS</span>
+            </div>-->
+          </div>
+          <div class="col-sm-2">
+            <div class="pull-right">
+              <button type="button" class="btn-print btn btn-default form-control" ng-click="refresh()"
+                      translate>app.REFRESH
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div ng-if="entityDetails.needPagination">
+    <entity-list entity-details="entityDetails" filter-txt="filter.confirmedFilterTxt"
+                 get-entity-list="getEntityListForPagination(gridOptions, paginationOptions)"
+                 convert-entity-to-grid-row="convertEntityToGridRow(message)"></entity-list>
+  </div>
+  <div ng-if="!entityDetails.needPagination">
+    <entity-list entity-details="entityDetails" filter-txt="filter.confirmedFilterTxt"
+                 get-entity-list="getEntityList()"
+                 convert-entity-to-grid-row="convertEntityToGridRow(message)"></entity-list>
+  </div>
+  <!--<div class="pagination-panel">
+      <div class="pagination-controls pagination-sub">
+          <pagination boundary-links="true" total-items="pagination.totalCount" items-per-page="pagination.pageSize" ng-model="pagination.currentPageNumber" num-pages="pagination.numPages" max-size="pagination.maxVisiblePaginationButtons" rotate="false" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+        </div>
+        <div class="pagination-details pagination-sub">
+            <span translate>app.PAGE</span>: <input type="number" class="page-input" ng-model="pagination.currentPageNumber" min="1" max="{{pagination.numPages}}"> / {{pagination.numPages}}
+        </div>
+    </div>-->
+</div>

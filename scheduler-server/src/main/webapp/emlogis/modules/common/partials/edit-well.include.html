@@ -1,0 +1,17 @@
+<div class="col-sm-12 well">
+  <div ng-show="isCollapsable">
+
+    <div class="eml-header-side">
+      <a class="text-uppercase" ng-click="isCollapsed = !isCollapsed">
+        {{ isCollapsed ? "app.SHOW" : "app.HIDE" | translate }} {{ name | translate }}
+      </a>
+    </div>
+
+    <div transclude-id="well-head" class="eml-header-side"> <!-- Well head transclude starts -->
+    </div> <!-- Well head transclude ends -->
+
+  </div>
+
+  <div collapse="isCollapsed" transclude-id="well-body"> <!-- Well body transclude starts -->
+  </div> <!-- Well body transclude ends -->
+</div>

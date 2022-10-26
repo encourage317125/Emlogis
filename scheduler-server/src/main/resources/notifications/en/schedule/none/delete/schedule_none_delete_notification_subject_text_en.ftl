@@ -1,0 +1,1 @@
+EGS Shift Delete

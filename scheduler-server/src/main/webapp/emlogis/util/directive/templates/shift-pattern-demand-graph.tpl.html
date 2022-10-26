@@ -1,0 +1,21 @@
+<table class="table-bordered" ng-if = "requiredItems.data.length > 0">
+    <thead>
+        <tr>
+            <th ng-repeat="gridTime in ::gridTimes" ng-bind="::gridTime.label" colspan="{{::gridTime.colspan}}" ng-if = "inOptimumColsHeader($index, true)"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Required Header in Graph -->
+        <tr class="required-header" ng-if = "requiredItems.data.length > 0">
+            <td ng-repeat="ele in requiredHeaderItems" ng-bind="ele.value" ng-if = "inOptimumColsHeader($index)"></td>
+        </tr>
+
+        <tr ng-repeat="row in requiredItems.data " class="required-items" ng-if = "requiredItems.data.length > 0">
+            <td ng-repeat="shift in row" colspan="{{shift.shiftLengthLength / 60 * 2}}" ng-class="shift.class" ng-click = "selectShiftInGraph(shift)" ng-if = "inOptimumColsShifts(shift)">
+                {{shift.name}} <span ng-if = "shift.required">({{shift.required}})</span>
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+

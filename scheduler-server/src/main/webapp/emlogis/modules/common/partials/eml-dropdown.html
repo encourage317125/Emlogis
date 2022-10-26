@@ -1,0 +1,18 @@
+<div class="eml-dropdown">
+  <div class="text-block-top" ng-style="topTextMargin">{{topText}}</div>
+  <div class="text-block-left" ng-style="leftTextBlockWidth">{{leftText}}</div>
+  <div class="btn-group" dropdown>
+    <button type="button" class="btn eml-btn-white dropdown-current" ng-disabled="disabled">
+      {{getDisplayValue(model)}}
+    </button>
+    <button type="button" class="btn eml-btn-white dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+      <img src="/scheduler-server/emlogis/img/sort.svg" class="sort-icon">
+      <span class="sr-only">Split button!</span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <li ng-repeat="h in options">
+        <a ng-click="selectOption(h)">{{getDisplayValue(h)}}</a>
+      </li>
+    </ul>
+  </div>
+</div>

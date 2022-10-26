@@ -1,0 +1,16 @@
+#!/bin/bash
+DIR="$(dirname "$0")"
+cd $DIR
+
+sudo cp hazelcast-service /etc/init.d/hazelcast-service
+sudo chmod 754 /etc/init.d/hazelcast-service
+
+sudo service hazelcast-service stop
+# Remove previous Hazelcast deployment
+sudo rm -R /opt/emlogis/hazelcast-server 2>&1
+sudo unzip -o ../../../../../target/hazelcast-server-1.0.zip -d /opt/emlogis/
+#sudo unzip -o /home/emlogis/Project/git/emlogis-scheduler/scheduler-resources/target/hazelcast-server-1.0.zip -d /opt/emlogis/
+sudo chmod 755 /opt/emlogis/hazelcast-server/stophzsrv.sh /opt/emlogis/hazelcast-server/hznodesrv.sh
+sudo /opt/emlogis/hazelcast-server/stophzsrv.sh
+sudo service hazelcast-service start
+#sleep 20

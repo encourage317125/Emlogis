@@ -1,0 +1,65 @@
+<div id="eml-bulk-shift-types">
+  <div class="modal-header">
+    <h4 class="modal-title">{{ ::"rules.site_teams.ADD_SHIFT_TYPES" | translate }}</h4>
+  </div>
+  <div class="modal-body">
+    <div class="row" ng-if="bulk.types">
+
+      <div class="col-md-5 form-group">
+        <label>{{ ::"rules.site_teams.LENGTH" | translate }}</label>
+        <span class="eml-selected-type-length">{{ bulk.selectedLength.lengthInMin | displayAsHMM }}</span>
+      </div>
+
+      <div class="eml-grid col-md-7">
+        <div class="form-group" >
+          <label for="minutesSteps">{{ ::"rules.site_teams.INTERVAL" | translate }}</label>
+          <select name="minutesSteps"
+                  id="minutesSteps"
+                  class="form-control"
+                  ng-options="step as step for step in bulk.minutesSteps"
+                  ng-model="bulk.minutesStepSelected"></select> <!-- ng-change="bulk.createListOfLengthsToSelect()" -->
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-7 form-group">
+        <label class="eml-horizontal-label">{{ ::"rules.site_teams.FIRST_SHIFT_START_TIME" | translate }}</label>
+      </div>
+
+      <div class="col-md-5" ng-hide="shift.selectedType.id">
+        <div class="form-group">
+          <timepicker class="timepicker"
+                      ng-model="bulk.startTime"
+                      show-meridian="false"
+                      arrowkeys="false"></timepicker>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-7 form-group">
+        <label class="eml-horizontal-label">{{ ::"rules.site_teams.LAST_SHIFT_START_TIME" | translate }}</label>
+      </div>
+
+      <div class="col-md-5" ng-hide="shift.selectedType.id">
+        <div class="form-group">
+          <timepicker class="timepicker"
+                      ng-model="bulk.endTime"
+                      show-meridian="false"
+                      arrowkeys="false"></timepicker>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="modal-footer">
+    <a class="btn eml-btn-invisible"
+       ng-click="bulk.closeModal()">{{ ::"app.CLOSE" | translate }}</a>
+    <button class="btn btn-success"
+            ng-disabled="!bulk.isValid()"
+            ng-click="bulk.add()">{{ ::"app.ADD" | translate }}</button>
+  </div>
+</div>

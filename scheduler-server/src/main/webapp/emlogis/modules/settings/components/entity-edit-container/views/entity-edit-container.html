@@ -1,0 +1,65 @@
+<div class="entity-edit-container" ng-controller="EntityEditContainerCtrl">
+  <form class="frm-entity" role="form" name="entityForm" ng-submit="applyEdit(entityForm.$valid)"
+        ng-class="{'frm-submit-clicked': submitClicked}" novalidate>
+    <div class="row form-group">
+      <div class="col-sm-6">
+        <h3>{{entityDetails.name}}</h3>
+      </div>
+      <div class="col-sm-6">
+        <div class="pull-right">
+          <div class="btn-container">
+            <button type="submit" class="btn btn-default" ng-if="hasMgmtPermission()" translate>
+              {{editLabel}}
+            </button>
+            <button type="button" class="btn btn-default" ng-click="closeEdit()" translate>app.CLOSE
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row form-group" ng-repeat="infoFieldRow in entityDetails.info">
+      <div class="{{infoField.class}}" ng-repeat="infoField in infoFieldRow">
+        <label>
+          <span ng-if="infoField.validation === 'required'">* </span>
+          <span>{{infoField.label | translate}}</span>
+          <span class="pull-right validation-msg"
+                ng-show="entityForm['{{infoField.key}}'].$error.required && (!entityForm['{{infoField.key}}'].$pristine || submitClicked)">
+              {{'app.REQUIRED_FIELD' | translate}}
+          </span>
+          <span class="pull-right validation-msg"
+                ng-show="infoField.type==='email' && entityForm['{{infoField.key}}'].$error.email && (!entityForm['{{infoField.key}}'].$pristine || submitClicked)">
+              {{'app.INVALID_EMAIL' | translate}}
+          </span>
+        </label>
+
+        <div ng-if="infoField.type==='text' || infoField.type==='email'">
+          <input type="{{infoField.type}}" name="{{infoField.key}}" class="entity-field form-control"
+                 placeholder="{{infoField.placeHolder | translate}}" ng-model="infoField.value"
+                 ng-required="infoField.validation==='required'">
+        </div>
+        <div ng-if="infoField.type==='select'">
+          <select name="{{infoField.key}}" class="entity-field form-control" ng-model="infoField.value"
+                  ng-options="item.value as item.label for item in infoField.options"
+                  ng-required="infoField.validation==='required'">
+            <option value="-Please Select-">---Please Select---</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row" ng-if="editMode === 'Edit'">
+      <div class="col-sm-12">
+        <div class="sub-panel form-group">
+          <tabset>
+            <tab ng-repeat="relatedEntity in entityDetails.relatedEntities"
+                 heading="{{relatedEntity.entityDetails.tabHeading | translate}}"
+                 select="selectSubTab(relatedEntity)"></tab>
+          </tabset>
+          <div class="tab-content" ng-repeat="relatedEntity in entityDetails.relatedEntities"
+               ng-if="relatedEntity.selected">
+            <div ng-include="relatedEntity.templateUrl"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

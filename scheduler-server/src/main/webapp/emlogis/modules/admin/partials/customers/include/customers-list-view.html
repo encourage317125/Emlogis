@@ -1,0 +1,30 @@
+<div class="customers-list-view" ng-controller="CustomersListViewCtrl">
+  <div class="control-panel top-margin-base form-group">
+    <div class="row">
+      <div class="col-sm-6">
+        <span class="glyphicon glyphicon-filter"></span>
+        <span class="inner-addon left-addon">
+            <span class="glyphicon glyphicon-search"></span>
+            <input type="text" class="txt-filter form-control" placeholder="{{'app.FILTER'|translate}}" ng-model="filter.filterTxt" ng-enter="filterList()">
+        </span>
+      </div>
+      <div class="col-sm-6">
+        <div class="row">
+          <div class="col-sm-5 col-sm-offset-5">
+          </div>
+          <div class="col-sm-2">
+            <div class="pull-right">
+              <!--<button type="button" class="btn-print btn btn-default form-control" ng-disabled="true" translate>app.PRINT</button>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div ng-if="customerDetails.needPagination">
+    <customer-selection-list customer-details="customerDetails" filter-txt="filter.confirmedFilterTxt" get-customer-list="getCustomerListViewForPagination(gridOptions, paginationOptions)" convert-customer-to-grid-row="convertCustomerToGridRow(message)"></customer-selection-list>
+  </div>
+  <div ng-if="!customerDetails.needPagination">
+    <customer-selection-list customer-details="customerDetails" filter-txt="filter.confirmedFilterTxt" get-customer-list="getCustomerListView()" convert-customer-to-grid-row="convertCustomerToGridRow(message)"></customer-selection-list>
+  </div>
+</div>

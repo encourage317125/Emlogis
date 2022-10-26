@@ -1,0 +1,240 @@
+
+#scheduler_here * {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+.dhtmlXTooltip.tooltip {
+    opacity: 1;
+}
+
+.loadingIndicator {
+    display: block;
+    background: url(../../img/loading.gif) center center no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.dhx_cal_cover {
+    z-index: 1000;
+    opacity: 0.5;
+}
+
+#shift-edit-form {
+    position: absolute;
+    top: 150px !important;
+    z-index: 1001;
+    display: none;
+    background-color: white;
+    border: 1px solid #dfdfdf;
+    -webkit-box-shadow: 0px 10px 10px 1px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 0px 10px 10px 1px rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 10px 10px 1px rgba(0, 0, 0, 0.4);
+
+    .modal-header {
+        padding: 4px 8px;
+    }
+
+    $greycolor: rgb(132, 132, 132);
+
+    color: $greycolor;
+
+    .timeline-container {
+
+        .timeline {
+            $h: 60px;
+            position: absolute;
+            height: $h;
+            overflow: hidden;
+            width: 100%;
+            left: 0px;
+            top: 30px;
+
+            > div {
+                height: $h;
+                top: 0px;
+
+                .timeline-content {
+                    padding: 3px 8px;
+                    display: inline-block;
+                    word-break: break-word;
+                }
+            }
+
+            div[shift-timeline] {
+                background: rgb(52, 152, 219);
+                position: relative;
+                color: white;
+                top: 0px;
+                z-index: 10;
+                border: 1px solid #248CD2;
+
+                $h1: $h * 0.2;
+                .ui-resizable-handle {
+                    background: #CCCCCC;
+                    height: $h1;
+                    width: $h1;
+                    border-radius: 99px;
+                    border: 1px solid #B9B9B9;
+                    top: (0.5 * $h) - (0.5 * $h1) - 1;
+                    cursor: col-resize;
+                }
+
+                .ui-resizable-w {
+                    left: -(0.5 * $h1) - 1;
+                }
+
+                .ui-resizable-e {
+                    right: -(0.5 * $h1) - 1;
+                }
+            }
+
+            div.pto {
+                background: #f1c40f;
+                position: absolute;
+                color: #2f2f2f;
+                z-index: 9;
+                border: 1px solid #F2B810;
+            }
+        }
+
+        .openShift {
+            background: #FF5D5D !important;
+            border: 1px solid #DB4637 !important;
+        }
+
+        table {
+            position: relative;
+            width: 560px;
+            height: 100px;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        table, td, th {
+            border: 1px solid #D5D5D5;
+        }
+
+        th {
+            height: 20px;
+            color: $greycolor;
+            padding-left: 7px;
+            font-weight: normal;
+            font-size: smaller;
+            overflow: hidden;
+        }
+    }
+
+    .text-def {
+        display: inline-block;
+        font-weight: normal;
+        text-transform: uppercase;
+    }
+
+    .scale-opt {
+        float: right;
+
+        a {
+            color: rgb(165, 165, 165);
+        }
+    }
+
+    hr {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .hintItalic {
+        font-size: smaller;
+        font-style: italic;
+    }
+    .hint {
+        font-size: smaller;
+    }
+
+    .employee-name {
+        color: rgb(56, 56, 56);
+        font-weight: bold;
+    }
+
+    .btn-right {
+        float: right;
+        margin-left: 5px;
+    }
+
+    .emp-select {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    input[type=checkbox]:not(old),
+    input[type=radio]:not(old) {
+        width: 23px;
+        margin: 0;
+        padding: 0;
+        font-size: 1em;
+        opacity: 0;
+    }
+
+    input[type=checkbox]:not(old) + label,
+    input[type=radio]:not(old) + label {
+        display: inline-block;
+        margin-left: -2em;
+        //  line-height: 1.5em;
+    }
+
+    input[type=checkbox]:not(old) + label > span,
+    input[type=radio]:not(old) + label > span {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        margin: 1px 5px 1px 1px;
+        border: 1px solid #c3c3c3;
+        border-radius: 999px;
+        vertical-align: middle;
+    }
+
+    input[type=checkbox]:not(old) + label > span {
+        border-radius: 2px;
+    }
+
+    input[type=checkbox]:not(old):checked + label > span:before {
+        content: '✓';
+        display: block;
+        width: 1em;
+        color: #33CDB8;
+        font-size: 1.375em;
+        line-height: 1em;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    input[type=radio]:not(old):checked + label > span > span {
+        display: block;
+        width: 8px;
+        height: 8px;
+        margin: 5px;
+        border-radius: 99px;
+        background: #33CDB8;
+    }
+
+    //override bootstrap .row
+    .row {
+        margin-right: 0px;
+        margin-left: 0px;
+    }
+
+    //override multiSelect
+    .multiSelect .button {
+        min-height: 34px !important;
+    }
+
+    .emp-select .checkBoxContainer .multiSelectItem {
+        text-transform: none;
+    }
+
+}

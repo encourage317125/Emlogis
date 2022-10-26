@@ -1,0 +1,20 @@
+<div class="modal-header">
+    <h3>Execute Schedule</h3>
+</div>
+<div class="modal-body">
+    <form name="form-execute" novalidate>
+
+        <div class="form-group">
+            <label>Max computation time</label>
+            <select class="form-control" data-ng-model="executeConfig.maxTime"
+                    data-ng-options="a.label for a in maxComputationTimes">
+            </select>
+        </div>
+    </form>
+
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
+    <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+</div>

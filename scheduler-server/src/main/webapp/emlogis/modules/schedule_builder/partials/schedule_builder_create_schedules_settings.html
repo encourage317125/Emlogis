@@ -1,0 +1,197 @@
+<!-- schedule builder create settings start-->
+<div class="schedule-builder-create-settings">
+  <div class="row">
+    <h2 class="col-xs-7">{{'schedule_builder.SCHEDULE_GENERATION_SETTINGS' | translate }} ({{schedule.name}})</h2>
+
+    <h2 class="col-xs-5">
+      <button type="button" class="btn btn-default pull-right" data-ng-click="close()">
+        {{'app.CANCEL' | translate}}
+      </button>
+      <!--<button type="button" class="btn btn-default pull-right">-->
+        <!--{{'schedule_builder.RESTORE_DEFAULTS' | translate}}-->
+      <!--</button>-->
+      <button type="button" class="btn btn-default save pull-right" data-ng-click="save()">
+        {{'app.SAVE' | translate}}
+      </button>
+    </h2>
+  </div>
+
+  <div data-ng-show="isScheduleEmpty()"> no schedule</div>
+  <div data-ng-hide="isScheduleEmpty()">
+    <div class="row">
+      <div ng-include="'modules/schedule_builder/partials/schedule_builder_create_schedules_last_generation.html'">
+      </div>
+    </div>
+    <div class="tab-parent">
+      <tabset>
+        <tab heading="{{ 'schedule_builder.GENERAL_SETTINGS' | translate }}"
+             select="selectTab('GENERAL_SETTINGS')">
+        </tab>
+        <tab heading="{{ 'schedule_builder.CUSTOM_OPTIMIZATION_GOALS' | translate }}"
+             ng-show="hasPermission('Schedule_AdvancedMgmt')"
+             select="selectTab('CUSTOM_OPTIMIZATION_GOALS')">
+        </tab>
+      </tabset>
+
+      <div id="general-settings" data-ng-show="selectedTab === 'GENERAL_SETTINGS'" class="tab-content">
+        <h4>{{'schedule_builder.STOP_COMPUTATION_AFTER_TITLE' | translate}}</h4>
+
+        <div>
+          <div>
+            <span>{{'schedule_builder.STOP_COMPUTATION_AFTER' | translate}}</span>
+                                <span style="display: inline-block">
+                                    <select class="form-control" ng-model="maxComputationTime"
+                                            data-ng-options="a.label for a in maxComputationTimes">
+                                    </select>
+                                </span>
+            <span>{{'schedule_builder.OR_A_MAXIMUM_OF' | translate}}</span>
+                                <span style="display: inline-block">
+                                    <select class="form-control" data-ng-model="maximumUnimprovedSecondsSpent"
+                                            data-ng-options="a.label for a in maximumUnimprovedSecondsSpents">
+                                    </select>
+                                </span>
+            <span>{{'schedule_builder.WITHOUT_IMPROVEMENT' | translate}}.</span>
+          </div>
+        </div>
+
+        <h4>{{'schedule_builder.ADVANCED_ACTIONS' | translate}}</h4>
+
+        <div class="row form-group">
+          <div class="col-sm-4">
+            <button type="button" class="btn btn-default" style="width: 100%"
+                    data-ng-click="generateShifts()">
+              {{'schedule_builder.GENERATE_SHIFTS_NOW' | translate}}<br>
+              ({{'schedule_builder.DELETES_PREVIOUS_SHIFTS' | translate}})
+            </button>
+          </div>
+          <div class="col-sm-4">
+            ({{settings.additionInfo.allShiftsCount}} {{'schedule_builder.SHIFTS_CURRENTLY' | translate}})
+          </div>
+          <div class="col-sm-4">
+            {{'schedule_builder.GENERATING_SHIFTS_PRIOR_' | translate}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="row form-group">
+              <label class="col-xs-7">
+                {{'schedule_builder.PRESERVE_PRE_ASSIGNED_SHIFTS_' | translate}}</label>
+
+              <div class="col-xs-5">
+                <label class="eml-switch">
+                  <input type="checkbox" class="eml-switch-input"
+                         ng-model="settings.preservePreAssignedShifts"
+                         ng-checked="settings.preservePreAssignedShifts">
+                  <span class="eml-switch-label"
+                        data-on="{{ ::'app.ON' | translate }}"
+                        data-off="{{ ::'app.OFF' | translate }}"></span>
+                  <span class="eml-switch-handle"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            ({{settings.additionInfo.preAssignedShiftsCount}} {{'schedule_builder.PRE_ASSIGNED_SHIFTS_CURRENTLY' |
+            translate}})
+          </div>
+          <div class="col-sm-4">
+            {{'schedule_builder.PRESERVE_PRE_ASSIGNED_SHIFTS_HELP' | translate}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="row form-group">
+              <label class="col-xs-7">
+                {{'schedule_builder.PRESERVE_ENGINE_ASSIGNED_SHIFTS_' | translate}}</label>
+
+              <div class="col-xs-5">
+                <label class="eml-switch">
+                  <input type="checkbox" class="eml-switch-input"
+                         ng-model="settings.preserveEngineAssignedShifts"
+                         ng-checked="settings.preserveEngineAssignedShifts">
+                  <span class="eml-switch-label"
+                        data-on="{{ ::'app.ON' | translate }}"
+                        data-off="{{ ::'app.OFF' | translate }}"></span>
+                  <span class="eml-switch-handle"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            ({{settings.additionInfo.engineAssignedShiftsCount}} {{'schedule_builder.ENGINE_ASSIGNED_SHIFTS_CURRENTLY' |
+            translate}})
+          </div>
+          <div class="col-sm-4">
+            {{'schedule_builder.PRESERVE_ENGINE_ASSIGNED_SHIFTS_HELP' | translate}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="row form-group">
+              <label class="col-xs-7">
+                {{'schedule_builder.PRESERVE_POST_ASSIGNED_SHIFTS_' | translate}}
+              </label>
+
+              <div class="col-xs-5">
+                <label class="eml-switch">
+                  <input type="checkbox" class="eml-switch-input"
+                         ng-model="settings.preservePostAssignedShifts"
+                         ng-checked="settings.preservePostAssignedShifts">
+                  <span class="eml-switch-label"
+                        data-on="{{ ::'app.ON' | translate }}"
+                        data-off="{{ ::'app.OFF' | translate }}"></span>
+                  <span class="eml-switch-handle"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            ({{settings.additionInfo.postAssignedShiftsCount}} {{'schedule_builder.POST_ASSIGNED_SHIFTS_CURRENTLY' |
+            translate}})
+          </div>
+          <div class="col-sm-4">
+            {{'schedule_builder.PRESERVE_POST_ASSIGNED_SHIFTS_HELP' | translate}}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-4">
+            <input type="checkbox"
+                   data-ng-model="settings.overrideOptimizationPreference"
+                   data-ng-change="overrideCop()"
+                   id="cop-override">
+            <label for="cop-override">Override Cost-Overtime-Preference order</label>
+          </div>
+          <div class="col-sm-4">
+            <select class="form-control"
+                    ng-disabled="!settings.overrideOptimizationPreference"
+                    ng-model="settings.optimizationPreferenceSetting"
+                    ng-options="option as option | toTranslate: 'rules.general.' | translate
+                                                  for option in overrideOptions">
+            </select>
+          </div>
+        </div>
+
+      </div>
+      <div class="container-fluid" ng-if="selectedTab === 'CUSTOM_OPTIMIZATION_GOALS'" class="tab-content">
+        <div class="row" data-ng-repeat="(rule, val) in rules">
+          <div>
+            <input type="checkbox" data-ng-model="rulesIsEnable[rule]"
+                   id="{{'rule'+rule}}"
+                   data-ng-change="disableEnableRule(rule)">
+            <label for="{{'rule'+rule}}">{{rule}}</label>
+            <a title="Reset" data-ng-click="resetRule(rule)">
+              <span class="glyphicon glyphicon-pencil"/>
+            </a>
+          </div>
+          <div class="col-xs-11">
+            <input ng-model="rules[rule]" type="range" min="1" step="1" max="100"
+                   ng-disabled="rulesIsEnable[rule]==false">
+          </div>
+          <div class="col-xs-1">{{val}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- schedule builder create settings end-->

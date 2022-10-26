@@ -1,0 +1,3452 @@
+{
+  "maxComputationTime": -1,
+  "maximumUnimprovedSecondsSpent": 0,
+  "employeeRosterDto": {
+    "firstShiftDate": {
+      "dayIndex": 0,
+      "date": [
+        2014,
+        8,
+        10
+      ]
+    },
+    "lastShiftDate": {
+      "dayIndex": 0,
+      "date": [
+        2014,
+        8,
+        16
+      ]
+    },
+    "planningWindowStart": {
+      "dayIndex": 0,
+      "date": [
+        2014,
+        8,
+        10
+      ]
+    },
+    "twoWeekOvertimeStartDate": {
+      "dayIndex": 0,
+      "date": [
+        2005,
+        1,
+        1
+      ]
+    },
+    "firstDayOfWeek": "SUNDAY",
+    "weekendDefinition": "SATURDAY_SUNDAY",
+    "ruleWeightMultipliers": {
+      "MAX_HOURS_PER_WEEK_CONSTRAINT": 1,
+      "MIN_HOURS_BETWEEN_DAYS_RULE": 1,
+      "MIN_HOURS_PER_DAY_CONSTRAINT": 1,
+      "MIN_HOURS_PER_WEEK_CONSTRAINT": 1,
+      "AVOID_DAILY_OVERTIME_RULE": 1,
+      "DAYS_OFF_AFTER_WEEKEND_RULE": 1,
+      "MAX_HOURS_PER_DAY_CONSTRAINT": 1,
+      "SKILL_MATCH_RULE": 40,
+      "TEAM_ASSOCIATION_CONSTRAINT_FLOAT": 10,
+      "WEEKDAY_ROTATION_PATTERN_RULE": 1,
+      "AVOID_WEEKLY_OVERTIME_RULE": 1,
+      "AVOID_TWO_WEEK_OVERTIME_RULE": 1,
+      "MIN_HOURS_PER_WEEK_PRIME_SKILL_CONSTRAINT": 1,
+      "MAX_CONSECUTIVE_DAYS_CONSTRAINT": 1,
+      "OVERLAPPING_SHIFTS_RULE": 10,
+      "TEAM_ASSOCIATION_CONSTRAINT": 10,
+      "COUPLED_WEEKEND_RULE": 1,
+      "REQUIRED_EMPLOYEES_MATCH_RULE": 1,
+      "CI_TIME_OFF_CONSTRAINT": 1,
+      "DAYS_OFF_BEFORE_WEEKEND_RULE": 1,
+      "CD_TIME_OFF_CONSTRAINT": 1,
+      "MAX_DAYS_PER_WEEK_CONSTRAINT": 1
+    },
+    "scoringRulesToScoreLevelMap": {
+      "AVOID_TEAM_CHANGE_RULE": 8,
+      "AVOID_SKILL_CHANGE_RULE": 8,
+      "OPEN_SHIFT_SEPARATION_RULE": 2,
+      "EXCESS_SHIFT_SEPARATION_RULE": 12,
+      "PREFER_TEAM_SCATTERING_RULE": 7,
+      "TEAM_PREFERENCE_RULE": 9,
+      "SCHEDULE_OVERTIME_RULE": 5,
+      "COUPLED_WEEKEND_RULE": 0,
+      "VERTICAL_CLUSTERING_RULE": 11,
+      "HORIZONTAL_CLUSTERING_RULE": 10,
+      "PREFER_PRIMARY_SKILL_RULE": 6,
+      "EXTRA_SHIFT_RULE": 3,
+      "WORKED_WEEKENDS_SEPARATION_RULE": 4,
+      "CI_PREFERENCE_RULE": 5,
+      "SCHEDULE_COST_RULE": 5,
+      "CD_PREFERENCE_RULE": 5
+    }
+  },
+  "constraintOverrideDtos": [],
+  "skillDtos": [
+    {
+      "id": "dab6d508-0e23-49ae-a960-eead02d024e5",
+      "name": "Registered Nurse",
+      "abbreviation": "RN"
+    },
+    {
+      "id": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "name": "Patient Care Tech",
+      "abbreviation": "PCT"
+    },
+    {
+      "id": "595001d4-4e8b-4512-b7df-944d0bda8eaf",
+      "name": "Charge Nurse",
+      "abbreviation": "CHG"
+    }, 
+    {
+      "id": "e058b74b-3ca1-4722-8e76-1e3f08bd270c",
+      "name": "The Boss",
+      "abbreviation": "OG"
+    }
+    
+  ],
+  "employeeDtos": [
+    {
+      "id": "32e62541-ded9-4781-817a-538bc336281a",
+      "firstName": "Dana",
+      "lastName": "Yeshnik",
+      "startDate": 1398124800000,
+      "stopDate": 1713744000000,
+      "seniority": -1,
+      "hourlyRate": 0,
+      "scheduleable": true,
+      "employeeTimeOffDtos": []
+    },
+    {
+      "id": "fc74c8b7-961e-43a9-b171-d5846d513718",
+      "firstName": "Ruth",
+      "lastName": "Haggerty",
+      "startDate": 1395360000000,
+      "stopDate": 1679356800000,
+      "seniority": -1,
+      "hourlyRate": 0,
+      "scheduleable": true,
+      "employeeTimeOffDtos": []
+    },
+    {
+      "id": "53914caa-fa8e-41c4-983f-dd71ef64bdf7",
+      "firstName": "Katherine",
+      "lastName": "Rohn",
+      "startDate": 997142400000,
+      "stopDate": 1699747200000,
+      "seniority": -1,
+      "hourlyRate": 0,
+      "scheduleable": true,
+      "employeeTimeOffDtos": []
+    },
+    {
+      "id": "203702aa-a52e-4e78-b4ce-32c380d42ce5",
+      "firstName": "Ronald",
+      "lastName": "Kingston",
+      "startDate": 1177977600000,
+      "stopDate": 1699747200000,
+      "seniority": -1,
+      "hourlyRate": 0,
+      "scheduleable": true,
+      "employeeTimeOffDtos": []
+    },
+    {
+      "id": "fb4513db-1118-4424-acbf-790e507cde15",
+      "firstName": "Agapita",
+      "lastName": "Evangelista",
+      "startDate": 1153180800000,
+      "stopDate": 1699747200000,
+      "seniority": -1,
+      "hourlyRate": 0,
+      "scheduleable": true,
+      "employeeTimeOffDtos": []
+    },
+    {
+      "id": "247c3dc0-7b47-4dbe-b193-54604d05a4f2",
+      "firstName": "Ariel",
+      "lastName": "Catu",
+      "startDate": 1283385600000,
+      "stopDate": 1699747200000,
+      "seniority": -1,
+      "hourlyRate": 0,
+      "scheduleable": true,
+      "employeeTimeOffDtos": []
+    },
+    {
+      "id": "d55b576f-8852-442f-93cb-4e5a7e5bacf2",
+      "firstName": "Christine",
+      "lastName": "Richardson",
+      "startDate": 1384128000000,
+      "stopDate": 1699747200000,
+      "seniority": -1,
+      "hourlyRate": 0,
+      "scheduleable": true,
+      "employeeTimeOffDtos": []
+    },
+    {
+      "id": "46a87d04-0c0b-4d9b-940d-46e8a1bdd5de",
+      "firstName": "Neriza",
+      "lastName": "Manlangit",
+      "startDate": 1407456000000,
+      "stopDate": 1691280000000,
+      "seniority": -1,
+      "hourlyRate": 0,
+      "scheduleable": true,
+      "employeeTimeOffDtos": []
+    },
+    {
+      "id": "33383177-7692-4faa-85d9-5f4fbb54b5c8",
+      "firstName": "Antoinette",
+      "lastName": "Achkar",
+      "startDate": 1323043200000,
+      "stopDate": 1699747200000,
+      "seniority": -1,
+      "hourlyRate": 0,
+      "scheduleable": true,
+      "employeeTimeOffDtos": []
+    },
+    {
+      "id": "2da96dc5-97e1-44c7-b7e0-c278691494b4",
+      "firstName": "Larisa",
+      "lastName": "Jay",
+      "startDate": 1238371200000,
+      "stopDate": 1699747200000,
+      "seniority": -1,
+      "hourlyRate": 0,
+      "scheduleable": true,
+      "employeeTimeOffDtos": []
+    },
+    {
+      "id": "b078993b-3e75-4d3d-8cb9-17bb905f0c74",
+      "firstName": "Ailsa",
+      "lastName": "Barber",
+      "startDate": 1391040000000,
+      "stopDate": 1706745600000,
+      "seniority": -1,
+      "hourlyRate": 0,
+      "scheduleable": true,
+      "employeeTimeOffDtos": []
+    },
+    {
+      "id": "edcb3fc1-bf4e-458a-a27e-1cd8f045f680",
+      "firstName": "Hilda",
+      "lastName": "Isaac",
+      "startDate": 1212364800000,
+      "stopDate": 1699747200000,
+      "seniority": -1,
+      "hourlyRate": 0,
+      "scheduleable": true,
+      "employeeTimeOffDtos": []
+    },
+    {
+      "id": "1702c68e-97a5-4b19-b81d-83240ad0574e",
+      "firstName": "Bella",
+      "lastName": "Nest",
+      "startDate": 1383264000000,
+      "stopDate": 1699747200000,
+      "seniority": -1,
+      "hourlyRate": 0,
+      "scheduleable": true,
+      "employeeTimeOffDtos": []
+    },
+    {
+      "id": "6ea2e886-ebe6-4c9e-bcca-2cd412df7ef6",
+      "firstName": "Ying",
+      "lastName": "Benson-Scherer",
+      "startDate": 1144627200000,
+      "stopDate": 1699747200000,
+      "seniority": -1,
+      "hourlyRate": 0,
+      "scheduleable": true,
+      "employeeTimeOffDtos": []
+    },
+    {
+      "id": "239a455f-2970-42d4-8144-ac0bc25f04e5",
+      "firstName": "Deepa",
+      "lastName": "Chava",
+      "startDate": 1249257600000,
+      "stopDate": 1699747200000,
+      "seniority": -1,
+      "hourlyRate": 0,
+      "scheduleable": true,
+      "employeeTimeOffDtos": []
+    },
+    {
+      "id": "352aa354-b60b-4ce9-8f4c-0632bd7b9c8b",
+      "firstName": "Maximynn",
+      "lastName": "Ordonez",
+      "startDate": 1378252800000,
+      "stopDate": 1699747200000,
+      "seniority": -1,
+      "hourlyRate": 0,
+      "scheduleable": true,
+      "employeeTimeOffDtos": []
+    },
+    {
+      "id": "25f3584b-b84c-4379-a84c-94cb78ee451f",
+      "firstName": "Carla",
+      "lastName": "Cea",
+      "startDate": 1390348800000,
+      "stopDate": 1705881600000,
+      "seniority": -1,
+      "hourlyRate": 0,
+      "scheduleable": true,
+      "employeeTimeOffDtos": []
+    },
+    {
+      "id": "9e393dec-0827-4502-a530-ef173e1b0739",
+      "firstName": "Claudette",
+      "lastName": "Seniz",
+      "startDate": 745459200000,
+      "stopDate": 1699747200000,
+      "seniority": -1,
+      "hourlyRate": 0,
+      "scheduleable": true,
+      "employeeTimeOffDtos": []
+    },
+    {
+      "id": "73f182b7-c337-4693-af8f-2803253e16b2",
+      "firstName": "Catherine",
+      "lastName": "Avaricio",
+      "startDate": 1211414400000,
+      "stopDate": 1699747200000,
+      "seniority": -1,
+      "hourlyRate": 0,
+      "scheduleable": true,
+      "employeeTimeOffDtos": []
+    },
+    {
+      "id": "677a64d9-8f85-4d2f-b7a5-d5751ed9da48",
+      "firstName": "Scott",
+      "lastName": "Teeple",
+      "startDate": 646358400000,
+      "stopDate": 1699747200000,
+      "seniority": -1,
+      "hourlyRate": 0,
+      "scheduleable": true,
+      "employeeTimeOffDtos": []
+    },
+    {
+      "id": "d5072d97-4d82-49ba-bd0c-a433d9dc29d7",
+      "firstName": "Michael",
+      "lastName": "Lucas",
+      "startDate": 1407369600000,
+      "stopDate": 1691366400000,
+      "seniority": -1,
+      "hourlyRate": 0,
+      "scheduleable": true,
+      "employeeTimeOffDtos": []
+    },
+    {
+      "id": "93f34230-a9a7-4c51-96af-6642fe7b7b29",
+      "firstName": "Nadine",
+      "lastName": "Mignott",
+      "startDate": 1357689600000,
+      "stopDate": 1699747200000,
+      "seniority": -1,
+      "hourlyRate": 0,
+      "scheduleable": true,
+      "employeeTimeOffDtos": []
+    }
+  ],
+  "employeeSkillDtos": [
+    {
+      "employeeId": "32e62541-ded9-4781-817a-538bc336281a",
+      "skillId": "dab6d508-0e23-49ae-a960-eead02d024e5",
+      "skillLevel": "0",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "32e62541-ded9-4781-817a-538bc336281a",
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "skillLevel": "0",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "fc74c8b7-961e-43a9-b171-d5846d513718",
+      "skillId": "dab6d508-0e23-49ae-a960-eead02d024e5",
+      "skillLevel": "0",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "fc74c8b7-961e-43a9-b171-d5846d513718",
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "skillLevel": "0",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "53914caa-fa8e-41c4-983f-dd71ef64bdf7",
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "skillLevel": "0",
+      "primarySkill": true
+    },
+    {
+      "employeeId": "203702aa-a52e-4e78-b4ce-32c380d42ce5",
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "skillLevel": "0",
+      "primarySkill": true
+    },
+    {
+      "employeeId": "fb4513db-1118-4424-acbf-790e507cde15",
+      "skillId": "dab6d508-0e23-49ae-a960-eead02d024e5",
+      "skillLevel": "0",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "fb4513db-1118-4424-acbf-790e507cde15",
+      "skillId": "595001d4-4e8b-4512-b7df-944d0bda8eaf",
+      "skillLevel": "0",
+      "primarySkill": true
+    },
+    {
+      "employeeId": "fb4513db-1118-4424-acbf-790e507cde15",
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "skillLevel": "0",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "247c3dc0-7b47-4dbe-b193-54604d05a4f2",
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "skillLevel": "0",
+      "primarySkill": true
+    },
+    {
+      "employeeId": "d55b576f-8852-442f-93cb-4e5a7e5bacf2",
+      "skillId": "dab6d508-0e23-49ae-a960-eead02d024e5",
+      "skillLevel": "0",
+      "primarySkill": true
+    },
+    {
+      "employeeId": "d55b576f-8852-442f-93cb-4e5a7e5bacf2",
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "skillLevel": "0",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "46a87d04-0c0b-4d9b-940d-46e8a1bdd5de",
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "skillLevel": "0",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "33383177-7692-4faa-85d9-5f4fbb54b5c8",
+      "skillId": "dab6d508-0e23-49ae-a960-eead02d024e5",
+      "skillLevel": "0",
+      "primarySkill": true
+    },
+    {
+      "employeeId": "33383177-7692-4faa-85d9-5f4fbb54b5c8",
+      "skillId": "595001d4-4e8b-4512-b7df-944d0bda8eaf",
+      "skillLevel": "0",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "33383177-7692-4faa-85d9-5f4fbb54b5c8",
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "skillLevel": "0",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "2da96dc5-97e1-44c7-b7e0-c278691494b4",
+      "skillId": "dab6d508-0e23-49ae-a960-eead02d024e5",
+      "skillLevel": "0",
+      "primarySkill": true
+    },
+    {
+      "employeeId": "2da96dc5-97e1-44c7-b7e0-c278691494b4",
+      "skillId": "595001d4-4e8b-4512-b7df-944d0bda8eaf",
+      "skillLevel": "0",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "2da96dc5-97e1-44c7-b7e0-c278691494b4",
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "skillLevel": "0",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "b078993b-3e75-4d3d-8cb9-17bb905f0c74",
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "skillLevel": "0",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "edcb3fc1-bf4e-458a-a27e-1cd8f045f680",
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "skillLevel": "0",
+      "primarySkill": true
+    },
+    {
+      "employeeId": "1702c68e-97a5-4b19-b81d-83240ad0574e",
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "skillLevel": "0",
+      "primarySkill": true
+    },
+    {
+      "employeeId": "6ea2e886-ebe6-4c9e-bcca-2cd412df7ef6",
+      "skillId": "e058b74b-3ca1-4722-8e76-1e3f08bd270c",
+      "skillLevel": "0",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "6ea2e886-ebe6-4c9e-bcca-2cd412df7ef6",
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "skillLevel": "0",
+      "primarySkill": true
+    },
+    {
+      "employeeId": "239a455f-2970-42d4-8144-ac0bc25f04e5",
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "skillLevel": "0",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "239a455f-2970-42d4-8144-ac0bc25f04e5",
+      "skillId": "dab6d508-0e23-49ae-a960-eead02d024e5",
+      "skillLevel": "0",
+      "primarySkill": true
+    },
+    {
+      "employeeId": "352aa354-b60b-4ce9-8f4c-0632bd7b9c8b",
+      "skillId": "dab6d508-0e23-49ae-a960-eead02d024e5",
+      "skillLevel": "0",
+      "primarySkill": true
+    },
+    {
+      "employeeId": "352aa354-b60b-4ce9-8f4c-0632bd7b9c8b",
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "skillLevel": "0",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "25f3584b-b84c-4379-a84c-94cb78ee451f",
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "skillLevel": "0",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "9e393dec-0827-4502-a530-ef173e1b0739",
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "skillLevel": "0",
+      "primarySkill": true
+    },
+    {
+      "employeeId": "73f182b7-c337-4693-af8f-2803253e16b2",
+      "skillId": "dab6d508-0e23-49ae-a960-eead02d024e5",
+      "skillLevel": "0",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "73f182b7-c337-4693-af8f-2803253e16b2",
+      "skillId": "595001d4-4e8b-4512-b7df-944d0bda8eaf",
+      "skillLevel": "0",
+      "primarySkill": true
+    },
+    {
+      "employeeId": "73f182b7-c337-4693-af8f-2803253e16b2",
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "skillLevel": "0",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "677a64d9-8f85-4d2f-b7a5-d5751ed9da48",
+      "skillId": "e058b74b-3ca1-4722-8e76-1e3f08bd270c",
+      "skillLevel": "0",
+      "primarySkill": true
+    },
+    {
+      "employeeId": "677a64d9-8f85-4d2f-b7a5-d5751ed9da48",
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "skillLevel": "0",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "d5072d97-4d82-49ba-bd0c-a433d9dc29d7",
+      "skillId": "dab6d508-0e23-49ae-a960-eead02d024e5",
+      "skillLevel": "0",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "d5072d97-4d82-49ba-bd0c-a433d9dc29d7",
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "skillLevel": "0",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "93f34230-a9a7-4c51-96af-6642fe7b7b29",
+      "skillId": "595001d4-4e8b-4512-b7df-944d0bda8eaf",
+      "skillLevel": "0",
+      "primarySkill": false
+    },
+    {
+      "employeeId": "93f34230-a9a7-4c51-96af-6642fe7b7b29",
+      "skillId": "dab6d508-0e23-49ae-a960-eead02d024e5",
+      "skillLevel": "0",
+      "primarySkill": true
+    },
+    {
+      "employeeId": "93f34230-a9a7-4c51-96af-6642fe7b7b29",
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "skillLevel": "0",
+      "primarySkill": false
+    }
+  ],
+  "contractDtos": [
+    {
+      "id": "203702aa-a52e-4e78-b4ce-32c380d42ce5",
+      "scope": "EmployeeContract",
+      "contractLineDtos": [
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 720,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "WEEKLY_OVERTIME",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 40,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "DAYS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 4,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": true,
+          "minimumValue": 2160,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 2400,
+          "maximumWeight": -1
+        },
+        {
+          "type": "WeekdayRotationPatternCLDto",
+          "name": null,
+          "contractLineType": "CUSTOM",
+          "contractId": null,
+          "weight": -1,
+          "dayOfWeek": "SATURDAY",
+          "numberOfDays": 2,
+          "outOfTotalDays": 4,
+          "rotationType": "DAYS_OFF_PATTERN"
+        }
+      ]
+    },
+    {
+      "id": "32e62541-ded9-4781-817a-538bc336281a",
+      "scope": "EmployeeContract",
+      "contractLineDtos": [
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "DAYS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 6,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 960,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 3600,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "WEEKLY_OVERTIME",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 40,
+          "maximumWeight": -1
+        },
+        {
+          "type": "WeekdayRotationPatternCLDto",
+          "name": null,
+          "contractLineType": "CUSTOM",
+          "contractId": null,
+          "weight": -1,
+          "dayOfWeek": "SATURDAY",
+          "numberOfDays": 2,
+          "outOfTotalDays": 4,
+          "rotationType": "DAYS_OFF_PATTERN"
+        }
+      ]
+    },
+    {
+      "id": "d5072d97-4d82-49ba-bd0c-a433d9dc29d7",
+      "scope": "EmployeeContract",
+      "contractLineDtos": [
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "DAYS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 6,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 960,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "WEEKLY_OVERTIME",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 40,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 3600,
+          "maximumWeight": -1
+        },
+        {
+          "type": "WeekdayRotationPatternCLDto",
+          "name": null,
+          "contractLineType": "CUSTOM",
+          "contractId": null,
+          "weight": -1,
+          "dayOfWeek": "SATURDAY",
+          "numberOfDays": 2,
+          "outOfTotalDays": 4,
+          "rotationType": "DAYS_OFF_PATTERN"
+        }
+      ]
+    },
+    {
+      "id": "9e393dec-0827-4502-a530-ef173e1b0739",
+      "scope": "EmployeeContract",
+      "contractLineDtos": [
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 720,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": true,
+          "minimumValue": 2160,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 2400,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "DAYS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 4,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "WEEKLY_OVERTIME",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 40,
+          "maximumWeight": -1
+        },
+        {
+          "type": "WeekdayRotationPatternCLDto",
+          "name": null,
+          "contractLineType": "CUSTOM",
+          "contractId": null,
+          "weight": -1,
+          "dayOfWeek": "SATURDAY",
+          "numberOfDays": 2,
+          "outOfTotalDays": 4,
+          "rotationType": "DAYS_OFF_PATTERN"
+        }
+      ]
+    },
+    {
+      "id": "53914caa-fa8e-41c4-983f-dd71ef64bdf7",
+      "scope": "EmployeeContract",
+      "contractLineDtos": [
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "WEEKLY_OVERTIME",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 40,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": true,
+          "minimumValue": 2160,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 2400,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 720,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "DAYS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 4,
+          "maximumWeight": -1
+        },
+        {
+          "type": "WeekdayRotationPatternCLDto",
+          "name": null,
+          "contractLineType": "CUSTOM",
+          "contractId": null,
+          "weight": -1,
+          "dayOfWeek": "SATURDAY",
+          "numberOfDays": 2,
+          "outOfTotalDays": 4,
+          "rotationType": "DAYS_OFF_PATTERN"
+        }
+      ]
+    },
+    {
+      "id": "d55b576f-8852-442f-93cb-4e5a7e5bacf2",
+      "scope": "EmployeeContract",
+      "contractLineDtos": [
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 720,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "DAYS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 6,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": true,
+          "minimumValue": 2160,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 2640,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "WEEKLY_OVERTIME",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 40,
+          "maximumWeight": -1
+        },
+        {
+          "type": "WeekdayRotationPatternCLDto",
+          "name": null,
+          "contractLineType": "CUSTOM",
+          "contractId": null,
+          "weight": -1,
+          "dayOfWeek": "SATURDAY",
+          "numberOfDays": 2,
+          "outOfTotalDays": 4,
+          "rotationType": "DAYS_OFF_PATTERN"
+        }
+      ]
+    },
+    {
+      "id": "677a64d9-8f85-4d2f-b7a5-d5751ed9da48",
+      "scope": "EmployeeContract",
+      "contractLineDtos": [
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "DAYS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 5,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": true,
+          "minimumValue": 1800,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 3000,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 720,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "WEEKLY_OVERTIME",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 40,
+          "maximumWeight": -1
+        },
+        {
+          "type": "WeekdayRotationPatternCLDto",
+          "name": null,
+          "contractLineType": "CUSTOM",
+          "contractId": null,
+          "weight": -1,
+          "dayOfWeek": "SATURDAY",
+          "numberOfDays": 2,
+          "outOfTotalDays": 4,
+          "rotationType": "DAYS_OFF_PATTERN"
+        }
+      ]
+    },
+    {
+      "id": "247c3dc0-7b47-4dbe-b193-54604d05a4f2",
+      "scope": "EmployeeContract",
+      "contractLineDtos": [
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "WEEKLY_OVERTIME",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 40,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "DAYS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 4,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": true,
+          "minimumValue": 2160,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 2400,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 720,
+          "maximumWeight": -1
+        },
+        {
+          "type": "WeekdayRotationPatternCLDto",
+          "name": null,
+          "contractLineType": "CUSTOM",
+          "contractId": null,
+          "weight": -1,
+          "dayOfWeek": "SATURDAY",
+          "numberOfDays": 2,
+          "outOfTotalDays": 4,
+          "rotationType": "DAYS_OFF_PATTERN"
+        }
+      ]
+    },
+    {
+      "id": "73f182b7-c337-4693-af8f-2803253e16b2",
+      "scope": "EmployeeContract",
+      "contractLineDtos": [
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 720,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "DAYS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 1,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": true,
+          "minimumValue": 600,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 600,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "WEEKLY_OVERTIME",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 40,
+          "maximumWeight": -1
+        },
+        {
+          "type": "WeekdayRotationPatternCLDto",
+          "name": null,
+          "contractLineType": "CUSTOM",
+          "contractId": null,
+          "weight": -1,
+          "dayOfWeek": "SATURDAY",
+          "numberOfDays": 2,
+          "outOfTotalDays": 4,
+          "rotationType": "DAYS_OFF_PATTERN"
+        }
+      ]
+    },
+    {
+      "id": "93f34230-a9a7-4c51-96af-6642fe7b7b29",
+      "scope": "EmployeeContract",
+      "contractLineDtos": [
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "WEEKLY_OVERTIME",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 40,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": true,
+          "minimumValue": 2160,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 2400,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "DAYS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 4,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 720,
+          "maximumWeight": -1
+        },
+        {
+          "type": "WeekdayRotationPatternCLDto",
+          "name": null,
+          "contractLineType": "CUSTOM",
+          "contractId": null,
+          "weight": -1,
+          "dayOfWeek": "SATURDAY",
+          "numberOfDays": 2,
+          "outOfTotalDays": 4,
+          "rotationType": "DAYS_OFF_PATTERN"
+        }
+      ]
+    },
+    {
+      "id": "fb4513db-1118-4424-acbf-790e507cde15",
+      "scope": "EmployeeContract",
+      "contractLineDtos": [
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "WEEKLY_OVERTIME",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 40,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": true,
+          "minimumValue": 2160,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 3000,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "DAYS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 6,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 720,
+          "maximumWeight": -1
+        },
+        {
+          "type": "WeekdayRotationPatternCLDto",
+          "name": null,
+          "contractLineType": "CUSTOM",
+          "contractId": null,
+          "weight": -1,
+          "dayOfWeek": "SATURDAY",
+          "numberOfDays": 2,
+          "outOfTotalDays": 4,
+          "rotationType": "DAYS_OFF_PATTERN"
+        }
+      ]
+    },
+    {
+      "id": "33383177-7692-4faa-85d9-5f4fbb54b5c8",
+      "scope": "EmployeeContract",
+      "contractLineDtos": [
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "WEEKLY_OVERTIME",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 40,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 720,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": true,
+          "minimumValue": 2160,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 2400,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "DAYS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 4,
+          "maximumWeight": -1
+        },
+        {
+          "type": "WeekdayRotationPatternCLDto",
+          "name": null,
+          "contractLineType": "CUSTOM",
+          "contractId": null,
+          "weight": -1,
+          "dayOfWeek": "SATURDAY",
+          "numberOfDays": 2,
+          "outOfTotalDays": 4,
+          "rotationType": "DAYS_OFF_PATTERN"
+        }
+      ]
+    },
+    {
+      "id": "fc74c8b7-961e-43a9-b171-d5846d513718",
+      "scope": "EmployeeContract",
+      "contractLineDtos": [
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "WEEKLY_OVERTIME",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 40,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "DAYS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 6,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 3600,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 720,
+          "maximumWeight": -1
+        },
+        {
+          "type": "WeekdayRotationPatternCLDto",
+          "name": null,
+          "contractLineType": "CUSTOM",
+          "contractId": null,
+          "weight": -1,
+          "dayOfWeek": "SATURDAY",
+          "numberOfDays": 2,
+          "outOfTotalDays": 4,
+          "rotationType": "DAYS_OFF_PATTERN"
+        }
+      ]
+    },
+    {
+      "id": "25f3584b-b84c-4379-a84c-94cb78ee451f",
+      "scope": "EmployeeContract",
+      "contractLineDtos": [
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "DAYS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 6,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 960,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "WEEKLY_OVERTIME",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 40,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 3600,
+          "maximumWeight": -1
+        },
+        {
+          "type": "WeekdayRotationPatternCLDto",
+          "name": null,
+          "contractLineType": "CUSTOM",
+          "contractId": null,
+          "weight": -1,
+          "dayOfWeek": "SATURDAY",
+          "numberOfDays": 1,
+          "outOfTotalDays": 2,
+          "rotationType": "DAYS_OFF_PATTERN"
+        }
+      ]
+    },
+    {
+      "id": "2da96dc5-97e1-44c7-b7e0-c278691494b4",
+      "scope": "EmployeeContract",
+      "contractLineDtos": [
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 720,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": true,
+          "minimumValue": 2160,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 2400,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "WEEKLY_OVERTIME",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 40,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "DAYS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 4,
+          "maximumWeight": -1
+        },
+        {
+          "type": "WeekdayRotationPatternCLDto",
+          "name": null,
+          "contractLineType": "CUSTOM",
+          "contractId": null,
+          "weight": -1,
+          "dayOfWeek": "SATURDAY",
+          "numberOfDays": 2,
+          "outOfTotalDays": 4,
+          "rotationType": "DAYS_OFF_PATTERN"
+        }
+      ]
+    },
+    {
+      "id": "239a455f-2970-42d4-8144-ac0bc25f04e5",
+      "scope": "EmployeeContract",
+      "contractLineDtos": [
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 720,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": true,
+          "minimumValue": 2160,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 2640,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "DAYS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 6,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "WEEKLY_OVERTIME",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 40,
+          "maximumWeight": -1
+        }
+      ]
+    },
+    {
+      "id": "1702c68e-97a5-4b19-b81d-83240ad0574e",
+      "scope": "EmployeeContract",
+      "contractLineDtos": [
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": true,
+          "minimumValue": 2160,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 2640,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "WEEKLY_OVERTIME",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 40,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "DAYS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 6,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 720,
+          "maximumWeight": -1
+        }
+      ]
+    },
+    {
+      "id": "b078993b-3e75-4d3d-8cb9-17bb905f0c74",
+      "scope": "EmployeeContract",
+      "contractLineDtos": [
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 960,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "DAYS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 6,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "WEEKLY_OVERTIME",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 40,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 3600,
+          "maximumWeight": -1
+        },
+        {
+          "type": "WeekdayRotationPatternCLDto",
+          "name": null,
+          "contractLineType": "CUSTOM",
+          "contractId": null,
+          "weight": -1,
+          "dayOfWeek": "SATURDAY",
+          "numberOfDays": 2,
+          "outOfTotalDays": 4,
+          "rotationType": "DAYS_OFF_PATTERN"
+        }
+      ]
+    },
+    {
+      "id": "46a87d04-0c0b-4d9b-940d-46e8a1bdd5de",
+      "scope": "EmployeeContract",
+      "contractLineDtos": [
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 960,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 3600,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "DAYS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 6,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "WEEKLY_OVERTIME",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 40,
+          "maximumWeight": -1
+        }
+      ]
+    },
+    {
+      "id": "edcb3fc1-bf4e-458a-a27e-1cd8f045f680",
+      "scope": "EmployeeContract",
+      "contractLineDtos": [
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "WEEKLY_OVERTIME",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 40,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": true,
+          "minimumValue": 2160,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 2400,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "DAYS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 4,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 720,
+          "maximumWeight": -1
+        },
+        {
+          "type": "WeekdayRotationPatternCLDto",
+          "name": null,
+          "contractLineType": "CUSTOM",
+          "contractId": null,
+          "weight": -1,
+          "dayOfWeek": "SATURDAY",
+          "numberOfDays": 2,
+          "outOfTotalDays": 4,
+          "rotationType": "DAYS_OFF_PATTERN"
+        }
+      ]
+    },
+    {
+      "id": "6ea2e886-ebe6-4c9e-bcca-2cd412df7ef6",
+      "scope": "EmployeeContract",
+      "contractLineDtos": [
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": true,
+          "minimumValue": 2160,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 2400,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "WEEKLY_OVERTIME",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 40,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "DAYS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 7,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 720,
+          "maximumWeight": -1
+        },
+        {
+          "type": "WeekdayRotationPatternCLDto",
+          "name": null,
+          "contractLineType": "CUSTOM",
+          "contractId": null,
+          "weight": -1,
+          "dayOfWeek": "SATURDAY",
+          "numberOfDays": 2,
+          "outOfTotalDays": 4,
+          "rotationType": "DAYS_OFF_PATTERN"
+        }
+      ]
+    },
+    {
+      "id": "352aa354-b60b-4ce9-8f4c-0632bd7b9c8b",
+      "scope": "EmployeeContract",
+      "contractLineDtos": [
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "DAYS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 2,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_DAY",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 720,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "WEEKLY_OVERTIME",
+          "contractId": null,
+          "minimumEnabled": false,
+          "minimumValue": 0,
+          "minimumWeight": 0,
+          "maximumEnabled": true,
+          "maximumValue": 40,
+          "maximumWeight": -1
+        },
+        {
+          "type": "IntMinMaxCLDto",
+          "name": null,
+          "contractLineType": "HOURS_PER_WEEK",
+          "contractId": null,
+          "minimumEnabled": true,
+          "minimumValue": 1200,
+          "minimumWeight": -1,
+          "maximumEnabled": true,
+          "maximumValue": 1200,
+          "maximumWeight": -1
+        }
+      ]
+    }
+  ],
+  "employeeTeamDtos": [
+    {
+      "employeeId": "2da96dc5-97e1-44c7-b7e0-c278691494b4",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "type": "ON",
+      "homeTeam": true
+    },
+    {
+      "employeeId": "9e393dec-0827-4502-a530-ef173e1b0739",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "type": "ON",
+      "homeTeam": true
+    },
+    {
+      "employeeId": "247c3dc0-7b47-4dbe-b193-54604d05a4f2",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "type": "ON",
+      "homeTeam": true
+    },
+    {
+      "employeeId": "00670bb6-3a95-43d4-ad14-9e1c4311eef3",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "type": "ON",
+      "homeTeam": true
+    },
+    {
+      "employeeId": "32e62541-ded9-4781-817a-538bc336281a",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "type": "ON",
+      "homeTeam": true
+    },
+    {
+      "employeeId": "4be1d840-4a88-4917-93fd-ba19896ffc8a",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "type": "FLOAT",
+      "homeTeam": true
+    },
+    {
+      "employeeId": "d5072d97-4d82-49ba-bd0c-a433d9dc29d7",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "type": "ON",
+      "homeTeam": true
+    },
+    {
+      "employeeId": "fc74c8b7-961e-43a9-b171-d5846d513718",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "type": "ON",
+      "homeTeam": true
+    },
+    {
+      "employeeId": "d55b576f-8852-442f-93cb-4e5a7e5bacf2",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "type": "ON",
+      "homeTeam": true
+    },
+    {
+      "employeeId": "b078993b-3e75-4d3d-8cb9-17bb905f0c74",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "type": "ON",
+      "homeTeam": true
+    },
+    {
+      "employeeId": "fb4513db-1118-4424-acbf-790e507cde15",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "type": "ON",
+      "homeTeam": true
+    },
+    {
+      "employeeId": "1702c68e-97a5-4b19-b81d-83240ad0574e",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "type": "ON",
+      "homeTeam": true
+    },
+    {
+      "employeeId": "239a455f-2970-42d4-8144-ac0bc25f04e5",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "type": "ON",
+      "homeTeam": true
+    },
+    {
+      "employeeId": "352aa354-b60b-4ce9-8f4c-0632bd7b9c8b",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "type": "ON",
+      "homeTeam": true
+    },
+    {
+      "employeeId": "f2ef7453-6668-4742-b899-9302378bea66",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "type": "FLOAT",
+      "homeTeam": true
+    },
+    {
+      "employeeId": "73f182b7-c337-4693-af8f-2803253e16b2",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "type": "ON",
+      "homeTeam": true
+    },
+    {
+      "employeeId": "25f3584b-b84c-4379-a84c-94cb78ee451f",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "type": "ON",
+      "homeTeam": true
+    },
+    {
+      "employeeId": "61760661-84db-4044-a723-64d7c644f87a",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "type": "FLOAT",
+      "homeTeam": true
+    },
+    {
+      "employeeId": "203702aa-a52e-4e78-b4ce-32c380d42ce5",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "type": "ON",
+      "homeTeam": true
+    },
+    {
+      "employeeId": "6ea2e886-ebe6-4c9e-bcca-2cd412df7ef6",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "type": "ON",
+      "homeTeam": true
+    },
+    {
+      "employeeId": "edcb3fc1-bf4e-458a-a27e-1cd8f045f680",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "type": "ON",
+      "homeTeam": true
+    },
+    {
+      "employeeId": "677a64d9-8f85-4d2f-b7a5-d5751ed9da48",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "type": "ON",
+      "homeTeam": true
+    },
+    {
+      "employeeId": "53914caa-fa8e-41c4-983f-dd71ef64bdf7",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "type": "ON",
+      "homeTeam": true
+    },
+    {
+      "employeeId": "46a87d04-0c0b-4d9b-940d-46e8a1bdd5de",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "type": "ON",
+      "homeTeam": true
+    },
+    {
+      "employeeId": "fa03ec12-0b60-4d4f-8fe4-86ab6807501a",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "type": "ON",
+      "homeTeam": true
+    },
+    {
+      "employeeId": "e50b9724-580c-4c68-83ad-dc98a9c44a41",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "type": "FLOAT",
+      "homeTeam": true
+    },
+    {
+      "employeeId": "33383177-7692-4faa-85d9-5f4fbb54b5c8",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "type": "ON",
+      "homeTeam": true
+    },
+    {
+      "employeeId": "93f34230-a9a7-4c51-96af-6642fe7b7b29",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "type": "ON",
+      "homeTeam": true
+    }
+  ],
+  "shiftDtos": [
+    {
+      "id": "0117bfd3-4613-4820-b487-689f199850c7",
+      "startDateTime": 1408185000000,
+      "endDateTime": 1408224600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "09a3c8b0-eb67-4def-bb4c-229c3aad0b9c",
+      "startDateTime": 1407943800000,
+      "endDateTime": 1407965400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "0a7b5eae-b1cd-4e6e-bb0f-580fcc157bc7",
+      "startDateTime": 1407839400000,
+      "endDateTime": 1407879000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "11d90431-a67d-4b37-862e-9293f68d8e41",
+      "startDateTime": 1407925800000,
+      "endDateTime": 1407965400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "595001d4-4e8b-4512-b7df-944d0bda8eaf",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "138cce83-ba88-4da4-a90d-d6975e1048ec",
+      "startDateTime": 1407839400000,
+      "endDateTime": 1407879000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "184d042c-a343-4d3c-a517-f92d59fd5bd4",
+      "startDateTime": 1407925800000,
+      "endDateTime": 1407965400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "1a0bbe48-5c13-4df4-9b5f-536c9cc9846a",
+      "startDateTime": 1407839400000,
+      "endDateTime": 1407879000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "595001d4-4e8b-4512-b7df-944d0bda8eaf",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "1be89238-fc00-4a11-a2c7-d49c95a561ac",
+      "startDateTime": 1408185000000,
+      "endDateTime": 1408224600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "1d347f1f-077a-4d69-8171-eca22b4ddb4f",
+      "startDateTime": 1407925800000,
+      "endDateTime": 1407965400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "24524074-bf45-4c4f-9845-70e7aa6b0174",
+      "startDateTime": 1407771000000,
+      "endDateTime": 1407792600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "294007c7-188b-493c-928c-744c3a4334a7",
+      "startDateTime": 1407753000000,
+      "endDateTime": 1407792600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "315dae31-6005-4bc4-8ad7-1831e104a074",
+      "startDateTime": 1408098600000,
+      "endDateTime": 1408138200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "3239e5f5-6c21-46af-9358-472e85ed3267",
+      "startDateTime": 1408116600000,
+      "endDateTime": 1408138200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "3a774eec-7e47-4606-a63c-9d97e556eb6f",
+      "startDateTime": 1407839400000,
+      "endDateTime": 1407879000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "3d44715a-4b22-42cc-b168-47e639388384",
+      "startDateTime": 1407925800000,
+      "endDateTime": 1407965400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "3e210842-bf1c-4fd0-bdf4-90bf6298d97d",
+      "startDateTime": 1407925800000,
+      "endDateTime": 1407947400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "40fc7482-f40a-4368-bcdd-30b6bf717c6b",
+      "startDateTime": 1407753000000,
+      "endDateTime": 1407774600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "4320f826-e051-49ab-b560-d455c3b99c55",
+      "startDateTime": 1408185000000,
+      "endDateTime": 1408224600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "46d78d32-5814-48b8-9a53-0ddcde85096c",
+      "startDateTime": 1407753000000,
+      "endDateTime": 1407792600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "4ed3e30a-2e12-4480-a3ce-76a4bd836078",
+      "startDateTime": 1407753000000,
+      "endDateTime": 1407774600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "579b9a18-5965-4ebe-8ef7-346937d3c9ac",
+      "startDateTime": 1407839400000,
+      "endDateTime": 1407879000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "dab6d508-0e23-49ae-a960-eead02d024e5",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "5b46dadc-f24c-4b8f-a015-78c382feec7d",
+      "startDateTime": 1408185000000,
+      "endDateTime": 1408224600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "5c01f6f0-5f20-4648-841c-5d47f51bcf3d",
+      "startDateTime": 1408012200000,
+      "endDateTime": 1408051800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "5c5c3fdb-2494-44ee-9869-4258473e786c",
+      "startDateTime": 1408098600000,
+      "endDateTime": 1408138200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "595001d4-4e8b-4512-b7df-944d0bda8eaf",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "60fc3d21-b99e-4557-bea6-5aa421a74c5a",
+      "startDateTime": 1407925800000,
+      "endDateTime": 1407947400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "65d76db4-f456-451d-9e33-9c48fc1b1dc1",
+      "startDateTime": 1408098600000,
+      "endDateTime": 1408120200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "67b82505-bd02-4c8d-833d-ad99791a8f73",
+      "startDateTime": 1408098600000,
+      "endDateTime": 1408138200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "6a1ad3c2-66fc-4b67-ae06-a7007d06b1ac",
+      "startDateTime": 1407771000000,
+      "endDateTime": 1407792600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "6e59adaf-38b7-4d3b-9f7c-c1aa5abd7a5d",
+      "startDateTime": 1407839400000,
+      "endDateTime": 1407879000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "7349cc3e-3845-4490-abd3-e4c0927ee554",
+      "startDateTime": 1407753000000,
+      "endDateTime": 1407792600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "765789f6-2f20-4f46-b5de-94c9cd8ffe80",
+      "startDateTime": 1408012200000,
+      "endDateTime": 1408051800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "dab6d508-0e23-49ae-a960-eead02d024e5",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "795d5030-33bb-461c-bf45-9a1b4dde63cb",
+      "startDateTime": 1407839400000,
+      "endDateTime": 1407879000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "85bac0bb-f425-4e89-8e4f-3cef034f7b40",
+      "startDateTime": 1408116600000,
+      "endDateTime": 1408138200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "88c1c281-d9fa-4f5f-a945-6f1135d9e88c",
+      "startDateTime": 1408012200000,
+      "endDateTime": 1408051800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "933353ad-ba77-4a50-b72f-b37c87690d1b",
+      "startDateTime": 1407753000000,
+      "endDateTime": 1407792600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "dab6d508-0e23-49ae-a960-eead02d024e5",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "9736be63-5a28-4b2c-901b-7fad4847f289",
+      "startDateTime": 1407943800000,
+      "endDateTime": 1407965400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "a0cafde8-82a2-4fc5-a2bb-49ffff897a09",
+      "startDateTime": 1408012200000,
+      "endDateTime": 1408051800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "a4c73d19-9ad2-4a2e-bfee-2aab8f71dee1",
+      "startDateTime": 1408012200000,
+      "endDateTime": 1408051800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "abae119b-d8b1-4af6-be82-04ede294f1bd",
+      "startDateTime": 1408185000000,
+      "endDateTime": 1408224600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "dab6d508-0e23-49ae-a960-eead02d024e5",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "ac7e95c7-f749-45cd-aa1a-eeda2a330206",
+      "startDateTime": 1407925800000,
+      "endDateTime": 1407965400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "ac91bd94-f381-4093-9c07-c821ab39d98e",
+      "startDateTime": 1408185000000,
+      "endDateTime": 1408224600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "b3a87f57-36e3-48e7-919f-8d9a26c5013a",
+      "startDateTime": 1408012200000,
+      "endDateTime": 1408051800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "b5336651-dfb5-40b7-ab17-77d424f4533f",
+      "startDateTime": 1407753000000,
+      "endDateTime": 1407792600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "595001d4-4e8b-4512-b7df-944d0bda8eaf",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "c2a3db10-b1f2-4cd2-9d2c-39657a971c6e",
+      "startDateTime": 1408098600000,
+      "endDateTime": 1408138200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "dab6d508-0e23-49ae-a960-eead02d024e5",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "c49f2d41-7ed3-4031-8353-cdd7c9b1c477",
+      "startDateTime": 1408012200000,
+      "endDateTime": 1408051800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "595001d4-4e8b-4512-b7df-944d0bda8eaf",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "c751a014-0817-44b8-89c0-651b953cc56b",
+      "startDateTime": 1407925800000,
+      "endDateTime": 1407965400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "c803863c-06a8-41ec-9fd1-cc3647dca9a2",
+      "startDateTime": 1407753000000,
+      "endDateTime": 1407792600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "caa4d461-5133-4664-a122-a46d60c6a532",
+      "startDateTime": 1408098600000,
+      "endDateTime": 1408138200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "d248e87a-36a5-4c4f-ae51-7bc9adae2b3e",
+      "startDateTime": 1408185000000,
+      "endDateTime": 1408224600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "595001d4-4e8b-4512-b7df-944d0bda8eaf",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "d4ce5245-5708-4493-9854-3b118c69f10b",
+      "startDateTime": 1408098600000,
+      "endDateTime": 1408120200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "ea5771d5-bc64-4449-bedb-2cf1b89f31ed",
+      "startDateTime": 1408098600000,
+      "endDateTime": 1408138200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "ecf20831-cd94-4252-bbbc-eda82de97e7f",
+      "startDateTime": 1408098600000,
+      "endDateTime": 1408138200000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "f19889f6-5b27-4960-bc9e-e171b72935a8",
+      "startDateTime": 1408012200000,
+      "endDateTime": 1408051800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "f7b6bb8a-a710-4154-a67d-877160837009",
+      "startDateTime": 1407839400000,
+      "endDateTime": 1407879000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "f81c36d3-449c-4311-a492-51b5a15d1f6b",
+      "startDateTime": 1407839400000,
+      "endDateTime": 1407879000000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "f8e657f8-0540-4e44-bfe2-0b7332838273",
+      "startDateTime": 1408012200000,
+      "endDateTime": 1408051800000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "fcd15923-0954-4c67-b5a1-a410c76823d7",
+      "startDateTime": 1407753000000,
+      "endDateTime": 1407774600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "fcfce583-080c-449f-a3a7-602a0b463f6b",
+      "startDateTime": 1407771000000,
+      "endDateTime": 1407792600000,
+      "requiredEmployeeSize": 1,
+      "skillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    },
+    {
+      "id": "ff0eb024-7881-4e67-b211-17b788b2904e",
+      "startDateTime": 1407925800000,
+      "endDateTime": 1407965400000,
+      "requiredEmployeeSize": 1,
+      "skillId": "dab6d508-0e23-49ae-a960-eead02d024e5",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "beingQualified": true,
+      "beingSwapped": true,
+      "excessShift": false
+    }
+  ],
+  "shiftAssignmentDtos": [
+    {
+      "shiftId": "0117bfd3-4613-4820-b487-689f199850c7",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1408185000000,
+      "shiftEndDateTime": 1408224600000,
+      "employeeId": "9e393dec-0827-4502-a530-ef173e1b0739",
+      "employeeName": "Claudette Seniz",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "09a3c8b0-eb67-4def-bb4c-229c3aad0b9c",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1407943800000,
+      "shiftEndDateTime": 1407965400000,
+      "employeeId": "677a64d9-8f85-4d2f-b7a5-d5751ed9da48",
+      "employeeName": "Scott Teeple",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "0a7b5eae-b1cd-4e6e-bb0f-580fcc157bc7",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1407839400000,
+      "shiftEndDateTime": 1407879000000,
+      "employeeId": "677a64d9-8f85-4d2f-b7a5-d5751ed9da48",
+      "employeeName": "Scott Teeple",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "11d90431-a67d-4b37-862e-9293f68d8e41",
+      "shiftSkillId": "595001d4-4e8b-4512-b7df-944d0bda8eaf",
+      "shiftStartDateTime": 1407925800000,
+      "shiftEndDateTime": 1407965400000,
+      "employeeId": "2da96dc5-97e1-44c7-b7e0-c278691494b4",
+      "employeeName": "Larisa Jay",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "138cce83-ba88-4da4-a90d-d6975e1048ec",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1407839400000,
+      "shiftEndDateTime": 1407879000000,
+      "employeeId": "53914caa-fa8e-41c4-983f-dd71ef64bdf7",
+      "employeeName": "Katherine Rohn",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "184d042c-a343-4d3c-a517-f92d59fd5bd4",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1407925800000,
+      "shiftEndDateTime": 1407965400000,
+      "employeeId": "247c3dc0-7b47-4dbe-b193-54604d05a4f2",
+      "employeeName": "Ariel Catu",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "1a0bbe48-5c13-4df4-9b5f-536c9cc9846a",
+      "shiftSkillId": "595001d4-4e8b-4512-b7df-944d0bda8eaf",
+      "shiftStartDateTime": 1407839400000,
+      "shiftEndDateTime": 1407879000000,
+      "employeeId": "2da96dc5-97e1-44c7-b7e0-c278691494b4",
+      "employeeName": "Larisa Jay",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "1be89238-fc00-4a11-a2c7-d49c95a561ac",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1408185000000,
+      "shiftEndDateTime": 1408224600000,
+      "employeeId": "1702c68e-97a5-4b19-b81d-83240ad0574e",
+      "employeeName": "Bella Nest",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "1d347f1f-077a-4d69-8171-eca22b4ddb4f",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1407925800000,
+      "shiftEndDateTime": 1407965400000,
+      "employeeId": "93f34230-a9a7-4c51-96af-6642fe7b7b29",
+      "employeeName": "Nadine Mignott",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "24524074-bf45-4c4f-9845-70e7aa6b0174",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1407771000000,
+      "shiftEndDateTime": 1407792600000,
+      "employeeId": "2da96dc5-97e1-44c7-b7e0-c278691494b4",
+      "employeeName": "Larisa Jay",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "294007c7-188b-493c-928c-744c3a4334a7",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1407753000000,
+      "shiftEndDateTime": 1407792600000,
+      "employeeId": "d55b576f-8852-442f-93cb-4e5a7e5bacf2",
+      "employeeName": "Christine Richardson",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "315dae31-6005-4bc4-8ad7-1831e104a074",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1408098600000,
+      "shiftEndDateTime": 1408138200000,
+      "employeeId": "6ea2e886-ebe6-4c9e-bcca-2cd412df7ef6",
+      "employeeName": "Ying Benson-Scherer",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "3239e5f5-6c21-46af-9358-472e85ed3267",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1408116600000,
+      "shiftEndDateTime": 1408138200000,
+      "employeeId": "fb4513db-1118-4424-acbf-790e507cde15",
+      "employeeName": "Agapita Evangelista",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "3a774eec-7e47-4606-a63c-9d97e556eb6f",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1407839400000,
+      "shiftEndDateTime": 1407879000000,
+      "employeeId": "fb4513db-1118-4424-acbf-790e507cde15",
+      "employeeName": "Agapita Evangelista",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "3d44715a-4b22-42cc-b168-47e639388384",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1407925800000,
+      "shiftEndDateTime": 1407965400000,
+      "employeeId": "d55b576f-8852-442f-93cb-4e5a7e5bacf2",
+      "employeeName": "Christine Richardson",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "3e210842-bf1c-4fd0-bdf4-90bf6298d97d",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1407925800000,
+      "shiftEndDateTime": 1407947400000,
+      "employeeId": "73f182b7-c337-4693-af8f-2803253e16b2",
+      "employeeName": "Catherine Avaricio",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "40fc7482-f40a-4368-bcdd-30b6bf717c6b",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1407753000000,
+      "shiftEndDateTime": 1407774600000,
+      "employeeId": "677a64d9-8f85-4d2f-b7a5-d5751ed9da48",
+      "employeeName": "Scott Teeple",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "4320f826-e051-49ab-b560-d455c3b99c55",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1408185000000,
+      "shiftEndDateTime": 1408224600000,
+      "employeeId": "edcb3fc1-bf4e-458a-a27e-1cd8f045f680",
+      "employeeName": "Hilda Isaac",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "46d78d32-5814-48b8-9a53-0ddcde85096c",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1407753000000,
+      "shiftEndDateTime": 1407792600000,
+      "employeeId": "203702aa-a52e-4e78-b4ce-32c380d42ce5",
+      "employeeName": "Ronald Kingston",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "4ed3e30a-2e12-4480-a3ce-76a4bd836078",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1407753000000,
+      "shiftEndDateTime": 1407774600000,
+      "employeeId": "93f34230-a9a7-4c51-96af-6642fe7b7b29",
+      "employeeName": "Nadine Mignott",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "579b9a18-5965-4ebe-8ef7-346937d3c9ac",
+      "shiftSkillId": "dab6d508-0e23-49ae-a960-eead02d024e5",
+      "shiftStartDateTime": 1407839400000,
+      "shiftEndDateTime": 1407879000000,
+      "employeeId": "239a455f-2970-42d4-8144-ac0bc25f04e5",
+      "employeeName": "Deepa Chava",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "5b46dadc-f24c-4b8f-a015-78c382feec7d",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1408185000000,
+      "shiftEndDateTime": 1408224600000,
+      "employeeId": "d5072d97-4d82-49ba-bd0c-a433d9dc29d7",
+      "employeeName": "Michael Lucas",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "5c01f6f0-5f20-4648-841c-5d47f51bcf3d",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1408012200000,
+      "shiftEndDateTime": 1408051800000,
+      "employeeId": "247c3dc0-7b47-4dbe-b193-54604d05a4f2",
+      "employeeName": "Ariel Catu",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "5c5c3fdb-2494-44ee-9869-4258473e786c",
+      "shiftSkillId": "595001d4-4e8b-4512-b7df-944d0bda8eaf",
+      "shiftStartDateTime": 1408098600000,
+      "shiftEndDateTime": 1408138200000,
+      "employeeId": "33383177-7692-4faa-85d9-5f4fbb54b5c8",
+      "employeeName": "Antoinette Achkar",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "60fc3d21-b99e-4557-bea6-5aa421a74c5a",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1407925800000,
+      "shiftEndDateTime": 1407947400000,
+      "employeeId": "53914caa-fa8e-41c4-983f-dd71ef64bdf7",
+      "employeeName": "Katherine Rohn",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "65d76db4-f456-451d-9e33-9c48fc1b1dc1",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1408098600000,
+      "shiftEndDateTime": 1408120200000,
+      "employeeId": "247c3dc0-7b47-4dbe-b193-54604d05a4f2",
+      "employeeName": "Ariel Catu",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "67b82505-bd02-4c8d-833d-ad99791a8f73",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1408098600000,
+      "shiftEndDateTime": 1408138200000,
+      "employeeId": "edcb3fc1-bf4e-458a-a27e-1cd8f045f680",
+      "employeeName": "Hilda Isaac",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "6a1ad3c2-66fc-4b67-ae06-a7007d06b1ac",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1407771000000,
+      "shiftEndDateTime": 1407792600000,
+      "employeeId": "1702c68e-97a5-4b19-b81d-83240ad0574e",
+      "employeeName": "Bella Nest",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "6e59adaf-38b7-4d3b-9f7c-c1aa5abd7a5d",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1407839400000,
+      "shiftEndDateTime": 1407879000000,
+      "employeeId": "edcb3fc1-bf4e-458a-a27e-1cd8f045f680",
+      "employeeName": "Hilda Isaac",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "7349cc3e-3845-4490-abd3-e4c0927ee554",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1407753000000,
+      "shiftEndDateTime": 1407792600000,
+      "employeeId": "247c3dc0-7b47-4dbe-b193-54604d05a4f2",
+      "employeeName": "Ariel Catu",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "765789f6-2f20-4f46-b5de-94c9cd8ffe80",
+      "shiftSkillId": "dab6d508-0e23-49ae-a960-eead02d024e5",
+      "shiftStartDateTime": 1408012200000,
+      "shiftEndDateTime": 1408051800000,
+      "employeeId": "d55b576f-8852-442f-93cb-4e5a7e5bacf2",
+      "employeeName": "Christine Richardson",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "795d5030-33bb-461c-bf45-9a1b4dde63cb",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1407839400000,
+      "shiftEndDateTime": 1407879000000,
+      "employeeId": "1702c68e-97a5-4b19-b81d-83240ad0574e",
+      "employeeName": "Bella Nest",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "85bac0bb-f425-4e89-8e4f-3cef034f7b40",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1408116600000,
+      "shiftEndDateTime": 1408138200000,
+      "employeeId": "9e393dec-0827-4502-a530-ef173e1b0739",
+      "employeeName": "Claudette Seniz",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "88c1c281-d9fa-4f5f-a945-6f1135d9e88c",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1408012200000,
+      "shiftEndDateTime": 1408051800000,
+      "employeeId": "53914caa-fa8e-41c4-983f-dd71ef64bdf7",
+      "employeeName": "Katherine Rohn",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "933353ad-ba77-4a50-b72f-b37c87690d1b",
+      "shiftSkillId": "dab6d508-0e23-49ae-a960-eead02d024e5",
+      "shiftStartDateTime": 1407753000000,
+      "shiftEndDateTime": 1407792600000,
+      "employeeId": "239a455f-2970-42d4-8144-ac0bc25f04e5",
+      "employeeName": "Deepa Chava",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "9736be63-5a28-4b2c-901b-7fad4847f289",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1407943800000,
+      "shiftEndDateTime": 1407965400000,
+      "employeeId": "6ea2e886-ebe6-4c9e-bcca-2cd412df7ef6",
+      "employeeName": "Ying Benson-Scherer",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "a0cafde8-82a2-4fc5-a2bb-49ffff897a09",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1408012200000,
+      "shiftEndDateTime": 1408051800000,
+      "employeeId": "33383177-7692-4faa-85d9-5f4fbb54b5c8",
+      "employeeName": "Antoinette Achkar",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "a4c73d19-9ad2-4a2e-bfee-2aab8f71dee1",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1408012200000,
+      "shiftEndDateTime": 1408051800000,
+      "employeeId": "352aa354-b60b-4ce9-8f4c-0632bd7b9c8b",
+      "employeeName": "Maximynn Ordonez",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "abae119b-d8b1-4af6-be82-04ede294f1bd",
+      "shiftSkillId": "dab6d508-0e23-49ae-a960-eead02d024e5",
+      "shiftStartDateTime": 1408185000000,
+      "shiftEndDateTime": 1408224600000,
+      "employeeId": "93f34230-a9a7-4c51-96af-6642fe7b7b29",
+      "employeeName": "Nadine Mignott",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "ac7e95c7-f749-45cd-aa1a-eeda2a330206",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1407925800000,
+      "shiftEndDateTime": 1407965400000,
+      "employeeId": "9e393dec-0827-4502-a530-ef173e1b0739",
+      "employeeName": "Claudette Seniz",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "ac91bd94-f381-4093-9c07-c821ab39d98e",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1408185000000,
+      "shiftEndDateTime": 1408224600000,
+      "employeeId": "33383177-7692-4faa-85d9-5f4fbb54b5c8",
+      "employeeName": "Antoinette Achkar",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "b3a87f57-36e3-48e7-919f-8d9a26c5013a",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1408012200000,
+      "shiftEndDateTime": 1408051800000,
+      "employeeId": "203702aa-a52e-4e78-b4ce-32c380d42ce5",
+      "employeeName": "Ronald Kingston",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "b5336651-dfb5-40b7-ab17-77d424f4533f",
+      "shiftSkillId": "595001d4-4e8b-4512-b7df-944d0bda8eaf",
+      "shiftStartDateTime": 1407753000000,
+      "shiftEndDateTime": 1407792600000,
+      "employeeId": "fb4513db-1118-4424-acbf-790e507cde15",
+      "employeeName": "Agapita Evangelista",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "c2a3db10-b1f2-4cd2-9d2c-39657a971c6e",
+      "shiftSkillId": "dab6d508-0e23-49ae-a960-eead02d024e5",
+      "shiftStartDateTime": 1408098600000,
+      "shiftEndDateTime": 1408138200000,
+      "employeeId": "239a455f-2970-42d4-8144-ac0bc25f04e5",
+      "employeeName": "Deepa Chava",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "c49f2d41-7ed3-4031-8353-cdd7c9b1c477",
+      "shiftSkillId": "595001d4-4e8b-4512-b7df-944d0bda8eaf",
+      "shiftStartDateTime": 1408012200000,
+      "shiftEndDateTime": 1408051800000,
+      "employeeId": "2da96dc5-97e1-44c7-b7e0-c278691494b4",
+      "employeeName": "Larisa Jay",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "c751a014-0817-44b8-89c0-651b953cc56b",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1407925800000,
+      "shiftEndDateTime": 1407965400000,
+      "employeeId": "203702aa-a52e-4e78-b4ce-32c380d42ce5",
+      "employeeName": "Ronald Kingston",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "c803863c-06a8-41ec-9fd1-cc3647dca9a2",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1407753000000,
+      "shiftEndDateTime": 1407792600000,
+      "employeeId": "6ea2e886-ebe6-4c9e-bcca-2cd412df7ef6",
+      "employeeName": "Ying Benson-Scherer",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "caa4d461-5133-4664-a122-a46d60c6a532",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1408098600000,
+      "shiftEndDateTime": 1408138200000,
+      "employeeId": "1702c68e-97a5-4b19-b81d-83240ad0574e",
+      "employeeName": "Bella Nest",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "d248e87a-36a5-4c4f-ae51-7bc9adae2b3e",
+      "shiftSkillId": "595001d4-4e8b-4512-b7df-944d0bda8eaf",
+      "shiftStartDateTime": 1408185000000,
+      "shiftEndDateTime": 1408224600000,
+      "employeeId": "fb4513db-1118-4424-acbf-790e507cde15",
+      "employeeName": "Agapita Evangelista",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "d4ce5245-5708-4493-9854-3b118c69f10b",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1408098600000,
+      "shiftEndDateTime": 1408120200000,
+      "employeeId": "d55b576f-8852-442f-93cb-4e5a7e5bacf2",
+      "employeeName": "Christine Richardson",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "ea5771d5-bc64-4449-bedb-2cf1b89f31ed",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1408098600000,
+      "shiftEndDateTime": 1408138200000,
+      "employeeId": "53914caa-fa8e-41c4-983f-dd71ef64bdf7",
+      "employeeName": "Katherine Rohn",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "ecf20831-cd94-4252-bbbc-eda82de97e7f",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1408098600000,
+      "shiftEndDateTime": 1408138200000,
+      "employeeId": "677a64d9-8f85-4d2f-b7a5-d5751ed9da48",
+      "employeeName": "Scott Teeple",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "f19889f6-5b27-4960-bc9e-e171b72935a8",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1408012200000,
+      "shiftEndDateTime": 1408051800000,
+      "employeeId": "6ea2e886-ebe6-4c9e-bcca-2cd412df7ef6",
+      "employeeName": "Ying Benson-Scherer",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "f7b6bb8a-a710-4154-a67d-877160837009",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1407839400000,
+      "shiftEndDateTime": 1407879000000,
+      "employeeId": "9e393dec-0827-4502-a530-ef173e1b0739",
+      "employeeName": "Claudette Seniz",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "f81c36d3-449c-4311-a492-51b5a15d1f6b",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1407839400000,
+      "shiftEndDateTime": 1407879000000,
+      "employeeId": "93f34230-a9a7-4c51-96af-6642fe7b7b29",
+      "employeeName": "Nadine Mignott",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "f8e657f8-0540-4e44-bfe2-0b7332838273",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1408012200000,
+      "shiftEndDateTime": 1408051800000,
+      "employeeId": "239a455f-2970-42d4-8144-ac0bc25f04e5",
+      "employeeName": "Deepa Chava",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "fcd15923-0954-4c67-b5a1-a410c76823d7",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1407753000000,
+      "shiftEndDateTime": 1407774600000,
+      "employeeId": "edcb3fc1-bf4e-458a-a27e-1cd8f045f680",
+      "employeeName": "Hilda Isaac",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "fcfce583-080c-449f-a3a7-602a0b463f6b",
+      "shiftSkillId": "34f4cdbf-16e1-4934-b296-a5664445d429",
+      "shiftStartDateTime": 1407771000000,
+      "shiftEndDateTime": 1407792600000,
+      "employeeId": "352aa354-b60b-4ce9-8f4c-0632bd7b9c8b",
+      "employeeName": "Maximynn Ordonez",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    },
+    {
+      "shiftId": "ff0eb024-7881-4e67-b211-17b788b2904e",
+      "shiftSkillId": "dab6d508-0e23-49ae-a960-eead02d024e5",
+      "shiftStartDateTime": 1407925800000,
+      "shiftEndDateTime": 1407965400000,
+      "employeeId": "fb4513db-1118-4424-acbf-790e507cde15",
+      "employeeName": "Agapita Evangelista",
+      "teamId": "3b028a32-1ecb-4b93-ae26-40aae9483718",
+      "locked": false,
+      "excess": false
+    }
+  ]
+}

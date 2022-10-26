@@ -1,0 +1,42 @@
+package com.emlogis.workflow.exception;
+
+import static com.emlogis.workflow.exception.ExceptionType.POSSIBLE_EXCEPTION;
+import static com.emlogis.workflow.exception.ExceptionType.UNEXPECTED_EXCEPTION;
+
+/**
+ * Created by alex on 01.04.2015.
+ */
+public enum ExceptionCode {
+    NOT_SUPPORTED_WORKFLOW_REPORT_TYPE("801", POSSIBLE_EXCEPTION),
+    CAN_NOT_ENCODE_REQUEST_NOTIFICATION("802", UNEXPECTED_EXCEPTION),
+    CAN_NOT_DECODE_REQUEST_NOTIFICATION("803", UNEXPECTED_EXCEPTION),
+    CAN_NOT_SUBMIT_REQUEST("804", UNEXPECTED_EXCEPTION),
+    CAN_NOT_REMOVE_REQUEST("805", UNEXPECTED_EXCEPTION),
+    REQUEST_HAS_MORE_THEN_ONE_CHOSEN_PEER("806", POSSIBLE_EXCEPTION),
+    REQUEST_ALREADY_PEER_APPROVED("807", POSSIBLE_EXCEPTION),
+    JBOSS_VFS_ACCESS_FAIL("808", UNEXPECTED_EXCEPTION),
+    FAIL_REMOVE_PEER("809", UNEXPECTED_EXCEPTION),
+    FAIL_ADD_PEER("810", UNEXPECTED_EXCEPTION),
+    ACTION_ROLE_UNIDENTIFIED("811", POSSIBLE_EXCEPTION),
+    MANAGER_REQUEST_QUERY_FAIL("812", UNEXPECTED_EXCEPTION),
+    MANAGER_REQUEST_DETAIL_FAIL("813", UNEXPECTED_EXCEPTION),
+    REQUEST_TYPE_UNIDENTIFIED("814", POSSIBLE_EXCEPTION),
+    REQUEST_STATUS_CALCULATION_ERROR("815", UNEXPECTED_EXCEPTION),
+    REQUEST_TERMINATE_FAIL("816", UNEXPECTED_EXCEPTION);
+
+    private final String code;
+    private final ExceptionType type;
+
+    ExceptionCode(String code, ExceptionType type) {
+        this.type = type;
+        this.code = code;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public ExceptionType getType() {
+        return type;
+    }
+}

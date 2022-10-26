@@ -1,0 +1,33 @@
+<table>
+    <!-- Display Sunday, Tuesday, Wednesday ... Saturday-->
+    <tr class="header">
+        <td class="day" ng-repeat="shiftPatternDay in patternCalendar.shiftPatternDayCollection" >
+            {{shiftPatternDay.display | translate}}
+            <span ng-if = "shiftPatternDay.day == 'SPECIFIC_DATE' && specificDate !=null ">
+                : {{specificDate}}
+            </span>
+        </td>
+    </tr>
+    <tr >
+      <td class="day" ng-repeat="shiftPatternDay in patternCalendar.shiftPatternDayCollection">
+
+        <table class="patterns">
+
+          <tr ng-repeat="(key,pattern) in shiftPatternDay.patterns" class = 'pattern' ng-class="{'selected': pattern.selected == true}" ng-click = "setCurrentShiftPattern(pattern, shiftPatternDay)" >
+           <td>
+             {{pattern.name}}
+             <span ng-if="pattern.shiftPatternCdDate">({{pattern.shiftPatternCdDate | date: 'yyyy-MM-dd'}})</span>
+           </td>
+          </tr>
+
+          <tr ng-repeat="i in getBlankPatterns(shiftPatternDay.patterns) track by $index"  >
+            <td>&nbsp;</td>
+          </tr>
+
+          <tr class="new">
+            <td><a href="" ng-class='{ disabled: (!site || !team || !skill)}' ng-click="(!site || !team || !skill) || addShiftPatternForDay(shiftPatternDay)"  translate>schedule_builder.ADD_NEW</a></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+</table>

@@ -1,0 +1,345 @@
+<!--Schedule Builder Create schedule pages Start -->
+<div class="schedule-builder-create-schedule">
+  <div ng-include="'modules/common/partials/schedule-selector-modal.html'"></div>
+  <!-- Custom Filters -->
+  <div class="actions container-fluid">
+    <div class="btn-group" dropdown is-open="status.isopen" style="float: left;">
+      <a href class="btn btn-primary open-schedule-btn" ng-click="openScheduleAction()">
+        <span class="filter-ico fa fa-calendar"></span>
+      </a>
+    </div>
+
+    <label for="teamsForFilter" class="pull-left" style="padding-top: 10px;">{{'app.VIEW' | translate}}:</label>
+    <!-- Teams Filter -->
+    <div class="teams">
+      <div isteven-multi-select
+           input-model="option.teamsForFilter"
+           output-model="selectedTeamsForFilter"
+           button-label="name"
+           item-label="name"
+           tick-property="ticked"
+           max-labels="1"
+           id="teamsForFilter"
+           max-height="200px"
+           is-disabled="schedule.state=='Running' || schedule.state=='Queued'"
+           on-item-click="delayedUpdateShiftPatterns()"
+           on-reset="delayedUpdateShiftPatterns()"
+           on-select-none="delayedUpdateShiftPatterns()"
+           on-select-all="delayedUpdateShiftPatterns()"
+          >
+
+      </div>
+    </div>
+
+
+    <a href="javascript:void(0);" class="pull-right settings" data-ng-click="openSettings()">
+      <i class="glyphicon glyphicon-cog"></i>
+    </a>
+
+    <button type="button" class="btn btn-default generate pull-right" ng-click="executeScheduleAction()"
+            ng-disabled="!schedule.id || schedule.patternElts.length < 1 || schedule.state=='Running' || schedule.state=='Queued' || schedule.status=='Posted' || schedule.status=='Production' ">
+      {{'schedule_builder.GENERATE_SCHEDULE' | translate}}
+    </button>
+
+    <!--<button type="button" class="btn btn-default generate pull-right" ng-click="deleteAction()" ng-disabled="!schedule.id">-->
+    <!--{{'app.DELETE' | translate}}-->
+    <!--</button>-->
+
+    <div class="btn-group delBtn" dropdown is-open="delBtn.isopen">
+      <button type="button" class="btn btn-default " dropdown-toggle
+              ng-disabled="!schedule.id || schedule.state=='Running' || schedule.state=='Queued' ">
+        {{'app.DELETE' | translate}}
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li><a href ng-click="deleteAction()">{{'app.YES' | translate}}</a></li>
+        <li><a href>{{'app.NO' | translate}}</a></li>
+      </ul>
+    </div>
+
+
+    <button type="button" class="btn btn-default duplicate pull-right" ng-click="duplicateAction()"
+            ng-disabled="!schedule.id || schedule.state=='Running' || schedule.state=='Queued' || schedule.scheduleType !='ShiftPatternBased' ">
+      {{'schedule_builder.DUPLICATE' | translate}}
+    </button>
+    <button type="button" class="btn btn-default save-as pull-right" ng-click="saveAsAction()"
+            ng-disabled="!schedule.id || schedule.state=='Running' || schedule.state=='Queued' || schedule.scheduleType !='ShiftPatternBased' ">
+      {{'app.SAVE_AS' | translate}}
+    </button>
+    <button type="button" class="btn btn-default save pull-right" ng-click="saveAction()"
+            ng-disabled="!schedule.id || schedule.state=='Running' || schedule.state=='Queued' || schedule.scheduleType !='ShiftPatternBased' ">
+      {{'app.SAVE' | translate}}
+    </button>
+    <a href ng-click="openOverrides()" class="pull-right" style="font-size: larger;padding-top: 4px;">
+      {{'employee_schedules.ADVANCED_OPTIONS' | translate}}
+    </a>
+
+  </div>
+  <div class="divider"></div>
+
+  <!-- Schedule Info-->
+  <div class="schedule-info container-fluid">
+
+    <label for="name" class="pull-left big">{{'schedule_builder.SCHEDULE_NAME' | translate}}:</label>
+    <input type="text" class="form-control name pull-left" id="name" ng-model="option.name"
+           ng-disabled="!schedule.id || schedule.state=='Running' || schedule.state=='Queued' "
+           ng-change="updateEditing()">
+
+    <label for="startDate" class="pull-left">{{'schedule_builder.START_DATE' | translate}}: </label>
+
+    <div class="input-group start-date pull-left">
+      <input type="text" id="startDate" class="form-control" datepicker-popup="shortDate"
+             ng-model="option.startDate" is-open="startDateOpened"
+             ng-change="updateScheduleCalendar(true)"
+             ng-disabled="!schedule.id || schedule.state=='Running' || schedule.state=='Queued' "
+             ng-required="true" date-disabled="calendarDisabled(date, mode)" close-text="Close"/>
+
+
+        <span class="input-group-btn">
+          <button type="button" class="btn eml-btn-grey-lightest eml-calendar-btn" ng-click="showDate($event)"
+                  ng-disabled="!schedule.id || schedule.state=='Running' || schedule.state=='Queued' ">
+            <img src="/scheduler-server/emlogis/img/calendar.svg">
+          </button>
+        </span>
+    </div>
+
+    <label class="pull-left">{{'app.TIME_ZONE' | translate}}: </label>
+
+    <label class="pull-left">{{site.timeZone}}:</label>
+
+    <select class="form-control length pull-left" id="length" ng-model="option.length"
+            ng-change="updateScheduleCalendar(true)"
+            ng-options="day as day + ' days' for day in days"
+            ng-disabled="!schedule.id || schedule.state=='Running' || schedule.state=='Queued'">
+      <option value="">{{'app.SELECT' | translate}}</option>
+    </select>
+
+    <span class="label pull-left editing" ng-show="option.editing"> {{'schedule_builder.EDITING' | translate}} </span>
+
+  </div>
+
+  <!-- Schedule Team Info-->
+  <div class="schedule-info container-fluid">
+
+    <label class="pull-left big">{{'schedule_builder.TEAMS_INCLUDED' | translate}}:</label>
+
+    <!-- Tags Directive displays all Teams associated to a Schedule -->
+    <div tags
+         tagslist="option.teams"
+         deletetag="schedule.state!='Running' && schedule.state!='Queued' && removeScheduleTeam(tag)"
+         addtagslist="option.teamsForSite"
+         addtag="schedule.state!='Running' && schedule.state!='Queued' && addScheduleTeam(newTag)"
+         ng-if="option.teams && option.teamsForSite"></div>
+
+
+    <!--<div class="schedule-teams" ng-repeat="team in option.teams" >
+        <div class="team" >
+            <button type="button" class="close pull-left" ng-click="removeScheduleTeam(team)" style="
+                margin-right: 5px;
+            ">
+                <span aria-hidden="true">×</span>
+                <span class="sr-only">Close</span>
+            </button>
+            {{team.name}}
+        </div>
+    </div>
+
+    <div class="schedule-teams">
+
+        <div class="btn-group add-team" dropdown is-open="dropDown.isopen">
+            <button type="button" class="btn btn-default pull-right dropdown-toggle" ng-disabled="!schedule.id" >
+                {{'schedule_builder.ADD_TEAM' | translate}}
+            </button>
+
+            <ul class="dropdown-menu site-team" role="menu" ng-click="$event.stopPropagation()">
+                <li ng-repeat="team in option.teamsForSite" ng-if = "isNotContainedInTeams(team)">
+                    <a href ng-click="addScheduleTeam(team)" >
+                        {{team.name}}
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </div>-->
+
+  </div>
+
+  <!-- Schedule Generation Panel-->
+  <div class="schedule-info container-fluid">
+    <div class="generation-panel" ng-if="schedule && schedule.id && generation.display == true">
+
+      <label class="pull-left big">{{'schedule_builder.CURRENT_STATUS' | translate}}:</label>
+
+      <div class="status pull-left">
+        {{schedule.status}}
+      </div>
+      <span class="pull-left" style="font-weight: bold; padding-top: 5px;" class="separator"> {{'schedule_builder.GENERATION_STATE' | translate}}: </span>
+
+      <div class="completed state"
+           ng-show="schedule.completion=='OK' && (schedule.state == 'Complete' || schedule.state == 'Idle') ">
+
+        <i class="glyphicon glyphicon-ok-sign msg-label "></i>
+        <span>{{'schedule_builder.LAST_GENERATED' | translate}} </span>
+                <span ng-if="schedule.executionEndDate!=0">
+                    {{'app.ON' | translate | lowercase}} {{schedule.executionEndDate | date: 'MM/dd/yyyy HH:mm'}}
+                    ({{schedule.totalExeTime.m}}{{'schedule_builder.MINS' | translate}}, {{schedule.totalExeTime.s}}{{'schedule_builder.SECS' | translate}} )
+                </span>
+        <span ng-if="schedule.executionEndDate ==0 "> - </span>
+
+                <span style="font-weight: bold;">
+                    {{'schedule_builder.SHIFTS' | translate }}:
+                </span>
+
+        <span ng-show="schedule.returnedAssignedShifts == -1"> - </span>
+        <span ng-show="schedule.returnedAssignedShifts != -1"> {{schedule.returnedAssignedShifts}} {{'schedule_builder.ASSIGNED' | translate}},  </span>
+        <span ng-show="schedule.returnedOpenShifts == -1"> - </span> <span ng-show="schedule.returnedOpenShifts != -1"
+                                                                           style="color:red;">{{schedule.returnedOpenShifts}} {{'app.OPEN' | translate}} </span>
+
+        <a href ng-click='goToEmployeeSchedule(schedule)' class="pull-right">{{'schedule_builder.VIEW_SCHEDULE' |
+          translate}}</a>
+        <span class="pull-right separator">&nbsp;</span>
+        <a href class="pull-right" ui-sref="authenticated.schedule_builder.generation_report" ng-click=''
+           ng-class="{'error': schedule.completion == 'Error' || schedule.completion == 'Aborted'}">
+          {{'schedule_builder.VIEW_GENERATION_REPORT' | translate}}
+        </a>
+        <span class="pull-right separator">&nbsp;</span>
+
+      </div>
+
+      <div class="draft state" ng-show="schedule.completion=='OK' && (schedule.state == 'Draft') ">
+        <span>{{schedule.state}}</span>
+      </div>
+
+      <div class="completed state"
+           ng-show="schedule.completion=='Error' && (schedule.state == 'Complete' || schedule.state == 'Idle') ">
+
+        <i class="glyphicon glyphicon-remove-sign error "></i>
+              <span class="error ">
+                {{'schedule_builder.LAST_GENERATED' | translate}} {{'schedule_builder.WITH' | translate}} {{'schedule_builder.ERRORS' | translate}}
+              </span>
+
+              <span ng-if="schedule.executionEndDate!=0">
+                {{'app.ON' | translate}} {{schedule.executionEndDate | date: 'MM/dd/yyyy HH:mm'}}
+                ({{schedule.totalExeTime.m}}{{'schedule_builder.MINS' | translate}}, {{schedule.totalExeTime.s}}{{'schedule_builder.SECS' | translate}} )
+              </span>
+        <span ng-if="schedule.executionEndDate ==0 "> - | </span>
+
+              <span style="font-weight: bold;">
+                  {{'schedule_builder.SHIFTS' | translate }}:
+              </span>
+
+        <span ng-show="schedule.returnedAssignedShifts == -1"> - </span>
+        <span ng-show="schedule.returnedAssignedShifts != -1"> {{schedule.returnedAssignedShifts}} {{'schedule_builder.ASSIGNED' | translate}},  </span>
+        <span ng-show="schedule.returnedOpenShifts == -1"> - </span> <span ng-show="schedule.returnedOpenShifts != -1"
+                                                                           style="color:red;">{{schedule.returnedOpenShifts}} {{'app.OPEN' | translate}} </span>
+
+        <a href ng-click='' class="pull-right">{{'schedule_builder.VIEW_SCHEDULE' | translate}}</a>
+        <span class="pull-right separator">&nbsp;</span>
+        <a href class="pull-right" ui-sref="authenticated.reports.schedule.details({entityId: schedule.id})" ng-click=''
+           ng-class="{'error': schedule.completion == 'Error' || schedule.completion == 'Aborted'}">
+          {{'schedule_builder.VIEW_GENERATION_REPORT' | translate}}
+        </a>
+
+      </div>
+
+      <div class="running state"
+           ng-show=" schedule.completion=='OK' && schedule.state != 'Complete' && schedule.state != 'Idle' ">
+
+        <i class="glyphicon glyphicon-repeat msg-label"></i>
+                <span class="msg-label">
+                    {{'schedule_builder.IN_PROGRESS' | translate}}
+                </span>
+
+                <span class="elapsed" ng-if="schedule.state !='Aborting' ">
+                    {{generation.elapsedTime.m}}{{'schedule_builder.MINS' | translate}},
+                    {{generation.elapsedTime.s}}{{'schedule_builder.SECS' | translate}}
+                </span>
+
+        <div class="progressbar-section">
+          <progressbar max="100" value="generation.progress"></progressbar>
+        </div>
+
+        <span ng-if="schedule.state == 'Aborting' ">{{'schedule_builder.ABORTING' | translate}}...</span>
+                <span ng-if="schedule.state != 'Aborting' && schedule.maxComputationTime != -1 ">
+                    {{generation.remainingTime.m}}{{'schedule_builder.MINS' | translate}},
+                    {{generation.remainingTime.s}}{{'schedule_builder.SECS' | translate}}
+                </span>
+
+        <span class="separator">|</span>
+        <span>{{generation.progress}}% {{'app.DONE' | translate}}</span>
+
+        <button type="button" class="btn btn-default generate pull-right" ng-disabled="schedule.state == 'Aborting'"
+                ng-click="abortGeneration()">
+          {{'app.CANCEL' | translate}}
+        </button>
+      </div>
+
+      <div style="clear:both"></div>
+
+
+    </div>
+  </div>
+
+  <!-- Calendar-->
+  <div class="container-fluid">
+
+    <table class="calendar">
+      <!-- Display Sunday, Tuesday, Wednesday ... Saturday-->
+      <tr class="header">
+        <td class="day" ng-repeat="day in daysInWeek">
+          {{day | translate}}
+        </td>
+      </tr>
+
+      <tr class="data" ng-repeat="week in option.calendar">
+        <td class="day" ng-repeat="date in week"
+            ng-class="{ 'disabled': date < option.startDate || date > option.endDate }">
+          <span class="eml-grey">{{date | date: 'yyyy-MM-dd'}}</span> <br/>
+
+          <table class="patterns" ng-if="date >= option.startDate && date <= option.endDate">
+            <tr ng-repeat="patternElt in schedule.patternElts" class='pattern'
+                ng-if=isValidScheduleShiftPatternForDate(date,patternElt)>
+              <td>
+                <span class="pattern-name">{{patternElt.patternName}}</span>
+                <button type="button" class="close" ng-click="removeSchedulePatternElt(patternElt)">
+                  <span aria-hidden="true">×</span>
+                  <span class="sr-only">Close</span>
+                </button>
+              </td>
+            </tr>
+
+            <!-- Add new Shift -->
+            <tr>
+              <td class="text-center">
+                  <span class="dropdown" dropdown>
+
+                    <button dropdown-toggle class="dropdown-toggle btn btn-success add-shift-pattern"
+                            ng-disabled="schedule.state=='Running' || schedule.state=='Queued'">
+                      {{'schedule_builder.ADD_SHIFT_PATTERN' |
+                      translate}}
+                    </button>
+
+                    <ul class="dropdown-menu">
+                      <span class="empty-list" ng-if="isEmptyValidAvailableShiftPatternForDate(date)">
+                        {{'schedule_builder.THERE_IS_NO_ITEM' | translate}}
+                      </span>
+                      <li ng-repeat="shiftPattern in availableShiftPatterns"
+                          ng-if=isValidAvailableShiftPatternForDate(date,shiftPattern)>
+                        <a href ng-click="addShiftPattern(date, shiftPattern)">
+                          {{shiftPattern.name}}
+                          <span ng-if="shiftPattern.shiftPatternCdDate">({{shiftPattern.shiftPatternCdDate | date: 'yyyy-MM-dd'}})</span>
+                        </a>
+                      </li>
+                    </ul>
+
+                  </span>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+
+</div>
+<!--Schedule Builder Create schedule pages End -->

@@ -1,0 +1,1169 @@
+/*  EmLogis overwrites 3rd party plugins CSS  */
+
+
+//  Here we customize Bootstrap components
+//  and other 3rd party libraries
+//  to fit EmLogis design
+
+//  NOTE:
+//  There is a top-level class ".emlogis" assigned to <body> tag
+//  that can be used to overwrite 3rd party classes and IDs
+
+
+//  Import variables
+@import 'bootstrap_variables.scss';
+@import 'emlogis_variables.scss';
+
+html, body, div[ui-view],  {
+  height: 100%;
+}
+
+.emlogis {
+
+  //--------------------------------------------------------------------
+  // Bootstrap: Navbar component - for Top menu
+  //--------------------------------------------------------------------
+  
+  .nav > li > a {
+    line-height: 1;                                 // to fit dimentions UX Team Style Guide v3.1
+    font-size: $font-size-h6;
+    font-family: $font-montserrat;
+    text-transform: uppercase;
+  }
+
+
+  .eml-top-menu {
+
+    &.navbar {
+      position: fixed;
+      width: 100%;
+      z-index: 1000; //100000
+    }
+
+    .navbar-nav {
+      & > li > a {
+        margin-top: ($navbar-height - $eml-el-height) / 2; //8px;
+        border-radius: $border-radius-large;
+      }
+
+      a.eml-svg-menu {
+        padding: 5px 7.5px;
+
+        div {
+          width: 24px;
+          height: 24px;
+
+          .eml-svg {
+            fill: $eml-dark-grey;
+            filter: url(#dropshadow);
+          }
+        }
+
+        &:hover,
+        &:focus,
+        &:active {
+          .messages-number {
+            color: #fff;
+            background-color: $eml-blue-highlight-dark;
+          }
+        }
+
+        &:hover {
+          background-color: transparent;
+          .eml-svg {
+            fill: #fff;
+          }
+        }
+
+        &:focus,
+        &:active {
+          background-color: $eml-black;
+          .eml-svg {
+            fill: $brand-info;
+          }
+        }
+
+        .messages-number {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 18px;
+          min-width: 18px;
+          padding: 2.5px;
+          text-align: center;
+          font-family: $font-lato;
+          font-size: 9px;
+          background-color: $eml-blue-highlight;
+          border: 1px solid #fff;
+          border-radius: 9px;
+        }
+      }
+
+      &.navbar-right {
+        & > li {
+          & > a {
+            margin-top: 8px;
+          }
+          &:last-child {
+            margin-right: -7.5px;                  // to reduce interval to be 15px (UX Team)
+          }
+        }
+        .dropdown-menu:before {
+          left: inherit;
+          right: 13px;
+        }
+      }
+    }
+
+    .navbar-brand {
+      padding-top: 10px;
+      margin-right: 18px; //10px;
+      position: relative;
+
+      .eml-version {
+        color: $eml-blue-highlight-dark;
+        position: absolute;
+        font-size: 13px;
+        left: 122px;
+        font-family: $font-lato;
+
+        // TEMP TODO: for production change below lines to display version, e.g "7.0"
+        top: 15px; //21px;
+        line-height: 1;
+        font-size: 1.1rem;
+      }
+    }
+
+    .dropdown-menu {
+      background-color: $eml-black;
+      border-color: $eml-black;
+      border-radius: $border-radius-base;
+      margin-top: 8px;
+      box-shadow: 0 3px 5px rgba(0, 0, 0, .4);
+
+      .eml-link-color {
+        color: $eml-blue-highlight;
+        &:hover {
+          color: $eml-blue-highlight-dark;
+        }
+      }
+
+      & > .active > a,
+      & > .active > a:hover,
+      & > .active > a:focus {
+        background-color: transparent;
+      }
+
+      &:before {
+        content:"\A";
+        border-style: solid;
+        border-width: 0 6px 8px 6px;
+        border-color: transparent transparent $eml-black transparent;
+        position: absolute;
+        top: -9px;
+        left: 13px;
+      }
+
+      .active {
+        position: relative;
+
+        & a {
+          color: $eml-blue-highlight;
+        }
+      }
+
+      & > li > a {
+        padding: 3px $eml-navbar-horiz-padding;
+        color: $eml-light-grey;
+
+        &:hover {
+          color: $eml-blue-highlight;
+          background-color: transparent;
+        }
+      }
+
+      .divider {
+        margin: 5px 0;
+        background-color: $eml-dark-blue;
+      }
+
+      & > span {
+        font-size: 10px;
+        color: $eml-mid-grey;
+
+        &.eml-recent {
+          margin-left: $eml-navbar-horiz-padding;
+        }
+
+        &.eml-mark-read {
+          margin-right: $eml-navbar-horiz-padding;
+          float: right;
+          margin-top: 5px;
+
+          a {
+            color: $eml-mid-grey;
+
+            &:hover {
+              color: $eml-green-highlight; //$eml-blue-highlight;
+            }
+          }
+        }
+
+        &.eml-time-ago {
+          font-size: 7px;
+        }
+
+        & ~ li {
+          margin-top: 2px;
+        }
+      }
+
+      .list-group {
+        margin-bottom: 0;
+      }
+
+      .list-group-item {
+        padding: 10px 60px 10px $eml-navbar-horiz-padding;
+        color: $eml-light-grey;
+        background-color: transparent;
+        border: none;
+        white-space: nowrap;
+        font-size: 12px;
+        line-height: $font-size-base;
+
+        .eml-time-ago {
+          font-size: 9px;
+          color: $eml-mid-grey;
+        }
+
+        .eml-badge {
+          float: none;
+          position: absolute;
+          top: 12px;
+          right: $eml-navbar-horiz-padding;
+
+          & > div {
+            height: 25px;
+            width: 25px;
+          }
+        }
+      }
+    }
+  }
+
+  // Wrapping the navbar
+  // To cover alerts animation TODO: to handle margin/padding on collapsed navbar
+
+  .eml-menu-wrap {
+    background-color: $eml-dark-blue;
+    position: relative;
+    z-index: 100;
+    margin: 0 -15px;
+    padding: 0 15px;
+  }
+
+
+
+  //--------------------------------------------------------------------
+  // Bootstrap: Modal component
+  //--------------------------------------------------------------------
+
+  .modal {
+    z-index: 2147483647 !important;
+  }
+
+  .modal-header {
+    padding: 5px 15px;
+  }
+
+  .modal-footer {
+    a {
+      text-transform: uppercase;
+      color: $eml-dark-grey;
+      margin-right: 10px;
+      position: relative;
+      top: 1px;
+      cursor: pointer;
+
+      &:hover,
+      &:active,
+      &:focus {
+        color: $eml-blue-highlight;
+      }
+    }
+  }
+
+  .modal-backdrop {
+    opacity: .2;
+    //height: 100%;
+    //width: 100%;
+    z-index: 1040000;
+  }
+
+
+
+  //--------------------------------------------------------------------
+  // Bootstrap: Breadcrumbs component
+  //--------------------------------------------------------------------
+
+  .breadcrumb-section {                           // this is a global breadcrumb class, it belongs to EmLogis
+    background-color: $eml-light-blue; //#0e9ac9;
+    padding-top: (60px - $eml-el-height) / 2; //12px; //17px;
+    height: 60px; //61px; //70px;
+    margin-top: 50px; //TODO: should be automatically be changed to 50px when Site-level alert is hidden
+    overflow: hidden;
+
+    &.eml-site-alert-visible {
+      margin-top: 98px;
+    }
+    
+    // margin-top: 55px; // TEMP for meeting w UX Team
+
+    .breadcrumb {                                 // this class belongs to Bootstrap
+      border-radius: 0;
+      margin-bottom: 0;
+      padding-left: 0;
+      margin-right: 0;
+      font-family: $font-montserrat;
+
+      li {
+        margin-top: 1px;
+        font-size: $font-size-h2; //36px;
+        line-height: $font-size-h2;
+        
+        a {
+          color: #fff;
+        }
+        a:hover {
+          color: $eml-dark-blue;
+        }
+      }
+    }
+  }
+
+
+
+  //--------------------------------------------------------------------
+  // Bootstrap: Navigation tabs component
+  //--------------------------------------------------------------------
+
+  .nav-tabs {                                            // this class belongs to Bootstrap
+
+    & > li.active {
+      & > a {
+        color: $eml-dark-blue;
+        height: 43px;
+      }
+    }
+
+    & > li {
+      height: 43px;
+      & > a {
+        color: $eml-dark-blue;
+        margin-right: 0;
+        border-radius: 0;
+        padding: 12px 20px; //15px 20px;
+      }
+    }
+  }
+
+
+  //
+  // Top tabs navigation placed below breadcrumbs
+
+  .eml-top-tabs {                                       // this class belongs to EmLogis
+
+    .nav-tabs {                                         // this class belongs to Bootstrap
+      background-color: $eml-mid-grey; //#b0bec4;
+      border-bottom: none;
+      //margin-bottom: 10px;   // ?
+
+      & > li.active {
+        & > a {
+          border-right-color: rgba(0,0,0,.3);
+        }
+        & > a:hover {
+          background-color: $gray-lighter;
+        }
+        & + li > a {
+          border-left: transparent;
+        }
+      }
+
+      & > li {
+        & > a {
+          border-right-color: rgba(0,0,0,.15);
+          border-left-color: rgba(255,255,255,.35);
+        }
+
+        a:hover {
+          background-color: rgba(0,0,0,.05);
+          border-bottom-color: transparent;
+        }
+      }
+
+      & > li:first-child > a {
+        border-left: none;
+      }
+    }
+  }
+
+
+
+  //--------------------------------------------------------------------
+  // Bootstrap: Well component
+  //--------------------------------------------------------------------
+
+  .well {
+    background-color: rgba(0,0,0,.02);
+    border: 1px solid rgba(0,0,0,.07);
+    border-radius: 0;
+    box-shadow: inset 0 0 22px rgba(0,0,0,0.06);
+    color: #888;
+    margin-bottom: 0;
+    padding: 15px 15px 0;
+
+    .divider {
+      background-color: #d5d5d5;
+      margin-bottom: 15px;
+    }
+
+    .eml-header-side {
+      padding-bottom: 15px;
+    }
+  }
+
+  //
+  // For darker part of Edit Sections
+  // made with Bootstrap .Well component
+
+  .well-dark {
+    background-color: rgba(0,0,0,.03);
+    padding-top: 15px;
+    border-top: 1px solid #ccc;
+  }
+
+
+
+  //--------------------------------------------------------------------
+  // Bootstrap: Buttons
+  //--------------------------------------------------------------------
+
+  .btn {
+
+    font-weight: 500;
+
+    &:not(.btn-xs) {
+      text-transform: uppercase;
+      font-size: $font-size-base; //$font-size-h5;
+      padding-left: 15px;
+      padding-right: 15px;
+      // UX Teams
+      //line-height: 1;
+      //padding: 8px 15px;
+    }
+
+    &:not(.disabled),
+    &:not([disabled]) {
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35); //0 1px 0 rgba(0,0,0,.25);
+      box-shadow: 0 2px 2px rgba(0,0,0,.25);
+    }
+
+    &:focus,
+    &:active {
+      box-shadow: inset 0 2px 2px rgba(0,0,0,.25);
+    }
+
+    &.disabled,
+    &[disabled] {
+      opacity: 0.35;
+    }
+
+    &.btn-sm {
+      font-size: $font-size-small;
+    }
+  }
+
+  a.btn.btn-link {
+    text-shadow: none;
+    box-shadow: none;
+  }
+
+
+
+    //--------------------------------------------------------------------
+  // Bootstrap: Panels
+  //--------------------------------------------------------------------
+  
+  .panel {
+    border-radius: $border-radius-large;
+    
+    .panel-title {
+      font-size: $font-size-h4;
+      margin-left: 22px;
+      position: relative;
+      bottom: -1px;
+    }
+
+    .eml-panel-icons.hidden + .panel-title {   // when Panel isn't collapsable (= no icons)
+      left: 0;
+    }
+    
+    .collapse-icon-minus,
+    .collapse-icon-plus {
+      height: 16px;
+      width: 16px;
+      position: absolute;
+      margin: auto;
+      top: 0;
+      bottom: 0;
+      left: 9px;
+    }
+  }
+
+  .panel-default > .panel-heading {
+    border-color: transparent;
+    border-radius: $border-radius-large;
+  }
+
+  .panel-heading {
+    position: relative;
+
+    .eml-panel-header-right {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: $panel-heading-padding;
+
+      .fa {
+        margin-left: 15px;
+        position: relative;
+        top: 1px;
+        font-size: 1.3rem;
+        color: $eml-blue-highlight;
+        cursor: pointer;
+
+        &:hover,
+        &:focus,
+        &:active {
+          color: $eml-blue-highlight-dark;
+        }
+
+        &.disabled {
+          cursor: auto;
+          color: $eml-mid-grey;
+        }
+      }
+    }
+
+    .eml-panel-header-left {
+      h4 {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  //
+  // Helper classes
+
+  .eml-header-side {
+    display: inline-block;
+  }
+
+  
+
+  //
+  // Transform all <label> elements inside .form-group
+  // to be uppercase
+
+  .form-group {
+    label {
+      text-transform: uppercase;
+      font-weight: 300;
+      margin-bottom: 3px;
+    }
+
+    &.has-error {
+      label {
+        color: $brand-danger;
+      }
+    }
+  }
+
+
+
+  //--------------------------------------------------------------------
+  // Bootstrap: Pagination
+  //--------------------------------------------------------------------
+
+  .pagination {
+    margin: 0 0 10.5px;
+
+    & > li > a {
+      background-color: transparent;
+      border: none;
+      margin: 4px 4px;
+      padding: 0 5px;
+      border-radius: $border-radius-base;
+    }
+
+    & > .active > a {
+      color: #fff;
+      background-color: $eml-mid-grey;
+    }
+
+    & > li:first-child > a,
+    & > li:nth-child(2) > a,
+    & > li:last-child > a,
+    & > li:nth-last-child(2) > a {
+      background-color: #fff;
+      padding: 0 9px 2.5px;
+      margin: 0 2px;
+      font-size: 1.4rem;
+      box-shadow: 0 1px 1px $eml-light-grey;
+    }
+  }
+
+
+
+  //--------------------------------------------------------------------
+  // Bootstrap .checkbox
+  //--------------------------------------------------------------------
+
+  input[type="checkbox"] {
+    margin-top: 3px;
+  }
+
+
+
+  //--------------------------------------------------------------------
+  // Bootstrap-based table with editing
+  //--------------------------------------------------------------------
+
+  table.eml-editable-table {
+    box-shadow: $eml-el-shadow-hover;
+    border-radius: $border-radius-large;
+    font-size: $font-size-base;
+
+    & > thead > tr,
+    & > tbody > tr,
+    & > tfoot > tr {
+      td, th {
+        padding: 8px 15px;
+      }
+    }
+
+    th {
+      background-color: $eml-lightest-grey;
+      @include top-border-radius($border-radius-large);
+      font-weight: 300;
+    }
+
+    td {
+      font-weight: 400;
+      height: 47px;
+    }
+
+    // buttons and actions
+
+    .btn {
+      width: 60px;
+    }
+
+    .eml-table-edit,
+    .eml-table-remove {
+      display: inline-block;
+
+      .fa {
+        color: $eml-mid-grey;
+        cursor: pointer;
+      }
+    }
+
+    .eml-table-edit {
+      margin-right: 10px;
+    }
+
+    .eml-table-remove {
+      margin-right: 0;
+
+      .fa-trash-o {
+        &:hover,
+        &:active,
+        &:focus {
+          color: $eml-red-highlight-dark;
+        }
+      }
+    }
+
+    .eml-btn-white {
+      background-color: transparent;
+      border: 1px solid $eml-mid-grey;
+      text-shadow: none;
+      color: $eml-mid-grey;
+
+      &:hover,
+      &:active,
+      &:focus {
+        color: $eml-green-highlight-dark;
+        border-color: $eml-green-highlight;
+        background-color: transparent;
+      }
+    }
+
+    // for fields with .checkbox
+    .checkbox {
+      margin: 0 0 0 20px;
+    }
+  }
+
+
+
+  //--------------------------------------------------------------------
+  // Bootstrap: Grid spacing TODO: handle below styling for responsive behavior
+  //--------------------------------------------------------------------
+
+  // Reduce the space between columns
+  // Intended for input fields
+  // need to be tested on other elements that use columns
+
+  /*.row {
+    & > div[class^="col-"] {
+      &:not(:first-child):not(:last-child) {
+        padding-left: 5px;
+        padding-right: 5px;
+      }
+      &:first-child {
+        padding-right: 5px;
+      }
+      &:last-child {
+        padding-left: 5px;
+      }
+    }
+    & > div[class$="-12"] {
+      padding-left: 15px !important;
+      padding-right: 15px !important;
+    }
+  }*/
+
+
+
+  //--------------------------------------------------------------------
+  // UI Grid
+  //--------------------------------------------------------------------
+
+  .eml-grid {                                              // custom class belongs to EmLogis
+
+    .ui-grid {                                              // below this line - only UI Grid default classes
+      box-shadow: 0 0 4px #ccc;
+      margin-top: $margin-base-vertical;
+      margin-bottom: $margin-base-horizontal;
+      border-radius: $border-radius-large;
+      overflow: hidden;
+
+      &:not([ui-grid-selection]) {                          // enlarge horizontal padding for non-selectable grids
+        .ui-grid-cell-contents {
+          padding: 5px 15px;
+        }
+      }
+    }
+
+    .ui-grid-row:last-child .ui-grid-cell {
+      border-bottom-left-radius: $border-radius-large;
+      border-bottom-right-radius: $border-radius-large;
+    }
+
+    .ui-grid-header-cell,
+    .ui-grid-cell,
+    .ui-grid-pinned-container.ui-grid-pinned-container-left .ui-grid-cell:last-child,
+    .ui-grid-pinned-container.ui-grid-pinned-container-left .ui-grid-header-cell:last-child {
+      border-right: none;
+    }
+
+    .ui-grid-top-panel {
+      text-transform: uppercase;
+      background: $eml-lightest-grey;
+      font-weight: 300;
+      height: 30px;
+    }
+
+    .ui-grid-row-header-cell {
+      background-color: #fff; //transparent !important; //#F0F0EE !important;
+      border-bottom: none; //solid 1px #d4d4d4;
+    }
+
+    .ui-grid-row:nth-child(even) .ui-grid-cell {
+      background-color: $eml-lightest-grey;
+    }
+
+    .ui-grid-row:nth-child(odd) .ui-grid-cell {
+      background-color: #fff;
+    }
+
+    .row-hovered .ui-grid-cell {
+      cursor:pointer;
+      background-color: $eml-light-grey !important;
+    }
+
+    /* Filtering in a UI Grid header */
+
+    .ui-grid-header {
+      .ui-grid-header-cell:first-child {
+        & > div > div {
+          //display: inline-block;
+        }
+      }
+
+      .ui-grid-header-cell {
+        display: inline-block;
+      }
+
+      .ui-grid-cell-contents > span {
+        position: relative;
+        top: 1px;
+      }
+    }
+
+    .ui-grid-filter-container {
+      position: absolute;
+      padding: 5px 10px 4px 0;
+      top: 0;
+
+      input {
+        border-radius: $border-radius-base;
+        padding: 0 5px;
+
+        &:focus,
+        &:active {
+          outline: none;
+        }
+      }
+    }
+
+    // for select/deselect rows
+
+    .ui-grid-selection-row-header-buttons.ui-grid-row-selected {
+      color: $eml-green-highlight;
+    }
+
+    .ui-grid-row.ui-grid-row-selected [ui-grid-row] .ui-grid-cell {
+      background-color: $eml-green-transparent-dark !important;
+    }
+
+    .ui-grid-row.ui-grid-row-selected:nth-child(even) [ui-grid-row] .ui-grid-cell {
+      background-color: $eml-green-transparent-light !important;
+    }
+
+    .row-to-add,
+    .ui-grid-row-header-cell.row-to-add {
+      background-color: $eml-green-transparent-dark !important;
+    }
+
+    .ui-grid-row:nth-child(even) .ui-grid-cell.row-to-add {
+      background-color: $eml-green-transparent-light !important;
+    }
+
+
+    .row-to-remove,
+    .ui-grid-row-header-cell.row-to-remove {
+      background-color: $eml-red-transparent-light !important;
+    }
+
+    .ui-grid-row:nth-child(even) .ui-grid-cell.row-to-remove {
+      background-color: $eml-red-transparent-dark !important;
+    }
+    
+    .eml-switch {
+      top: 2px;
+    }
+
+    .ui-grid-cell input[type="checkbox"] {
+      margin-left: 0;
+    }
+
+
+    // To be able to see a tooltip
+    // for SelectAll checkbox in header
+
+    .ui-grid-header-viewport,
+    .ui-grid-top-panel {
+      //overflow: visible;
+    }
+
+    .tooltip {
+      white-space: nowrap;
+    }
+
+    .ui-grid-menu-button {
+      border-right: none;
+      border-top: none;
+    }
+  }
+
+  .tooltip {
+    z-index: 2147483647 * 2; // for Tooltips w Appent-to-body in Bootstrap Modals
+  }
+
+  .eml-grid-number {                                     // custom class belongs to EmLogis
+    height: 33px;
+    vertical-align: middle;
+    margin-right: $margin-base-horizontal;
+  }
+
+
+
+  //--------------------------------------------------------------------
+  // Datepicker (ui.bootstrap.datepicker)
+  //--------------------------------------------------------------------
+
+  .input-group {
+
+    &.eml-datepicker-right {
+      ul[datepicker-popup-wrap] {
+        right: initial !important;
+      }
+    }
+
+    ul[datepicker-popup-wrap] {
+      background-color: $eml-lightest-grey;
+      left: auto !important;
+      top: 27px !important;
+      right: 0 !important;
+
+      border-top-right-radius: 0;
+      box-shadow: $eml-el-shadow;
+      z-index: 998;
+
+      &:focus,
+      &:active {
+        outline: none;
+      }
+
+      .btn-default {
+        background-color: $eml-lightest-grey;
+        color: #787878;
+        border-color: $eml-lightest-grey;
+        font-weight: 500;
+        font-size: $font-size-h6;
+        text-shadow: none;
+        box-shadow: none;
+        padding: 2px 10px;
+
+        &:hover, &:focus, &:active {
+          background-color: $eml-light-grey;
+          border-color: $eml-light-grey;
+        }
+      }
+
+      li {
+
+        div:focus,
+        table:focus {
+          outline: none;
+        }
+
+        thead {
+          font-size: $font-size-h6;
+          background-color: $eml-lightest-grey !important;
+          tr {
+            th:nth-child(2) {
+              padding: 2px 0 4px;
+            }
+          }
+        }
+
+        &:focus {
+          outline: none !important;
+        }
+
+        .btn-group {
+          width: 100%;
+
+          .btn-info {
+            width: 100%;
+            background-color: #d4d6da;
+            border-color: #d4d6da;
+            color: #5f6674;
+            font-weight: 600;
+            font-size: 14px;
+            text-shadow: none;
+            padding: 7px 10px;
+            margin-bottom: 7px;
+          }
+
+          .btn-danger {
+            display: none !important;
+          }
+        }
+
+        .btn-success {
+          display: none !important;
+        }
+      }
+    }
+  }
+
+
+
+  //--------------------------------------------------------------------
+  // Timepicker (ui.bootstrap.timepicker)
+  //--------------------------------------------------------------------
+
+  .timepicker .form-control {
+    padding: 5px 12px;
+  }
+
+
+
+  //--------------------------------------------------------------------
+  // Angular Dialog Service
+  //--------------------------------------------------------------------
+
+  .dialog-header-error { background-color: $eml-red-highlight; }
+  .dialog-header-wait { background-color: $eml-blue-highlight; }
+  .dialog-header-notify { background-color: #eeeeee; }
+  .dialog-header-confirm { background-color: $eml-dark-blue; }
+}
+
+
+
+
+
+
+
+
+
+
+//
+// Legacy TEMP
+// TODO: code below needs to be moved to the corresponding modules
+
+
+.list-group-item:last-child {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    //margin-bottom: 0;
+}
+
+.list-group-item:first-child {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+.nav-stacked > li {
+    float: none;
+}
+
+.nav-stacked > li + li {
+    margin-top: 2px;
+    margin-left: 0;
+}
+
+/*FOR UI-Bootstrap. (as per their documentation)*/
+.nav, .pagination, .carousel, .panel-title a {
+    cursor: pointer;
+}
+
+.DocumentList {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    height: 200px;
+    width: 100%;
+    padding: 0 15px;
+}
+
+.DocumentItem {
+    border: 1px solid black;
+    padding: 0;
+    height: 200px;
+}
+
+.list-inline {
+    white-space: nowrap;
+}
+
+/*to have some space before search form*/
+.searchformspacerleft {
+    margin-left: 50px;
+}
+
+.required:after {
+    content: " *";
+    color: #8b492f;
+}
+
+table.selectable tr {
+    cursor: pointer;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.pointer:hover {
+    background: #f0f0f0;
+}
+
+tr.selected {
+    color: #fff;
+    background-color: #428bca;
+}
+
+.glyphicon-filter {
+  font-size: $large-font-size;
+  color: $gray-color;
+  vertical-align: middle;
+}
+
+.nav.nav-tabs {
+  cursor: auto;
+  li {
+    cursor: pointer;
+  }
+}
+
+.inner-addon {
+  position: relative;
+  display: inline-block;
+}
+
+.inner-addon .glyphicon {
+  position: absolute;
+  padding: $padding-large-vertical $padding-base-horizontal;
+  pointer-events: none;
+  color: #808080;
+}
+
+.left-addon .glyphicon {
+  left: 0px;
+}
+
+.right-addon .glyphicon {
+  right: 0px;
+}
+
+.left-addon input {
+  padding-left: $padding-xl-horizontal;
+}
+
+.right-addon input {
+  padding-right: $padding-large-horizontal;
+}
+
+.modal.in .modal-dialog {
+  -webkit-transform: translate(0, 25px);
+  -ms-transform: translate(0, 25px);
+  -o-transform: translate(0, 25px);
+  transform: translate(0, 25px);
+}
+
+@media (max-width: $grid-float-breakpoint){
+  .emlogis .breadcrumb-section .breadcrumb li{
+    font-size: 20px;
+  }
+}
+
+/*
+  EmLogis overwrites ends
+*/

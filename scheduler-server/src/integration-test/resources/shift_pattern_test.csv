@@ -1,0 +1,47 @@
+url|method|json|response_id
+
+skills|post|{"name":"Charge Nurse1", "abbreviation":"CN", "description":"Charge Nurse"}|#{skillCN}
+skills|post|{"name":"Registered Nurse1", "abbreviation":"RN", "description":"Registered Nurse"}|#{skillRN}
+skills|post|{"name":"Simple Skill1", "abbreviation":"SS", "description":"Simple Skill"}|#{skillSS}
+
+sites|post|{"name":"SiteA", "description":"Site A"}}|#{SiteA}
+sites|post|{"name":"SiteB", "description":"Site B"}}|#{SiteB}
+sites|post|{"name":"SiteC", "description":"Site C"}}|#{SiteC}
+sites|post|{"name":"SiteD", "description":"Site D"}}|#{SiteD}
+
+teams|post|{"siteId":"#{SiteA}", "updateDto":{"name":"TeamA", "description":"Team A"}}|#{TeamA}
+teams|post|{"siteId":"#{SiteA}", "updateDto":{"name":"TeamB", "description":"Team B"}}|#{TeamB}
+teams|post|{"siteId":"#{SiteA}", "updateDto":{"name":"TeamC", "description":"Team C"}}|#{TeamC}
+
+employees|post|{"firstName":"Steve1", "lastName":"Martin1", "employeeIdentifier":"SteveMartin1"}|#{employee1}
+employees|post|{"firstName":"John1", "lastName":"Smith1", "employeeIdentifier":"JohnSmith1"}|#{employee2}
+employees|post|{"firstName":"JohnB", "lastName":"SmithB", "employeeIdentifier":"JohnSmithB"}|#{employee3}
+
+employees/#{employee1}/teams|post|{"teamId":"#{TeamA}", "isFloating":false, "isHomeTeam":true, "isSchedulable":true}|
+employees/#{employee2}/teams|post|{"teamId":"#{TeamA}", "isFloating":false, "isHomeTeam":true, "isSchedulable":true}|
+employees/#{employee3}/teams|post|{"teamId":"#{TeamB}", "isFloating":false, "isHomeTeam":true, "isSchedulable":true}|
+employees/#{employee1}/teams/#{TeamA}|put|{}|
+employees/#{employee2}/teams/#{TeamA}|put|{}|
+employees/#{employee3}/teams/#{TeamB}|put|{}|
+employees/#{employee1}/skills|post|{"skillId":"#{skillCN}", "isPrimarySkill":true, "skillScore":1}|
+employees/#{employee2}/skills|post|{"skillId":"#{skillRN}", "isPrimarySkill":true, "skillScore":1}|
+employees/#{employee2}/skills|post|{"skillId":"#{skillSS}", "isPrimarySkill":true, "skillScore":1}|
+employees/#{employee1}/skills/#{skillCN}|put|{}|
+employees/#{employee2}/skills/#{skillRN}|put|{}|
+
+shiftlengths|post|{"name":"sl1", "updateDto":{"lengthInMin":"60", "paidTimeInMin":"60"}}|#{sl1}
+shiftlengths|post|{"name":"sl2", "updateDto":{"lengthInMin":"120", "paidTimeInMin":"120"}}|#{sl2}
+
+shifttypes|post|{"shiftLengthId":"#{sl1}", "updateDto":{"name":"st1", "startTime":"0"}}|#{st1}
+shifttypes|post|{"shiftLengthId":"#{sl2}", "updateDto":{"name":"st2", "startTime":"0"}}|#{st2}
+
+shiftpatterns|post|{"name":"q1", "skillId":"#{skillCN}", "teamId":"#{TeamA}", "updateDto":{"cdDate":11111}}}|#{sp1}
+shiftpatterns|post|{"name":"q2", "skillId":"#{skillCR}", "teamId":"#{TeamB}", "updateDto":{"cdDate":11111}}}|#{sp2}
+shiftpatterns/#{sp1}|put|{"cdDate":11111, "shiftReqDtos":[{"employeeCount":2, "excessCount":3, "shiftTypeId": "#{st1}"}, {"employeeCount":1, "shiftTypeId": "#{st2}"}, {"excessCount":2, "shiftTypeId": "#{st1}"}]}|
+shiftpatterns/#{sp2}|put|{"cdDate":11111, "shiftDemandDtos":[{"employeeCount":2, "lengthInMin":30}, {"employeeCount":1}, {"lengthInMin":20}]}|
+
+schedules|post|{"startDate":1404190800000, "scheduleType": "ShiftPatternBased","teamIds":["#{TeamB}"]}|#{scheduleId}
+schedules/#{scheduleId}|put|{"name":"#{scheduleId}", "description":"some desc"}|
+schedules/#{scheduleId}/fullupdate|put|{"scheduleUpdateDto":{"description":"some 2 desc"}, "schedulePatternDtos":[{"patternId":"#{sp1}", "cdDate":1404190800000},{"patternId":"#{sp1}", "cdDate":1404190800000}], "teamIds":["#{TeamA}","#{TeamC}"]}|
+schedules/#{scheduleId}/ops/generateshifts|post||
+schedules/#{scheduleId}/ops/execute?maxcomputationtime=20|post|{}|

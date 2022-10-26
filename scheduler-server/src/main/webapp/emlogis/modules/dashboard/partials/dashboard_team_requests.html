@@ -1,0 +1,327 @@
+<div class="container-fluid">
+
+  <div class="row filter">
+
+    <div class="input-group pull-left search">
+      <input type="text" class="form-control" ng-model="filter.searchTxt" placeholder="{{'app.FIND'|translate}}..."
+             ng-enter="loadRequests()">
+      <span class="input-group-btn">
+        <button class="btn btn-search" ng-click="loadRequests()">
+          <img src="/scheduler-server/emlogis/img/search.svg" width="18">
+        </button>
+      </span>
+    </div>
+
+    <!-- All Req Types -->
+    <div class="pull-left reqtypes" style="padding-top: 6px;">
+      <input type="checkbox" ng-model="filter.reqTypes.wip.ticked" ng-click="loadRequests()"
+             ng-disabled="filter.reqTypes.wip.ticked ==true && filter.reqTypes.swap.ticked!=true "> {{'home.WIP_REQUEST' | translate}}
+      <input type="checkbox" ng-model="filter.reqTypes.swap.ticked" ng-click="loadRequests()" style="margin-left: 10px;"
+             ng-disabled="filter.reqTypes.wip.ticked !=true && filter.reqTypes.swap.ticked==true " > {{'home.SHIFT_SWAP_REQUEST' | translate}}
+    </div>
+
+
+    <!-- All Statuses -->
+    <div isteven-multi-select
+         input-model="filter.statuses"
+         output-model="filter.selectedStatuses"
+         button-label="name"
+         item-label="name"
+         tick-property="ticked"
+         max-labels = "1"
+         id="statuses"
+         max-height="200px"
+         class="statuses pull-left"
+         on-item-click="loadRequests()"
+         on-select-all="delayedLoadRequests()"
+         on-select-none="delayedLoadRequests()"
+         on-reset="delayedLoadRequests()"
+        >
+    </div>
+
+    <!-- All Days -->
+    <div class="days pull-left">
+      <select class="form-control length " id="length" ng-model="filter.dayLength"
+              ng-change="loadRequests()"
+              ng-options="day.title for day in days">
+      </select>
+    </div>
+
+    <!-- Refresh Button -->
+    <button class="btn btn-default pull-left" ng-click="loadRequests()">{{'app.REFRESH' | translate}}</button>
+
+  </div>
+  <div class="row divider"></div>
+  <div class="row main">
+    <!--List View-->
+    <div class="col-md-9 col-lg-9 col-xs-12 col-sm-12 eml-grid " ng-init = 'init()'>
+
+      <div class="text-center">
+        <span class="text-uppercase">
+          {{ 'app.SHOWING' | translate }} {{gridOptions.data.length }}
+          {{ 'app.OF'|translate}} {{gridOptions.totalItems}} {{'home.REQUESTS' | translate }}
+        </span>
+      </div>
+
+
+      <div ui-grid="gridOptions"
+           ui-grid-pagination
+           ui-grid-selection
+          >
+      </div>
+      <!--ui-grid-selection-->
+      <div class="text-center">
+        <pagination ng-if="gridOptions.data && gridOptions.totalItems > 0"
+                    class="pagination-sm"
+                    total-items="gridOptions.totalItems"
+                    items-per-page="gridOptions.paginationPageSize"
+                    ng-model="gridOptions.paginationCurrentPage"
+                    boundary-links="true"
+                    max-size="5"
+                    previous-text="&lsaquo;"
+                    next-text="&rsaquo;"
+                    first-text="&laquo;"
+                    last-text="&raquo;">
+        </pagination> <!-- TODO: show only if there are more than 1 page in a table -->
+      </div>
+
+    </div>
+
+    <!--Detail View-->
+    <div class="col-md-3 col-lg-3 col-xs-12 col-sm-12 detail-view" ng-show="curRequest">
+
+      <!--Request Status-->
+      <h4 class="text-center">
+        <strong ng-if="curRequest.type=='SHIFT_SWAP_REQUEST' ">{{'home.SHIFT_SWAP_REQUEST' | translate}}</strong>
+        <strong ng-if="curRequest.type=='WIP_REQUEST' ">{{'home.WIP_REQUEST' | translate}}</strong>
+      </h4>
+
+      <div class="text-center status-ico">
+        <em class="admin-pending" ng-if="curRequest.status == 'ADMIN_PENDING' "><em class="admin-pending" ng-if="curRequest.status == 'ADMIN_PENDING' ">
+          <img src="/scheduler-server/emlogis/img/dashboard/admin_pending.png">{{'app.ADMIN_PENDING' | translate}}
+        </em>
+          <em class="peer-pending" ng-if="curRequest.status == 'PEER_PENDING' ">
+            <img src="/scheduler-server/emlogis/img/dashboard/peer_pending.png">{{'app.PEER_PENDING' | translate}}
+          </em>
+          <em class="approved" ng-if="curRequest.status == 'APPROVED' ">
+            <img src="/scheduler-server/emlogis/img/mark_as_read_opt1.svg" style="width: 16px;">{{'app.APPROVED' | translate}}
+          </em>
+          <em class="declined" ng-if="curRequest.status == 'DECLINED' ">
+            <img src="/scheduler-server/emlogis/img/dashboard/declined.png">{{'app.DECLINED' | translate}}
+          </em>
+          <em class="expired" ng-if="curRequest.status == 'EXPIRED' ">
+            <img src="/scheduler-server/emlogis/img/dashboard/expired.png">{{'app.EXPIRED' | translate}}</em>
+          <em class="deleted" ng-if="curRequest.status == 'DELETED' ">
+            <img src="/scheduler-server/emlogis/img/dashboard/deleted.png">{{'app.DELETED' | translate}}
+          </em>
+          <img src="/scheduler-server/emlogis/img/dashboard/admin_pending.png">{{'app.ADMIN_PENDING' | translate}}
+        </em>
+        <em class="peer-pending" ng-if="curRequest.status == 'PEER_PENDING' ">
+          <img src="/scheduler-server/emlogis/img/dashboard/peer_pending.png">{{'app.PEER_PENDING' | translate}}
+        </em>
+        <em class="approved" ng-if="curRequest.status == 'APPROVED' ">
+          <img src="/scheduler-server/emlogis/img/mark_as_read_opt1.svg">{{'app.APPROVED' | translate}}
+        </em>
+        <em class="declined" ng-if="curRequest.status == 'DECLINED' ">
+          <img src="/scheduler-server/emlogis/img/dashboard/declined.png">{{'app.DECLINED' | translate}}
+        </em>
+        <em class="expired" ng-if="curRequest.status == 'EXPIRED' ">
+          <img src="/scheduler-server/emlogis/img/dashboard/expired.png">{{'app.EXPIRED' | translate}}</em>
+        <em class="deleted" ng-if="curRequest.status == 'DELETED' ">
+          <img src="/scheduler-server/emlogis/img/dashboard/deleted.png">{{'app.DELETED' | translate}}
+        </em>
+      </div>
+
+      <div class="text-center info" ng-show=" curRequest.status != 'ADMIN_PENDING' || curRequest.status != 'PEER_PENDING' ">
+        {{curRequest.dateOfAction | date:'MMMM d,y, h:mm:ss a'}}
+        <span ng-if="curRequest.status == 'DECLINED' || curRequest.status == 'WITHDRAWN' ">{{'home.REASON' | translate}}: {{curRequest.reason}}</span>
+      </div>
+
+      <div class="row text-center info" ng-show=" curRequest.status == 'ADMIN_PENDING' || curRequest.status == 'PEER_PENDING' ">
+
+        <div class="col-md-12 col-lg-4 col-xs-12 col-sm-12">
+          <button class="btn btn-success" ng-show="canShowApproveButton(curRequest)" ng-click="updateRequest('approve') ">{{'home.APPROVE'|translate}}</button>
+        </div>
+
+        <div class="col-md-12 col-lg-4 col-xs-12 col-sm-12">
+          <button class="btn btn-danger"  ng-show="canShowDeclineButton(curRequest)" ng-click="updateRequest('decline') ">{{'home.DENY'|translate}}</button>
+        </div>
+
+        <div class="col-md-12 col-lg-4 col-xs-12 col-sm-12 text-uppercase">
+          <button class="btn btn-default edit" ng-click="cancelRequest(curRequest)" ng-show="curRequest.status == 'PEER_PENDING' || curRequest.status == 'PEER_APPROVED' ">{{'app.CANCEL'|translate}}</button>
+        </div>
+
+      </div>
+
+
+      <div class="row divider">
+      </div>
+
+      <!--Submitter Name-->
+      <h5 class="submitter-name">
+        <strong>{{curRequest.submitterName}}</strong>
+      </h5>
+
+      <!--Request Common Section-->
+
+      <div class="info grey-color">
+        <div class="col-md-4 col-lg-4 col-xs-12 col-sm-12 text-uppercase">
+          {{'home.SUBMITTED'|translate}}
+        </div>
+        <div class="col-md-8 col-lg-8 col-xs-12 col-sm-12">
+          {{curRequest.submitDate | date:'MMMM d,y @ h:mm:ss a'}}
+        </div>
+
+        <div class="text-uppercase col-md-12 col-lg-12 col-sm-12">
+          {{'home.COMMENTS'|translate}}&nbsp;&nbsp;
+
+          <i class="fa fa-undo"
+             popover-template=" 'comments_popover' "
+             popover-append-to-body="true"
+             popover-trigger="mouseenter"
+             popover-placement="bottom"
+              >
+
+          </i>
+
+          <script type="text/ng-template" id="comments_popover">
+            <table id="comments-history">
+              <tr ng-repeat="comment in curRequest.commentary.commentary">
+                <td class="text" >{{comment.comment}}</td>
+                <td class="grey-color">{{comment.datetime | date:'M/d/yy'}}</td>
+                <td class="grey-color">{{comment.employeeName}}</td>
+              </tr>
+            </table>
+          </script>
+          <br/>
+
+          <textarea class='comment' ng-if=" canShowApproveButton(curRequest) || canShowDeclineButton(curRequest) " ng-model=" curRequest.comment " ></textarea>
+        </div>
+      </div>
+
+      <!--Request Specific Section-->
+      <div class="info" ng-if="curRequest.type !='TIME_OFF_REQUEST' ">
+        <div class="col-md-4 col-lg-4 col-xs-12 col-sm-12 text-uppercase">
+          {{'home.DATE_SHIFT'|translate}}
+        </div>
+        <div class="col-md-8 col-lg-8 col-xs-12 col-sm-12">
+          {{curRequest.submitterShift.startDateTime | date:'MMMM d,y h:mm a'}} - {{curRequest.submitterShift.endDateTime | date:'h:mm a'}}
+        </div>
+        <div class="col-md-4 col-lg-4 col-xs-12 col-sm-12 text-uppercase">
+          {{'home.TEAM'|translate}}
+        </div>
+        <div class="col-md-8 col-lg-8 col-xs-12 col-sm-12">
+          {{curRequest.submitterTeamName}}
+        </div>
+        <div class="col-md-4 col-lg-4 col-xs-12 col-sm-12 text-uppercase">
+          {{'home.SKILL'|translate}}
+        </div>
+        <div class="col-md-8 col-lg-8 col-xs-12 col-sm-12">
+          {{curRequest.submitterShift.skillName}}
+        </div>
+      </div>
+
+
+      <!--WIP_REQUEST SECTION 1: START-->
+      <div class="text-uppercase" ng-show=" curRequest.type == 'WIP_REQUEST'">
+        <label style="font-weight: normal;">
+          {{curRequest.recipients.length}}&nbsp;<span style="margin-right: 0px;" ng-if = "curRequest.recipients.length >1 ">{{'home.OPTIONS'|translate}},</span>
+          <span ng-if = "curRequest.recipients.length == 1 " style="margin-right: 0px;">{{'home.OPTION'|translate}},</span>
+          {{curRequest.acceptedRecipientCount}}&nbsp;{{'app.ACCEPTED'|translate}}
+        </label>
+
+      </div>     <!--WIP_REQUEST SECTION 1: END-->
+
+      <!--SHIFT_SWAP_REQUEST SECTION 1: START-->
+      <div class="text-uppercase container-fluid" ng-show=" curRequest.type == 'SHIFT_SWAP_REQUEST' ">
+        <div class="row" >
+          <label style="font-weight: normal;">
+            {{curRequest.recipients.length}}&nbsp;<span style="margin-right: 0px;" ng-if = "curRequest.recipients.length >1 ">{{'home.OPTIONS'|translate}},</span>
+            <span ng-if = "curRequest.recipients.length == 1 " style="margin-right: 0px;">{{'home.OPTION'|translate}},</span>
+            {{curRequest.acceptedRecipientCount}}&nbsp;{{'app.ACCEPTED'|translate}}
+          </label>
+        </div>
+      </div>
+      <!--SHIFT_SWAP_REQUEST SECTION 1: END-->
+
+      <div ng-show ="curRequest.type == 'WIP_REQUEST' || curRequest.type == 'SHIFT_SWAP_REQUEST' " class="divider">
+      </div>
+
+      <!--WIP_REQUEST SECTION 2: START-->
+      <div ng-show=" curRequest.type == 'WIP_REQUEST' ">
+        <!--WIP_REQUEST Recipient-->
+        <div ng-repeat="recipient in curRequest.recipients | orderBy:'peerName' " class="recipient"
+             ng-class = "{'grey-color': curRequest.status != 'PEER_PENDING' }"
+            >
+          <label>
+            <i class="fa fa-check" ng-if = " recipient.status =='APPROVED' "></i>
+            <input type="radio" name="option" ng-value="true" ng-model="recipient.checked" ng-click="setCurRecipient(recipient)"
+                   ng-disabled="curRequest.status != 'PEER_PENDING' " ng-hide = " recipient.status =='APPROVED' ">
+            <span ng-if="recipient.status!='PEER_APPROVED'">{{recipient.status}}</span>
+            <span ng-if="recipient.status=='PEER_APPROVED'">ACCEPTED</span>
+          </label>
+          <br/>
+          <div class="normal">
+            <!--Pending Message-->
+
+            <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+              {{recipient.dateActed| date:'MMMM d,y @ h:mm:ss a'}}&nbsp;
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!--WIP_REQUEST SECTION 2: END-->
+
+      <!--SHIFT_SWAP_REQUEST SECTION 2: START-->
+      <div class="container-fluid" ng-show=" curRequest.type == 'SHIFT_SWAP_REQUEST' ">
+        <!--Shift Swap Recipients-->
+        <div ng-repeat="recipient in curRequest.recipients | orderBy:'-recipientShift.startDateTime' " class="recipient"
+             ng-class = "{'grey-color': recipient.status != 'PEER_PENDING'}"
+            >
+          <label>
+            <i class="fa fa-check" ng-if = " recipient.status =='APPROVED' "></i>
+            <input type="checkbox" name="recipient" ng-value="true" ng-model="recipient.checked"
+                   ng-disabled=" recipient.status!='PEER_PENDING' ">
+            <span ng-if="recipient.status!='PEER_APPROVED'">{{recipient.status}}</span>
+            <span ng-if="recipient.status=='PEER_APPROVED'">ACCEPTED</span>
+          </label>
+          <br/>
+          <!--Pending Message-->
+          <div>
+            <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+              {{recipient.dateActed | date:'MMMM d,y @ h:mm:ss a'}}&nbsp;
+            </div>
+            <div class="col-md-4 col-lg-4 col-xs-12 col-sm-12 text-uppercase">
+              {{'home.DATE_SHIFT'|translate}}
+            </div>
+            <div class="col-md-8 col-lg-8 col-xs-12 col-sm-12">
+              {{recipient.recipientShift.startDateTime | date:'MMMM d,y h:mm a'}} - {{recipient.recipientShift.endDateTime | date:'h:mm a'}}
+            </div>
+            <div class="col-md-4 col-lg-4 col-xs-12 col-sm-12 text-uppercase">
+              {{'home.TEAM'|translate}}
+            </div>
+            <div class="col-md-8 col-lg-8 col-xs-12 col-sm-12">
+              {{recipient.recipientShift.teamName}}
+            </div>
+            <div class="col-md-4 col-lg-4 col-xs-12 col-sm-12 text-uppercase">
+              {{'home.SKILL'|translate}}
+            </div>
+            <div class="col-md-8 col-lg-8 col-xs-12 col-sm-12">
+              {{recipient.recipientShift.skillName}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--SHIFT_SWAP_REQUEST SECTION 2: END-->
+
+
+
+
+    </div>
+
+  </div>
+
+</div>
+
+

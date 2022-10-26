@@ -1,0 +1,113 @@
+<!-- Holidays Page Start -->
+<div class="rules-timeoff">
+  <div class="container-fluid">
+    <div class="row eml-action-bar">
+      <div class="col-md-2">
+        <month-year-picker class="month-year-picker" year="year"></month-year-picker>
+      </div>
+      <div class="col-md-10  text-right">
+        <div ng-show="!duplicateHolidays.showControl">
+          <button type="button" class="btn btn-default"
+                  ng-if="hasMgmtPermission()" ng-click="addRowForNewHoliday()">
+            {{ ::"rules.holidays.ADD_HOLIDAY" | translate }}
+          </button>
+          <button type="button" class="btn btn-default"
+                  ng-if="hasMgmtPermission()" ng-click="showDuplicateControl()">
+            {{ ::"rules.holidays.DUPLICATE_HOLIDAYS" | translate }}
+          </button>
+          &nbsp;
+          <!--<button type="button" class="btn btn-default">{{ ::"app.PRINT" | translate }}</button>-->
+        </div>
+        <div ng-show="duplicateHolidays.showControl && hasMgmtPermission()">
+          <span>{{ ::"rules.holidays.DUPLICATE_TO" | translate }}:</span>
+          <month-year-picker year="duplicateHolidays.toYear" min-year="minToYear()" id="to-year-picker"></month-year-picker>
+          <button class="btn btn-success" ng-click="duplicateYear(year, duplicateHolidays.toYear)">
+            {{ ::"app.DUPLICATE" | translate }}
+          </button>
+          <button class="btn btn-default" ng-click="duplicateHolidays.showControl = false">
+            {{ ::"app.CANCEL" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table eml-table-striped" id="holidays-table">
+          <tr ng-repeat-start="h in filterHolidaysByYear(holidays, year)" ng-show="!h.inEditMode">
+            <td>
+              <span class="cell-date">{{cellDate(h.effectiveStartDate)}},</span>
+              <span>{{cellDaYOfWeek(h.effectiveStartDate)}}</span>
+            </td>
+            <td class="name-column">{{h.name}}</td>
+            <td>
+              <span ng-if="h.description">{{h.description}}</span>
+              <span ng-if="!h.description">{{ ::"rules.holidays.NO_DESCRIPTION" | translate }}</span>
+            </td>
+            <td class="text-right">
+              <div class="edit-btn" ng-if="hasMgmtPermission()" ng-click="edit(h, true)">
+                <i class="fa fa-pencil"></i>
+              </div>
+              <div class="remove-holiday" ng-if="hasMgmtPermission()" ng-click="deleteHoliday(h)"
+                   title="{{ ::'rules.holidays.REMOVE_HOLIDAY' | translate }}">
+                <i class="fa fa-trash-o"></i>
+              </div>
+            </td>
+          </tr>
+          <tr></tr>
+          <!-- for table-striped look -->
+          <tr ng-repeat-end ng-show="h.inEditMode">
+            <td>
+                   <span class="input-group date-input">
+                      <input type="text"
+                             class="form-control"
+                             placeholder="{{ ::'app.DATE' | translate }}"
+                             datepicker-popup="MM/dd/yy"
+                             ng-model="h.calendarDate"
+                             is-open="h.opened"
+                             current-text="{{ ::'calendar.JUMP_TO_TODAY' | translate }}"
+                             ng-escape="edit(h, false)"
+                             focus-me="h.inEditMode"/>
+                      <span class="input-group-btn">
+                        <button type="button"
+                                class="btn eml-btn-grey-lightest eml-calendar-btn"
+                                ng-class="{ 'eml-calendar-opened' : h.opened }"
+                                ng-click="open($event, h)">
+                          <img src="/scheduler-server/emlogis/img/calendar.svg">
+                        </button>
+                      </span>
+                    </span>
+            </td>
+            <td>
+              <input type="text"
+                     class="form-control"
+                     placeholder="{{ ::'app.NAME' | translate }}"
+                     ng-model="h.name"
+                     ng-escape="edit(h, false)">
+            </td>
+            <td>
+              <input type="text"
+                     class="form-control"
+                     placeholder="{{ ::'app.DESCRIPTION' | translate }}"
+                     ng-model="h.description"
+                     ng-escape="edit(h, false)">
+            </td>
+            <td class="text-right">
+              <button type="button"
+                      class="btn btn-success btn-xs save-btn"
+                      ng-click="saveHoliday(h)"
+                      ng-disabled="!validHoliday(h)">
+                {{ ::'app.SAVE' | translate }}
+              </button>
+              <div class="remove-holiday"
+                   ng-click="deleteHoliday(h)"
+                   title="{{ ::'rules.holidays.REMOVE_HOLIDAY' | translate }}">
+                <i class="fa fa-trash-o"></i>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Holidays Page End -->

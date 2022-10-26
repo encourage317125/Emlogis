@@ -1,0 +1,95 @@
+<div class="access-control-list" ng-controller="RolesAccessControlListCtrl">
+  <div class="top-margin-base">
+    <button type="button" class="btn btn-default" ng-click="updateAccessControl()" ng-disabled="!isInEdit">
+      {{'app.UPDATE' | translate}} {{'settings.accounts.ACCESS_CONTROL' | translate}}
+    </button>
+  </div>
+  <div class="all-sites list-item">
+    <div class="sub-list-item">
+      <div class="read-check">
+        <input type="checkbox" ng-model="allSites.readAccess" ng-change="allSitesReadAccessChanged()"
+               ng-disabled="!isInEdit">
+        <span class="item-label">R</span>
+      </div>
+      <div class="write-check">
+        <input type="checkbox" ng-model="allSites.writeAccess" ng-change="allSitesWriteAccessChanged()"
+               ng-disabled="!isInEdit">
+        <span class="item-label">W</span>
+      </div>
+    </div>
+    <div class="sub-list-item">
+      <div class="item-name"
+           ng-class="{'access-rw': (allSites.readAccess && allSites.writeAccess), 'access-ro': (allSites.readAccess && !allSites.writeAccess), 'access-wo': (!allSites.readAccess && allSites.writeAccess), 'access-no': (!allSites.readAccess && !allSites.writeAccess)}">
+        <span>All Sites</span>
+      </div>
+    </div>
+  </div>
+  <div ng-repeat="site in parsedSites" class="site-container">
+    <div class="site-item list-item">
+      <div class="sub-list-item site-expander">
+        <i class="glyphicon glyphicon-plus" ng-show="!site.expanded"
+           ng-click="site.expanded = !site.expanded;"></i>
+        <i class="glyphicon glyphicon-minus" ng-show="site.expanded"
+           ng-click="site.expanded = !site.expanded;"></i>
+      </div>
+      <div class="sub-list-item">
+        <div class="read-check">
+          <input type="checkbox" ng-model="site.readAccess" ng-change="siteReadAccessChanged(site)"
+                 ng-disabled="!isInEdit">
+          <span class="item-label">R</span>
+        </div>
+        <div class="write-check">
+          <input type="checkbox" ng-model="site.writeAccess" ng-change="siteWriteAccessChanged(site)"
+                 ng-disabled="!isInEdit">
+          <span class="item-label">W</span>
+        </div>
+      </div>
+      <div class="sub-list-item">
+        <div class="item-name"
+             ng-class="{'access-rw': (site.readAccess && site.writeAccess), 'access-ro': (site.readAccess && !site.writeAccess), 'access-wo': (!site.readAccess && site.writeAccess), 'access-no': (!site.readAccess && !site.writeAccess)}">
+          <span>{{site.name}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="team-item list-item" ng-show="site.expanded">
+      <div class="sub-list-item">
+        <div class="read-check">
+          <input type="checkbox" ng-model="site.allTeams.readAccess"
+                 ng-change="allTeamsReadAccessChanged(site)" ng-disabled="!isInEdit">
+          <span class="item-label">R</span>
+        </div>
+        <div class="write-check">
+          <input type="checkbox" ng-model="site.allTeams.writeAccess"
+                 ng-change="allTeamsWriteAccessChanged(site)" ng-disabled="!isInEdit">
+          <span class="item-label">W</span>
+        </div>
+      </div>
+      <div class="sub-list-item">
+        <div class="item-name"
+             ng-class="{'access-rw': (site.allTeams.readAccess && site.allTeams.writeAccess), 'access-ro': (site.allTeams.readAccess && !site.allTeams.writeAccess), 'access-wo': (!site.allTeams.readAccess && site.allTeams.writeAccess), 'access-no': (!site.allTeams.readAccess && !site.allTeams.writeAccess)}">
+          <span>All Teams</span>
+        </div>
+      </div>
+    </div>
+    <div ng-repeat="team in site.teams" class="team-item list-item" ng-show="site.expanded">
+      <div class="sub-list-item">
+        <div class="read-check">
+          <input type="checkbox" ng-model="team.readAccess" ng-change="teamReadAccessChanged(site, team)"
+                 ng-disabled="!isInEdit">
+          <span class="item-label">R</span>
+        </div>
+        <div class="write-check">
+          <input type="checkbox" ng-model="team.writeAccess" ng-change="teamWriteAccessChanged(site, team)"
+                 ng-disabled="!isInEdit">
+          <span class="item-label">W</span>
+        </div>
+      </div>
+      <div class="sub-list-item">
+        <div class="item-name"
+             ng-class="{'access-rw': (team.readAccess && team.writeAccess), 'access-ro': (team.readAccess && !team.writeAccess), 'access-wo': (!team.readAccess && team.writeAccess), 'access-no': (!team.readAccess && !team.writeAccess)}">
+          <span>{{team.name}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

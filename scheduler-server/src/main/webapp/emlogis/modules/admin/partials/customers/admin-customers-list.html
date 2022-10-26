@@ -1,0 +1,10 @@
+<div class="admin-customers-list">
+  <div class="sub-panel form-group top-margin-base">
+    <tabset>
+      <tab ng-repeat="tab in tabs" heading="{{tab.heading | translate}}" select="selectSubTab(tab)"></tab>
+    </tabset>
+    <div class="tab-content" ng-repeat="tab in tabs" ng-if="tab.selected">
+      <div ng-include="tab.templateUrl"></div>
+    </div>
+  </div>
+</div>

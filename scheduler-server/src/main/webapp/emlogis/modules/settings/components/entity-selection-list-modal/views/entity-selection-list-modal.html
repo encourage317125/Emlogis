@@ -1,0 +1,24 @@
+<script type="text/ng-template" id="listModalContent.html">
+  <div class="modal-header">
+    <h3 class="modal-title">{{'settings.accounts.PLEASE_SELECT' | translate}} {{data.entityDetails.entitiesName |
+      translate}}</h3>
+  </div>
+  <div class="modal-body">
+    <div ng-if="data.entityDetails.needPagination">
+      <entity-selection-list entity-details="data.entityDetails" need-operation-buttons="false"
+                             get-entity-list="getEntityListForPagination(gridOptions, paginationOptions)"
+                             convert-entity-to-grid-row="data.convertEntityToGridRow(message)"
+                             process-selected-row="processSelectedRow(message)"></entity-selection-list>
+    </div>
+    <div ng-if="!data.entityDetails.needPagination">
+      <entity-selection-list entity-details="data.entityDetails" need-operation-buttons="false"
+                             get-entity-list="getEntityList()"
+                             convert-entity-to-grid-row="data.convertEntityToGridRow(message)"
+                             process-selected-row="processSelectedRow(message)"></entity-selection-list>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-default" ng-click="ok()" translate>app.OK</button>
+    <button class="btn btn-default" ng-click="cancel()" translate>app.CANCEL</button>
+  </div>
+</script>

@@ -1,0 +1,203 @@
+/*
+  Default Content Area after successful login starts
+*/
+
+
+$font-color: $text-color; //black;
+$divider-bg-color: #ccc; //#e5e5e5;
+$border-color: #e5e5e5;
+$pattern-list-pattern-bg-color: #3399DB;
+$pattern-list-blank-bg-color: darkgrey;
+$ico-font-size: 25px;
+$modal-margin-top: 200px;
+
+*.unselectable {
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+
+    /*
+      Introduced in IE 10.
+      See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+    */
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.authenticated {
+
+    // Notification row
+
+    .notification {
+        height: 22px;
+
+        .message {
+            width: calc(100% - 100px);
+            .alert {
+                margin-bottom: 0px;
+                padding-top: 0px;
+                padding-bottom: 0px;
+            }
+        }
+
+        .actions {
+            width: 100px;
+            button.btn {
+                margin-left: 10px;
+                padding-top: 0px;
+                padding-bottom: 0px;
+            }
+        }
+
+        .show-hide {
+            -webkit-transition:all linear 0.5s;
+            transition:all linear 0.5s;
+        }
+
+        .show-hide.ng-hide {
+            opacity:0;
+        }
+
+    }
+
+    // Divider element
+
+    .divider {
+        clear: both;
+        height: 1px;
+        background-color: $divider-bg-color;
+    }
+
+
+    // Main Section starts
+
+    .main-section {
+        //border-top: 1px solid darkgrey;
+    }
+
+}
+
+// CSS for Util Directive
+
+.shift-pattern-list {
+
+  $pattern-selected-bg-color: #0e9ac9;
+  $pattern-bg-color: #c3cacd;
+  $pattern-color: #2e3138;
+  $pattern-new-link-color: #0e9ac9;
+  $pattern-border-color: #d7d7d7;
+
+  table {
+    width: 100%;
+    border: 1px solid $border-color;
+    border-collapse: collapse;
+    tr.header {
+      text-transform: uppercase;
+      td {
+        padding-left: 10px;
+      }
+
+    }
+    tr {
+      td.day {
+        border-right: 1px solid $pattern-border-color;
+        vertical-align: top;
+
+        table.patterns {
+          border: none;
+
+          tr {
+            border-bottom: 1px solid $pattern-border-color;
+            color: $pattern-color;
+            background-color: $pattern-bg-color;
+
+            td {
+              padding: 8px 10px;
+            }
+          }
+
+          tr.selected {
+            background-color: $pattern-selected-bg-color;
+            color: white;
+          }
+
+          tr.new {
+            background-color: white;
+            a {
+              color: $pattern-new-link-color;
+            }
+          }
+
+          tr.pattern {
+            cursor: pointer;
+            height: 20px;
+          }
+
+          tr.disabled {
+            pointer-events: none;
+            cursor: default;
+          }
+
+        }
+      }
+    }
+  }
+
+}
+
+
+// Directive classes
+.shift-pattern-graph {
+    $required-bg-color: #0e9ac9;
+    $required-color: white;
+    $excess-bg-color: #e2b748;
+    $excess-color: black;
+    overflow: auto;
+
+    table {
+        td, th {
+            padding:  2px 1px 2px 1px;
+        }
+
+        th {
+            background-color: #ccc;
+        }
+
+        .required-header, .excess-header {
+            background-color: darkgrey;
+
+
+            td:nth-child(odd) {
+                border-right: none;
+
+            }
+
+            td:nth-child(even) {
+                border-left: none;
+                text-align: right;
+            }
+        }
+
+        .required-items {
+
+          .selected {
+            background-color: $required-bg-color;
+            color: $required-color;
+            cursor: pointer;
+          }
+        }
+
+        .excess-items {
+            .selected {
+                background-color: $excess-bg-color;
+                color: $excess-color;
+                cursor: pointer;
+            }
+        }
+    }
+}
+/*
+  Default Content Area after successful login ends
+*/
+
+ 

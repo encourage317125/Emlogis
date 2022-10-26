@@ -1,0 +1,3 @@
+url|method|json|response_id
+schedules/197c39d4-7d72-4b7b-8365-b93d6594b660|put|{"startDate":1404191000000,"endDate":1404709400000,"teamIds":["TeamA"]}|#{scheduleId}
+schedules/197c39d4-7d72-4b7b-8365-b93d6594b660/changes?startdate=1405701288000&enddate=1405701528000&type=SHIFTADD|get||

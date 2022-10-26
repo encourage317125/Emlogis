@@ -1,0 +1,83 @@
+#!/bin/bash
+#
+# /etc/init.d/hazelcast
+#
+# Startup script for hazelcast
+# chkconfig: 2345 20 80
+# description: Starts and stops hazelcast
+
+
+export SCHEDULER_HOME=/opt/emlogis/hazelcast/
+export SCHEDULER_OWNR=root
+NAME="hazelcast"
+log_file=/var/log/hazelcast.log
+pid_file=/var/run/hazelcast.pid
+SCHEDULER_PROG=/opt/emlogis/hazelcast-server/hznodesrv.sh
+SCHEDULER_KILL_PROG=/opt/emlogis/hazelcast-server/stophzsrv.sh
+
+
+
+
+# The first existing directory is used for JAVA_HOME if needed.
+JVM_SEARCH_DIRS="/usr/lib/jvm/jre /usr/lib/jvm/jre-1.6.* /usr/lib/jvm/java-1.6.*/jre"
+
+# Read configuration variable file if it is present
+[ -r /etc/default/$NAME ] && . /etc/default/$NAME
+
+# If JAVA_HOME has not been set, try to determine it.
+if [ -z "$JAVA_HOME" ]; then
+    # If java is in PATH, use a JAVA_HOME that corresponds to that. This is
+    # both consistent with how the upstream startup script works, and with
+    # the use of alternatives to set a system JVM (as is done on Debian and
+    # Red Hat derivatives).
+    java="`/usr/bin/which java 2>/dev/null`"
+    if [ -n "$java" ]; then
+        java=`readlink --canonicalize "$java"`
+        JAVA_HOME=`dirname "\`dirname \$java\`"`
+    else
+        # No JAVA_HOME set and no java found in PATH; search for a JVM.
+        for jdir in $JVM_SEARCH_DIRS; do
+            if [ -x "$jdir/bin/java" ]; then
+                JAVA_HOME="$jdir"
+                break
+            fi
+        done
+        # if JAVA_HOME is still empty here, punt.
+    fi
+fi
+JAVA="$JAVA_HOME/bin/java"
+export JAVA_HOME JAVA
+
+case "$1" in
+    start)
+        # hazelcast startup
+        echo -n "Starting hazelcast: "
+        su $SCHEDULER_OWNR -c $SCHEDULER_PROG > $log_file 2>&1
+        echo "OK"
+        ;;
+    stop)
+        # hazelcast shutdown
+        echo -n "Shutdown scheduler-engine: "
+        su $SCHEDULER_OWNR -c $SCHEDULER_KILL_PROG > $log_file 2>&1
+        su $SCHEDULER_OWNR -c "kill `cat $pid_file`"
+        for t in `seq 40`; do $0 status > /dev/null 2>&1 && sleep 0.5 || break; done
+        # Adding a sleep here to give jmx time to wind down (SCHEDULER-4483). Not ideal...
+        # Adam Holmberg suggests this, but that would break if the jmx port is changed
+        # for t in `seq 40`; do netstat -tnlp | grep "0.0.0.0:7199" > /dev/null 2>&1 && sleep 0.1 || break; done
+        sleep 5
+        echo "OK"
+        ;;
+    reload|restart)
+        $0 stop
+        $0 start
+        ;;
+    status)
+        status -p $pid_file hazelcast
+        exit $?
+        ;;
+    *)
+        echo "Usage: `basename $0` start|stop|status|restart|reload"
+        exit 1
+esac
+
+exit 0

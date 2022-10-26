@@ -1,0 +1,23 @@
+<div ng-if="needOperationButtons">
+  <div class="row top-margin-base">
+    <div class="col-sm-12">
+      <button class="btn btn-default" ng-click="openEntityListSelectionModal()" translate>app.ADD</button>
+      <button class="btn btn-default" ng-click="removeSelectedEntities()" translate>app.REMOVE</button>
+    </div>
+  </div>
+  <div ng-include="'modules/settings/components/entity-selection-list-modal/views/entity-selection-list-modal.html'"></div>
+</div>
+<div class="row top-margin-base">
+  <div class="col-sm-12">
+    <div class="entity-selection-list {{entityDetails.entityType}}-selection-list grid-panel">
+      <div ng-if="entityDetails.needPagination">
+        <div ui-grid="entityListGridOptions" ui-grid-resize-columns ui-grid-pagination ui-grid-selection ui-grid-move-columns
+             class="entity-selection-list-grid"></div>
+      </div>
+      <div ng-if="!entityDetails.needPagination">
+        <div ui-grid="entityListGridOptions" ui-grid-resize-columns ui-grid-selection ui-grid-move-columns
+             class="entity-selection-list-grid"></div>
+      </div>
+    </div>
+  </div>
+</div>

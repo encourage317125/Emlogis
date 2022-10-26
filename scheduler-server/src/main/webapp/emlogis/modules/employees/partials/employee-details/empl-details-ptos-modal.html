@@ -1,0 +1,25 @@
+<div id="eml-profile-pto">
+  <div class="modal-header">
+    <h4 class="modal-title">
+      <strong>{{ pto.employee.firstName }} {{ pto.employee.lastName }}</strong>
+      {{ ::"employees.PTO_HISTORY" | translate }}
+    </h4>
+  </div>
+
+  <div class="modal-body">
+    <div class="row" ng-if="pto.gridOptions.data">
+      <div class="eml-grid col-sm-12">
+        <div ui-grid="pto.gridOptions"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <a ng-click="pto.closeModal()">{{ ::"app.CLOSE" | translate }}</a>
+    <button ng-show="pto.isEditing"
+            ng-disabled="!authService.hasPermission('Employee_Mgmt')"
+            class="btn btn-primary"
+            ng-click="pto.saveSkills()">{{ ::"app.SAVE" | translate }}
+    </button>
+  </div>
+</div>

@@ -1,0 +1,123 @@
+<div class="container-fluid settings-tab">
+  <div class="row">
+    <div class="col-sm-12">
+      <div collapsable-panel
+           is-collapsable="true"
+           is-collapsed="false">
+        <div transclude-to="panel-head">
+          <h4 class="panel-title">{{ ::"employees.tabs.hours.HOURS" | translate }}</h4>
+        </div>
+
+        <div transclude-to="panel-body">
+          <!--Hours-->
+          <div class="row">
+            <div class="col-sm-3">
+              <eml-dropdown model="settings.minHoursPerDay"
+                            options="options.minHoursPerDay"
+                            left-text="translations.hoursPerDay"
+                            top-text="translations.min"
+                            on-select="onMinHoursChange('minHoursPerDay', 'maxHoursPerDay')">
+              </eml-dropdown>
+              &nbsp;
+              <eml-dropdown model="settings.maxHoursPerDay"
+                            options="options.maxHoursPerDay"
+                            top-text="translations.max"
+                            on-select="onMaxHoursChange('minHoursPerDay', 'maxHoursPerDay')">
+              </eml-dropdown>
+            </div>
+            <div class="col-sm-3">
+              <eml-dropdown model="settings.minHoursPerWeek"
+                            options="options.minHoursPerWeek"
+                            left-text="translations.hoursPerWeek"
+                            left-text-width="58"
+                            top-text="translations.min"
+                            on-select="onMinHoursChange('minHoursPerWeek', 'maxHoursPerWeek')">
+              </eml-dropdown>
+              <eml-dropdown model="settings.maxHoursPerWeek"
+                            options="options.maxHoursPerWeek"
+                            top-text="translations.max"
+                            on-select="onMaxHoursChange('minHoursPerWeek', 'maxHoursPerWeek')">
+              </eml-dropdown>
+            </div>
+            <div class="col-sm-2">
+              <eml-dropdown model="settings.daysPerWeek"
+                            options="options.daysPerWeek"
+                            left-text-width="60"
+                            left-text="translations.maxDaysPerWeek"
+                            keep-top-text-height="true">
+              </eml-dropdown>
+            </div>
+            <div class="col-sm-2">
+              <eml-dropdown model="settings.consecutiveDays"
+                            options="options.daysPerWeek"
+                            left-text="translations.maxConsecutiveDays"
+                            left-text-width="67"
+                            keep-top-text-height="true">
+              </eml-dropdown>
+            </div>
+            <div class="col-sm-2">
+              <eml-dropdown model="settings.primarySkillHours"
+                            options="options.maxHoursPerWeek"
+                            left-text="translations.primarySkillHours"
+                            left-text-width="60"
+                            keep-top-text-height="true"
+                            disabled="!hasPrimarySkill">
+              </eml-dropdown>
+            </div>
+          </div>
+
+          <!--Overtimes-->
+          <div class="row">
+            <div class="col-sm-3">
+              <eml-dropdown model="options.overtimeType"
+                            options="options.overtimeTypes"
+                            property="name"
+                            left-text="translations.overtime"
+                            left-text-width="55">
+              </eml-dropdown>
+            </div>
+            <div class="col-sm-3">
+              <eml-dropdown model="settings.overtimeDto.dailyOvertimeMins"
+                            options="options.dailyOvertime"
+                            left-text="translations.dailyOvertimeStarts"
+                            left-text-width="85"
+                            disabled="disableOvertimeInput.daily()">
+              </eml-dropdown>
+            </div>
+            <div class="col-sm-2">
+              <eml-dropdown model="settings.overtimeDto.weeklyOvertimeMins"
+                            options="options.weeklyOvertime"
+                            left-text="translations.weeklyOvertimeStarts"
+                            left-text-width="67"
+                            disabled="disableOvertimeInput.weekly()">
+              </eml-dropdown>
+            </div>
+            <div class="col-sm-2">
+              <eml-dropdown model="settings.overtimeDto.biweeklyOvertimeMins"
+                            options="options.biweeklyOvertime"
+                            left-text="translations.beweeklyOvertimeStarts"
+                            left-text-width="67"
+                            disabled="disableOvertimeInput.biweekly()">
+              </eml-dropdown>
+            </div>
+            <div class="col-sm-2">
+              <eml-dropdown model="settings.overtimeDto.biweeklyMinHours"
+                            options="options.maxHoursPerWeek"
+                            left-text="translations.beweeklyMinHours"
+                            left-text-width="65"
+                            disabled="true">
+              </eml-dropdown>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 text-right">
+              <button type="button" class="btn btn-success" ng-disabled="!authService.hasPermission('Employee_Mgmt')"
+                      ng-click="updateSettings()">{{ ::"app.SAVE" | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

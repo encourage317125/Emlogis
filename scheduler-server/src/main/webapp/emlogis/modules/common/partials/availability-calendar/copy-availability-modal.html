@@ -1,0 +1,127 @@
+<div class="copy-availability-modal">
+  <form novalidate name="copyAvailabilityForm">
+
+    <div class="modal-header">
+      <button type="button" class="close" ng-click="cancel()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h3 class="modal-title">{{'availability.COPY' | translate}}</h3>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-9 dates-selected">
+          {{'availability.DATES_SELECTED' | translate}}: <b>{{datesToDisplay}}</b>
+        </div>
+        <div class="col-md-3 text-right">
+          <button type="button" class="btn btn-success" ng-click="copyEmployeeAvailability()">{{'availability.SAVE_AND_CLOSE' | translate}}</button>
+        </div>
+      </div>
+
+      <div class="row divider" style="margin: 15px 0;"></div>
+
+      <div class="row">
+        <div class="col-md-12">
+          {{'availability.SELECT_TO_COPY' | translate}}
+        </div>
+        <div class="col-md-2">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" ng-model="copyAvailability">
+              {{'availability.AVAILABILITY' | translate}}
+            </label>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" ng-model="copyPreference">
+              {{'availability.PREFERENCE' | translate}}
+            </label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="date-input form-group">
+            <div class="date-input-title">{{'availability.STARTS' | translate}}</div>
+            <span class="input-group">
+              <input type="text"
+                     class="form-control"
+                     name="startDate"
+                     placeholder="{{ ::'app.DATE' | translate }}"
+                     pattern="^(0?[1-9]|1[012])[\/](0?[1-9]|[12][0-9]|3[01])[\/]\d{2}$"
+                     required
+                     datepicker-popup="MM/dd/yy"
+                     min-date="minDate"
+                     max-date="maxDate"
+                     ng-model="startDate.model"
+                     ng-model-options="{ allowInvalid: true }"
+                     is-open="startDate.opened"
+                     current-text="{{ ::'calendar.JUMP_TO_TODAY' | translate }}"/>
+              <span class="input-group-btn">
+                <button type="button"
+                        class="btn eml-btn-grey-lightest eml-calendar-btn"
+                        ng-class="{ 'eml-calendar-opened' : startDate.opened }"
+                        ng-click="startDate.open($event)">
+                  <img src="/scheduler-server/emlogis/img/calendar.svg">
+                </button>
+              </span>
+            </span>
+
+            <div validate-messages
+                 messages-for="copyAvailabilityForm.startDate"
+                 pattern-error-message="Should be like 01/31/15"
+                 pattern-reg-exp="^(0?[1-9]|1[012])[\/](0?[1-9]|[12][0-9]|3[01])[\/]\d{2}$"
+                 watch-value="messagesFor.$viewValue"
+                 submitted="true">
+            </div>
+          </div>
+
+          <div class="date-input form-group">
+            <div class="date-input-title">{{'availability.ENDS' | translate}}</div>
+            <span class="input-group">
+              <input type="text"
+                     class="form-control"
+                     name="endDate"
+                     placeholder="{{ ::'app.DATE' | translate }}"
+                     pattern="^(0?[1-9]|1[012])[\/](0?[1-9]|[12][0-9]|3[01])[\/]\d{2}$"
+                     required
+                     datepicker-popup="MM/dd/yy"
+                     min-date="startDate.model"
+                     max-date="maxDate"
+                     ng-model="endDate.model"
+                     ng-model-options="{ allowInvalid: true }"
+                     is-open="endDate.opened"
+                     current-text="{{ ::'calendar.JUMP_TO_TODAY' | translate }}"/>
+              <span class="input-group-btn">
+                <button type="button"
+                        class="btn eml-btn-grey-lightest eml-calendar-btn"
+                        ng-class="{ 'eml-calendar-opened' : endDate.opened }"
+                        ng-click="endDate.open($event)">
+                  <img src="/scheduler-server/emlogis/img/calendar.svg">
+                </button>
+              </span>
+            </span>
+
+            <div validate-messages
+                 messages-for="copyAvailabilityForm.endDate"
+                 pattern-error-message="Should be like 01/31/15"
+                 pattern-reg-exp="^(0?[1-9]|1[012])[\/](0?[1-9]|[12][0-9]|3[01])[\/]\d{2}$"
+                 watch-value="messagesFor.$viewValue"
+                 submitted="true">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 repeat-dropdown">
+          <eml-dropdown model="repeat"
+                        options="repeatOptions"
+                        property="label"
+                        top-text="repeatText">
+          </eml-dropdown>
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>

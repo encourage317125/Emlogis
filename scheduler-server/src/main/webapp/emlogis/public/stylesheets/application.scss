@@ -1,0 +1,35 @@
+$icon-font-path: '../../libs/bootstrap/bootstrap-sass-3.3.5/assets/fonts/bootstrap/';
+
+// EmLogis custom variables to overwrite default Bootstrap style
+@import '../../modules/_main/assets/stylesheets/bootstrap_variables';
+
+// Bootstrap-sass import
+@import '../../libs/bootstrap/bootstrap-sass-3.3.5/assets/stylesheets/_bootstrap.scss';
+// end Bootstrap import
+
+// Import EmLogis module specific styles
+@import 'fonts';
+@import '../../modules/_main/assets/stylesheets/emlogis-overwrites';
+@import '../../modules/_main/assets/stylesheets/emlogis-global';
+@import '../../modules/_main/assets/stylesheets/emlogis-animation';
+@import '../../modules/_layouts/assets/stylesheets/_navbar.scss';
+@import '../../modules/_layouts/assets/stylesheets/_authenticated.scss';
+@import '../../modules/_main/assets/stylesheets/login.scss';
+@import '../../modules/_main/assets/stylesheets/alert.scss';
+@import '../../modules/dashboard/assets/stylesheets/home.scss';
+@import '../../modules/employees/assets/stylesheets/employees.scss';
+@import '../../modules/employees/assets/stylesheets/employees-details.scss';
+@import '../../modules/employee-schedules/assets/stylesheets/employee-schedules.scss';
+@import '../../modules/impersonation/assets/stylesheets/impersonation.scss';
+@import '../../modules/schedule_builder/assets/stylesheets/schedule_builder.scss';
+@import '../../modules/schedule_builder/assets/stylesheets/schedule_builder_create_settings.scss';
+@import '../../modules/browser/assets/stylesheets/btn-switch.scss';
+@import '../../modules/browser/assets/stylesheets/slider.scss';
+@import '../../modules/browser/assets/stylesheets/shifts.scss';
+@import '../../modules/settings/assets/stylesheets/settings.scss';
+@import '../../modules/admin/assets/stylesheets/admin.scss';
+@import '../../modules/monitoring/assets/stylesheets/monitoring.scss';
+@import '../../modules/settings/rules/assets/stylesheets/rules.scss';
+@import '../../modules/reports/assets/stylesheets/reports_schedule.scss';
+@import '../../modules/profile/assets/stylesheets/profile.scss';
+@import '../../modules/home/assets/stylesheets/home.scss';

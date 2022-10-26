@@ -1,0 +1,25 @@
+<div class="settings-accounts">
+  <div class="row top-margin-base">
+    <div class="col-sm-12">
+      <div class="control-bar">
+        <ul class="nav nav-tabs">
+          <li role="presentation" active-class-on="authenticated.settings.accounts.groups"
+              ng-if="hasStatePermissionsByName('authenticated.settings.accounts.groups')">
+            <a ui-sref="authenticated.settings.accounts.groups" translate>settings.accounts.MANAGER_GROUPS</a>
+          </li>
+          <li role="presentation" active-class-on="authenticated.settings.accounts.users"
+              ng-if="hasStatePermissionsByName('authenticated.settings.accounts.users')">
+            <a ui-sref="authenticated.settings.accounts.users" translate>settings.accounts.USERS</a>
+          </li>
+          <li role="presentation" active-class-on="authenticated.settings.accounts.roles"
+              ng-if="hasStatePermissionsByName('authenticated.settings.accounts.roles')">
+            <a ui-sref="authenticated.settings.accounts.roles" translate>settings.accounts.ROLES</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="data-panel container-fluid">
+    <div ui-view="settingsAccountsContent"></div>
+  </div>
+</div>

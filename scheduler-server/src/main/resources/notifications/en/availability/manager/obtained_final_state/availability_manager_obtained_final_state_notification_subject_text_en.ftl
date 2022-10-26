@@ -1,0 +1,1 @@
+EGS: Availability Request request has been ${requestStatus}

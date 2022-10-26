@@ -1,0 +1,21 @@
+.employees{
+
+  .employees-list {
+    .divider {
+      margin: 0 5px 15px;
+    }
+
+    .grid-number-text {
+      line-height: 35px;
+      margin-bottom: 5px;
+    }
+
+    .employee-list-grid .ui-grid {
+      height: 783px;
+
+      .ui-grid-viewport {
+        background-color: $eml-lightest-grey;
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+<div class="admin-notification-delivery">
+  <div class="row top-margin-base">
+    <div class="col-sm-12">
+      <div class="control-bar">
+        <ul class="nav nav-tabs">
+          <li role="presentation" active-class-on="authenticated.admin.notificationDelivery.email">
+            <a ui-sref="authenticated.admin.notificationDelivery.email">{{'admin.notification_delivery.EMAIL' | translate}} {{'admin.notification_delivery.PROVIDERS' | translate}}</a>
+          </li>
+          <li role="presentation" active-class-on="authenticated.admin.notificationDelivery.sms">
+            <a ui-sref="authenticated.admin.notificationDelivery.sms">{{'admin.notification_delivery.SMS' | translate}} {{'admin.notification_delivery.PROVIDERS' | translate}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="data-panel container-fluid">
+    <div ui-view="adminNotificationDeliveryContent"></div>
+  </div>
+</div>

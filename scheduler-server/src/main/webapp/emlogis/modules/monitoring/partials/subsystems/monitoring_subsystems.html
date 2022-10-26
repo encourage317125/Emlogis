@@ -1,0 +1,12 @@
+<div class="data-panel monitoring-subsystems">
+    <tabset class="emlogis-top-tabs">
+        <tab
+                ng-repeat="t in tabs"
+                heading="{{t.heading | translate}}"
+                select="goState(t)"
+                active="t.active"
+                ng-hide="t.hide">
+        </tab>
+    </tabset>
+    <div ui-view="monitoringSubsystemsContent"></div>
+</div>

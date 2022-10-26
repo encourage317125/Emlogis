@@ -1,0 +1,1 @@
+EGS: Open Shift request has been ${requestStatus}

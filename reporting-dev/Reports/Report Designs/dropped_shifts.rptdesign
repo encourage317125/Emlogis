@@ -1,0 +1,711 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.4.0.v20150206-1039 Build &lt;4.2.3.v20150206-1039></property>
+    <list-property name="scriptLibs">
+        <structure>
+            <property name="name">libs/activation-1.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/commons-codec-1.6.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/commons-io-2.4.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/commons-logging-1.1.3.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/emlogis-scheduler-rest-api.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/FastInfoset-1.2.7.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/httpclient-4.4.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/httpcore-4.4.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/istack-commons-runtime-2.16.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-annotations-2.4.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-core-2.4.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-core-asl-1.9.12.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-databind-2.4.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-datatype-joda-2.3.0.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-jaxrs-1.9.12.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-jaxrs-base-2.4.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-jaxrs-json-provider-2.4.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-mapper-asl-1.9.12.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-module-afterburner-2.3.0.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-module-jaxb-annotations-2.4.1.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jackson-xc-1.9.12.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jaxb-api-2.2.7.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jaxb-core-2.2.7.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jaxb-impl-2.2.7.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jaxrs-api-3.0.9.Emlogis.Custom.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jaxrs-api-3.0.9.Final.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jboss-annotations-api_1.1_spec-1.0.1.Final.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/jcip-annotations-1.0.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/joda-time-2.3.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/resteasy-client-3.0.9.Final.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/resteasy-jackson-provider-3.0.9.Final.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/resteasy-jaxb-provider-3.0.9.Final.jar</property>
+        </structure>
+        <structure>
+            <property name="name">libs/resteasy-jaxrs-3.0.9.Final.jar</property>
+        </structure>
+    </list-property>
+    <property name="units">in</property>
+    <method name="initialize"><![CDATA[emlogis.current.reportName = "Manager Drop Shift Summary";]]></method>
+    <property name="theme">common.EmlogisGrayScales</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="layoutPreference">auto layout</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">96</property>
+    <list-property name="libraries">
+        <structure>
+            <property name="fileName">/ThemesReportItems31.rptlibrary</property>
+            <property name="namespace">ThemesReportItems31</property>
+        </structure>
+        <structure>
+            <property name="fileName">emlogis/report-libs/common.RPTLIBRARY</property>
+            <property name="namespace">common</property>
+        </structure>
+        <structure>
+            <property name="fileName">emlogis/report-libs/debug.rptlibrary</property>
+            <property name="namespace">debug</property>
+        </structure>
+    </list-property>
+    <parameters>
+        <scalar-parameter name="restApiUrl" id="7" extends="common.restApiUrl"/>
+        <!-- <scalar-parameter name="Security" id="9" extends="debug.Security"/> -->
+        <cascading-parameter-group name="DateSiteScheduleDebugParameterGroup1" id="274">
+            <property name="dataSet">Site DS</property>
+            <property name="dataSetMode">multiple</property>
+            <parameters>
+            	<scalar-parameter name="Security" id="11074">
+                    <property name="hidden">true</property>
+                    <property name="valueType">dynamic</property>
+                    <property name="isRequired">true</property>
+                    <property name="dataSetName">Security DS</property>
+                    <expression name="valueExpr">row["security"]</expression>
+                    <expression name="labelExpr">row["security"]</expression>
+                    <property name="dataType">string</property>
+                    <simple-property-list name="defaultValue">
+                        <value type="constant">htran,schedulecreator</value>
+                    </simple-property-list>
+                    <property name="paramType">simple</property>
+                    <property name="controlType">list-box</property>
+                    <property name="fixedOrder">true</property>
+                    <structure name="format"/>
+                </scalar-parameter>
+                <scalar-parameter name="StartDate" id="3387">
+                    <property name="valueType">dynamic</property>
+                    <property name="dataType">date</property>
+                    <property name="distinct">true</property>
+                    <simple-property-list name="defaultValue">
+                        <value type="javascript">new Date()</value>
+                    </simple-property-list>
+                    <list-property name="selectionList"/>
+                    <property name="paramType">simple</property>
+                    <property name="controlType">text-box</property>
+                    <structure name="format"/>
+                </scalar-parameter>
+                <scalar-parameter name="Site" id="275">
+                    <property name="valueType">dynamic</property>
+                    <property name="isRequired">true</property>
+                    <property name="dataSetName">Site DS</property>
+                    <expression name="valueExpr">row["siteInfo"]</expression>
+                    <expression name="labelExpr">row["siteName"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="paramType">simple</property>
+                    <property name="controlType">list-box</property>
+                    <property name="fixedOrder">true</property>
+                    <structure name="format"/>
+                </scalar-parameter>
+                <scalar-parameter name="Schedule" id="276">
+                    <property name="valueType">dynamic</property>
+                    <property name="isRequired">true</property>
+                    <property name="dataSetName">Schedule DS</property>
+                    <expression name="valueExpr">row["scheduleInfo"]</expression>
+                    <expression name="labelExpr">row["name"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="controlType">list-box</property>
+                    <property name="fixedOrder">true</property>
+                    <structure name="format"/>
+                </scalar-parameter>
+            </parameters>
+        </cascading-parameter-group>
+    </parameters>
+    <data-sources>
+        <script-data-source name="Data Source" id="4" extends="common.Data Source"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="Site DS" id="5" extends="common.Site DS"/>
+        <script-data-set name="Security DS" id="10" extends="common.Security DS"/>
+        <script-data-set name="Schedule DS" id="38" extends="common.Schedule DS"/>
+        <script-data-set name="ShiftDropChange DS" id="3389">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">scheduleId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">changeDate</property>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">reason</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">employeeName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">managerName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">droppedShiftId</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">scheduleId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">changeDate</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">reason</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">employeeName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">managerName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">droppedShiftId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">scheduleId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">changeDate</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">reason</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">employeeName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">managerName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">droppedShiftId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[shiftDropChangesCount = 0;
+
+try {
+	shiftDropChangesList = reportContext.getPersistentGlobalVariable("shiftDropChangesList");
+}catch(e){
+	shiftDropChangesList = null;
+}
+
+if (token &amp;&amp; !shiftDropChangesList) {
+	shiftDropChangesList = report.getListFromResultSet(token, "schedules/" + emlogis.current.schedule.get("id") + "/shiftdropchanges");
+	reportContext.setPersistentGlobalVariable("shiftDropChangesList", shiftDropChangesList);
+}]]></method>
+            <method name="fetch"><![CDATA[if(shiftDropChangesCount < shiftDropChangesList.size()) {
+	var obj = shiftDropChangesList.get(shiftDropChangesCount);
+
+	row["scheduleId"] = obj.scheduleId;
+	row["changeDate"] = toSiteTime(obj.changeDate);
+	row["reason"] = obj.reason;
+	row["employeeName"] = obj.employeeAName;
+	row["managerName"] = obj.changeEmployeeName;
+	row["droppedShiftId"] = obj.droppedShiftId;
+	
+	shiftDropChangesCount++;
+	return true;
+}
+return false;]]></method>
+        </script-data-set>
+        <script-data-set name="ShiftsBySchedule DS" id="3436" extends="common.ShiftsBySchedule DS"/>
+        <derived-data-set extensionID="com.actuate.birt.data.join" name="ShiftDropChanges Shifts Joined DS" id="3565">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">changeDate</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">reason</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">employeeName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">managerName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">startDateTime</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">endDateTime</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">skillName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">changeDate</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">reason</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">employeeName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">managerName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">startDateTime</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">endDateTime</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">skillName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <simple-property-list name="inputDataSets">
+                <value>ShiftDropChange DS</value>
+                <value>ShiftsBySchedule DS</value>
+            </simple-property-list>
+            <xml-property name="queryText"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tns:joinedDataSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.actuate.com/birt/dataset_join.xsd" xmlns:tns="http://schemas.actuate.com/birt/dataset_join.xsd">
+<tns:selectColumns>
+<tns:Column>ShiftDropChange DS::changeDate</tns:Column>
+<tns:Column>ShiftDropChange DS::reason</tns:Column>
+<tns:Column>ShiftDropChange DS::employeeName</tns:Column>
+<tns:Column>ShiftDropChange DS::managerName</tns:Column>
+<tns:Column>ShiftsBySchedule DS::startDateTime</tns:Column>
+<tns:Column>ShiftsBySchedule DS::endDateTime</tns:Column>
+<tns:Column>ShiftsBySchedule DS::skillName</tns:Column>
+</tns:selectColumns>
+<tns:joins>
+<tns:startingDataSet Index="0" name="ShiftDropChange DS"/>
+<tns:join>
+<tns:type>inner</tns:type>
+<tns:dataSet Index="1" name="ShiftsBySchedule DS"/>
+<tns:on>
+<tns:condition>
+<tns:leftColumn>ShiftDropChange DS::droppedShiftId</tns:leftColumn>
+<tns:rightColumn>ShiftsBySchedule DS::shiftId</tns:rightColumn>
+<tns:operator>eq</tns:operator>
+</tns:condition>
+</tns:on>
+</tns:join>
+</tns:joins>
+</tns:joinedDataSet>]]></xml-property>
+        </derived-data-set>
+    </data-sets>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <property name="orientation">auto</property>
+            <page-header>
+                <grid name="Report header" id="13737">
+                    <property name="marginLeft">auto</property>
+                    <property name="marginBottom">0pt</property>
+                    <property name="marginRight">auto</property>
+                    <property name="width">100%</property>
+                    <list-property name="boundDataColumns">
+                        <structure>
+                            <property name="name">reportName</property>
+                            <text-property name="displayName">Report Name</text-property>
+                            <expression name="expression" type="javascript">emlogis.current.reportName + ": "+emlogis.current.site.get("name")</expression>
+                            <property name="dataType">string</property>
+                            <property name="allowExport">true</property>
+                        </structure>
+                        <structure>
+                            <property name="name">scheduleDatesInterval</property>
+                            <expression name="expression" type="javascript">emlogis.date.toDateString(new Date(emlogis.helper.toNumber(emlogis.current.schedule.get("startDate")))) &#13;
+	+ " - " + emlogis.date.toDateString(new Date(emlogis.helper.toNumber(emlogis.current.schedule.get("endDate"))));</expression>
+                            <property name="dataType">string</property>
+                            <property name="allowExport">true</property>
+                        </structure>
+                        <structure>
+                            <property name="name">scheduleName</property>
+                            <expression name="expression" type="javascript">emlogis.current.schedule.get("name")</expression>
+                            <property name="dataType">string</property>
+                            <property name="allowExport">true</property>
+                        </structure>
+                    </list-property>
+                    <column id="13738">
+                        <property name="width">80%</property>
+                    </column>
+                    <column id="13739"/>
+                    <row id="13740">
+                        <cell id="13741">
+                            <property name="style">emlogis-header-first</property>
+                            <grid name="NewGrid11" id="13742">
+                                <column id="13743"/>
+                                <row id="13744">
+                                    <cell id="13745">
+                                        <property name="style">padding-05em</property>
+                                        <data name="NewData111" id="13746">
+                                            <property name="resultSetColumn">reportName</property>
+                                        </data>
+                                    </cell>
+                                </row>
+                            </grid>
+                        </cell>
+                        <cell id="13747">
+                            <property name="style">emlogis-header-second</property>
+                        </cell>
+                    </row>
+                    <row id="13775">
+                        <property name="style">emlogis-header-second</property>
+                        <cell id="13776">
+                            <property name="colSpan">2</property>
+                            <property name="rowSpan">1</property>
+                            <property name="style">padding-05em</property>
+                            <grid id="13782">
+                                <column id="13783">
+                                    <property name="style">highlighted-text-italic</property>
+                                    <property name="width">12em</property>
+                                </column>
+                                <column id="13784"/>
+                                <row id="13785">
+                                    <cell id="13786">
+                                        <label id="13791">
+                                            <text-property name="text">Schedule Name:</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="13787">
+                                        <data id="13796">
+                                            <property name="resultSetColumn">scheduleName</property>
+                                        </data>
+                                    </cell>
+                                </row>
+                                <row id="13788">
+                                    <cell id="13789">
+                                        <label id="13792">
+                                            <text-property name="text">Schedule Date:</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="13790">
+                                        <data id="13795">
+                                            <property name="resultSetColumn">scheduleDatesInterval</property>
+                                        </data>
+                                    </cell>
+                                </row>
+                            </grid>
+                        </cell>
+                    </row>
+                </grid>
+            </page-header>
+            <page-footer>
+                <grid name="Report footer" id="13780" extends="common.Report footer">
+                    <overridden-values>
+                        <ref-entry baseId="13754" id="13754"/>
+                        <ref-entry baseId="13755" id="13755"/>
+                        <ref-entry baseId="13756" id="13756"/>
+                        <ref-entry baseId="13757" id="13757"/>
+                        <ref-entry baseId="13758" name="NewTextData111" id="13758"/>
+                        <ref-entry baseId="13759" id="13759"/>
+                        <ref-entry baseId="13760" name="NewGrid1111" id="13760"/>
+                        <ref-entry baseId="13761" id="13761"/>
+                        <ref-entry baseId="13762" id="13762"/>
+                        <ref-entry baseId="13763" id="13763"/>
+                        <ref-entry baseId="13764" id="13764"/>
+                        <ref-entry baseId="13765" id="13765"/>
+                        <ref-entry baseId="13766" id="13766"/>
+                        <ref-entry baseId="13767" name="NewText211" id="13767"/>
+                        <ref-entry baseId="13768" id="13768"/>
+                        <ref-entry baseId="13769" name="NewAutoText211" id="13769"/>
+                        <ref-entry baseId="13770" id="13770"/>
+                        <ref-entry baseId="13771" name="NewText1111" id="13771"/>
+                        <ref-entry baseId="13772" id="13772"/>
+                        <ref-entry baseId="13773" name="NewAutoText1111" id="13773"/>
+                    </overridden-values>
+                </grid>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <grid id="13797">
+            <column id="13798"/>
+            <row id="13799">
+                <cell id="13800">
+                    <property name="style">padding-05em</property>
+                    <table id="3566">
+                        <property name="dataSet">ShiftDropChanges Shifts Joined DS</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">changeDate</property>
+                                <text-property name="displayName">changeDate</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["changeDate"]</expression>
+                                <property name="dataType">date</property>
+                            </structure>
+                            <structure>
+                                <property name="name">reason</property>
+                                <text-property name="displayName">reason</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["reason"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">employeeName</property>
+                                <text-property name="displayName">employeeName</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["employeeName"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">managerName</property>
+                                <text-property name="displayName">managerName</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["managerName"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">startDateTime</property>
+                                <text-property name="displayName">startDateTime</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["startDateTime"]</expression>
+                                <property name="dataType">date</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">endDateTime</property>
+                                <text-property name="displayName">timeInterval</text-property>
+                                <expression name="expression" type="javascript">emlogis.date.toShort12TimeString(new Date(dataSetRow["startDateTime"].getTime())) &#13;
+	+ " - " + emlogis.date.toShort12TimeString(new Date(dataSetRow["endDateTime"].getTime()));</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">skillName</property>
+                                <text-property name="displayName">skillName</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["skillName"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <column id="3605"/>
+                        <column id="3606"/>
+                        <column id="3607"/>
+                        <column id="3608"/>
+                        <column id="3609"/>
+                        <column id="3610"/>
+                        <column id="3611"/>
+                        <header>
+                            <row id="3567">
+                                <cell id="3568">
+                                    <label id="3569">
+                                        <text-property name="text">Date Dropped</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="3570">
+                                    <label id="3571">
+                                        <text-property name="text">Employee Name</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="3572">
+                                    <label id="3573">
+                                        <text-property name="text">Shift Date</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="3574">
+                                    <label id="3575">
+                                        <text-property name="text">Shift Time</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="3576">
+                                    <label id="3577">
+                                        <text-property name="text">Skill</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="3578">
+                                    <label id="3579">
+                                        <text-property name="text">Reason</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="3580">
+                                    <label id="3581">
+                                        <text-property name="text">Manager</text-property>
+                                    </label>
+                                </cell>
+                            </row>
+                        </header>
+                        <detail>
+                            <row id="3582">
+                                <cell id="3583">
+                                    <data id="3584">
+                                        <property name="resultSetColumn">changeDate</property>
+                                    </data>
+                                </cell>
+                                <cell id="3585">
+                                    <data id="3588">
+                                        <property name="resultSetColumn">employeeName</property>
+                                    </data>
+                                </cell>
+                                <cell id="3587">
+                                    <data id="3592">
+                                        <property name="resultSetColumn">startDateTime</property>
+                                    </data>
+                                </cell>
+                                <cell id="3589">
+                                    <data id="3594">
+                                        <property name="resultSetColumn">endDateTime</property>
+                                    </data>
+                                </cell>
+                                <cell id="3591">
+                                    <data id="3596">
+                                        <property name="resultSetColumn">skillName</property>
+                                    </data>
+                                </cell>
+                                <cell id="3593">
+                                    <data id="3586">
+                                        <property name="resultSetColumn">reason</property>
+                                    </data>
+                                </cell>
+                                <cell id="3595">
+                                    <data id="3590">
+                                        <property name="resultSetColumn">managerName</property>
+                                    </data>
+                                </cell>
+                            </row>
+                        </detail>
+                        <footer>
+                            <row id="3597">
+                                <cell id="3598">
+                                    <property name="style">empty-cell</property>
+                                </cell>
+                                <cell id="3599">
+                                    <property name="style">empty-cell</property>
+                                </cell>
+                                <cell id="3600">
+                                    <property name="style">empty-cell</property>
+                                </cell>
+                                <cell id="3601">
+                                    <property name="style">empty-cell</property>
+                                </cell>
+                                <cell id="3602">
+                                    <property name="style">empty-cell</property>
+                                </cell>
+                                <cell id="3603">
+                                    <property name="style">empty-cell</property>
+                                </cell>
+                                <cell id="3604">
+                                    <property name="style">empty-cell</property>
+                                </cell>
+                            </row>
+                        </footer>
+                    </table>
+                </cell>
+            </row>
+        </grid>
+    </body>
+</report>

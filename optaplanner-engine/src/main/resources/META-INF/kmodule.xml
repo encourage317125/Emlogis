@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kmodule xmlns="http://jboss.org/kie/6.0.0/kmodule">
+    <kbase name="rules1" packages="com.emlogis.engine.solver.rules.constraints" equalsBehavior="equality">
+        <ksession name="ksession-rules"/>
+    </kbase>
+    <kbase name="rules2" packages="com.emlogis.engine.solver.rules.*" equalsBehavior="equality">
+        <ksession name="rules-test"/>
+    </kbase>
+</kmodule>

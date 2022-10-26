@@ -1,0 +1,423 @@
+<!-- Employee Details: Tabs include starts -->
+
+<div class="employee-profile-flex container-fluid" ng-controller="EmployeeDetailsProfileCtrl as profile">
+
+  <!-- Employee picture -->
+  <section id="eml-profile-img"
+           class="text-center"
+           ng-class="{ 'eml-img-displayed' : profile.isPictureDisplayed }">
+
+    <img ng-src="{{ profile.picture.image && profile.picture.image || ' ' }}"/>
+
+    <label id="eml-photo-btn" class="btn eml-btn-white">
+      <span>{{ profile.isPictureDisplayed ? "employees.UPDATE_PHOTO" : "employees.ADD_PHOTO" | translate }}</span>
+      <input type="file" name="pic" accept="image/*" file-model="profile.pictureToLoad">
+    </label>
+
+    <button id="eml-photo-delete-btn"
+            class="btn eml-btn-white"
+            ng-hide="!profile.isPictureDisplayed"
+            ng-click="profile.deletePicture()"><i class="fa fa-trash-o"></i></button>
+
+  </section>
+  <!-- end of Employee picture -->
+
+
+  <!-- Employee profile -->
+  <section id="eml-profile-data" class="">
+    <form class="form-inline"
+          name="employeeProfileForm"
+          id="employeeProfileForm"
+          novalidate
+          ng-submit="employeeProfileForm.$valid && profile.saveEmployeeProfile(profile.employeeForEdit)">
+
+      <div ng-hide="profile.isEditing" class="row">  <!-- read-only view -->
+        <div class="col-md-7">
+          <h1 ng-hide="profile.isEditing">
+            {{ profile.employee.firstName }} {{ profile.employee.middleName }} {{ profile.employee.lastName }}
+            <span ng-show="profile.employee.isDeleted" class="badge">Deleted</span>
+            <span ng-hide="profile.employee.isDeleted" class="badge">{{ profile.employee.activityType }}</span>
+            <!--   -->
+          </h1>
+        </div>
+        <div class="col-md-5 text-right space-between-btns">
+          <button class="btn btn-warning"
+                  ng-click="profile.openEmergencyContactModal('sm')">{{ ::"employees.EMERGENCY_CONTACT" | translate }}
+          </button>
+          <button ng-click="profile.startEditing()" ng-hide="profile.employee.isDeleted"
+                  ng-disabled="!authService.hasPermission('Employee_Mgmt')"
+                  class="btn btn-default">{{
+            ::"employees.EDIT_EMPLOYEE" | translate }}
+          </button>
+          <button ng-click="profile.deleteEmployee()"
+                  ng-hide="profile.employee.isDeleted"
+                  class="btn eml-btn-white eml-btn-delete"><i class="fa fa-trash-o"></i></button>
+        </div>
+      </div>
+
+      <div ng-show="profile.isEditing" class="row eml-inline-editing empl-editing-h1"> <!-- editing view -->
+        <div class="col-md-9">
+          <div class="row">
+            <div class="col-md-3 no-right-padding">
+              <input type="text"
+                     class="form-control"
+                     id="firstName"
+                     name="firstName"
+                     placeholder="First Name"
+                     ng-model="profile.employeeForEdit.firstName"
+                     focus-me="profile.isEditing"
+                     required
+                     ng-required="true">
+            </div>
+            <div class="col-md-3 no-right-padding">
+              <input type="text" class="form-control" id="middleName" placeholder="Middle Name"
+                     ng-model="profile.employeeForEdit.middleName">
+            </div>
+            <div class="col-md-3 no-right-padding">
+              <input type="text"
+                     class="form-control"
+                     id="lastName"
+                     name="lastName"
+                     placeholder="Last Name"
+                     ng-model="profile.employeeForEdit.lastName"
+                     required
+                     ng-required="true">
+            </div>
+            <div class="col-md-3 no-right-padding">
+              <select class="form-control"
+                      ng-model="profile.employeeForEdit.activityType"
+                      ng-options="type as type
+                                  for type in profile.activityTypes"></select>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 text-right space-between-btns">
+          <button type="submit"
+                  form="employeeProfileForm"
+                  ng-disabled="!authService.hasPermission('Employee_Mgmt') || !profile.isModified()"
+                  class="btn btn-success">{{ ::"app.SAVE" | translate }}
+          </button>
+          <button ng-click="profile.cancelEditing()" class="btn btn-default">{{ ::"app.CANCEL" | translate }}</button>
+        </div>
+      </div>
+
+      <div class="row eml-inline-editing">
+        <div class="col-md-5">
+          <div class="row empl-editing-mid">
+            <div class="col-md-4 no-right-padding">
+              <h4>{{ ::"employees.EMPLOYEE_IDENTIFIER" | translate }}:</h4>
+            </div>
+            <div class="col-md-8 no-left-padding">
+              <h4 class="">
+                <span ng-hide="profile.isEditing">
+                  {{ profile.employee.employeeIdentifier }}
+                </span>
+                <span ng-show="profile.isEditing">
+                  <input type="text"
+                         class="form-control"
+                         id="employeeIdentifier"
+                         name="employeeIdentifier"
+                         placeholder="Employee ID"
+                         ng-model="profile.employeeForEdit.employeeIdentifier"
+                         required
+                         ng-required="true">
+                </span>
+              </h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="row empl-editing-mid">
+            <div class="col-md-3 no-hor-padding">
+              <h4>{{ ::"employees.TITLE" | translate }}:</h4>
+            </div>
+            <div class="col-md-9 no-left-padding">
+              <h4 class="">
+                  <span ng-hide="profile.isEditing">
+                    {{ profile.employee.professionalLabel }}
+                  </span>
+                  <span ng-show="profile.isEditing">
+                    <input type="text" class="form-control" id="professionalLabel" placeholder="Job Title"
+                           ng-model="profile.employeeForEdit.professionalLabel">
+                  </span>
+              </h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="row empl-editing-mid">
+            <div class="col-md-3 no-hor-padding">
+              <h4>{{ ::"employees.GENDER" | translate }}:</h4>
+            </div>
+            <div class="col-md-9 no-left-padding">
+              <h4 class="">
+                <span ng-hide="profile.isEditing">
+                  {{ profile.employee.gender | gender | translate }}
+                </span>
+                <span ng-show="profile.isEditing">
+                  <select class="form-control"
+                          ng-model="profile.employeeForEdit.gender"
+                          ng-options="option as option | gender | translate
+                                      for option in profile.genderOptions"></select>
+                </span>
+              </h4>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row empl-editing-text eml-inline-editing">
+        <div class="col-md-5 no-right-padding">
+          <table class="table table-left">
+            <tbody>
+            <tr>
+              <td><span class="text-uppercase">{{ ::"employees.HOME_PHONE" | translate }}</span></td>
+              <td>
+                <span ng-hide="profile.isEditing">
+                  {{ profile.employee.homePhone }}
+                </span>
+                <span ng-show="profile.isEditing">
+                  <input type="text"
+                         class="form-control"
+                         id="homePhone"
+                         name="homePhone"
+                         placeholder="Enter phone"
+                         ng-model="profile.employeeForEdit.homePhone"
+                         ng-pattern="/^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$/i">
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="text-uppercase">{{ ::"employees.MOBILE_PHONE" | translate }}</span></td>
+              <td>
+                <span ng-hide="profile.isEditing">
+                  {{ profile.employee.mobilePhone }}
+                </span>
+                <span ng-show="profile.isEditing">
+                  <input type="text"
+                         class="form-control"
+                         id="mobilePhone"
+                         name="mobilePhone"
+                         placeholder="Enter phone"
+                         ng-model="profile.employeeForEdit.mobilePhone"
+                         ng-pattern="/^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$/i">
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="text-uppercase">{{ ::"employees.HOME_EMAIL" | translate }}</span></td>
+              <td>
+                <span ng-hide="profile.isEditing">
+                  <a href="mailto:{{ profile.employee.homeEmail }}">{{ profile.employee.homeEmail }}</a>
+                </span>
+                <span ng-show="profile.isEditing">
+                  <input type="email"
+                         class="form-control"
+                         id="homeEmail"
+                         name="homeEmail"
+                         placeholder="Enter email"
+                         ng-model="profile.employeeForEdit.homeEmail"
+                         ng-pattern='/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/'>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="text-uppercase">{{ ::"employees.WORK_EMAIL" | translate }}</span></td>
+              <td>
+                <span ng-hide="profile.isEditing">
+                  <a href="mailto:{{ profile.employee.homeEmail }}">{{ profile.employee.workEmail }}</a>
+                </span>
+                <span ng-show="profile.isEditing">
+                  <input type="email"
+                         class="form-control"
+                         id="workEmail"
+                         name="workEmail"
+                         placeholder="Enter email"
+                         ng-model="profile.employeeForEdit.workEmail"
+                         ng-pattern='/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/'>
+                </span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="col-md-3 no-left-padding">
+          <table class="table table-mid">
+            <tbody>
+            <tr class="">
+              <td><span class="text-uppercase">{{ ::"employees.EMPLOYEE_TYPE" | translate }}</span></td>
+              <td>
+                  <span ng-hide="profile.isEditing">
+                    {{ profile.employee.employeeType | employeeType | translate }}
+                  </span>
+                  <span ng-show="profile.isEditing">
+                    <select class="form-control"
+                            ng-model="profile.employeeForEdit.employeeType"
+                            ng-options="option as option | employeeType | translate
+                                        for option in profile.employeeTypes"></select>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="text-uppercase">{{ ::"employees.HIRE_DATE" | translate }}</span></td>
+              <td>
+                  <span ng-hide="profile.isEditing">
+                    {{ profile.employee.hireDate | date }}
+                  </span>
+                  <span ng-show="profile.isEditing">
+                    <div class="input-group">
+                      <input id="hireDate"
+                             name="hireDate"
+                             type="text"
+                             class="form-control eml-inline-date"
+                             placeholder="{{ ::'app.DATE' | translate }}"
+                             datepicker-popup="MM/dd/yyyy"
+                             ng-model="profile.employeeForEdit.hireDate"
+                             is-open="profile.hireDate.isOpened"
+                             max-date="profile.employeeForEdit.startDate"
+                             readonly
+                             ng-click="profile.hireDate.openDatepicker($event)">
+
+                      <span class="input-group-btn">
+                        <button type="button"
+                                class="btn eml-btn-grey-lightest eml-calendar-btn"
+                                ng-class="{ 'eml-calendar-opened' : profile.hireDateOpened }"
+                                ng-click="profile.hireDate.openDatepicker($event)">
+                          <div icon-calendar></div>
+                        </button>
+                      </span>
+                    </div>
+
+                  </span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="text-uppercase">{{ ::"employees.START_DATE" | translate }}</span></td>
+              <td>
+                <span ng-hide="profile.isEditing">{{ profile.employee.startDate | date }}</span>
+                  <span ng-show="profile.isEditing">
+                    <div class="input-group">
+
+                      <input id="startDate"
+                             name="startDate"
+                             type="text"
+                             class="form-control eml-inline-date"
+                             placeholder="{{ ::'app.DATE' | translate }}"
+                             datepicker-popup="MM/dd/yyyy"
+                             ng-model="profile.employeeForEdit.startDate"
+                             is-open="profile.startDate.isOpened"
+                             min-date="profile.employeeForEdit.hireDate"
+                             max-date="profile.employeeForEdit.endDate"
+                             readonly
+                             ng-click="profile.startDate.openDatepicker($event)">
+
+                      <span class="input-group-btn">
+                        <button type="button"
+                                class="btn eml-btn-grey-lightest eml-calendar-btn"
+                                ng-class="{ 'eml-calendar-opened' : profile.startDateOpened }"
+                                ng-click="profile.startDate.openDatepicker($event)">
+                          <div icon-calendar></div>
+                        </button>
+                      </span>
+                    </div>
+                  </span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="text-uppercase">{{ ::"employees.END_DATE" | translate }}</span></td>
+              <td>
+                <span ng-hide="profile.isEditing">{{ profile.employee.endDate | date }}</span>
+                  <span ng-show="profile.isEditing">
+                    <div class="input-group">
+                      <input id="endDate"
+                             name="endDate"
+                             type="text"
+                             class="form-control eml-inline-date"
+                             placeholder="{{ ::'app.DATE' | translate }}"
+                             datepicker-popup="MM/dd/yyyy"
+                             ng-model="profile.employeeForEdit.endDate"
+                             is-open="profile.endDate.isOpened"
+                             min-date="profile.employeeForEdit.startDate"
+                             readonly
+                             ng-click="profile.endDate.openDatepicker($event)">
+
+                      <span class="input-group-btn">
+                        <button type="button"
+                                class="btn eml-btn-grey-lightest eml-calendar-btn"
+                                ng-class="{ 'eml-calendar-opened' : profile.startDateOpened }"
+                                ng-click="profile.endDate.openDatepicker($event)">
+                          <div icon-calendar></div>
+                        </button>
+                      </span>
+                    </div>
+                  </span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="col-md-4 no-left-padding">
+          <table class="table table-right">
+            <tbody>
+            <tr>
+              <td><span class="text-uppercase">{{ ::"employees.HOURLY_WAGE" | translate }}</span></td>
+              <td>
+                <span id="eml-hidden-wage"
+                      ng-show="!profile.hasWagePermission() || ( profile.isWageClosed && !profile.isEditing )"
+                      ng-click="profile.hasWagePermission() && profile.displayWage()">{{ ::"employees.HIDDEN" | translate }}</span>
+
+                <span ng-show="profile.hasWagePermission()">
+                  <span ng-hide="profile.isEditing || profile.isWageClosed">
+                    {{ profile.employee.hourlyRate }}
+                  </span>
+                  <span ng-show="profile.isEditing">
+                    <input type="number"
+                           class="form-control"
+                           id="hourlyRate"
+                           placeholder="Enter rate"
+                           ng-model="profile.employeeForEdit.hourlyRate">
+                  </span>
+                </span>
+              </td>
+            </tr>
+            <tr class="text-uppercase">
+              <td><span>{{ ::"employees.HOME_SITE" | translate }}</span></td>
+              <td>{{ profile.employee.siteInfo.siteName }}</td>
+            </tr>
+            <tr class="text-uppercase">
+              <td><span>{{ ::"employees.HOME_TEAM" | translate }}</span></td>
+              <td>
+                <span ng-hide="profile.isEditing">{{ profile.employee.homeTeam.name }}</span>
+                <span ng-show="profile.isEditing">
+                  <select class="form-control"
+                          ng-model="profile.employeeForEdit.homeTeam.teamId"
+                          ng-options="team.id as team.name
+                                      for team in profile.allSiteTeams"></select>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-uppercase"><span>{{ ::"employees.LOGIN_ID" | translate }}</span></td>
+              <td>
+                <span ng-hide="profile.isEditing">
+                  {{ profile.employee.userAccountDto.login }}
+                </span>
+                <span ng-show="profile.isEditing">
+                  <input type="text" class="form-control" id="login" placeholder="Enter login"
+                         ng-model="profile.employeeForEdit.userAccountDto.login">
+                </span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </form>
+  </section>
+  <!-- end of Employee profile -->
+
+</div>
+
+<!-- Employee Details: Tabs include starts -->

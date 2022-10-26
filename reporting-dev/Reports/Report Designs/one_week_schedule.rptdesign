@@ -1,0 +1,2032 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.4.0.v20150206-1039 Build &lt;4.2.3.v20150206-1039></property>
+    <property name="units">in</property>
+    <method name="initialize"><![CDATA[try {
+	emlogis.current.reportName = "1 Week Schedule";
+	
+	reportContext.setGlobalVariable("scheduleCellsData", {});
+	reportContext.setGlobalVariable("unfilledScheduleCellsData", {});
+	
+	var startDate = new Date(params["StartDate"].value.getTime());
+	var weeksAmount = 1;
+	emlogis.current.daysInterval = emlogis.date.getReportIntervalDays(startDate, weeksAmount, emlogis.current.site.get("firstDayOfWeek"));
+	
+	params["ReportIntervalStartDate"] = emlogis.current.daysInterval[0].dayStartDateTime;
+	params["ReportIntervalEndDate"] = emlogis.current.daysInterval[emlogis.current.daysInterval.length - 1].dayEndDateTime;
+	
+} catch(e){};
+]]></method>
+    <property name="theme">common.EmlogisGrayScales</property>
+    <text-property name="displayName">One Week Schedule Report</text-property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="layoutPreference">auto layout</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">96</property>
+    <list-property name="libraries">
+        <structure>
+            <property name="fileName">emlogis/report-libs/common.RPTLIBRARY</property>
+            <property name="namespace">common</property>
+        </structure>
+        <structure>
+            <property name="fileName">emlogis/report-libs/debug.rptlibrary</property>
+            <property name="namespace">debug</property>
+        </structure>
+    </list-property>
+    <parameters>
+        <scalar-parameter name="restApiUrl" id="3385" extends="common.restApiUrl"/>
+        <scalar-parameter name="StartDate" id="11322" extends="common.StartDate"/>
+        <scalar-parameter name="ReportIntervalStartDate" id="13798" extends="common.ReportIntervalStartDate"/>
+        <scalar-parameter name="ReportIntervalEndDate" id="13799" extends="common.ReportIntervalEndDate"/>
+        <scalar-parameter name="IsHomeTeamEmployees" id="14690" extends="common.IsHomeTeamEmployees"/>
+        <scalar-parameter name="IsAssignedShifts" id="14691" extends="common.IsAssignedShifts"/>
+        <cascading-parameter-group name="BasicReportCascadingParameterGroup" id="14837" extends="common.BasicReportCascadingParameterGroup">
+            <overridden-values>
+                <ref-entry baseId="11074" name="Security" id="11074"/>
+                <ref-entry baseId="11075" name="Site" id="11075"/>
+                <ref-entry baseId="14682" name="Teams" id="14682"/>
+            </overridden-values>
+        </cascading-parameter-group>
+    </parameters>
+    <data-sources>
+        <script-data-source name="Data Source" id="11098" extends="common.Data Source"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="Site DS" id="8" extends="common.Site DS"/>
+        <script-data-set name="Team DS" id="31" extends="common.Team DS"/>
+        <script-data-set name="Security DS" id="3386" extends="common.Security DS"/>
+        <script-data-set name="Shift DS" id="11505" extends="common.Shift DS"/>
+        <derived-data-set extensionID="com.actuate.birt.data.join" name="Joined DS" id="11583">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">employeeName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">employeeType</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">shiftId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Employees Dates Joined DS::teamName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Shift DS::teamName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">skillAbbrev</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">isFloating</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">dayOfWeek</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">dayName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">dayOfMonth</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">shift::dayOfMonth</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">CDAvailability DS::availabilityType</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">isPTO</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">absenceTypeName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">CDAvailability DS::id</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">CIAvailability DS::id</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">CIAvailability DS::availabilityType</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">dayOfTheWeek</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+            </list-property>
+            <list-property name="filter"/>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">startDateTime</property>
+                    <property name="dataType">string</property>
+                    <property name="position">1</property>
+                    <expression name="defaultValue">params["ReportIntervalStartDate"].value.getTime() + ""</expression>
+                    <property name="isOptional">false</property>
+                    <property name="allowNull">false</property>
+                    <property name="isInput">true</property>
+                </structure>
+                <structure>
+                    <property name="name">isAssignedShifts</property>
+                    <property name="dataType">boolean</property>
+                    <property name="position">3</property>
+                    <expression name="defaultValue">params["IsAssignedShifts"].value</expression>
+                    <property name="isOptional">false</property>
+                    <property name="allowNull">false</property>
+                    <property name="isInput">true</property>
+                </structure>
+                <structure>
+                    <property name="name">endDateTime</property>
+                    <property name="dataType">string</property>
+                    <property name="position">2</property>
+                    <expression name="defaultValue">params["ReportIntervalEndDate"].value.getTime() + ""</expression>
+                    <property name="isOptional">false</property>
+                    <property name="allowNull">false</property>
+                    <property name="isInput">true</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">employeeId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">employeeName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">Employees Dates Joined DS::teamName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">isFloating</property>
+                        <property name="dataType">boolean</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">employeeType</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">dayName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">dayOfWeek</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">dayOfMonth</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">Employees Dates Joined DS::date</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">shiftId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">startDateTime</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">endDateTime</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">Shift DS::teamName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">14</property>
+                        <property name="name">skillAbbrev</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">15</property>
+                        <property name="name">shift::dayOfMonth</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">16</property>
+                        <property name="name">CDAvailability DS::id</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">17</property>
+                        <property name="name">CDAvailability DS::startTime</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">18</property>
+                        <property name="name">CDAvailability DS::endTime</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">19</property>
+                        <property name="name">CDAvailability DS::date</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">20</property>
+                        <property name="name">CDAvailability DS::availabilityType</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">21</property>
+                        <property name="name">isPTO</property>
+                        <property name="dataType">boolean</property>
+                    </structure>
+                    <structure>
+                        <property name="position">22</property>
+                        <property name="name">reason</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">23</property>
+                        <property name="name">absenceTypeName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">24</property>
+                        <property name="name">CIAvailability DS::id</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">25</property>
+                        <property name="name">CIAvailability DS::availabilityType</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">26</property>
+                        <property name="name">dayOfTheWeek</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">27</property>
+                        <property name="name">CIAvailability DS::startTime</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">28</property>
+                        <property name="name">CIAvailability DS::endTime</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <method name="onFetch"><![CDATA[/**
+ * Put Joined Data Set row's data to global variable "scheduleCellsData" (it will be used to crate schedule - 1 week crosstab)
+ */
+var team = row["Employees Dates Joined DS::teamName"];
+var employee = row["employeeId"];
+var date = row["dayOfMonth"];
+var schedule = reportContext.getGlobalVariable("scheduleCellsData");
+
+var assignCellData = function(){
+	schedule[team][employee]["isFloating"] = row["isFloating"];
+	
+	if(!schedule[team][employee][date]){
+		schedule[team][employee][date] = {
+			shifts:{},
+			avail: {
+				cd: [],
+				ci: []
+			},
+			isCDDayOff: false,
+			isAnyCDAvailTimeFrames: false, // means NOT day off,
+			isCIDayOff: false,
+			works: false
+		};
+	}
+	
+	var currentCell = schedule[team][employee][date];
+	
+	currentCell.shifts[row["shiftId"]] = {
+		start: row["startDateTime"],
+		end: row["endDateTime"],
+		team: row["Shift DS::teamName"],
+		skill: row["skillAbbrev"]
+	};
+	
+	if(row["CDAvailability DS::id"]) {
+		var availType = row["CDAvailability DS::availabilityType"];
+		currentCell.avail.cd.push({
+			id: row["CDAvailability DS::id"],
+			avail: availType,
+			absence: row["absenceTypeName"],
+			isPTO: row["isPTO"],
+			start: row["CDAvailability DS::startTime"],
+			end: row["CDAvailability DS::endTime"]
+		});
+		if(availType === emlogis.def.avail.type.DAY_OFF.key) {
+			currentCell.isCDDayOff = true;
+		} else if(availType === emlogis.def.avail.type.AVAILABLE.key){
+			currentCell.isAnyCDAvailTimeFrames = true;
+		}
+	}
+	
+	if(row["CIAvailability DS::id"]) {
+		var availType = row["CIAvailability DS::availabilityType"];
+		currentCell.avail.ci.push({
+			id: row["CIAvailability DS::id"],
+			avail: availType,
+			day: row["dayOfTheWeek"],
+			start: row["CIAvailability DS::startTime"],
+			end: row["CIAvailability DS::endTime"]
+		});
+		if(availType === emlogis.def.avail.type.DAY_OFF.key) {
+			currentCell.isCIDayOff = true;
+		}
+	}
+	
+	/**
+	 * Detect employee state for this day. (It will be displayed in schedule)
+	 * If he(she) has shifts and does not have the availability DAY_OFF restrictions - he(she) works
+	 * Any other combination means that employee does not work this day
+	 */
+	shiftsCount = emlogis.helper.keySet(currentCell.shifts).length;
+	if(shiftsCount > 0 &amp;&amp; !currentCell.isCDDayOff 
+			&amp;&amp; (!currentCell.isCIDayOff || currentCell.isCIDayOff &amp;&amp; currentCell.isAnyCDAvailTimeFrames)){
+		currentCell.works = true;
+	} else {
+		currentCell.works = false;
+	}
+}
+
+/**
+ * Fill needed properties of the object if it is undefined AND assign corresponding cell data
+ */
+if(schedule[team]) {
+	if(schedule[team][employee]){
+		assignCellData();
+	} else {
+		schedule[team][employee] = {};
+		assignCellData();
+	}
+} else {
+	schedule[team] = {};
+	schedule[team][employee] = {};
+	assignCellData();
+}]]></method>
+            <simple-property-list name="inputDataSets">
+                <value>Employees Dates Joined DS</value>
+                <value>Shift DS</value>
+                <value>CDAvailability DS</value>
+                <value>CIAvailability DS</value>
+            </simple-property-list>
+            <xml-property name="queryText"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tns:joinedDataSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.actuate.com/birt/dataset_join.xsd" xmlns:tns="http://schemas.actuate.com/birt/dataset_join.xsd">
+<tns:selectColumns>
+<tns:Column>Employees Dates Joined DS::employeeId</tns:Column>
+<tns:Column>Employees Dates Joined DS::employeeName</tns:Column>
+<tns:Column>Employees Dates Joined DS::teamName</tns:Column>
+<tns:Column>Employees Dates Joined DS::isFloating</tns:Column>
+<tns:Column>Employees Dates Joined DS::employeeType</tns:Column>
+<tns:Column>Employees Dates Joined DS::dayName</tns:Column>
+<tns:Column>Employees Dates Joined DS::dayOfWeek</tns:Column>
+<tns:Column>Employees Dates Joined DS::dayOfMonth</tns:Column>
+<tns:Column>Employees Dates Joined DS::date</tns:Column>
+<tns:Column>Shift DS::shiftId</tns:Column>
+<tns:Column>Shift DS::startDateTime</tns:Column>
+<tns:Column>Shift DS::endDateTime</tns:Column>
+<tns:Column>Shift DS::teamName</tns:Column>
+<tns:Column>Shift DS::skillAbbrev</tns:Column>
+<tns:Column>Shift DS::shift::dayOfMonth</tns:Column>
+<tns:Column>CDAvailability DS::id</tns:Column>
+<tns:Column>CDAvailability DS::startTime</tns:Column>
+<tns:Column>CDAvailability DS::endTime</tns:Column>
+<tns:Column>CDAvailability DS::date</tns:Column>
+<tns:Column>CDAvailability DS::availabilityType</tns:Column>
+<tns:Column>CDAvailability DS::isPTO</tns:Column>
+<tns:Column>CDAvailability DS::reason</tns:Column>
+<tns:Column>CDAvailability DS::absenceTypeName</tns:Column>
+<tns:Column>CIAvailability DS::id</tns:Column>
+<tns:Column>CIAvailability DS::availabilityType</tns:Column>
+<tns:Column>CIAvailability DS::dayOfTheWeek</tns:Column>
+<tns:Column>CIAvailability DS::startTime</tns:Column>
+<tns:Column>CIAvailability DS::endTime</tns:Column>
+</tns:selectColumns>
+<tns:joins>
+<tns:startingDataSet Index="0" name="Employees Dates Joined DS"/>
+<tns:join>
+<tns:type>leftOuter</tns:type>
+<tns:dataSet Index="1" name="Shift DS"/>
+<tns:on>
+<tns:condition>
+<tns:leftColumn>Employees Dates Joined DS::teamId</tns:leftColumn>
+<tns:rightColumn>Shift DS::teamId</tns:rightColumn>
+<tns:operator>eq</tns:operator>
+</tns:condition>
+<tns:condition>
+<tns:leftColumn>Employees Dates Joined DS::employeeId</tns:leftColumn>
+<tns:rightColumn>Shift DS::employeeId</tns:rightColumn>
+<tns:operator>eq</tns:operator>
+</tns:condition>
+<tns:condition>
+<tns:leftColumn>Employees Dates Joined DS::date</tns:leftColumn>
+<tns:rightColumn>Shift DS::date</tns:rightColumn>
+<tns:operator>eq</tns:operator>
+</tns:condition>
+</tns:on>
+</tns:join>
+<tns:join>
+<tns:type>leftOuter</tns:type>
+<tns:dataSet Index="2" name="CDAvailability DS"/>
+<tns:on>
+<tns:condition>
+<tns:leftColumn>Employees Dates Joined DS::employeeId</tns:leftColumn>
+<tns:rightColumn>CDAvailability DS::employeeId</tns:rightColumn>
+<tns:operator>eq</tns:operator>
+</tns:condition>
+<tns:condition>
+<tns:leftColumn>Employees Dates Joined DS::date</tns:leftColumn>
+<tns:rightColumn>CDAvailability DS::date</tns:rightColumn>
+<tns:operator>eq</tns:operator>
+</tns:condition>
+</tns:on>
+</tns:join>
+<tns:join>
+<tns:type>leftOuter</tns:type>
+<tns:dataSet Index="3" name="CIAvailability DS"/>
+<tns:on>
+<tns:condition>
+<tns:leftColumn>Employees Dates Joined DS::employeeId</tns:leftColumn>
+<tns:rightColumn>CIAvailability DS::employeeId</tns:rightColumn>
+<tns:operator>eq</tns:operator>
+</tns:condition>
+<tns:condition>
+<tns:leftColumn>Employees Dates Joined DS::dayId</tns:leftColumn>
+<tns:rightColumn>CIAvailability DS::dayOfTheWeek</tns:rightColumn>
+<tns:operator>eq</tns:operator>
+</tns:condition>
+<tns:condition>
+<tns:leftColumn>Employees Dates Joined DS::date</tns:leftColumn>
+<tns:rightColumn>CIAvailability DS::effectiveStartDate</tns:rightColumn>
+<tns:operator>ge</tns:operator>
+</tns:condition>
+<tns:condition>
+<tns:leftColumn>Employees Dates Joined DS::date</tns:leftColumn>
+<tns:rightColumn>CIAvailability DS::effectiveEndDate</tns:rightColumn>
+<tns:operator>le</tns:operator>
+</tns:condition>
+</tns:on>
+</tns:join>
+</tns:joins>
+</tns:joinedDataSet>]]></xml-property>
+        </derived-data-set>
+        <script-data-set name="SchduleCell DS" id="12856">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">shiftTime</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">shiftTeam</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">shiftSkill</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">availMessage</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">shiftTime</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">shiftTeam</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">shiftSkill</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">availMessage</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+            </list-property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">teamName</property>
+                    <property name="dataType">string</property>
+                    <property name="position">1</property>
+                    <expression name="defaultValue" type="javascript">null</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">employee</property>
+                    <property name="dataType">string</property>
+                    <property name="position">2</property>
+                    <expression name="defaultValue" type="javascript">null</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">dayOfMonth</property>
+                    <property name="dataType">string</property>
+                    <property name="position">3</property>
+                    <expression name="defaultValue" type="javascript">null</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">shiftTime</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">shiftTeam</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">shiftSkill</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">availMessage</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[/**
+ * Get CDAvailability, CIAvailability and Shifts from the "scheduleCellsData" object
+ * for current cell teamName, employeeName and date
+ */
+shiftsCount = 0;
+availCount = 0;
+
+var team = inputParams["teamName"];
+var employee = inputParams["employee"];
+var date = inputParams["dayOfMonth"];
+var schedule = reportContext.getGlobalVariable("scheduleCellsData");
+
+var currentCell = schedule[team][employee][date];
+
+// Get CD availability for the current team, employee, date from the global JS object
+var currentCellCIAvails = [];
+try { currentCellCIAvails = currentCell.avail.ci; } catch(e){}
+
+// Get CI availability for the current team, employee, date from the global JS object
+var currentCellCDAvails = [];
+try { currentCellCDAvails = currentCell.avail.cd; } catch(e){}
+
+cdAvailCount = 0;
+ciAvailCount = 0
+
+// Try to find suitable unavailability
+availMessage = "";
+if(currentCellCDAvails.length || currentCellCIAvails.length){
+	for(var i = 0; i < currentCellCDAvails.length; i++){
+		var currentObj = currentCellCDAvails[i];
+		if(currentObj.avail === emlogis.def.avail.type.DAY_OFF.key) {
+			availMessage = currentObj.isPTO &amp;&amp; currentObj.absence ? currentObj.absence : emlogis.def.avail.type.DAY_OFF.text;
+			break;
+		}
+	}
+	if(!availMessage){
+		for(var i = 0; i < currentCellCIAvails.length; i++){
+			var currentObj = currentCellCIAvails[i];
+			if(currentObj.avail === emlogis.def.avail.type.DAY_OFF.key) {
+				availMessage = emlogis.def.avail.type.DAY_OFF.text;
+				break;
+			}
+		}
+	}
+}
+//If there was no suitable unavailability, get shifts
+if(!availMessage) {
+	currentCellShifts = {};
+	try { currentCellShifts = schedule[team][employee][date].shifts; } catch(e){}
+	currentCellShiftIds = emlogis.helper.keySet(currentCellShifts);
+}]]></method>
+            <method name="fetch"><![CDATA[/**
+ * Fill schedule cell with shifts or availability message
+ */
+
+if(availMessage){
+	if(availCount < 1){
+		row["availMessage"] = availMessage;
+		availCount++;
+		return true;
+	}
+	return false;
+}
+if(shiftsCount < currentCellShiftIds.length){
+	var currentShift = currentCellShifts[currentCellShiftIds[shiftsCount]];
+	
+	var shiftTime = emlogis.date.toShort12TimeString(currentShift.start) + 
+		" - " + emlogis.date.toShort12TimeString(currentShift.end);
+	
+	row["shiftTime"] = shiftTime;
+	row["shiftSkill"] = currentShift.skill;
+	row["shiftTeam"] = currentShift.team;
+	//row["availMessage"] = availMessage;
+	
+	shiftsCount++;
+	return true;
+}
+
+return false;
+]]></method>
+        </script-data-set>
+        <script-data-set name="Skill DS" id="13335" extends="common.Skill DS"/>
+        <derived-data-set extensionID="com.actuate.birt.data.join" name="Unfilled Joined DS" id="13458">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">teamName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">skillName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">startDateTime</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">endDateTime</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Skills Dates Joined DS::skillId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">dayOfWeek</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">dayName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">dayOfMonth</property>
+                    <property name="analysis">measure</property>
+                </structure>
+                <structure>
+                    <property name="columnName">shiftId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Shift DS::skillId</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+            </list-property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">startDateTime</property>
+                    <property name="dataType">string</property>
+                    <property name="position">1</property>
+                    <expression name="defaultValue">params["ReportIntervalStartDate"].value.getTime() + ""</expression>
+                    <property name="isOptional">false</property>
+                    <property name="allowNull">false</property>
+                    <property name="isInput">true</property>
+                </structure>
+                <structure>
+                    <property name="name">isAssignedShifts</property>
+                    <property name="dataType">boolean</property>
+                    <property name="position">3</property>
+                    <expression name="defaultValue">params["IsAssignedShifts"].value</expression>
+                    <property name="isOptional">false</property>
+                    <property name="allowNull">false</property>
+                    <property name="isInput">true</property>
+                </structure>
+                <structure>
+                    <property name="name">endDateTime</property>
+                    <property name="dataType">string</property>
+                    <property name="position">2</property>
+                    <expression name="defaultValue">params["ReportIntervalEndDate"].value.getTime() + ""</expression>
+                    <property name="isOptional">false</property>
+                    <property name="allowNull">false</property>
+                    <property name="isInput">true</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">teamName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">skillName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">Skills Dates Joined DS::skillId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">dayOfWeek</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">dayName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">dayOfMonth</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">shiftId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">startDateTime</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">endDateTime</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">Shift DS::skillId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <method name="beforeOpen"><![CDATA[params["IsAssignedShifts"] = false;]]></method>
+            <method name="onFetch"><![CDATA[/**
+ * Put Unfilled Joined Data Set row's data to global variable "unfilledScheduleCellsData" 
+ * it will be used to crate schedule - 1 week unfilled shifts crosstab)
+ */
+var team = row["teamName"];
+var skill = row["skillName"];
+var date = row["dayOfMonth"];
+var schedule = reportContext.getGlobalVariable("unfilledScheduleCellsData");
+
+var assignCellData = function(){
+
+	if(!schedule[team][skill][date]){
+		schedule[team][skill][date] = {
+			shifts:{}
+		};
+	}
+	schedule[team][skill][date].shifts[row["shiftId"]] = {
+		start: row["startDateTime"],
+		end: row["endDateTime"]
+	};
+	
+}
+
+/**
+ * Fill needed undefined properties of the object AND assign corresponding cell data
+ */
+if(schedule[team]) {
+	if(schedule[team][skill]){
+		assignCellData();
+	} else {
+		schedule[team][skill] = {};
+		assignCellData();
+	}
+} else {
+	if(team != null) {
+		schedule[team] = {};
+		schedule[team][skill] = {};
+		assignCellData();
+	}
+}]]></method>
+            <simple-property-list name="inputDataSets">
+                <value>SelectedTeamsDS</value>
+                <value>Skills Dates Joined DS</value>
+                <value>Shift DS</value>
+            </simple-property-list>
+            <xml-property name="queryText"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tns:joinedDataSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.actuate.com/birt/dataset_join.xsd" xmlns:tns="http://schemas.actuate.com/birt/dataset_join.xsd">
+<tns:selectColumns>
+<tns:Column>SelectedTeamsDS::teamName</tns:Column>
+<tns:Column>Skills Dates Joined DS::skillName</tns:Column>
+<tns:Column>Skills Dates Joined DS::skillId</tns:Column>
+<tns:Column>Skills Dates Joined DS::dayOfWeek</tns:Column>
+<tns:Column>Skills Dates Joined DS::dayName</tns:Column>
+<tns:Column>Skills Dates Joined DS::dayOfMonth</tns:Column>
+<tns:Column>Shift DS::shiftId</tns:Column>
+<tns:Column>Shift DS::startDateTime</tns:Column>
+<tns:Column>Shift DS::endDateTime</tns:Column>
+<tns:Column>Shift DS::skillId</tns:Column>
+</tns:selectColumns>
+<tns:joins>
+<tns:startingDataSet Index="0" name="SelectedTeamsDS"/>
+<tns:join>
+<tns:type>inner</tns:type>
+<tns:dataSet Index="1" name="Skills Dates Joined DS"/>
+<tns:on>
+<tns:condition>
+<tns:leftColumn>SelectedTeamsDS::teamId</tns:leftColumn>
+<tns:rightColumn>Skills Dates Joined DS::teamId</tns:rightColumn>
+<tns:operator>eq</tns:operator>
+</tns:condition>
+</tns:on>
+</tns:join>
+<tns:join>
+<tns:type>leftOuter</tns:type>
+<tns:dataSet Index="2" name="Shift DS"/>
+<tns:on>
+<tns:condition>
+<tns:leftColumn>Skills Dates Joined DS::date</tns:leftColumn>
+<tns:rightColumn>Shift DS::date</tns:rightColumn>
+<tns:operator>eq</tns:operator>
+</tns:condition>
+<tns:condition>
+<tns:leftColumn>Skills Dates Joined DS::skillId</tns:leftColumn>
+<tns:rightColumn>Shift DS::skillId</tns:rightColumn>
+<tns:operator>eq</tns:operator>
+</tns:condition>
+<tns:condition>
+<tns:leftColumn>SelectedTeamsDS::teamId</tns:leftColumn>
+<tns:rightColumn>Shift DS::teamId</tns:rightColumn>
+<tns:operator>eq</tns:operator>
+</tns:condition>
+</tns:on>
+</tns:join>
+</tns:joins>
+</tns:joinedDataSet>]]></xml-property>
+        </derived-data-set>
+        <script-data-set name="UnfilledSchduleCell DS" id="13607">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">shiftTime</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">amount</property>
+                    <property name="dataType">integer</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">shiftTime</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">amount</property>
+                    <property name="analysis">measure</property>
+                </structure>
+            </list-property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">teamName</property>
+                    <property name="dataType">string</property>
+                    <property name="position">1</property>
+                    <expression name="defaultValue" type="javascript">null</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">skillName</property>
+                    <property name="dataType">string</property>
+                    <property name="position">2</property>
+                    <expression name="defaultValue" type="javascript">null</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">dayOfMonth</property>
+                    <property name="dataType">string</property>
+                    <property name="position">3</property>
+                    <expression name="defaultValue" type="javascript">null</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">shiftTime</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">amount</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[shiftsCount = 0;
+
+var team = inputParams["teamName"];
+var skill = inputParams["skillName"];
+var date = inputParams["dayOfMonth"];
+
+var schedule = reportContext.getGlobalVariable("unfilledScheduleCellsData");
+
+currentCellShifts = {};
+try { currentCellShifts = schedule[team][skill][date].shifts; } catch(e){}
+currentCellShiftIds = emlogis.helper.keySet(currentCellShifts);
+
+datasetRows = [];
+for(var i = 0; i < currentCellShiftIds.length; i++){
+	var currentShift = currentCellShifts[currentCellShiftIds[i]];
+	var shiftTime = emlogis.date.toShort12TimeString(currentShift.start) + 
+		" - " + emlogis.date.toShort12TimeString(currentShift.end);
+	datasetRows.push(shiftTime);
+}]]></method>
+            <method name="fetch"><![CDATA[/**
+ * Fill schedule cell with shifts
+ */
+
+if(shiftsCount < datasetRows.length){
+	var currentRow = {
+		time: datasetRows[shiftsCount],
+		amount: 1
+	}
+	
+	for(var i = 0; i < datasetRows.length; i++){
+		if(i != shiftsCount &amp;&amp; currentRow.time === datasetRows[i]){
+			currentRow.amount++;
+			datasetRows.splice(i, 1);
+		}
+	}
+	
+	row["shiftTime"] = currentRow.time;
+	row["amount"] = currentRow.amount;
+	
+	shiftsCount++;
+	return true;
+}
+
+return false;
+]]></method>
+        </script-data-set>
+        <script-data-set name="SelectedTeamsDS" id="13648" extends="common.SelectedTeamsDS"/>
+        <script-data-set name="CIAvailability DS" id="13649" extends="common.CIAvailability DS"/>
+        <script-data-set name="CDAvailability DS" id="13650" extends="common.CDAvailability DS"/>
+        <script-data-set name="Dates Range DS" id="14686" extends="common.Dates Range DS"/>
+        <script-data-set name="Employee DS" id="14688" extends="common.Employee DS"/>
+        <derived-data-set extensionID="com.actuate.birt.data.join" name="Employees Dates Joined DS" id="14689"
+ extends="common.Employees Dates Joined DS"/>
+        <derived-data-set extensionID="com.actuate.birt.data.join" name="Skills Dates Joined DS" id="14695"
+ extends="common.Skills Dates Joined DS"/>
+    </data-sets>
+    <cubes>
+        <tabular-cube name="Joined DCube" id="11781">
+            <property name="dimensions">
+                <tabular-dimension name="Group1" id="12537">
+                    <property name="isTimeType">false</property>
+                    <property name="defaultHierarchy">NewTabularHierarchy2</property>
+                    <property name="hierarchies">
+                        <tabular-hierarchy name="NewTabularHierarchy2" id="12538">
+                            <property name="levels">
+                                <tabular-level name="dayOfWeek" id="13642">
+                                    <property name="dataType">integer</property>
+                                    <property name="columnName">dayOfWeek</property>
+                                </tabular-level>
+                                <tabular-level name="dayOfMonth" id="13179">
+                                    <property name="dataType">integer</property>
+                                    <property name="levelType">dynamic</property>
+                                    <property name="columnName">dayOfMonth</property>
+                                </tabular-level>
+                                <tabular-level name="dayName" id="13203">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">dayName</property>
+                                </tabular-level>
+                            </property>
+                        </tabular-hierarchy>
+                    </property>
+                </tabular-dimension>
+                <tabular-dimension name="Group" id="12833">
+                    <property name="defaultHierarchy">NewTabularHierarchy</property>
+                    <property name="hierarchies">
+                        <tabular-hierarchy name="NewTabularHierarchy" id="12834">
+                            <property name="levels">
+                                <tabular-level name="Employees Dates Joined DS::teamName" id="12835">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">Employees Dates Joined DS::teamName</property>
+                                </tabular-level>
+                                <tabular-level name="employeeName" id="12836">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">employeeName</property>
+                                </tabular-level>
+                                <tabular-level name="employeeId" id="14696">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">employeeId</property>
+                                </tabular-level>
+                                <tabular-level name="employeeType" id="12837">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">employeeType</property>
+                                </tabular-level>
+                            </property>
+                        </tabular-hierarchy>
+                    </property>
+                </tabular-dimension>
+            </property>
+            <property name="measureGroups">
+                <tabular-measure-group name="Unused summary" id="12784">
+                    <property name="measures">
+                        <tabular-measure name="shiftId" id="12785">
+                            <property name="function">count</property>
+                            <property name="isCalculated">false</property>
+                            <expression name="measureExpression" type="javascript">dataSetRow["shiftId"]</expression>
+                            <property name="dataType">integer</property>
+                            <property name="isVisible">false</property>
+                        </tabular-measure>
+                    </property>
+                </tabular-measure-group>
+            </property>
+            <property name="dataSet">Joined DS</property>
+        </tabular-cube>
+        <tabular-cube name="Unfilled Joined DCube" id="13563">
+            <property name="dimensions">
+                <tabular-dimension name="Group2" id="13564">
+                    <property name="defaultHierarchy">NewTabularHierarchy1</property>
+                    <property name="hierarchies">
+                        <tabular-hierarchy name="NewTabularHierarchy1" id="13565">
+                            <property name="levels">
+                                <tabular-level name="teamName" id="13566">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">teamName</property>
+                                </tabular-level>
+                                <tabular-level name="skillName" id="13567">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">skillName</property>
+                                </tabular-level>
+                            </property>
+                        </tabular-hierarchy>
+                    </property>
+                </tabular-dimension>
+                <tabular-dimension name="Group3" id="13568">
+                    <property name="defaultHierarchy">NewTabularHierarchy3</property>
+                    <property name="hierarchies">
+                        <tabular-hierarchy name="NewTabularHierarchy3" id="13569">
+                            <property name="levels">
+                                <tabular-level name="dayOfWeek" id="13635">
+                                    <property name="dataType">integer</property>
+                                    <property name="columnName">dayOfWeek</property>
+                                </tabular-level>
+                                <tabular-level name="dayOfMonth" id="13570">
+                                    <property name="dataType">integer</property>
+                                    <property name="columnName">dayOfMonth</property>
+                                </tabular-level>
+                                <tabular-level name="dayName" id="13571">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">dayName</property>
+                                </tabular-level>
+                            </property>
+                        </tabular-hierarchy>
+                    </property>
+                </tabular-dimension>
+            </property>
+            <property name="measureGroups">
+                <tabular-measure-group name="Summary Field" id="13572">
+                    <property name="measures">
+                        <tabular-measure name="shiftId1" id="13573">
+                            <property name="function">count</property>
+                            <expression name="measureExpression" type="javascript">dataSetRow["shiftId"]</expression>
+                            <property name="dataType">integer</property>
+                        </tabular-measure>
+                    </property>
+                </tabular-measure-group>
+            </property>
+            <property name="dataSet">Unfilled Joined DS</property>
+        </tabular-cube>
+    </cubes>
+    <page-setup>
+        <simple-master-page name="Portrait" id="13795">
+            <page-header>
+                <grid name="Report header" id="13796" extends="common.Report header">
+                    <overridden-values>
+                        <ref-entry baseId="13738" id="13738"/>
+                        <ref-entry baseId="13739" id="13739"/>
+                        <ref-entry baseId="13740" id="13740"/>
+                        <ref-entry baseId="13741" id="13741"/>
+                        <ref-entry baseId="13742" name="NewGrid11" id="13742"/>
+                        <ref-entry baseId="13743" id="13743"/>
+                        <ref-entry baseId="13744" id="13744"/>
+                        <ref-entry baseId="13745" id="13745"/>
+                        <ref-entry baseId="13746" name="NewData111" id="13746"/>
+                        <ref-entry baseId="13747" id="13747"/>
+                        <ref-entry baseId="13748" name="NewGrid2" id="13748"/>
+                        <ref-entry baseId="13749" id="13749"/>
+                        <ref-entry baseId="13750" id="13750"/>
+                        <ref-entry baseId="13751" id="13751"/>
+                        <ref-entry baseId="13752" name="NewData21" id="13752"/>
+                        <ref-entry baseId="13775" id="13775"/>
+                        <ref-entry baseId="13776" id="13776"/>
+                        <ref-entry baseId="10833" name="NewGrid" id="10833"/>
+                        <ref-entry baseId="10834" id="10834"/>
+                        <ref-entry baseId="10835" id="10835"/>
+                        <ref-entry baseId="10836" id="10836"/>
+                        <ref-entry baseId="13779" name="NewTextData1" id="13779">
+                            <property name="style">highlighted-text-italic</property>
+                        </ref-entry>
+                    </overridden-values>
+                </grid>
+            </page-header>
+            <page-footer>
+                <grid name="Report footer" id="13797" extends="common.Report footer">
+                    <overridden-values>
+                        <ref-entry baseId="13754" id="13754"/>
+                        <ref-entry baseId="13755" id="13755"/>
+                        <ref-entry baseId="13756" id="13756"/>
+                        <ref-entry baseId="13757" id="13757"/>
+                        <ref-entry baseId="13758" name="NewTextData111" id="13758"/>
+                        <ref-entry baseId="13759" id="13759"/>
+                        <ref-entry baseId="13760" name="NewGrid1111" id="13760"/>
+                        <ref-entry baseId="13761" id="13761"/>
+                        <ref-entry baseId="13762" id="13762"/>
+                        <ref-entry baseId="13763" id="13763"/>
+                        <ref-entry baseId="13764" id="13764"/>
+                        <ref-entry baseId="13765" id="13765"/>
+                        <ref-entry baseId="13766" id="13766"/>
+                        <ref-entry baseId="13767" name="NewText211" id="13767"/>
+                        <ref-entry baseId="13768" id="13768"/>
+                        <ref-entry baseId="13769" name="NewAutoText211" id="13769"/>
+                        <ref-entry baseId="13770" id="13770"/>
+                        <ref-entry baseId="13771" name="NewText1111" id="13771"/>
+                        <ref-entry baseId="13772" id="13772"/>
+                        <ref-entry baseId="13773" name="NewAutoText1111" id="13773"/>
+                    </overridden-values>
+                </grid>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <extended-item extensionName="Crosstab" extensionVersion="3.7.0" id="12797">
+            <property name="cube">Joined DCube</property>
+            <property name="measures">
+                <extended-item extensionName="MeasureView" id="12817">
+                    <property name="measure">shiftId</property>
+                    <property name="detail">
+                        <extended-item extensionName="AggregationCell" id="12818">
+                            <property name="aggregationOnRow">Group/employeeType</property>
+                            <property name="aggregationOnColumn">Group1/dayName</property>
+                            <list-property name="highlightRules">
+                                <structure>
+                                    <property name="operator">eq</property>
+                                    <expression name="testExpr" type="javascript">data["employeeType"]</expression>
+                                    <simple-property-list name="value1">
+                                        <value type="javascript">emlogis.def.employment.fullTime.shortName</value>
+                                    </simple-property-list>
+                                    <property name="style">highlighted-cell-dark</property>
+                                </structure>
+                                <structure>
+                                    <property name="operator">eq</property>
+                                    <expression name="testExpr" type="javascript">data["employeeType"]</expression>
+                                    <simple-property-list name="value1">
+                                        <value type="javascript">emlogis.def.employment.partTime.shortName</value>
+                                    </simple-property-list>
+                                    <property name="style">highlighted-cell-light</property>
+                                </structure>
+                            </list-property>
+                            <property name="width">10%</property>
+                            <property name="content">
+                                <table id="12858">
+                                    <property name="style">no-borders</property>
+                                    <property name="dataSet">SchduleCell DS</property>
+                                    <list-property name="paramBindings">
+                                        <structure>
+                                            <property name="paramName">teamName</property>
+                                            <simple-property-list name="expression">
+                                                <value type="javascript">data["Employees Dates Joined DS::teamName"]</value>
+                                            </simple-property-list>
+                                        </structure>
+                                        <structure>
+                                            <property name="paramName">employee</property>
+                                            <simple-property-list name="expression">
+                                                <value type="javascript">data["employeeId"]</value>
+                                            </simple-property-list>
+                                        </structure>
+                                        <structure>
+                                            <property name="paramName">dayOfMonth</property>
+                                            <simple-property-list name="expression">
+                                                <value type="javascript">data["dayOfMonth"]</value>
+                                            </simple-property-list>
+                                        </structure>
+                                    </list-property>
+                                    <list-property name="boundDataColumns">
+                                        <structure>
+                                            <property name="name">shiftTime</property>
+                                            <text-property name="displayName">shiftTime</text-property>
+                                            <expression name="expression" type="javascript">dataSetRow["shiftTime"]</expression>
+                                            <property name="dataType">string</property>
+                                        </structure>
+                                        <structure>
+                                            <property name="name">shiftTeam</property>
+                                            <text-property name="displayName">shiftTeam</text-property>
+                                            <expression name="expression" type="javascript">dataSetRow["shiftTeam"]</expression>
+                                            <property name="dataType">string</property>
+                                        </structure>
+                                        <structure>
+                                            <property name="name">shiftSkill</property>
+                                            <text-property name="displayName">shiftSkill</text-property>
+                                            <expression name="expression" type="javascript">dataSetRow["shiftSkill"]</expression>
+                                            <property name="dataType">string</property>
+                                        </structure>
+                                        <structure>
+                                            <property name="name">availMessage</property>
+                                            <text-property name="displayName">availMessage</text-property>
+                                            <expression name="expression" type="javascript">dataSetRow["availMessage"]</expression>
+                                            <property name="dataType">string</property>
+                                            <property name="allowExport">true</property>
+                                        </structure>
+                                    </list-property>
+                                    <column id="12877"/>
+                                    <detail>
+                                        <row id="12866">
+                                            <cell id="12867">
+                                                <property name="style">no-borders</property>
+                                                <list-property name="highlightRules">
+                                                    <structure>
+                                                        <property name="operator">is-true</property>
+                                                        <expression name="testExpr" type="javascript">true</expression>
+                                                        <property name="style">no-padding</property>
+                                                    </structure>
+                                                </list-property>
+                                                <grid id="12890">
+                                                    <property name="style">no-margin</property>
+                                                    <list-property name="visibility">
+                                                        <structure>
+                                                            <property name="format">all</property>
+                                                            <expression name="valueExpr" type="javascript">!row["shiftTime"]</expression>
+                                                        </structure>
+                                                    </list-property>
+                                                    <column id="12891"/>
+                                                    <column id="12893"/>
+                                                    <row id="12894">
+                                                        <cell id="12895">
+                                                            <property name="style">highlighted-text-bold</property>
+                                                            <data id="12868">
+                                                                <property name="resultSetColumn">shiftTime</property>
+                                                            </data>
+                                                        </cell>
+                                                        <cell id="12897">
+                                                            <property name="style">align-right</property>
+                                                            <data id="12872">
+                                                                <property name="resultSetColumn">shiftSkill</property>
+                                                            </data>
+                                                        </cell>
+                                                    </row>
+                                                    <row id="12898">
+                                                        <cell id="12899">
+                                                            <data id="12870">
+                                                                <property name="resultSetColumn">shiftTeam</property>
+                                                            </data>
+                                                        </cell>
+                                                        <cell id="12901"/>
+                                                    </row>
+                                                </grid>
+                                                <grid id="12905">
+                                                    <list-property name="visibility">
+                                                        <structure>
+                                                            <property name="format">all</property>
+                                                            <expression name="valueExpr" type="javascript">!row["availMessage"]</expression>
+                                                        </structure>
+                                                    </list-property>
+                                                    <column id="12906"/>
+                                                    <row id="12907">
+                                                        <cell id="12908">
+                                                            <text-data id="12909">
+                                                                <expression name="valueExpr">row["availMessage"]</expression>
+                                                                <property name="contentType">html</property>
+                                                            </text-data>
+                                                        </cell>
+                                                    </row>
+                                                </grid>
+                                            </cell>
+                                        </row>
+                                    </detail>
+                                </table>
+                            </property>
+                            <property name="style">min-height</property>
+                        </extended-item>
+                    </property>
+                    <property name="header">
+                        <extended-item extensionName="CrosstabCell" id="12820">
+                            <property name="style">empty-cell</property>
+                        </extended-item>
+                    </property>
+                </extended-item>
+            </property>
+            <property name="rows">
+                <extended-item extensionName="CrosstabView" id="12799">
+                    <property name="views">
+                        <extended-item extensionName="DimensionView" id="12838">
+                            <property name="dimension">Group</property>
+                            <property name="levels">
+                                <extended-item extensionName="LevelView" name="NewLevel View" id="12839">
+                                    <property name="level">Group/Employees Dates Joined DS::teamName</property>
+                                    <property name="pageBreakBefore">auto</property>
+                                    <property name="pageBreakAfter">auto</property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="12840">
+                                            <property name="content">
+                                                <data name="Employees Dates Joined DS::teamName" id="12841">
+                                                    <property name="resultSetColumn">Employees Dates Joined DS::teamName</property>
+                                                </data>
+                                            </property>
+                                            <property name="style">highlighted-text-bold</property>
+                                        </extended-item>
+                                    </property>
+                                    <property name="pageBreakInterval">1</property>
+                                    <property name="pageBreakInside">auto</property>
+                                </extended-item>
+                                <extended-item extensionName="LevelView" name="NewLevel View1" id="12842">
+                                    <property name="level">Group/employeeName</property>
+                                    <property name="filter">
+                                        <filter-condition-element>
+                                            <expression name="expr" type="javascript">try{&#13;
+var rowData = reportContext.getGlobalVariable("scheduleCellsData")[data["Employees Dates Joined DS::teamName"]][data["employeeName"]];&#13;
+if(!rowData["isFloating"]){  //if Employee is ON the Team leave it in the schedule&#13;
+	1;&#13;
+} else {	//if Employee is FLOAT - leave only employees with shifts&#13;
+	var shiftsAmount = 0;&#13;
+	for(var date in rowData){&#13;
+		var shifts = rowData[date].shifts;&#13;
+		var shiftKeys = emlogis.helper.keySet(shifts);&#13;
+		shiftsAmount = shiftsAmount + shiftKeys.length;&#13;
+	}&#13;
+	shiftsAmount;&#13;
+}&#13;
+} catch(e){ 1; }</expression>
+                                            <property name="operator">ne</property>
+                                            <simple-property-list name="value1">
+                                                <value type="javascript">0</value>
+                                            </simple-property-list>
+                                            <property name="updateAggregation">true</property>
+                                        </filter-condition-element>
+                                    </property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="12843">
+                                            <property name="content">
+                                                <data name="employeeName" id="12846">
+                                                    <property name="resultSetColumn">employeeName</property>
+                                                </data>
+                                            </property>
+                                            <list-property name="highlightRules">
+                                                <structure>
+                                                    <property name="operator">eq</property>
+                                                    <expression name="testExpr" type="javascript">data["employeeType"]</expression>
+                                                    <simple-property-list name="value1">
+                                                        <value type="javascript">emlogis.def.employment.fullTime.shortName</value>
+                                                    </simple-property-list>
+                                                    <property name="style">highlighted-cell-dark</property>
+                                                </structure>
+                                                <structure>
+                                                    <property name="operator">eq</property>
+                                                    <expression name="testExpr" type="javascript">data["employeeType"]</expression>
+                                                    <simple-property-list name="value1">
+                                                        <value type="javascript">emlogis.def.employment.partTime.shortName</value>
+                                                    </simple-property-list>
+                                                    <property name="style">highlighted-cell-light</property>
+                                                </structure>
+                                            </list-property>
+                                            <property name="style">highlighted-text-bold</property>
+                                        </extended-item>
+                                    </property>
+                                </extended-item>
+                                <extended-item extensionName="LevelView" name="NewLevel View11" id="14705">
+                                    <property name="level">Group/employeeId</property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="14706">
+                                            <property name="content">
+                                                <text-data id="14835">
+                                                    <property name="display">none</property>
+                                                    <expression name="valueExpr">data["employeeId"]</expression>
+                                                    <property name="contentType">html</property>
+                                                </text-data>
+                                            </property>
+                                            <property name="display">none</property>
+                                            <list-property name="highlightRules">
+                                                <structure>
+                                                    <property name="operator">eq</property>
+                                                    <expression name="testExpr" type="javascript">data["employeeType"]</expression>
+                                                    <simple-property-list name="value1">
+                                                        <value type="javascript">emlogis.def.employment.fullTime.shortName</value>
+                                                    </simple-property-list>
+                                                    <property name="style">highlighted-cell-dark</property>
+                                                </structure>
+                                                <structure>
+                                                    <property name="operator">eq</property>
+                                                    <expression name="testExpr" type="javascript">data["employeeType"]</expression>
+                                                    <simple-property-list name="value1">
+                                                        <value type="javascript">emlogis.def.employment.partTime.shortName</value>
+                                                    </simple-property-list>
+                                                    <property name="style">highlighted-cell-light</property>
+                                                </structure>
+                                            </list-property>
+                                            <property name="style">empty-cell</property>
+                                        </extended-item>
+                                    </property>
+                                </extended-item>
+                                <extended-item extensionName="LevelView" name="NewLevel View2" id="12848">
+                                    <property name="level">Group/employeeType</property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="12849">
+                                            <property name="content">
+                                                <data name="employeeType" id="12852">
+                                                    <property name="resultSetColumn">employeeType</property>
+                                                </data>
+                                            </property>
+                                            <list-property name="highlightRules">
+                                                <structure>
+                                                    <property name="operator">eq</property>
+                                                    <expression name="testExpr" type="javascript">data["employeeType"]</expression>
+                                                    <simple-property-list name="value1">
+                                                        <value type="javascript">emlogis.def.employment.fullTime.shortName</value>
+                                                    </simple-property-list>
+                                                    <property name="style">highlighted-cell-dark</property>
+                                                </structure>
+                                                <structure>
+                                                    <property name="operator">eq</property>
+                                                    <expression name="testExpr" type="javascript">data["employeeType"]</expression>
+                                                    <simple-property-list name="value1">
+                                                        <value type="javascript">emlogis.def.employment.partTime.shortName</value>
+                                                    </simple-property-list>
+                                                    <property name="style">highlighted-cell-light</property>
+                                                </structure>
+                                            </list-property>
+                                            <property name="width">3%</property>
+                                            <property name="style">highlighted-text-bold</property>
+                                        </extended-item>
+                                    </property>
+                                </extended-item>
+                            </property>
+                        </extended-item>
+                    </property>
+                </extended-item>
+            </property>
+            <property name="columns">
+                <extended-item extensionName="CrosstabView" id="12826">
+                    <property name="views">
+                        <extended-item extensionName="DimensionView" id="13181">
+                            <property name="dimension">Group1</property>
+                            <property name="levels">
+                                <extended-item extensionName="LevelView" name="NewLevel View10" id="13643">
+                                    <property name="level">Group1/dayOfWeek</property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="13644">
+                                            <property name="content">
+                                                <grid id="13317">
+                                                    <column id="13318">
+                                                        <property name="width">90%</property>
+                                                    </column>
+                                                    <column id="13319"/>
+                                                    <row id="13320">
+                                                        <cell id="13321">
+                                                            <data name="dayName" id="13313">
+                                                                <property name="resultSetColumn">dayName</property>
+                                                            </data>
+                                                        </cell>
+                                                        <cell id="13322">
+                                                            <data name="dayOfMonth" id="13306">
+                                                                <property name="resultSetColumn">dayOfMonth</property>
+                                                            </data>
+                                                        </cell>
+                                                    </row>
+                                                </grid>
+                                            </property>
+                                            <property name="style">emlogis-table-header</property>
+                                        </extended-item>
+                                    </property>
+                                </extended-item>
+                                <extended-item extensionName="LevelView" name="NewLevel View3" id="13301">
+                                    <property name="level">Group1/dayOfMonth</property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="13302">
+                                            <property name="style">empty-cell</property>
+                                        </extended-item>
+                                    </property>
+                                </extended-item>
+                                <extended-item extensionName="LevelView" name="NewLevel View4" id="13308">
+                                    <property name="level">Group1/dayName</property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="13309">
+                                            <property name="style">empty-cell</property>
+                                        </extended-item>
+                                    </property>
+                                </extended-item>
+                            </property>
+                        </extended-item>
+                    </property>
+                </extended-item>
+            </property>
+            <property name="header">
+                <extended-item extensionName="CrosstabCell" id="13645">
+                    <property name="content">
+                        <text id="13315">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Team]]></text-property>
+                        </text>
+                    </property>
+                    <property name="style">emlogis-table-header</property>
+                </extended-item>
+                <extended-item extensionName="CrosstabCell" id="13646">
+                    <property name="content">
+                        <grid id="13323">
+                            <property name="style">emlogis-table-header</property>
+                            <column id="13324"/>
+                            <row id="13325">
+                                <cell id="13326">
+                                    <text id="13316">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[Employee]]></text-property>
+                                    </text>
+                                </cell>
+                            </row>
+                        </grid>
+                    </property>
+                </extended-item>
+                <extended-item extensionName="CrosstabCell" id="14710">
+                    <property name="display">none</property>
+                    <property name="style">empty-cell</property>
+                </extended-item>
+                <extended-item extensionName="CrosstabCell" id="13647"/>
+                <extended-item extensionName="CrosstabCell" id="13303">
+                    <property name="style">empty-cell</property>
+                </extended-item>
+                <extended-item extensionName="CrosstabCell" id="13304">
+                    <property name="style">empty-cell</property>
+                </extended-item>
+                <extended-item extensionName="CrosstabCell" id="14709">
+                    <property name="display">none</property>
+                    <property name="style">empty-cell</property>
+                </extended-item>
+                <extended-item extensionName="CrosstabCell" id="13305">
+                    <property name="style">empty-cell</property>
+                </extended-item>
+                <extended-item extensionName="CrosstabCell" id="13310">
+                    <property name="style">empty-cell</property>
+                </extended-item>
+                <extended-item extensionName="CrosstabCell" id="13311">
+                    <property name="style">empty-cell</property>
+                </extended-item>
+                <extended-item extensionName="CrosstabCell" id="14708">
+                    <property name="display">none</property>
+                    <property name="style">empty-cell</property>
+                </extended-item>
+                <extended-item extensionName="CrosstabCell" id="13312">
+                    <property name="style">empty-cell</property>
+                </extended-item>
+                <extended-item extensionName="CrosstabCell" id="12912">
+                    <property name="style">empty-cell</property>
+                </extended-item>
+                <extended-item extensionName="CrosstabCell" id="12913">
+                    <property name="style">empty-cell</property>
+                </extended-item>
+                <extended-item extensionName="CrosstabCell" id="14707">
+                    <property name="display">none</property>
+                    <property name="style">empty-cell</property>
+                </extended-item>
+                <extended-item extensionName="CrosstabCell" id="12914">
+                    <property name="style">empty-cell</property>
+                </extended-item>
+            </property>
+            <method name="onCreate"><![CDATA[
+
+/**
+ * Called when crosstab cell is being created.
+ *
+ * @param cellInst
+ *            ICrosstabCellInstance
+ * @param reportContext
+ *            IReportContext
+ */
+
+function onCreateCell( cellInst, reportContext )
+{
+	if( cellInst.getCellType() == "aggregation"){
+		var team = cellInst.getDataValue("Employees Dates Joined DS::teamName");
+		var employee = cellInst.getDataValue("employeeId");
+		var date = cellInst.getDataValue("dayOfMonth");
+		var schedule = reportContext.getGlobalVariable("scheduleCellsData");
+
+		var works = false;
+		try { works = schedule[team][employee][date].works; } catch(e){}
+		if(!works){
+			cellInst.getStyle().setBackgroundColor("none");
+		}
+	}
+}
+]]></method>
+            <method name="onRender"><![CDATA[
+]]></method>
+            <property name="display">block</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">Employees Dates Joined DS::teamName</property>
+                    <expression name="expression">dimension["Group"]["Employees Dates Joined DS::teamName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">employeeName</property>
+                    <expression name="expression">dimension["Group"]["employeeName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">employeeType</property>
+                    <expression name="expression">dimension["Group"]["employeeType"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">shiftId_Group/employeeType</property>
+                    <expression name="expression">measure["shiftId"]</expression>
+                    <property name="dataType">integer</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Group/employeeType</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">dayOfMonth</property>
+                    <expression name="expression" type="javascript">dimension["Group1"]["dayOfMonth"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">shiftId_Group/employeeType_Group1/dayOfMonth</property>
+                    <expression name="expression">measure["shiftId"]</expression>
+                    <property name="dataType">integer</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Group/employeeType</value>
+                        <value>Group1/dayOfMonth</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">dayName</property>
+                    <expression name="expression">dimension["Group1"]["dayName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">shiftId_Group/employeeType_Group1/dayName</property>
+                    <expression name="expression">measure["shiftId"]</expression>
+                    <property name="dataType">integer</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Group/employeeType</value>
+                        <value>Group1/dayName</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">dayOfWeek</property>
+                    <expression name="expression">dimension["Group1"]["dayOfWeek"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">employeeId</property>
+                    <expression name="expression">dimension["Group"]["employeeId"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+        </extended-item>
+        <grid id="13651">
+            <property name="pageBreakBefore">always</property>
+            <column id="13652"/>
+            <row id="13653">
+                <cell id="13654">
+                    <property name="style">padding-05em</property>
+                    <text id="13576">
+                        <property name="style">emlogis-header-second</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[Unfilled shifts]]></text-property>
+                    </text>
+                </cell>
+            </row>
+        </grid>
+        <extended-item extensionName="Crosstab" extensionVersion="3.7.0" id="13574">
+            <property name="cube">Unfilled Joined DCube</property>
+            <property name="measures">
+                <extended-item extensionName="MeasureView" id="13599">
+                    <property name="measure">shiftId1</property>
+                    <property name="detail">
+                        <extended-item extensionName="AggregationCell" id="13600">
+                            <property name="aggregationOnRow">Group2/skillName</property>
+                            <property name="aggregationOnColumn">Group3/dayName</property>
+                            <property name="content">
+                                <table id="13608">
+                                    <property name="style">no-borders</property>
+                                    <property name="dataSet">UnfilledSchduleCell DS</property>
+                                    <list-property name="paramBindings">
+                                        <structure>
+                                            <property name="paramName">teamName</property>
+                                            <simple-property-list name="expression">
+                                                <value type="javascript">data["teamName"]</value>
+                                            </simple-property-list>
+                                        </structure>
+                                        <structure>
+                                            <property name="paramName">skillName</property>
+                                            <simple-property-list name="expression">
+                                                <value type="javascript">data["skillName"]</value>
+                                            </simple-property-list>
+                                        </structure>
+                                        <structure>
+                                            <property name="paramName">dayOfMonth</property>
+                                            <simple-property-list name="expression">
+                                                <value type="javascript">data["dayOfMonth"]</value>
+                                            </simple-property-list>
+                                        </structure>
+                                    </list-property>
+                                    <list-property name="boundDataColumns">
+                                        <structure>
+                                            <property name="name">shiftTime</property>
+                                            <text-property name="displayName">shiftTime</text-property>
+                                            <expression name="expression" type="javascript">dataSetRow["shiftTime"]</expression>
+                                            <property name="dataType">string</property>
+                                        </structure>
+                                        <structure>
+                                            <property name="name">amount</property>
+                                            <text-property name="displayName">cell_data</text-property>
+                                            <expression name="expression" type="javascript">dataSetRow["shiftTime"] + " (" + dataSetRow["amount"] + ")"</expression>
+                                            <property name="dataType">string</property>
+                                            <property name="allowExport">true</property>
+                                        </structure>
+                                        <structure>
+                                            <property name="name">shiftsAmount</property>
+                                            <text-property name="displayName">amount</text-property>
+                                            <expression name="expression" type="javascript">"(" + dataSetRow["amount"] + ")"</expression>
+                                            <property name="dataType">string</property>
+                                            <property name="allowExport">true</property>
+                                        </structure>
+                                        <structure>
+                                            <property name="name">time</property>
+                                            <text-property name="displayName">time</text-property>
+                                            <expression name="expression" type="javascript">dataSetRow["shiftTime"]</expression>
+                                            <property name="dataType">string</property>
+                                            <property name="allowExport">true</property>
+                                        </structure>
+                                    </list-property>
+                                    <column id="13622"/>
+                                    <header>
+                                        <row id="13609">
+                                            <cell id="13610">
+                                                <property name="style">empty-cell</property>
+                                            </cell>
+                                        </row>
+                                    </header>
+                                    <detail>
+                                        <row id="13614">
+                                            <cell id="13615">
+                                                <property name="style">no-borders</property>
+                                                <grid id="13662">
+                                                    <column id="13663">
+                                                        <property name="width">90%</property>
+                                                    </column>
+                                                    <column id="13664"/>
+                                                    <row id="13665">
+                                                        <cell id="13666">
+                                                            <data id="13671">
+                                                                <property name="resultSetColumn">time</property>
+                                                            </data>
+                                                        </cell>
+                                                        <cell id="13667">
+                                                            <data id="13670">
+                                                                <property name="resultSetColumn">shiftsAmount</property>
+                                                            </data>
+                                                        </cell>
+                                                    </row>
+                                                </grid>
+                                            </cell>
+                                        </row>
+                                    </detail>
+                                    <footer>
+                                        <row id="13619">
+                                            <cell id="13620">
+                                                <property name="style">empty-cell</property>
+                                            </cell>
+                                        </row>
+                                    </footer>
+                                </table>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="header">
+                        <extended-item extensionName="CrosstabCell" id="13602">
+                            <property name="style">empty-cell</property>
+                        </extended-item>
+                    </property>
+                </extended-item>
+            </property>
+            <property name="rows">
+                <extended-item extensionName="CrosstabView" id="13577">
+                    <property name="views">
+                        <extended-item extensionName="DimensionView" id="13578">
+                            <property name="dimension">Group2</property>
+                            <property name="levels">
+                                <extended-item extensionName="LevelView" name="NewLevel View5" id="13579">
+                                    <property name="level">Group2/teamName</property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="13580">
+                                            <property name="content">
+                                                <data name="teamName" id="13581">
+                                                    <property name="resultSetColumn">teamName</property>
+                                                </data>
+                                            </property>
+                                            <property name="style">highlighted-text-bold</property>
+                                        </extended-item>
+                                    </property>
+                                </extended-item>
+                                <extended-item extensionName="LevelView" name="NewLevel View6" id="13583">
+                                    <property name="level">Group2/skillName</property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="13584">
+                                            <property name="content">
+                                                <data name="skillName" id="13586">
+                                                    <property name="resultSetColumn">skillName</property>
+                                                </data>
+                                            </property>
+                                            <property name="style">highlighted-text-bold</property>
+                                        </extended-item>
+                                    </property>
+                                </extended-item>
+                            </property>
+                        </extended-item>
+                    </property>
+                </extended-item>
+            </property>
+            <property name="columns">
+                <extended-item extensionName="CrosstabView" id="13588">
+                    <property name="views">
+                        <extended-item extensionName="DimensionView" id="13589">
+                            <property name="dimension">Group3</property>
+                            <property name="levels">
+                                <extended-item extensionName="LevelView" name="NewLevel View9" id="13636">
+                                    <property name="level">Group3/dayOfWeek</property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="13637">
+                                            <property name="content">
+                                                <grid id="13627">
+                                                    <column id="13628">
+                                                        <property name="suppressDuplicates">true</property>
+                                                        <property name="width">90%</property>
+                                                    </column>
+                                                    <column id="13629"/>
+                                                    <row id="13630">
+                                                        <cell id="13631">
+                                                            <data name="dayName1" id="13597">
+                                                                <property name="resultSetColumn">dayName</property>
+                                                            </data>
+                                                        </cell>
+                                                        <cell id="13632">
+                                                            <data name="dayOfMonth1" id="13592">
+                                                                <property name="resultSetColumn">dayOfMonth</property>
+                                                            </data>
+                                                        </cell>
+                                                    </row>
+                                                </grid>
+                                            </property>
+                                            <property name="style">emlogis-table-header</property>
+                                        </extended-item>
+                                    </property>
+                                </extended-item>
+                                <extended-item extensionName="LevelView" name="NewLevel View7" id="13590">
+                                    <property name="level">Group3/dayOfMonth</property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="13591">
+                                            <property name="style">empty-cell</property>
+                                        </extended-item>
+                                    </property>
+                                </extended-item>
+                                <extended-item extensionName="LevelView" name="NewLevel View8" id="13593">
+                                    <property name="level">Group3/dayName</property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="13594">
+                                            <property name="style">empty-cell</property>
+                                        </extended-item>
+                                    </property>
+                                </extended-item>
+                            </property>
+                        </extended-item>
+                    </property>
+                </extended-item>
+            </property>
+            <property name="header">
+                <extended-item extensionName="CrosstabCell" id="13638">
+                    <property name="content">
+                        <text id="13656">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Team]]></text-property>
+                        </text>
+                    </property>
+                    <property name="style">emlogis-table-header</property>
+                </extended-item>
+                <extended-item extensionName="CrosstabCell" id="13639">
+                    <property name="content">
+                        <text id="13661">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Skill]]></text-property>
+                        </text>
+                    </property>
+                    <property name="style">emlogis-table-header</property>
+                </extended-item>
+                <extended-item extensionName="CrosstabCell" id="13595">
+                    <property name="style">empty-cell</property>
+                </extended-item>
+                <extended-item extensionName="CrosstabCell" id="13596">
+                    <property name="style">empty-cell</property>
+                </extended-item>
+                <extended-item extensionName="CrosstabCell" id="13604">
+                    <property name="style">empty-cell</property>
+                </extended-item>
+                <extended-item extensionName="CrosstabCell" id="13605">
+                    <property name="style">empty-cell</property>
+                </extended-item>
+                <extended-item extensionName="CrosstabCell" id="13575">
+                    <property name="style">empty-cell</property>
+                </extended-item>
+                <extended-item extensionName="CrosstabCell" id="13585">
+                    <property name="style">empty-cell</property>
+                </extended-item>
+            </property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">teamName</property>
+                    <expression name="expression">dimension["Group2"]["teamName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">skillName</property>
+                    <expression name="expression">dimension["Group2"]["skillName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">dayOfMonth</property>
+                    <expression name="expression">dimension["Group3"]["dayOfMonth"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">dayName</property>
+                    <expression name="expression">dimension["Group3"]["dayName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">shiftId1_Group2/skillName_Group3/dayName</property>
+                    <expression name="expression">measure["shiftId1"]</expression>
+                    <property name="dataType">integer</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Group2/skillName</value>
+                        <value>Group3/dayName</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">dayOfWeek</property>
+                    <expression name="expression">dimension["Group3"]["dayOfWeek"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+            </list-property>
+        </extended-item>
+    </body>
+</report>

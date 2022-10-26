@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>scheduler-server-db</artifactId>
+
+    <properties>
+        <scheduler.db.server.url>${prp.scheduler.db.server.url}</scheduler.db.server.url>
+        <scheduler.db.server.port>${prp.scheduler.db.server.port}</scheduler.db.server.port>
+        <scheduler.db.server.type>${prp.scheduler.db.server.type}</scheduler.db.server.type>
+        <scheduler.egs.db.name>${prp.scheduler.egs.db.name}</scheduler.egs.db.name>
+        <scheduler.jds.db.name>${prp.scheduler.jds.db.name}</scheduler.jds.db.name>
+        <scheduler.db.driver>${prp.scheduler.db.driver}</scheduler.db.driver>
+        <scheduler.egs.db.url>jdbc:${scheduler.db.server.type}://${scheduler.db.server.url}:${scheduler.db.server.port}/${scheduler.egs.db.name}</scheduler.egs.db.url>
+        <scheduler.jds.db.url>jdbc:${scheduler.db.server.type}://${scheduler.db.server.url}:${scheduler.db.server.port}/${scheduler.egs.db.name}</scheduler.jds.db.url>
+        <scheduler.db.user>${prp.scheduler.db.user}</scheduler.db.user>
+        <scheduler.db.password>${prp.scheduler.db.password}</scheduler.db.password>
+        <liquibase.version>3.3.2</liquibase.version>
+    </properties>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>database-configuration/properties</directory>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>database-configuration/changelog</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+                <version>1.0-alpha-2</version>
+                <executions>
+                    <execution>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>read-project-properties</goal>
+                        </goals>
+                        <configuration>
+                            <files>
+                                <file>${basedir}/database-configuration/properties/db.properties</file>
+                            </files>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-compiler-plugin</artifactId>-->
+            <!--</plugin>-->
+
+            <!--<plugin>-->
+                <!--<groupId>org.codehaus.mojo</groupId>-->
+                <!--<artifactId>sql-maven-plugin</artifactId>-->
+                <!--<version>1.5</version>-->
+                <!--<dependencies>-->
+                    <!--&lt;!&ndash; specify the dependent jdbc driver here &ndash;&gt;-->
+                    <!--<dependency>-->
+                        <!--<groupId>mysql</groupId>-->
+                        <!--<artifactId>mysql-connector-java</artifactId>-->
+                        <!--<version>${mysql.version}</version>-->
+                    <!--</dependency>-->
+                <!--</dependencies>-->
+                <!--&lt;!&ndash; COMMON CONFIGURATION shared by all executions &ndash;&gt;-->
+                <!--<configuration>-->
+                    <!--<printResultSet>true</printResultSet>-->
+                    <!--<driver>${scheduler.db.driver}</driver>-->
+                    <!--<url>${scheduler.egs.db.url}</url>-->
+                    <!--<username>${scheduler.db.user}</username>-->
+                    <!--<password>${scheduler.db.password}</password>-->
+                    <!--&lt;!&ndash; You can comment out username/password configurations and-->
+                         <!--have maven to look them up in your settings.xml using ${settingsKey}-->
+                    <!--&ndash;&gt;-->
+                    <!--<settingsKey>sensibleKey</settingsKey>-->
+                    <!--&lt;!&ndash;all executions are ignored if -Dmaven.test.skip=true&ndash;&gt;-->
+                    <!--<skip>${skipTests}</skip>-->
+                    <!--&lt;!&ndash;<skip>true</skip>&ndash;&gt;-->
+                <!--</configuration>-->
+
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>drop-db-before-test-if-any</id>-->
+                        <!--<phase>process-test-resources</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>execute</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--&lt;!&ndash; need another database to drop the targeted one &ndash;&gt;-->
+                            <!--<url>jdbc:${scheduler.db.server.type}://${scheduler.db.server.url}:${scheduler.db.server.port}/</url>-->
+                            <!--<autocommit>true</autocommit>-->
+                            <!--<sqlCommand>-->
+                                <!--SET foreign_key_checks = 0;-->
+                                <!--drop database if exists ${scheduler.egs.db.name};-->
+                                <!--drop database if exists ${scheduler.jds.db.name};-->
+                                <!--SET foreign_key_checks = 1;-->
+                            <!--</sqlCommand>-->
+                            <!--&lt;!&ndash; ignore error when database is not available &ndash;&gt;-->
+                            <!--<onError>continue</onError>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+
+                    <!--<execution>-->
+                        <!--<id>create-db</id>-->
+                        <!--<phase>process-test-resources</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>execute</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<url>jdbc:${scheduler.db.server.type}://${scheduler.db.server.url}:${scheduler.db.server.port}/</url>-->
+                            <!--&lt;!&ndash; no transaction &ndash;&gt;-->
+                            <!--<autocommit>true</autocommit>-->
+                            <!--<sqlCommand>-->
+                                <!--create database if not exists ${scheduler.egs.db.name}-->
+                                <!--CHARACTER SET utf8 COLLATE utf8_bin;-->
+                                <!--SET GLOBAL TRANSACTION ISOLATION LEVEL READ COMMITTED;-->
+
+                                <!--create database if not exists ${scheduler.jds.db.name}-->
+                                <!--CHARACTER SET utf8 COLLATE utf8_bin;-->
+                                <!--SET GLOBAL TRANSACTION ISOLATION LEVEL READ COMMITTED;-->
+                            <!--</sqlCommand>-->
+                            <!--<onError>continue</onError>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
+
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>${liquibase.version}</version>
+
+                <dependencies>
+                    <!-- specify the dependent jdbc driver here -->
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>${mysql.version}</version>
+                    </dependency>
+                </dependencies>
+
+                <configuration>
+                    <skip>false</skip>
+                    <!--<skip>true</skip>-->
+                    <propertyFile>db.properties</propertyFile>
+
+                    <driver>${scheduler.db.driver}</driver>
+                    <url>${scheduler.egs.db.url}</url>
+                    <username>${scheduler.db.user}</username>
+                    <password>${scheduler.db.password}</password>
+
+                    <changeLogFile>changelog.xml</changeLogFile>
+                    <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+                    <verbose>false</verbose>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>drop-tables</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>dropAll</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>create-tables</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>update</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>mark-db-up-to-date</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>changelogSync</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

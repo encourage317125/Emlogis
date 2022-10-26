@@ -1,0 +1,101 @@
+<div class="modal-header">
+    <h3>{{item.title}} NEW</h3>
+</div>
+ 
+    <div class="row">
+        <div class="col-sm-12">
+
+<div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">New {{entityLabel}}</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+
+                    <div class="col-sm-4 column">
+                        <form ng-submit="saveOrCreate()" >
+                            <div class="form-group">
+                                 <label for="startTime">Start Time</label>
+                                 <!--<input class="form-control" id="startTime" type="time" ng-model="elt.startTime" />-->
+                                <timepicker id="startTime" ng-model="elt.startTime"></timepicker>
+
+                            </div>
+                            <div class="form-group">
+                                 <label for="durationInMins">Length (mins after start time)</label>
+                                 <input class="form-control" id="durationInMins" ng-model="elt.durationInMins" />
+                            </div>
+
+                            <div class="form-group">
+                                 <label for="dayIndex">Day Index (0-28)</label>
+                                 <input class="form-control" type="number" id="dayIndex" ng-model="elt.dayIndex" min="0" max="28" />
+                            </div>
+                            <div data-ng-show="mode == 'Create'" class="form-group">
+                                 <label for="shiftLengthId">Shift Type (Id)</label>
+                                 <input class="form-control" id="shiftLengthId" ng-model="elt.shiftLengthId" readonly />
+                            </div>
+                            <div class="form-group">
+                                <label for="excess">Excess</label>
+                                <span class="btn boolean" id="excess" name="excess" ng-click="elt.excess=!elt.excess" ng-model="elt.excess">
+                                    <span class="on btn-primary" ng-show="elt.excess">ON</span>
+                                    <span class="off btn-default" ng-hide="elt.excess">OFF</span>
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <label for="night">Night</label>
+                                <span class="btn boolean" id="night" name="night"ng-click="elt.night=!elt.night" ng-model="elt.night">
+                                    <span class="on btn-primary" ng-show="elt.night">ON</span>
+                                    <span class="off btn-default" ng-hide="elt.night">OFF</span>
+                                </span>
+                            </div>
+
+
+                            <div data-ng-show="mode == 'Create'" class="form-group">
+                                 <label for="skillId">Skill (Id)</label>
+                                 <input class="form-control" id="skillId" ng-model="elt.skillId" readonly />
+                            </div>
+                            <div class="form-group">
+                                 <label for="employeeCount">Employee Count</label>
+                                 <input class="form-control" id="employeeCount" ng-model="elt.employeeCount" />
+                            </div>
+                            <div class="form-group">
+                                 <label for="skillProficiencyLevel">Proficiency Level (0-5)</label>
+                                <select class="form-control" id="skillProficiencyLevel" ng-model="elt.skillProficiencyLevel" ng-options="l for l in skillProficiencyLevels">
+                                </select>
+                            </div>
+
+                            <br>
+                            <br>
+                            <button type="submit" class="btn btn-default" data-ng-click="saveOrCreate()">{{modeBtn}}</button>
+
+                            <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+                        </form>
+                    </div>
+                    <div class="col-sm-4 column">
+                        <form role="form">
+                            <div class="form-group">
+                                 <label for="name">Created</label>
+                                 <input class="form-control" id="created" ng-model="elt.created" readonly />
+                            </div>
+                            <!--
+                            <label>Popup Text:</label>{{new Date(elt.created)}}
+                            <br><label>Popup Text:</label>{{new Date(elt.created).toString()}}
+                            -->
+                        </form>                 
+                    </div>
+                    <div class="col-sm-4 column">
+                         <button type="button" ui-sref="browser({entity: entity})" class="btn btn-default">&lt; Back to ShiftStructure (NA)</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        </div>
+    </div>
+
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="close()">Close</button>
+</div>

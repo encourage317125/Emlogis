@@ -1,0 +1,34 @@
+<div class="modal-header">
+    <h3>Duplicate Schedule</h3>
+</div>
+<div class="modal-body">
+    <form name="form-duplicate" novalidate>
+        <div class="form-group">
+            <label>Start date</label>
+
+            <span class="label label-danger" ng-show="form-duplicate.newStartDate.$error.required">Required</span>
+            <p class="input-group">
+                <input name="newStartDate" type="text" class="form-control" datepicker-popup="yyyy-MM-dd"
+                       ng-model="newSchedule.startDate" is-open="opened2"  required
+                       close-text="Close"/>
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event,'opened2')"><i
+                        class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+            </p>
+        </div>
+
+        <div class="form-group">
+            <label>Mode</label>
+            <select class="form-control" data-ng-model="newSchedule.mode"
+                    data-ng-options="a.label for a in assignModes">
+            </select>
+        </div>
+    </form>
+
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
+    <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+</div>

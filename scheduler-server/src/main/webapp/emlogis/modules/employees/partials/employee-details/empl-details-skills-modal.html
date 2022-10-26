@@ -1,0 +1,24 @@
+<div id="eml-profile-es">
+  <div class="modal-header">
+    <h4 class="modal-title">
+      <strong>{{ es.employee.firstName }} {{ es.employee.lastName }}</strong>
+      {{ ::"employees.SKILLS_MANAGEMENT" | translate }}
+    </h4>
+  </div>
+
+  <div class="modal-body">
+    <div class="row" ng-if="es.gridOptions.data">
+      <div class="eml-grid col-sm-12">
+        <div ui-grid="es.gridOptions"
+             ui-grid-selection></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <a ng-click="es.closeModal()" class="btn eml-btn-invisible">{{ ::"app.CLOSE" | translate }}</a>
+    <button ng-show="es.isEditing" ng-disabled="!authService.hasPermission('Employee_Mgmt')"
+            class="btn btn-primary" ng-click="es.saveSkills()">{{ ::"app.SAVE" | translate }}
+    </button>
+  </div>
+</div>

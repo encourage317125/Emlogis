@@ -1,0 +1,169 @@
+<!-- Employee Details: Tabs include starts -->
+
+<div class="container-fluid" ng-controller="EmployeeDetailsSidebarCtrl as sidebar">
+  <h4>{{ ::"employees.SUMMARY" | translate }}</h4>
+
+  <!-- LOGIN ACCOUNT -->
+  <div class="panel panel-default">
+    <div class="panel-heading text-uppercase">{{ ::"employees.USER_ACCOUNT" | translate }}</div>
+    <table class="table table-condensed">
+      <tbody>
+        <tr>
+          <td>{{ ::"app.STATUS" | translate }}:</td>
+          <td class="eml-strong text-capitalize">{{ sidebar.employee.userAccountDto.status }}</td>
+        </tr>
+        <tr>
+          <td>{{ ::"employees.ROLES" | translate }}:</td>
+          <td class="eml-strong text-capitalize">
+            <span ng-repeat="role in sidebar.employee.roleInfo">{{ role.roleName }}<span ng-show="sidebar.employee.roleInfo.length > $index+1">, </span></span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <div class="checkbox enable-notifications">
+              <label>
+                <input type="checkbox"
+                       ng-model="sidebar.employee.notificationSettings.isNotificationEnabled"
+                       ng-checked="sidebar.employee.notificationSettings.isNotificationEnabled"
+                       ng-change="sidebar.toggleNotifications(sidebar.employee.notificationSettings.isNotificationEnabled)">
+                {{ ::"employees.ENABLE_NOTIFICATIONS" | translate }}
+              </label>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="panel-footer" ng-click="sidebar.resetPassword()">
+      <a href>{{ ::"employees.RESET_PASS" | translate }}</a>
+    </div>
+  </div>
+
+  <!-- Automatically approvals -->
+  <div class="panel panel-default">
+    <div class="panel-heading">{{ ::"employees.AUTO_APPROVALS" | translate }}</div>
+    <div class="panel-body">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox"
+                 id="employee-availability"
+                 ng-model="sidebar.employee.autoApprovalsSettingDto.availAutoApprove"
+                 ng-checked="sidebar.employee.autoApprovalsSettingDto.availAutoApprove"
+                 ng-change="sidebar.updateEditingApprovals()"> {{ ::"employees.AVAILABILITY" | translate }}
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox"
+                 id="employee-wip"
+                 ng-model="sidebar.employee.autoApprovalsSettingDto.wipAutoApprove"
+                 ng-checked="sidebar.employee.autoApprovalsSettingDto.wipAutoApprove"
+                 ng-change="sidebar.updateEditingApprovals()"> {{ ::"employees.WIP" | translate }}
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox"
+                 id="employee-swap"
+                 ng-model="sidebar.employee.autoApprovalsSettingDto.swapAutoApprove"
+                 ng-checked="sidebar.employee.autoApprovalsSettingDto.swapAutoApprove"
+                 ng-change="sidebar.updateEditingApprovals()"> {{ ::"employees.SWAP" | translate }}
+        </label>
+      </div>
+
+      <button ng-show="sidebar.isEditingApprovals"
+              class="btn btn-success"
+              ng-disabled="!authService.hasPermission('Employee_Mgmt')"
+              ng-click="sidebar.saveApprovals()">{{ ::"app.SAVE" | translate }}</button>
+    </div>
+  </div>
+
+  <!-- PTO -->
+  <div class="panel panel-default">
+    <table class="table table-condensed">
+      <thead>
+        <tr>
+          <th>{{ ::"app.DATE" | translate }}</th>
+          <th>{{ ::"employees.PTO_TYPE" | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="pto in sidebar.employee.ptoInfo">
+          <td>{{ ::pto.startDateTime | date }}</td>
+          <td class="eml-strong text-capitalize">{{ ::pto.absenceTypeName }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="panel-footer" ng-click="sidebar.openPTOModal()">
+      <a href>{{ ::"employees.VIEW_PTO_HISTORY" | translate }}</a>
+    </div>
+  </div>
+
+  <!-- SKILLS -->
+  <div class="panel panel-default">
+    <table class="table table-condensed">
+      <thead>
+      <tr>
+        <th>{{ ::"nav.SKILLS" | translate }}</th>
+        <th>{{ ::"employees.SCORE" | translate }}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="skill in sidebar.employee.skillInfo"
+          ng-class="{ 'eml-strong' : skill.isPrimarySkill }"> <!-- TODO add prop when API is ready -->
+        <td><i class="fa fa-briefcase" ng-show="skill.isPrimarySkill"></i> {{ skill.name }}</td>
+        <td>{{ skill.skillScore }}</td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="panel-footer" ng-click="sidebar.openSkillsModal()"><a href>+ {{ ::"employees.MANAGE_SKILLS" | translate }}</a></div>
+  </div>
+
+  <!-- TEAMS -->
+  <div class="panel panel-default">
+    <table class="table table-condensed">
+      <thead>
+      <tr>
+        <th class="text-uppercase">{{ ::"nav.TEAMS" | translate }}</th>
+        <th>{{ ::"nav.SETTINGS" | translate }}</th>
+      </tr>
+      </thead>
+      <tbody>
+        <!-- display Home Team -->
+        <tr class="eml-strong">
+          <td><i class="fa fa-home"></i> {{ sidebar.employee.homeTeam.name }}</td>
+          <td>{{ ::"nav.HOME" | translate }}</td>
+        </tr>
+
+        <!-- list all Teams Employee belongs to -->
+        <tr ng-repeat="team in sidebar.employee.teamInfo">
+          <td>{{ team.name }}</td>
+          <td>
+            <span translate>{{ team.isFloating ? "employees.FLOAT" : "employees.ON" }}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="panel-footer" ng-click="sidebar.openTeamsModal()"><a href>+ {{ ::"employees.MANAGE_TEAMS" | translate }}</a></div>
+  </div>
+
+  <!-- LICENSES / CERTIFICATIONS TODO implement when/if API is ready-->
+  <!--<div class="panel panel-default">
+    <table class="table table-condensed">
+      <thead>
+      <tr>
+        <th>LICENSES & CERTIFICATIONS</th>
+        <th>Expires</th>
+      </tr>
+      </thead>
+      <tbody>
+      &lt;!&ndash;<tr>
+        <td>Vacation</td>
+        <td>5 days</td>
+      </tr>&ndash;&gt;
+      </tbody>
+    </table>
+    <div class="panel-footer"><a href>+ Add LICENSES/CERTIFICATIONS</a></div>
+  </div>-->
+</div>
+
+<!-- Employee Details: Tabs include starts -->

@@ -1,0 +1,591 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.4.0.v20150206-1039 Build &lt;4.2.3.v20150206-1039></property>
+    <list-property name="scriptLibs"/>
+    <property name="units">in</property>
+    <method name="initialize"><![CDATA[try {
+	emlogis.current.reportName = "Open Shift Requests";
+} catch(e){};]]></method>
+    <property name="theme">common.EmlogisGrayScales</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="layoutPreference">auto layout</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">96</property>
+    <list-property name="libraries">
+        <structure>
+            <property name="fileName">emlogis/report-libs/common.RPTLIBRARY</property>
+            <property name="namespace">common</property>
+        </structure>
+    </list-property>
+    <parameters>
+        <scalar-parameter name="restApiUrl" id="14759" extends="common.restApiUrl"/>
+        <scalar-parameter name="StartDate" id="13744" extends="common.StartDate"/>
+        <scalar-parameter name="EndDate" id="13745" extends="common.EndDate"/>
+        <cascading-parameter-group name="BasicReportCascadingParameterGroup" id="14085" extends="common.BasicReportCascadingParameterGroup">
+            <overridden-values>
+                <ref-entry baseId="11074" name="Security" id="11074"/>
+                <ref-entry baseId="11075" name="Site" id="11075"/>
+                <ref-entry baseId="14682" name="Teams" id="14682"/>
+            </overridden-values>
+        </cascading-parameter-group>
+    </parameters>
+    <data-sources>
+        <script-data-source name="Data Source" id="13735" extends="common.Data Source"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="Site DS" id="13736" extends="common.Site DS"/>
+        <script-data-set name="Team DS" id="13737" extends="common.Team DS"/>
+        <script-data-set name="Requests DS" id="13743">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">employeeName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">shiftTime</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">skill</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">date</property>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">requestDate</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">status</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">teamName</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">employeeName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">shiftTime</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">skill</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">date</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">requestDate</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">status</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+                <structure>
+                    <property name="columnName">teamName</property>
+                    <property name="analysis">dimension</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">employeeName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">shiftTime</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">skill</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">date</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">requestDate</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">status</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">teamName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[requestsCount = 0;
+currentEmployee = null;
+currentRequests = null;
+currentRequestsCount = 0;
+
+try {
+	requestsList = reportContext.getGlobalVariable("requestsList");
+}catch(e){
+	requestsList = null;
+}
+
+if (token &amp;&amp; !requestsList) {
+	var siteId = emlogis.current.site.get("id");
+	var teamIds = emlogis.current.teams.getIds().join(";");
+	var startDate = params["StartDate"].value.getTime();
+	var endDate = params["EndDate"].value.getTime();
+	var paramsString = "?type=" + vars["reportType"] + "&amp;site=" + siteId + "&amp;teams=" + teamIds + "&amp;startDate="+ startDate + "&amp;endDate=" + endDate;
+	requestsList = report.getListFromReportDto(token, "requests/report" + paramsString, "POST");
+	reportContext.setGlobalVariable("requestsList", requestsList);
+}]]></method>
+            <method name="fetch"><![CDATA[function fillEmployeeData(employee) {
+	row["employeeName"] = employee["employeeName"];
+	row["teamName"] = employee["teamName"];
+    row["requestDate"] = emlogis.date.toString(toSiteTime(employee["requestDate"]), "mm-dd-yyyy HH:MM:ss TT");
+}
+
+function fillRequestData(request) {
+	row["shiftTime"] = emlogis.date.toShort12TimeString(toSiteTime(request["shiftStartTime"])) + 
+		" - " + emlogis.date.toShort12TimeString(toSiteTime(request["shiftEndTime"]));
+    row["skill"] = request["skill"];
+    row["date"] = toSiteTime(request["date"]);
+    row["status"] = request["status"];
+}
+
+/*
+ * Process requests for current employee
+ */
+if(currentEmployee &amp;&amp; currentRequests &amp;&amp; currentRequestsCount < currentRequests.size()) {
+	fillEmployeeData(currentEmployee);
+	fillRequestData(currentRequests.get(currentRequestsCount));
+	currentRequestsCount++;
+	return true;
+} else {
+	currentEmployee = null;
+	currentRequests = null;
+	currentRequestsCount = 0;
+}
+
+/*
+ * Process employees
+ */
+if (!currentEmployee &amp;&amp; !currentRequests &amp;&amp; token != null &amp;&amp; requestsCount < requestsList.size()) {
+	currentEmployee = requestsList.get(requestsCount);
+	currentRequests = currentEmployee["requests"];
+	
+	fillEmployeeData(currentEmployee);
+	fillRequestData(currentRequests.get(currentRequestsCount));
+	currentRequestsCount++;
+	
+    requestsCount++;
+    return true;
+}
+
+return false;]]></method>
+        </script-data-set>
+    </data-sets>
+    <page-setup>
+        <simple-master-page name="Portrait" id="13942">
+            <page-header>
+                <grid name="Report header" id="13943" extends="common.Report header">
+                    <list-property name="boundDataColumns">
+                        <structure>
+                            <property name="name">reportTime</property>
+                            <text-property name="displayName">Report time interval</text-property>
+                            <expression name="expression" type="javascript">var startDate = emlogis.date.toDateString(new Date(params["StartDate"].value.getTime()));&#13;
+var endDate = emlogis.date.toDateString(new Date(params["EndDate"].value.getTime()));&#13;
+"Date range: "+ startDate + " to " + endDate;</expression>
+                            <property name="dataType">string</property>
+                            <property name="allowExport">true</property>
+                        </structure>
+                        <structure>
+                            <property name="name">reportName</property>
+                            <text-property name="displayName">Report Name</text-property>
+                            <expression name="expression" type="javascript">emlogis.current.reportName + ": "+emlogis.current.site.get("name")</expression>
+                            <property name="dataType">string</property>
+                            <property name="allowExport">true</property>
+                        </structure>
+                    </list-property>
+                    <overridden-values>
+                        <ref-entry baseId="13738" id="14765"/>
+                        <ref-entry baseId="13739" id="14766"/>
+                        <ref-entry baseId="13740" id="13740"/>
+                        <ref-entry baseId="13741" id="13741"/>
+                        <ref-entry baseId="13742" name="NewGrid11" id="13742"/>
+                        <ref-entry baseId="13743" id="14767"/>
+                        <ref-entry baseId="13744" id="14768"/>
+                        <ref-entry baseId="13745" id="14769"/>
+                        <ref-entry baseId="13746" name="NewData111" id="13746">
+                            <property name="resultSetColumn">reportName</property>
+                        </ref-entry>
+                        <ref-entry baseId="13747" id="13747"/>
+                        <ref-entry baseId="13748" name="NewGrid2" id="13748"/>
+                        <ref-entry baseId="13749" id="13749"/>
+                        <ref-entry baseId="13750" id="13750"/>
+                        <ref-entry baseId="13751" id="13751"/>
+                        <ref-entry baseId="13752" name="NewData21" id="13752">
+                            <property name="resultSetColumn">reportTime</property>
+                        </ref-entry>
+                        <ref-entry baseId="13775" id="13775"/>
+                        <ref-entry baseId="13776" id="13776"/>
+                        <ref-entry baseId="10833" name="NewGrid" id="10833"/>
+                        <ref-entry baseId="10834" id="10834"/>
+                        <ref-entry baseId="10835" id="10835"/>
+                        <ref-entry baseId="10836" id="10836"/>
+                        <ref-entry baseId="13779" name="NewTextData1" id="13779"/>
+                    </overridden-values>
+                </grid>
+            </page-header>
+            <page-footer>
+                <grid name="Report footer" id="13954" extends="common.Report footer">
+                    <overridden-values>
+                        <ref-entry baseId="13754" id="13754"/>
+                        <ref-entry baseId="13755" id="13755"/>
+                        <ref-entry baseId="13756" id="13756"/>
+                        <ref-entry baseId="13757" id="13757"/>
+                        <ref-entry baseId="13758" name="NewTextData111" id="13758"/>
+                        <ref-entry baseId="13759" id="13759"/>
+                        <ref-entry baseId="13760" name="NewGrid1111" id="13760"/>
+                        <ref-entry baseId="13761" id="13761"/>
+                        <ref-entry baseId="13762" id="13762"/>
+                        <ref-entry baseId="13763" id="13763"/>
+                        <ref-entry baseId="13764" id="13764"/>
+                        <ref-entry baseId="13765" id="13765"/>
+                        <ref-entry baseId="13766" id="13766"/>
+                        <ref-entry baseId="13767" name="NewText211" id="13767"/>
+                        <ref-entry baseId="13768" id="13768"/>
+                        <ref-entry baseId="13769" name="NewAutoText211" id="13769"/>
+                        <ref-entry baseId="13770" id="13770"/>
+                        <ref-entry baseId="13771" name="NewText1111" id="13771"/>
+                        <ref-entry baseId="13772" id="13772"/>
+                        <ref-entry baseId="13773" name="NewAutoText1111" id="13773"/>
+                    </overridden-values>
+                </grid>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <table id="13848">
+            <list-property name="userProperties">
+                <structure>
+                    <property name="name">__ac_group_collapse_level</property>
+                    <property name="type">string</property>
+                </structure>
+            </list-property>
+            <property name="style">only-top-border</property>
+            <property name="dataSet">Requests DS</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">employeeName</property>
+                    <text-property name="displayName">employeeName</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["employeeName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">shiftTime</property>
+                    <text-property name="displayName">shiftTime</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["shiftTime"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">skill</property>
+                    <text-property name="displayName">skill</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["skill"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">date</property>
+                    <text-property name="displayName">date</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["date"]</expression>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="name">requestDate</property>
+                    <text-property name="displayName">requestDate</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["requestDate"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">status</property>
+                    <text-property name="displayName">status</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["status"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">teamName</property>
+                    <expression name="expression" type="javascript">dataSetRow["teamName"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+            </list-property>
+            <column id="13882"/>
+            <column id="14065"/>
+            <column id="13883"/>
+            <column id="13884"/>
+            <column id="13885"/>
+            <column id="13886"/>
+            <column id="13887"/>
+            <header>
+                <row id="13849">
+                    <cell id="13850">
+                        <property name="style">no-borders</property>
+                    </cell>
+                    <cell id="14057">
+                        <property name="style">no-borders</property>
+                        <label id="14084">
+                            <property name="style">allign-center</property>
+                            <text-property name="text">Employee Name</text-property>
+                        </label>
+                    </cell>
+                    <cell id="13852">
+                        <property name="style">no-borders</property>
+                        <label id="13853">
+                            <property name="style">allign-center</property>
+                            <text-property name="text">Requested Shift</text-property>
+                        </label>
+                    </cell>
+                    <cell id="13854">
+                        <property name="style">no-borders</property>
+                        <label id="13855">
+                            <property name="style">allign-center</property>
+                            <text-property name="text">Skill</text-property>
+                        </label>
+                    </cell>
+                    <cell id="13856">
+                        <property name="style">no-borders</property>
+                        <label id="13857">
+                            <property name="style">allign-center</property>
+                            <text-property name="text">Date</text-property>
+                        </label>
+                    </cell>
+                    <cell id="13858">
+                        <property name="style">no-borders</property>
+                        <label id="13859">
+                            <property name="style">allign-center</property>
+                            <text-property name="text">Request Date</text-property>
+                        </label>
+                    </cell>
+                    <cell id="13860">
+                        <property name="style">no-borders</property>
+                        <label id="13861">
+                            <property name="style">allign-center</property>
+                            <text-property name="text">Status</text-property>
+                        </label>
+                    </cell>
+                </row>
+            </header>
+            <group id="14041">
+                <property name="groupName">By Team Name</property>
+                <expression name="keyExpr" type="javascript">row["teamName"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue" type="javascript">row["teamName"]</expression>
+                </structure>
+                <property name="hideDetail">false</property>
+                <property name="pageBreakBefore">always-excluding-first</property>
+                <header>
+                    <row id="14042">
+                        <property name="style">no-bottom-border</property>
+                        <cell id="14043">
+                            <property name="style">padding-05em</property>
+                            <data id="14056">
+                                <property name="style">emlogis-header-first</property>
+                                <property name="resultSetColumn">teamName</property>
+                            </data>
+                        </cell>
+                        <cell id="14060">
+                            <property name="style">no-borders</property>
+                        </cell>
+                        <cell id="14044">
+                            <property name="style">no-borders</property>
+                        </cell>
+                        <cell id="14045">
+                            <property name="style">no-borders</property>
+                        </cell>
+                        <cell id="14046">
+                            <property name="style">no-borders</property>
+                        </cell>
+                        <cell id="14047">
+                            <property name="style">no-borders</property>
+                        </cell>
+                        <cell id="14048">
+                            <property name="style">no-borders</property>
+                        </cell>
+                    </row>
+                </header>
+                <footer>
+                    <row id="14049">
+                        <cell id="14050">
+                            <property name="style">empty-cell</property>
+                        </cell>
+                        <cell id="14062">
+                            <property name="style">empty-cell</property>
+                        </cell>
+                        <cell id="14051">
+                            <property name="style">empty-cell</property>
+                        </cell>
+                        <cell id="14052">
+                            <property name="style">empty-cell</property>
+                        </cell>
+                        <cell id="14053">
+                            <property name="style">empty-cell</property>
+                        </cell>
+                        <cell id="14054">
+                            <property name="style">empty-cell</property>
+                        </cell>
+                        <cell id="14055">
+                            <property name="style">empty-cell</property>
+                        </cell>
+                    </row>
+                </footer>
+            </group>
+            <group id="14066">
+                <property name="groupName">By Employee Name</property>
+                <expression name="keyExpr" type="javascript">row["employeeName"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue" type="javascript">row["employeeName"]</expression>
+                </structure>
+                <property name="hideDetail">false</property>
+                <header>
+                    <row id="14067">
+                        <property name="style">emlogis-header-second</property>
+                        <cell id="14068"/>
+                        <cell id="14069">
+                            <property name="style">border-bottom</property>
+                            <data id="14083">
+                                <property name="resultSetColumn">employeeName</property>
+                            </data>
+                        </cell>
+                        <cell id="14070">
+                            <property name="style">border-bottom</property>
+                        </cell>
+                        <cell id="14071">
+                            <property name="style">border-bottom</property>
+                        </cell>
+                        <cell id="14072">
+                            <property name="style">border-bottom</property>
+                        </cell>
+                        <cell id="14073">
+                            <property name="style">border-bottom</property>
+                        </cell>
+                        <cell id="14074">
+                            <property name="style">border-bottom</property>
+                        </cell>
+                    </row>
+                </header>
+                <footer>
+                    <row id="14075">
+                        <cell id="14076"/>
+                        <cell id="14077"/>
+                        <cell id="14078"/>
+                        <cell id="14079"/>
+                        <cell id="14080"/>
+                        <cell id="14081"/>
+                        <cell id="14082"/>
+                    </row>
+                </footer>
+            </group>
+            <detail>
+                <row id="13862">
+                    <cell id="13863">
+                        <property name="style">no-borders</property>
+                    </cell>
+                    <cell id="14061">
+                        <property name="style">no-borders</property>
+                    </cell>
+                    <cell id="13865">
+                        <property name="style">no-borders</property>
+                        <data id="13866">
+                            <property name="style">allign-center</property>
+                            <property name="resultSetColumn">shiftTime</property>
+                        </data>
+                    </cell>
+                    <cell id="13867">
+                        <property name="style">no-borders</property>
+                        <data id="13868">
+                            <property name="style">allign-center</property>
+                            <property name="resultSetColumn">skill</property>
+                        </data>
+                    </cell>
+                    <cell id="13869">
+                        <property name="style">no-borders</property>
+                        <data id="13870">
+                            <property name="style">allign-center</property>
+                            <property name="resultSetColumn">date</property>
+                        </data>
+                    </cell>
+                    <cell id="13871">
+                        <property name="style">no-borders</property>
+                        <data id="13872">
+                            <property name="style">allign-center</property>
+                            <property name="resultSetColumn">requestDate</property>
+                        </data>
+                    </cell>
+                    <cell id="13873">
+                        <property name="style">no-borders</property>
+                        <data id="13874">
+                            <property name="style">allign-center</property>
+                            <property name="resultSetColumn">status</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+            <footer>
+                <row id="13875">
+                    <cell id="13876">
+                        <property name="style">empty-cell</property>
+                    </cell>
+                    <cell id="14064">
+                        <property name="style">empty-cell</property>
+                    </cell>
+                    <cell id="13877">
+                        <property name="style">empty-cell</property>
+                    </cell>
+                    <cell id="13878">
+                        <property name="style">empty-cell</property>
+                    </cell>
+                    <cell id="13879">
+                        <property name="style">empty-cell</property>
+                    </cell>
+                    <cell id="13880">
+                        <property name="style">empty-cell</property>
+                    </cell>
+                    <cell id="13881">
+                        <property name="style">empty-cell</property>
+                    </cell>
+                </row>
+            </footer>
+        </table>
+    </body>
+    <property name="pageVariables">
+        <variable-element name="reportType">
+            <expression name="value" type="javascript">"Open Shift Request"</expression>
+            <property name="type">report</property>
+        </variable-element>
+    </property>
+</report>

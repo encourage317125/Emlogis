@@ -1,0 +1,45 @@
+<div id="eml-home">
+  <div ui-view="homeContent">
+
+    <div class="row">
+      <div class="col-md-6 logo">
+        <img src="img/login/login_logo.png" alt="logo"/>
+      </div>
+      <div class="col-md-6"></div>
+    </div>
+
+    <div class="row">
+      <!-- Left side -->
+      <div id="left" class="col-md-6">
+        <div class="wrapper white">
+          <h2>Welcome!</h2>
+          <h4>You have successfully logged in to the EmLogis Administrator Portal.</h4>
+          <h4>Select one of the tabs in the menu above to get started.</h4>
+        </div>
+      </div>
+
+      <!-- Right side -->
+      <div id="right" class="col-md-6">
+        <!-- item -->
+        <div class="layout-horizontal layout-wrap">
+          <div class="item" ng-repeat="item in home.statItems | filter: {visible: true} ">
+            <!--if user haven't access to page show badge without link-->
+            <a ng-if="hasStatePermissionsByName(item.url)" ui-sref="{{ item.url }}">
+              <div class="box white link">
+                <p class="num">{{ item.num }}</p>
+                <p class="title">{{ item.title }}</p>
+              </div>
+            </a>
+            <a ng-if="!hasStatePermissionsByName(item.url)">
+              <div class="box white">
+                <p class="num">{{ item.num }}</p>
+                <p class="title">{{ item.title }}</p>
+              </div>
+            </a>
+          </div>
+        </div> <!-- /item -->
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,10 @@
+<div class="save-work-modal">
+    <h4>{{'app.YOU_HAVE_UNSAVED_CHANGES_IN' | translate }} {{ entityName | translate }} .</h4>{{'app.PLEASE_SAVE_YOUR_WORK_OR_DISCARD_CHANGES_TO_PROCEED' | translate}}.
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12" style="overflow: hidden; padding-top: 10px; clear: both;">
+            <button ng-click="close()" class="btn btn-default close-btn pull-right" translate>app.CANCEL</button>
+            <button ng-click="discard()" class="btn btn-default discard-btn pull-right" translate>app.DISCARD</button>
+            <button ng-click="save()" class="btn btn-default save-btn pull-right" translate>app.SAVE</button>
+        </div>
+    </div>
+</div>

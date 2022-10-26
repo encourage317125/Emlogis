@@ -1,0 +1,654 @@
+/* Rules module style stars */
+
+// Import variables
+@import '../../../../_main/assets/stylesheets/bootstrap_variables.scss';
+@import '../../../../_main/assets/stylesheets/emlogis_variables.scss';
+
+#rules {
+
+  //--------------------------------------------------------------------
+  // Common for all tabs
+  //--------------------------------------------------------------------
+
+  //
+  // Position spin loader
+  // in Action Bar section
+
+  .eml-action-bar {
+    .form-inline {
+      .circularG {
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 15px;
+      }
+    }
+  }
+
+
+  .no-horizontal-padding {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .alert {
+    margin: 8px 0;
+  }
+
+
+
+  //--------------------------------------------------------------------
+  // GENERAL tab
+  //--------------------------------------------------------------------
+
+  //
+  // Tables for Org Settings
+
+  .table {
+    margin-bottom: 15px;
+
+    & > tbody > tr > td {
+      vertical-align: middle;
+    }
+
+    thead {
+      background-color: #eee;
+    }
+  }
+
+  .table-bordered > thead > tr > th,
+  .table-bordered > thead > tr > td {
+    border-bottom-width: 1px;
+  }
+
+
+  //
+  // Sortable
+
+  .ui-sortable-helper {
+    background-color: #fff;
+    box-shadow: $eml-el-shadow-hover;
+  }
+
+
+
+  //--------------------------------------------------------------------
+  // Sites & Teams tab
+  //--------------------------------------------------------------------
+
+  //
+  // Check box above the Edit section
+
+  .check-box-above-edit {
+    bottom: -15px;
+  }
+
+
+
+  //
+  // Position Overtime section
+  // in Site form
+
+  #begin-overtime {
+    p {
+      color: $eml-dark-grey;
+      margin-bottom: 5px;
+    }
+
+    label {
+      padding-left: 0;
+      text-align: left;
+    }
+
+    input {
+      width: 55px;
+      text-align: center;
+      padding: 5px 10px;
+    }
+
+    .form-group {
+      & > .row {
+        margin-left: 0;
+        margin-right: 0;
+
+        & > div {
+          padding-right: 7px;
+        }
+
+        & > div:not(:last-child) {
+          margin-bottom: 4px;
+        }
+      }
+    }
+  }
+
+  .field-with-side-text {
+    & > div {
+      padding-left: 0;
+      padding-right: 0;
+
+      .side-text {
+        margin-left: 10px;
+        margin-top: 4px;
+        color: $eml-dark-grey;
+      }
+    }
+  }
+
+
+
+  //
+  // Teams panels
+
+  .eml-new-panel {
+    border-color: $brand-warning;
+    box-shadow: 0 0 3px $brand-warning;
+  }
+
+  .eml-selected {
+    border-color: $brand-primary;
+    box-shadow: 0 0 3px $brand-primary;
+  }
+
+
+
+  //
+  // Remove Employees grid
+
+  #eml-teams-remove-employees {
+
+    .ui-grid-cell:not(.not-selectable) {
+      cursor: pointer;
+    }
+
+    .ui-grid-row.ui-grid-row-selected > [ui-grid-row] > .ui-grid-cell {
+      background-color: $eml-red-transparent-light !important;
+    }
+
+    .ui-grid-row.ui-grid-row-selected:nth-child(even) > [ui-grid-row] > .ui-grid-cell {
+      background-color: $eml-red-transparent-dark !important;
+    }
+
+    .ui-grid-row-header-cell.not-selectable {
+      .ui-grid-selection-row-header-buttons {
+        cursor: auto;
+        opacity: 0;
+      }
+    }
+  }
+  
+
+
+  // 
+  // Skills tags
+  
+  .eml-tags {
+    //margin-top: $padding-base-horizontal;
+    margin-bottom: $padding-base-horizontal + 2; // 2px are added to visually compensate shadow
+  }
+
+  .well {
+    margin-bottom: $padding-base-horizontal;
+
+    label,
+    .label-text {
+      font-size: 12px;
+    }
+
+    .label-text {
+      text-transform: uppercase;
+      font-weight: 300;
+    }
+  }
+
+
+
+  //
+  // Tooltip
+
+  .tooltip {
+    white-space: nowrap;
+    left: -47px !important;
+    top: 9px !important;
+  }
+
+
+
+  //
+  // Sidebar
+
+  .sidebar {
+    position: relative;
+    //left: -300px;
+    //width: 300px;
+    //visibility: hidden;
+    //overflow-y: auto;
+    background-color: #fff;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+  }
+
+  .site-selected {
+    color: $brand-primary;
+  }
+
+
+  // Sidebar toggle styling
+
+  #wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+  }
+
+  #wrapper.toggled {
+    padding-left: 250px;
+  }
+
+  #sidebar-wrapper {
+    // z-index: 1000;
+    position: absolute;
+    //left: 250px;
+    width: 250px;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    //background: #fff;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+
+    padding: 15px;
+
+    h3 {
+      margin-top: 0;
+      padding-top: 0;
+    }
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    width: 250px;
+  }
+
+  #page-content-wrapper {
+    //width: 100%;
+    //position: absolute;
+    //padding: 15px;
+    border-left: 1px solid #ccc;
+  }
+
+  #wrapper.toggled #page-content-wrapper {
+    //position: absolute;
+    margin-right: 0;
+    //margin-right: -250px;
+  }
+}
+
+
+
+//--------------------------------------------------------------------
+// Add Employees modal
+//--------------------------------------------------------------------
+
+#eml-teams-add-employees {
+  .ui-grid-row.ui-grid-row-selected > [ui-grid-row] > .ui-grid-cell {
+    background-color: $eml-green-transparent-light !important;
+  }
+
+  .ui-grid-row.ui-grid-row-selected:nth-child(even) > [ui-grid-row] > .ui-grid-cell {
+    background-color: $eml-green-transparent-dark !important;
+  }
+
+  // bug w grid width TODO
+  .ui-grid-canvas {
+    width: 840px;
+  }
+}
+
+
+
+//--------------------------------------------------------------------
+// Absence Types tab
+//--------------------------------------------------------------------
+
+#eml-absence-types {
+  h4 {
+    font-size: 17px;
+
+    strong {
+      font-weight: 400;
+    }
+  }
+
+  .not-editing {
+    td {
+      padding-left: 31px;
+    }
+  }
+}
+
+
+
+//--------------------------------------------------------------------
+// Shift Lengths & Types tab
+//--------------------------------------------------------------------
+
+#eml-shift {
+
+  /* Shift Lengths */
+
+  .shift-length-row {
+    margin: 5px 0;
+  }
+
+  .shift-length-title {
+    width: 160px;
+    font-weight: 400;
+    display: inline-block;
+
+    .eml-grey {
+      font-weight: 300;
+    }
+  }
+
+  .shift-length {
+    width: 80px;
+    display: inline-block;
+    color: $eml-green-highlight-dark;
+    padding: 1px 4px 1px 0;
+    border: 1px solid transparent;
+    border-radius: 3px;
+
+    &.inactive .shift-length-text {
+      color: $eml-mid-grey;
+      font-weight: 300;
+    }
+
+    &:not(.inactive).selected {
+      background-color: $eml-mid-grey;
+      border-color: $eml-mid-grey;
+      color: #fff;
+    }
+
+    &:hover:not(.inactive),
+    &:active:not(.inactive),
+    &:focus:not(.inactive) {
+      cursor: pointer;
+      border-color: $eml-mid-grey;
+    }
+
+    .checkbox-inline {
+      vertical-align: baseline;
+
+      input {
+        margin-left: -15px;
+      }
+      span {
+        visibility: hidden;
+      }
+    }
+  }
+
+
+
+  /* Shift Types */
+
+  .panel > .eml-editable-table {
+    border-radius: 0;
+    box-shadow: none;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 0;
+  }
+
+  .panel-body {
+    padding-bottom: 0;
+  }
+
+  .eml-row-selected {
+    background-color: $eml-green-transparent-light;
+  }
+}
+
+.eml-selected-type-length {
+  display: block;
+  font-size: $font-size-h2;
+  color: $eml-green-highlight-dark;
+  font-weight: 300;
+  line-height: $font-size-h2;
+}
+
+.timepicker {
+  tbody > tr.text-center {
+    display: none;
+  }
+}
+
+
+
+//--------------------------------------------------------------------
+// Add New Shift Lengths modal
+//--------------------------------------------------------------------
+
+#eml-new-shift-lengths {
+
+  .shift-lengths-list {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .new-length {
+    width: 20%;
+    display: inline-block;
+    padding: 9px 5px 0 0;
+
+    .checkbox-inline {
+      padding-left: 16px;
+    }
+
+    input {
+      margin-left: -16px;
+    }
+  }
+}
+
+//--------------------------------------------------------------------
+// Bulk Add New Types modal
+//--------------------------------------------------------------------
+
+#eml-bulk-shift-types {
+  .modal-body {
+    padding-bottom: 0;
+  }
+}
+
+.eml-horizontal-label {
+  line-height: $eml-el-height;
+}
+
+
+
+// EmLogis search field
+// for filtering table
+
+.eml-search.input-group {
+  width: 240px;
+  display: none;   // TODO: temp
+
+  .btn-default {
+    background-color: $eml-light-grey;
+    border-color: #ccc;
+    box-shadow: none;
+    width: 30px;
+    height: $eml-el-height;
+
+    &:hover {
+      background-color: #d5d5d5;
+    }
+
+    img {
+      height: 16px;
+      position: absolute;
+      margin: auto;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: -2px;
+    }
+  }
+}
+
+
+
+//--------------------------------------------------------------------
+// HOLIDAY tab
+//--------------------------------------------------------------------
+
+/*  Holidays page start */
+
+#holidays-table {
+  .date-input {
+    display: flex;
+    .input-group-btn {
+      width: 55px;
+    }
+  }
+
+  ul[datepicker-popup-wrap] {
+    right: 7px !important;
+  }
+
+  .name-column,
+  .cell-date {
+    font-weight: 500;
+    margin-left: 15px;
+  }
+
+  .save-btn {
+    padding: 0 15px;
+    margin-right: 10px;
+  }
+
+  .edit-btn,
+  .remove-holiday {
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+
+  .edit-btn {
+    color: #899498;
+  }
+
+  .remove-holiday {
+    color: #b0bec4;
+  }
+}
+
+#to-year-picker {
+  display: inline-block;
+  margin: 0 15px;
+}
+
+/*  Holidays page end */
+
+
+//--------------------------------------------------------------------
+// SKILLS tab
+//--------------------------------------------------------------------
+
+.rules-skills {
+  $skills-black: #2e3138;
+  $skills-grey: #899498;
+
+  .panel {
+    margin-bottom: 12px;
+
+    .panel-title {
+      font-weight: 500;
+      color: $skills-black;
+      margin-left: 10px;
+      bottom: -2px;
+    }
+
+    .panel-body {
+      margin-bottom: 25px;
+      margin-left: 20px;
+    }
+  }
+
+  .eml-panel-header-right {
+    font-size: $font-size-h6;
+    color: $skills-grey;
+
+    .skills-header-value {
+      color: $skills-black;
+      margin-right: 10px;
+    }
+
+    .vertical-divider {
+      margin-left: -5px;
+      margin-right: 5px;
+    }
+
+    .checkbox-inline {
+      vertical-align: initial;
+    }
+
+    .skills-edit-icon {
+      color: $skills-grey;
+    }
+
+    .skills-delete-icon {
+      color: #b0bec4;
+      margin-left: 10px;
+    }
+
+    .btn-success {
+      padding: 0 10px;
+    }
+  }
+
+  .skiil-has-teams {
+    margin-bottom: 25px;
+    h4, h5 {
+      font-weight: 500;
+    }
+    .skills-teams {
+      font-weight: 500;
+      color: $skills-grey;
+    }
+  }
+
+}
+
+.modal-header {
+  .close {
+    font-size: 25px;
+  }
+}
+
+.team-to-add,
+.emlogis .eml-grid .ui-grid-row-header-cell.team-to-add {
+  background-color: #daf4da !important;
+}
+
+.emlogis .teams-grid .eml-grid .ui-grid-row:nth-child(even) .ui-grid-cell.team-to-add {
+  background-color: #e5ffe5 !important;
+}
+
+
+.team-to-remove,
+.emlogis .eml-grid .ui-grid-row-header-cell.team-to-remove {
+  background-color: #fadbd8 !important;
+}
+
+.emlogis .teams-grid .eml-grid .ui-grid-row:nth-child(even) .ui-grid-cell.team-to-remove {
+  background-color: #f1d2ce !important;
+}
+
+
+
+/* Rules module style ends */

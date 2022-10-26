@@ -1,0 +1,13 @@
+<div class="row top-margin-base">
+  <div class="col-sm-12">
+    <div ng-if="relatedEntity.entityDetails.needPagination">
+      <entity-list entity-details="relatedEntity.entityDetails"
+                   get-entity-list="relatedEntity.getEntityList(gridOptions, paginationOptions)"
+                   convert-entity-to-grid-row="relatedEntity.convertEntityToGridRow(message)"></entity-list>
+    </div>
+    <div ng-if="!relatedEntity.entityDetails.needPagination">
+      <entity-list entity-details="relatedEntity.entityDetails" get-entity-list="relatedEntity.getEntityList()"
+                   convert-entity-to-grid-row="relatedEntity.convertEntityToGridRow(message)"></entity-list>
+    </div>
+  </div>
+</div>

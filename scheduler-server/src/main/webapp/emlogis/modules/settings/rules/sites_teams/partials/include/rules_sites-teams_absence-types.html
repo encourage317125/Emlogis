@@ -1,0 +1,169 @@
+<div ng-controller="RulesAbsenceTypesCtrl as abs">
+
+  <div id="eml-absence-types">
+
+    <div class="row eml-action-bar">
+      <div class="col-xs-6">
+        <h4>Update Absence Types for Site: <strong>{{ abs.site.name }}</strong></h4>
+      </div>
+      <div class="col-xs-6 text-right">
+        <div ng-if="hasMgmtPermission()">
+          <button type="button"
+                  class="btn btn-default"
+                  ng-disabled="abs.newTypeIsCreating()"
+                  ng-click="abs.addNewType()">
+            {{ ::"rules.site_teams.ADD_TYPE" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+
+        <!-- Editable table -->
+        <table class="table eml-editable-table eml-table-striped">
+          <thead class="text-uppercase">
+          <tr>
+            <th class="col-md-2" translate>{{ 'rules.site_teams.ABSENCE_TYPE' }}</th>
+            <th class="col-md-5" translate>{{ 'app.DESCRIPTION' }}</th>
+            <th class="col-md-2" translate>{{ 'rules.site_teams.DEDUCTIBLE_HOURS' }}</th>
+            <th class="col-md-1 text-center" translate>{{ 'rules.skills.ACTIVE' }}</th>
+            <th class="col-md-2"></th>
+          </tr>
+          </thead>
+
+          <tbody>
+            <tr ng-repeat-start="type in abs.types" ng-show="!type.isEditing" > <!-- class="not-editing"-->
+              <td>{{ type.name }}</td>
+              <td class="name-column">{{ type.description }}</td>
+              <td>{{ type.timeToDeductInMin }}</td>
+              <td class="text-center">
+                <label class="eml-switch">
+                  <input type="checkbox"
+                         class="eml-switch-input"
+                         ng-disabled="!hasMgmtPermission()"
+                         ng-model="type.active"
+                         ng-checked="type.active"
+                         ng-change="abs.editType(type)">
+                  <span class="eml-switch-label"
+                        data-on="{{ ::'app.YES' | translate }}"
+                        data-off="{{ ::'app.NO' | translate }}"></span>
+                  <span class="eml-switch-handle"></span>
+                </label>
+              </td>
+              <td class="eml-last-column text-right">
+                <button type="button"
+                        class="btn eml-btn-white btn-xs eml-table-edit"
+                        ng-click="abs.editType(type)"
+                        ng-if="hasMgmtPermission()">
+                  {{ ::'app.EDIT' | translate }}
+                </button>
+                <div class="eml-table-remove" ng-click="abs.deleteType(type)" ng-if="hasMgmtPermission()">
+                  <i class="fa fa-trash-o"></i>
+                </div>
+              </td>
+            </tr>
+            <tr></tr>
+
+            <!-- for table-striped look -->
+            <tr ng-repeat-end ng-show="type.isEditing" ng-form="absenceTypeForm" novalidate>
+              <td class="form-group">
+                <input type="text"
+                       id="absenceTypeName"
+                       name="absenceTypeName"
+                       class="form-control"
+                       placeholder="{{ ::'app.NAME' | translate }}"
+                       ng-model="type.name"
+                       ng-escape="abs.cancelEdit(type)"
+                       focus-me="type.isEditing"
+                       required
+                       ng-required="true"
+                       maxlength="50"
+                       ng-maxlength="50">
+                <!-- Common Directive: Validate-messages -->
+                <div validate-messages messages-for="absenceTypeForm.absenceTypeName" submitted="type.isSubmitted"></div>
+              </td>
+
+              <td class="form-group">
+                <input type="text"
+                       id="absenceTypeDescr"
+                       name="absenceTypeDescr"
+                       class="form-control"
+                       placeholder="{{ ::'app.DESCRIPTION' | translate }}"
+                       ng-model="type.description"
+                       ng-escape="abs.cancelEdit(type)"
+                       required
+                       ng-required="true"
+                       maxlength="255"
+                       ng-maxlength="255">
+                <!-- Common Directive: Validate-messages -->
+                <div validate-messages messages-for="absenceTypeForm.absenceTypeDescr" submitted="type.isSubmitted"></div>
+              </td>
+
+              <td class="form-group">
+                <input type="number"
+                       id="deductable"
+                       name="deductable"
+                       class="form-control"
+                       placeholder="{{ ::'rules.site_teams.HOURS_TO_DEDUCT' | translate }}"
+                       ng-model="type.timeToDeductInMin"
+                       ng-escape="abs.cancelEdit(type)"
+                       required
+                       ng-required="true"
+                       min="0"
+                       max="24">
+                <!-- Common Directive: Validate-messages -->
+                <div validate-messages messages-for="absenceTypeForm.deductable" submitted="type.isSubmitted"></div>
+              </td>
+
+              <td class="text-center">
+                <label class="eml-switch">
+                  <input type="checkbox"
+                         class="eml-switch-input"
+                         ng-model="type.active"
+                         ng-checked="type.active"
+                         ng-change="abs.editType(type)">
+                  <span class="eml-switch-label"
+                    data-on="{{ ::'app.YES' | translate }}"
+                    data-off="{{ ::'app.NO' | translate }}"></span>
+                  <span class="eml-switch-handle"></span>
+                </label>
+              </td>
+
+              <td class="eml-last-column text-right">
+                <button type="button"
+                        class="btn btn-success btn-xs eml-table-edit"
+                        ng-click="type.isSubmitted = true; absenceTypeForm.$valid && abs.save(type)">
+                  {{ ::'app.SAVE' | translate }}
+                </button>
+                <div class="eml-table-remove"
+                     ng-class="{ 'invisible' : type.isCreating }"
+                     ng-click="abs.deleteType(type)">
+                  <i class="fa fa-trash-o"></i>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table> <!-- /editable table -->
+
+        <!-- Pagination -->
+        <div class="text-center" ng-hide="abs.totalTypes < abs.numOfRows">
+          <pagination class="pagination-sm"
+                      total-items="abs.totalTypes"
+                      items-per-page="abs.numOfRows"
+                      ng-model="abs.paginationCurrentPage"
+                      ng-change="abs.getAbsenceTypes(abs.site.id)"
+                      boundary-links="true"
+                      max-size="5"
+                      previous-text="&lsaquo;"
+                      next-text="&rsaquo;"
+                      first-text="&laquo;"
+                      last-text="&raquo;">
+          </pagination>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

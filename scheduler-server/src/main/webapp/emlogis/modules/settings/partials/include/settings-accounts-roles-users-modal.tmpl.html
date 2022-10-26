@@ -1,0 +1,33 @@
+<div id="eml-groups-add-roles">
+  <div class="modal-header">
+    <h4 class="modal-title">{{ ::"settings.accounts.ADD_USERS_TO_ROLE" | translate }} <strong>{{ te.role.name }}</strong></h4>
+  </div>
+  <div class="modal-body">
+    <div class="row" ng-if="te.gridOptions.data"> <!-- ng-if="te.gridOptions.data" -->
+      <div class="eml-grid col-sm-12">
+        <div ui-grid="te.gridOptions"
+             ui-grid-pagination
+             ui-grid-selection></div>
+
+        <div class="text-center" ng-show="te.gridOptions.totalItems > te.numOfRows">
+          <pagination class="pagination-sm"
+                      total-items="te.gridOptions.totalItems"
+                      items-per-page="te.gridOptions.paginationPageSize"
+                      ng-model="te.gridOptions.paginationCurrentPage"
+                      boundary-links="true"
+                      max-size="5"
+                      previous-text="&lsaquo;"
+                      next-text="&rsaquo;"
+                      first-text="&laquo;"
+                      last-text="&raquo;">
+          </pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <a ng-click="te.closeModal()">{{ ::"app.CLOSE" | translate }}</a>
+    <button ng-show="te.isEditing" class="btn btn-success" ng-click="te.associate()">{{ ::"app.ADD" | translate }}</button>
+  </div>
+</div>

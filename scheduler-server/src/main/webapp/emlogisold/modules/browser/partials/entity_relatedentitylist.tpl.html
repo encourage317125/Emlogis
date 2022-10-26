@@ -1,0 +1,117 @@
+<!-- controller set autmatically by state( 'browser') in browser.js  -->
+<div>
+	<div class="row">
+	    <div class="col-sm-12">
+	        <div class="navbar ">
+	            <div class="navbar-inner toolbar">
+	                <ul class="nav navbar-nav">
+	                	<li>
+	                		{{relatedentityTypeLabel}}s of {{entityTypeLabel}}:
+	                	</li>
+	                	<li ng-show="addPermissions && hasPermission(addPermissions)" class="toolbaritem">
+                            <a ng-click="showAddModal()" >
+                                <i class="icon-th-large"></i>
+                                <span class="glyphicon glyphicon-plus" />
+                            </a>
+	                  	</li>                  
+	                	<li ng-show="createPermissions && hasPermission(createPermissions)" class="toolbaritem">
+                            <a ng-click="showCreateModal()" >
+                                <i class="icon-th-large"></i>
+                                <span class="glyphicon glyphicon-plus" />New
+                            </a>
+	                  	</li>
+                    </ul>
+
+	                <form class="navbar-form pull-right">
+	                    <input type="text" data-ng-model="filterText" class="novalidate" placeholder="Filter"/>
+	                </form>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-12">
+			<div>
+	            <!-- List View -->
+	            <div class="row gridContainer customersTable show-hide-animation" data-ng-show="listViewEnabled">
+	                <div class="col-sm-12">
+	                    <table class="table table-striped table-condensed">
+	                        <thead>
+	                            <tr>
+                                    <th>&nbsp;</th>
+                                    <!--<th data-ng-repeat="col in columns track by $index"-->
+                                        <!--ng-init="joined = col.dto != null ?-->
+                                            <!--relatedentityTypeLabel+'.'+col.name : col.name"-->
+                                        <!--data-ng-click="setOrder('{{joined}}')">{{col.label}}-->
+                                    <!--</th>-->
+                                    <th data-ng-repeat="col in columns track by $index"
+                                        data-ng-click="setOrder(col)">{{col.label}}
+                                    <th ng-show="removePermissions && hasPermission(removePermissions)">Remove</th>
+                                    <th ng-show="deletePermissions && hasPermission(deletePermissions)">Delete</th>
+	                            </tr>
+	                        </thead>
+	                        <tbody>
+	                            <tr data-ng-repeat="elt in filteredElements | orderBy:orderby:reverse" class="repeat-animation">
+                                    <!--<td ng-show="createPermissions && hasPermission(createPermissions)">-->
+                                        <!--<a ui-sref="createchildentity({parentEntity: entity, parentEntityId:entityId, entity:relatedentity, id:elt.id})">-->
+                                            <!--<img ng-src="{{relatedEntityIcon}}" class="cardImage" height="16" width="16">-->
+                                        <!--</a>-->
+                                    <!--</td>-->
+                                    <td ng-show="hasPermission(viewPermissions)">
+                                        <a href="" ng-click="showElementDetails(elt)">
+                                            <img ng-src="{{relatedEntityIcon}}" class="cardImage" height="20" width="20">
+                                        </a>
+                                    </td>
+                                    <td ng-show="!hasPermission(viewPermissions)">
+                                        <img ng-src="{{relatedEntityIcon}}" class="cardImage" height="13" width="20">
+                                    </td>
+                                    <td data-ng-repeat="col in columns track by $index" ng-init="e = col.dto == null ?
+                                            elt[col.name] : elt[col.dto][col.name];
+                                            f = col.dateFilter != null ?
+                                            col.dateFilter : null">{{ renderDateField(e, f) }}
+	                                <td ng-show="removePermissions &&  hasPermission(removePermissions)">
+	                                	<a data-ng-click="removeElement(elt)">
+					                  		<span class="glyphicon glyphicon-remove" />
+					                  	</a>
+					                </td>
+					                <td ng-show="deletePermissions &&  hasPermission(deletePermissions)">
+	                                	<a data-ng-click="deleteElement(elt)">
+					                  		<span class="glyphicon glyphicon-remove" />
+					                  	</a>
+					                </td>
+                                </tr>
+	                        </tbody>
+	                    </table>
+	                </div>
+	            </div>
+
+	            <div class="row show-hide-animation" data-ng-show="elements.length == 0">
+	                <div class="span12">
+	                    <h4>No {{relatedentityTypeLabel}} found</h4>
+	                </div>
+	            </div>
+
+	            <div class="row show-hide-animation" data-ng-show="elements.length > 0">
+	                <div class="span12">
+                        <pagination total-items="totalRecords"
+                                    ng-model="currentPage"
+                                    max-size="5"
+                                    class="pagination-sm"
+                                    boundary-links="true"
+                                    rotate="false"
+                                    items-per-page="pageSize"
+                                    num-pages="numPages"
+                                    first-text="<<"  last-text=">>"  previous-text="<"  next-text=">"
+                                    ng-change="pageChanged()"
+                                ></pagination>
+	                    <h5>Showing {{filteredCount}} of {{totalRecords}} total {{relatedentityTypeLabel}}(s)</h5>
+	                </div>
+	            </div>
+	        </div>
+
+		</div>
+	</div>
+</div>
+
+    

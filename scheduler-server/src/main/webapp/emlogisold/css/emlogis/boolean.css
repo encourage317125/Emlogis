@@ -1,0 +1,48 @@
+/* TODO: Change boolean to btnSwitch */
+.boolean {
+    width: 6em;
+    line-height: 29px;
+    padding: 0;
+    border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+    border: 1px solid #cccccc;
+    border-bottom-color: #b3b3b3;
+}
+
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
+}
+
+.on, .off {
+    border-radius: 3px 3px 3px 3px;
+    font-weight: 700;
+    text-align: center;
+    width: 3em;
+}
+
+.on {
+    float: left;
+}
+
+/* TODO: Change colof of off to match contrast with on or not! */
+.off {
+    background-color: #CCCCCC;
+    color: #666666;
+    float: right;
+}
+
+.boolean, .on, .off {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.form-group .boolean{
+    float: right;
+}

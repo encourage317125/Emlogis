@@ -1,0 +1,87 @@
+<div class="admin-notification-delivery-email-create-provider">
+  <div class="create-provider-header">
+    <div class="row">
+      <div class="col-sm-6">
+        <h3>{{'app.CREATE' | translate}} {{provider.providerType}} {{'admin.notification_delivery.PROVIDER' | translate}}</h3>
+      </div>
+      <div class="col-sm-6">
+        <div class="pull-right">
+          <div class="btn-container">
+            <button class="btn btn-default" ng-click="createProvider()" translate>app.CREATE</button>
+            <button class="btn btn-default" ng-click="goToProviderListState()" translate>app.CLOSE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="well">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>{{'app.NAME' | translate}} *</label>
+          <input type="text" class="form-control" ng-model="provider.updateDto.name">
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>{{'admin.notification_delivery.PROVIDER_TYPE' | translate}}</label>
+          <input type="text" class="form-control" ng-model="provider.providerType" readonly>
+        </div>
+      </div>
+      <div class="col-sm-4"></div>
+    </div>
+    <hr>
+    <div ng-if="provider.providerType==='POPSMTPEmail'">
+      <h4 translate>admin.notification_delivery.POP_SERVER</h4>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>{{'admin.notification_delivery.POP_SERVER_HOSTNAME' | translate}} *</label>
+            <input type="text" class="form-control" ng-model="provider.updateDto.settings.receiveHost">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>{{'admin.notification_delivery.POP_SERVER_PORT' | translate}} *</label>
+            <input type="text" class="form-control" ng-model="provider.updateDto.settings.receivePort">
+          </div>
+        </div>
+        <div class="col-sm-4"></div>
+      </div>
+      <hr>
+      <h4 translate>admin.notification_delivery.SMTP_SERVER</h4>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>{{'admin.notification_delivery.SMTP_SERVER_HOSTNAME' | translate}} *</label>
+            <input type="text" class="form-control" ng-model="provider.updateDto.settings.sendHost">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>{{'admin.notification_delivery.SMTP_SERVER_PORT' | translate}} *</label>
+            <input type="text" class="form-control" ng-model="provider.updateDto.settings.sendPort">
+          </div>
+        </div>
+        <div class="col-sm-4"></div>
+      </div>
+      <hr>
+      <h4 translate>admin.notification_delivery.LOGIN</h4>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>{{'admin.notification_delivery.USER_NAME' | translate}} *</label>
+            <input type="text" class="form-control" ng-model="provider.updateDto.settings.userName">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>{{'admin.notification_delivery.PASSWORD' | translate}} *</label>
+            <input type="text" class="form-control" ng-model="provider.updateDto.settings.password">
+          </div>
+        </div>
+        <div class="col-sm-4"></div>
+      </div>
+    </div>
+  </div>
+</div>

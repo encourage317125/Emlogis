@@ -1,0 +1,46 @@
+/* EmLogis navbar starts */
+
+// Import variables
+@import '../../../_main/assets/stylesheets/bootstrap_variables';
+@import '../../../_main/assets/stylesheets/emlogis_variables';
+
+.navbar {
+  border: none;
+
+  li > a {
+   font-size: 12px; // to be deleted when number of menu items is reduced
+  }
+
+  .divider-vertical {
+  height: 40px;
+  margin: 0;
+  border-right: 1px solid #fff;
+  opacity: .4;
+  }
+
+  .eml-logged-user {
+    color: $eml-orange-highlight-dark;
+    padding: 3px 15px;
+    cursor: default;
+  }
+}
+
+@media (max-width: 1055px){ // 767 768px?
+  .navbar-collapse .nav > .divider-vertical{
+    display: none;
+  }
+}
+
+.change-password-dlg {
+  margin-top: 25px;
+  .pwd-inputs {
+    .glyphicon-ok {
+      color: #16A085;
+      line-height: 25px;
+      font-size: 15px;
+      margin-left: -15px;
+    }
+  }
+}
+
+/* EmLogis navbar ends */

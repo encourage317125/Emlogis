@@ -1,0 +1,15 @@
+{	
+	"nav" : {	    
+	    "MY_DASHBOARD" : "My Dashboard (FR)",
+	    "EMPLOYEE_SCHEDULES" : "Employee Schedules(FR)",
+	    "EMPLOYEES": "Employees(FR)",
+	    "REPORTS": "Reports(FR)",
+        "LANGUAGES": "Languages(FR)",
+        "ENGLISH": "English(FR)",
+        "FRENCH": "French(FR)",
+        "SPANISH": "Spanish(FR)"
+  	},
+    "home" : {
+        "WELCOME" : "Welcome (FR)"
+    }
+}

@@ -1,0 +1,13 @@
+<div class="row eml-notification" id="notificationArea">
+
+  <alert class="animate-slide"
+         type="{{msg.type}}"
+         ng-show="msg.visible"
+         close="closeAlert()">
+    <strong>{{ msg.entityName | translate }}</strong><span ng-show="!showLogoutButton() && msg.entityName">: </span>{{ msg.content | translate }}
+    <div class="eml-notif-actions pull-right">
+      <button class="btn eml-btn-white" ng-show="showLogoutButton()" ng-click="moveToLogin(msg.param)" translate> app.LOGIN</button>
+      <button class="btn eml-btn-white" ng-show="showSaveButton()" ng-click="saveAction()" translate> app.SAVE</button>
+    </div>
+  </alert>
+</div>

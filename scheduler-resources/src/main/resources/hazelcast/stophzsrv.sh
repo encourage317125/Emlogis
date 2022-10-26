@@ -1,0 +1,1 @@
+sudo kill -9 `ps -aux | grep com.emlogis.schedule.engine.SchedulingEngine | awk '/[0-9]*/ {print $2 }'`

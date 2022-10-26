@@ -1,0 +1,45 @@
+<!-- controller set autmatically by state( 'browser') in browser.js  -->
+<div class="row-fluid">
+	<div class="col-sm-12 column">
+		<div class="panel panel-default">
+  			<div class="panel-heading">
+    			<h3 class="panel-title">Properties</h3>
+  			</div>
+			<div class="panel-body">
+				<div class="row">
+
+					<div class="col-sm-4 column">
+						<form role="form">
+							<div class="form-group">
+								 <label for="name">Name</label>
+								 <input class="form-control" id="name" ng-model="elt.name" readonly />
+							</div>
+							<div class="form-group">
+								 <label for="name">Type</label>
+								 <input class="form-control" id="clName" ng-model="elt.clName" readonly />
+							</div>
+							<div class="form-group">
+								 <label for="name">Default</label>
+								 <input class="form-control" id="lastName" ng-model="elt.defaultContract" readonly />
+							</div>
+						</form>
+					</div>
+					<div class="col-sm-4 column">
+                        <div ng-include="partials.addInfo"></div>
+					</div>
+					<div class="col-sm-4 column">
+						<button type="button" ui-sref="authenticated.browser({entity: 'contract'})" class="btn btn-default">&lt; All Contracts</button>
+						 <br><br>
+						 <button type="button" data-ng-click="showOwner()" class="btn btn-default">Employee (NA)</button>
+						 <br><br>
+						 (btn label  and action should depend on 'owner')
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+        <div ng-include="partials.tabs"></div>
+	</div>
+
+</div>

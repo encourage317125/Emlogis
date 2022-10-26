@@ -1,0 +1,97 @@
+/* Landing page style */
+
+
+
+//--------------------------------------------------------------------
+// Layout
+//--------------------------------------------------------------------
+
+#eml-home {
+  //padding: 0 60px;
+
+  h2, h3, h4, p {
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
+  h2 {
+    padding-bottom: 1em;
+    padding-top: .4em;
+    margin: 0;
+  }
+
+  h4 {
+    font-size: 1.4em;
+  }
+
+  .logo {
+    padding: 10px 60px 15px;
+    text-align: right;
+
+    img {
+      width: 150px;
+      margin: 0 7px;
+    }
+  }
+
+  #left {
+    position: relative;
+    padding: 0 60px;
+
+    .wrapper {
+      margin: 0 7px 15px;
+    }
+  }
+
+  #right {
+    padding: 0 60px;
+    border-left: 1px dashed #ccc;
+  }
+
+  .white {
+    background-color: white;
+    padding: 35px;
+    border-radius: 4px;
+    box-shadow: $eml-el-shadow;
+  }
+
+  .box {
+    width: 150px;
+    height: 150px;
+
+    &.link {
+      cursor: pointer;
+    }
+
+    .num {
+      font-size: 50px;
+      font-weight: 100;
+      letter-spacing: -3px;
+      line-height: 60px;
+      margin-bottom: 20px;
+    }
+
+    .title {
+      text-transform: uppercase;
+      font-size: 1.2em;
+    }
+
+    &.white {
+      padding: 25px;
+
+      &:hover {
+        position: relative;
+        top: -1px;
+        box-shadow: $eml-el-shadow-hover;
+      }
+    }
+  }
+
+  .item {
+    margin: 0 7px 14px;
+
+    a:hover {
+      color: $eml-orange-highlight-dark;
+    }
+  }
+
+}

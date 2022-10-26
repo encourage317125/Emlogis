@@ -1,0 +1,12 @@
+<div class="profile">
+  <tabset class="eml-top-tabs">
+    <tab
+        ng-repeat="t in tabs"
+        heading="{{t.heading | translate}}"
+        select="goState(t)"
+        active="t.active"
+        ng-show="hasStatePermissionsByName(t.route)">
+    </tab>
+  </tabset>
+  <div ui-view= "profileContent"></div>
+</div>

@@ -1,0 +1,117 @@
+// EmLogis global SCSS variables
+
+
+
+// EmLogis brand colors 
+// were taken from Style Guide v3.1 - 03/01/15
+// For all basic colors please check bootstrap_variables.scss
+
+$eml-dark-blue:               #444953;
+$eml-light-blue:              #4697b4;
+
+$eml-lightest-grey:           #f3f3f3;
+$eml-light-grey:              $gray-lighter;
+$eml-mid-grey:                $gray-light;
+$eml-dark-grey:               $gray;
+$eml-black:                   $gray-base;
+
+
+$eml-blue-highlight:          $brand-info;
+$eml-blue-highlight-dark:     #007fb5;
+$eml-blue-transparent-light:  rgba(0, 127, 181, .18);
+$eml-blue-transparent-dark:   rgba(0, 127, 181, .24);
+
+$eml-orange-highlight:        $brand-warning;
+$eml-orange-highlight-dark:   #ee7f00;
+
+$eml-green-highlight:         #1abc9c;
+$eml-green-highlight-dark:    $brand-success;
+$eml-green-transparent-light: #e5ffe5;
+$eml-green-transparent-dark:  #daf4da;
+
+$eml-red-highlight:           $brand-danger;
+$eml-red-highlight-dark:      #c0392b;
+$eml-red-transparent-light:   #fadbd8;
+$eml-red-transparent-dark:    #f1d2ce;
+
+
+// The following colors were taken from PSD files
+// and have no equivalent in Style Guide v3.1
+$eml-yellow:                  #e5c332;
+
+
+//
+// EmLogis additional headers
+// all basic header are defined in 
+$font-size-h7:                ceil(($font-size-base * 0.85)); // 14px;
+$font-montserrat:             "Montserrat", "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-lato:                   $font-family-sans-serif;
+
+
+
+//
+// EmLogis layout variables
+$eml-el-height:               30px; //33px;
+$eml-navbar-horiz-padding:    15px;
+
+
+//
+// EmLogis Shadows
+$eml-el-shadow:               0px 1px 2px rgba(0, 0, 0, .2);
+$eml-el-shadow-hover:         0px 2px 2px rgba(0, 0, 0, .2);
+
+// EmLogis mixins
+
+@mixin absolute-center() {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+}
+
+@mixin top-border-radius($radius) {
+  border-top-left-radius: $radius;
+  border-top-right-radius: $radius;
+}
+
+@mixin bottom-border-radius($radius) {
+  border-bottom-left-radius: $radius;
+  border-bottom-right-radius: $radius;
+}
+
+
+// --------------------------------------------------
+
+
+
+
+// TEMP
+// Settings Modules only?
+// Do we need to keep them in top global space?
+
+$margin-xl-horizontal: 32px !default;
+$margin-xl-vertical: 30px !default;
+$margin-ml-horizontal: 24px !default;
+$margin-ml-vertical: 20px !default;
+$margin-large-horizontal: 17px !default;
+$margin-large-vertical: 15px !default;
+$margin-base-horizontal: 10px !default;
+$margin-base-vertical: 8px !default;
+
+$padding-xl-horizontal: 30px !default;
+$padding-xl-vertical: 26px !default;
+$padding-ml-horizontal: 25px !default;
+$padding-ml-vertical: 20px !default;
+
+$large-font-size: 25px !default;
+$normal-font-size: 12px !default;
+$small-font-size: 10px !default;
+
+$panel-border-color: #e5e5e5 !default;
+$gray-color: #808080 !default;
+
+$nav-active-color: #337ab7 !default;
+$nav-inactive-color: #808080 !default;
+
+// --------------------------------------------------

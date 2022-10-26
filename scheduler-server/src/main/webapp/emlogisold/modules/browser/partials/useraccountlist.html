@@ -1,0 +1,149 @@
+
+<!-- controller set autmatically by state( 'browser') in browser.js  -->
+<div>
+	<div class="row">
+		<div class="panel-body">
+			<blockquote>
+				<p>{{entityTypeLabel}}s management</p>
+			</blockquote>
+		</div>
+	</div>
+
+	<div class="row">
+	    <div class="col-sm-1"></div>
+	    <div class="col-sm-10">
+	        <div class="navbar ">
+	            <div class="navbar-inner toolbar">
+	                <ul class="nav navbar-nav">
+	                  <li data-ng-class="{active: listViewEnabled}" class="toolbaritem">
+	                  	<a data-ng-click="changeView(ViewEnum.List)">
+	                  		<i class="icon-align-justify"></i>
+	                  		<span class="glyphicon glyphicon-th-list" />
+	                  	</a>
+	                  </li>
+	                  <li data-ng-class="{active: !listViewEnabled}" class="toolbaritem">
+	                  	<a data-ng-click="changeView(ViewEnum.Card)">
+	                  		<i class="icon-th-large"></i>
+	                  		<span class="glyphicon glyphicon-th" />
+	                  	</a>
+	                  </li>
+
+	                  <li data-ng-show="listViewEnabled && entityAdd && hasPermission(createPermissions)" class="toolbaritem">
+	                  	<a ui-sref="entity({entity: entity, id: 'new'})" >
+	                  		<i class="icon-th-large"></i>
+	                  		<span class="glyphicon glyphicon-plus" />
+	                  	</a>
+	                  </li>
+	                  <li>
+	                  	<a class="btn  btn-lg" href='' ng-show="hasPermission('ImpersonateViewOnly')" ng-click="impersonateViewOnly()" tooltip="Impersonate User" tooltip-placement="right" >Impersonate (NA)</a>
+	                  </li>
+	                </ul>
+	                <form class="navbar-form pull-right">
+	                    <input type="text" data-ng-model="filterText" class="novalidate" placeholder="Filter"/>
+	                </form>
+	            </div>
+	        </div>
+	    </div>
+	    <div class="col-sm-1"></div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-1"></div>
+		<div class="col-sm-10">
+
+			<div>
+				<!-- Card View -->
+	            <div class="row cardContainer show-hide-animation" data-ng-hide="listViewEnabled">
+	                <div class="col-sm-4 card card-animation" data-ng-repeat="elt in filteredElements | orderBy:'name'">
+	                    <div class="cardHeader" ng-show="entityDrillDown && hasPermission(editPermissions)" ng-click="showElementDetails(elt)"><a href="" {{elt.id}} class="white">{{elt.name}} <span class="glyphicon glyphicon-edit"> </a></div>
+	                    <div class="cardBody">
+	                        <div class="clearfix">
+	                            <div class="pull-left">
+		                            <a href="" ng-click="showElementDetails(elt)">
+		                            	<img ng-src="{{entityIcon}}" class="cardImage" height="13" width="20">
+		                            </a>
+	                            </div>
+	                            <div class="pull-left cardBodyRight" >
+	                            	<div data-ng-repeat="attr in card" class="repeat-animation">
+	                            		<div>{{elt[attr]}}<br></div></th>
+	                            	</div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	            <!-- List View -->
+	            <div class="row gridContainer customersTable show-hide-animation" data-ng-show="listViewEnabled">
+	                <div class="col-sm-12">
+	                    <table class="table table-striped table-condensed">
+	                        <thead>
+	                            <tr>
+	                                <th>&nbsp;</th>
+            						<th data-ng-repeat="col in columns track by $index" data-ng-click="setOrder(col)">{{col.label}}
+            						</th>
+<!--
+
+	                                <th data-ng-click="setOrder('name')">Name</th>
+	                                <th data-ng-click="setOrder('description')">Description</th>
+	                                <th data-ng-click="setOrder('id')">Id</th>
+-->	                                
+		                            <th ng-show="entityDelete && hasPermission(deletePermissions)">Delete</th>
+	                                <th>&nbsp;</th>
+	                            </tr>
+	                        </thead>
+	                        <tbody>
+	                            <tr data-ng-repeat="elt in filteredElements | orderBy:orderby:reverse" class="repeat-animation">
+	                            	<!-- showing the drilldown link depending on optin & permission is
+	                            	complex and not elegant. to be improved
+	                            	-->
+	                                <td ng-show="entityDrillDown && hasPermission(viewPermissions)">
+			                            <a href="" ng-click="showElementDetails(elt)">
+			                            	<img ng-src="{{entityIcon}}" class="cardImage" height="13" width="20">
+			                            </a>
+	                                </td>
+	                                <td ng-show="!entityDrillDown || !hasPermission(viewPermissions)">
+			                            	<img ng-src="{{entityIcon}}" class="cardImage" height="13" width="20">
+	                                </td>
+	            					<td data-ng-repeat="col in columns track by $index">{{elt[col.name]}}
+	            					</td>                               
+	                                <td ng-show="entityDelete && hasPermission(deletePermissions)">
+	                                	<a data-ng-click="deleteElement(elt)">
+					                  		<span class="glyphicon glyphicon-remove" />
+					                  	</a>
+					                </td>
+	                            </tr>
+	                        </tbody>
+	                    </table>
+	                </div>
+	            </div>
+
+	            <div class="row show-hide-animation" data-ng-show="elements.length == 0">
+	                <div class="span12">
+	                    <h4>No {{entityTypeLabel}} found</h4>
+	                </div>
+	            </div>
+
+	            <div class="row show-hide-animation" data-ng-show="elements.length > 0">
+	                <div class="span12">
+                        <pagination total-items="totalRecords"
+                                    ng-model="currentPage"
+                                    max-size="5"
+                                    class="pagination-sm"
+                                    boundary-links="true"
+                                    rotate="false"
+                                    items-per-page="pageSize"
+                                    num-pages="numPages"
+                                    first-text="<<"  last-text=">>"  previous-text="<"  next-text=">"
+                                    ng-change="pageChanged()"
+                                ></pagination>
+	                    <h5>Showing {{filteredCount}} of {{totalRecords}} total {{entityTypeLabel}}(s)</h5>
+	                </div>
+	            </div>
+	        </div>
+
+		</div>
+	    <div class="col-sm-1"></div>
+	</div>
+</div>
+
+    

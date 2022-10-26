@@ -1,0 +1,24 @@
+<div data-ng-show="elt.state == 'Complete' && elt.completion == 'OK' " >
+
+        Hard constraint score: {{elt.hardScore}}
+        <br>
+        Medium constraint score: {{elt.mediumScore}}
+        <br>
+        Soft constraint score: {{elt.softScore}}
+
+        <table class="table table-bordered">
+            <tr ng-repeat="report in report.completionReport">
+                <td align="top"><b>{{report.constraintName}}</b></td>
+                <td align="top"><b>{{report.weightTotal}}</b></td>
+                <td align="right">
+                    <table>
+                        <tr ng-repeat="constraint in report.constraintMatchSet">
+                            <td align="left">{{constraint.employeeId}}</td>
+                            <td align="right">{{constraint.weight}}</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+</div>

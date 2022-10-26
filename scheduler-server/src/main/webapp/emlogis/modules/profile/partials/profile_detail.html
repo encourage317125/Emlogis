@@ -1,0 +1,540 @@
+<!--Profile Detail page Start -->
+<main>
+  <div class="profile-detail" ng-init = 'init()'>
+
+    <!-- Profile Main starts -->
+    <section class="flex-column">
+
+      <!-- Employee profile top starts -->
+      <section class="profile-top">
+        <div class="employee-profile-flex container-fluid">
+
+          <!-- Employee picture -->
+          <section id="eml-profile-img"
+                   class="text-center"
+                   ng-class="{ 'eml-img-displayed' : profile.isPictureDisplayed }">
+
+            <img ng-src="{{ profile.picture.image && profile.picture.image || ' ' }}"/>
+
+            <label id="eml-photo-btn" class="btn eml-btn-white">
+              <span>{{ profile.isPictureDisplayed ? "employees.UPDATE_PHOTO" : "employees.ADD_PHOTO" | translate }}</span>
+              <input type="file" name="pic" accept="image/*" file-model="profile.pictureToLoad">
+            </label>
+
+            <button id="eml-photo-delete-btn"
+                    class="btn eml-btn-white"
+                    ng-hide="!profile.isPictureDisplayed"
+                    ng-click="profile.deletePicture()"><i class="fa fa-trash-o"></i>
+            </button>
+
+          </section> <!-- end of Employee picture -->
+
+
+          <!-- Employee profile -->
+          <section id="eml-profile-data" class="">
+            <form class="form-inline" name="employeeProfileForm">
+
+              <div ng-hide="profile.isEditing" class="row">  <!-- read-only view -->
+                <div class="col-md-7">
+                  <h1 ng-hide="profile.isEditing">
+                    {{ profile.employee.firstName }} {{ profile.employee.middleName }} {{ profile.employee.lastName }}
+                    <span ng-show="profile.employee.isDeleted" class="badge">Deleted</span>
+                    <span ng-hide="profile.employee.isDeleted" class="badge">{{ profile.employee.activityType }}</span> <!--   -->
+                  </h1>
+                </div>
+                <div class="col-md-5 text-right space-between-btns">
+                  <button class="btn btn-warning"
+                          ng-click="profile.openEmergencyContactModal('sm')">{{ ::"employees.EMERGENCY_CONTACT" | translate }}
+                  </button>
+                  <button ng-click="profile.startEditing()" ng-hide="profile.employee.isDeleted" class="btn btn-default">
+                    {{ ::"app.EDIT" | translate }}
+                  </button>
+                </div>
+              </div>
+
+              <div ng-show="profile.isEditing" class="row eml-inline-editing empl-editing-h1"> <!-- editing view -->
+                <div class="col-md-9">
+                  <h1>
+                    {{ profile.employee.firstName }} {{ profile.employee.middleName }} {{ profile.employee.lastName }}
+                    <span ng-show="profile.employee.isDeleted" class="badge">Deleted</span>
+                    <span ng-hide="profile.employee.isDeleted" class="badge">{{ profile.employee.activityType }}</span> <!--   -->
+                  </h1>
+                </div>
+                <div class="col-md-3 text-right space-between-btns">
+                  <button ng-click="profile.saveEmployeeProfile(profile.employeeForEdit)" class="btn btn-success">{{ ::"app.SAVE" | translate }}</button>
+                  <button ng-click="profile.cancelEditing()" class="btn btn-default">{{ ::"app.CANCEL" | translate }}</button>
+                </div>
+              </div>
+
+              <div class="row eml-inline-editing">
+                <div class="col-md-5">
+                  <div class="row empl-editing-mid">
+                    <div class="col-md-4 no-right-padding">
+                      <h4>{{ ::"employees.EMPLOYEE_IDENTIFIER" | translate }}:</h4>
+                    </div>
+                    <div class="col-md-8 no-left-padding">
+                      <h4 class="">
+                        <span>
+                          {{ profile.employee.employeeIdentifier }}
+                        </span>
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="row empl-editing-mid">
+                    <div class="col-md-3 no-hor-padding">
+                      <h4>{{ ::"employees.TITLE" | translate }}:</h4>
+                    </div>
+                    <div class="col-md-9 no-left-padding">
+                      <h4 class="">
+                          <span>
+                            {{ profile.employee.professionalLabel }}
+                          </span>
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="row empl-editing-mid">
+                    <div class="col-md-3 no-hor-padding">
+                      <h4>{{ ::"employees.GENDER" | translate }}:</h4>
+                    </div>
+                    <div class="col-md-9 no-left-padding">
+                      <h4 class="">
+                        <span>
+                          {{ profile.employee.gender | gender | translate }}
+                        </span>
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row empl-editing-text eml-inline-editing">
+                <div class="col-md-5 no-right-padding">
+                  <table class="table table-left">
+                    <tbody>
+                    <tr>
+                      <td><span class="text-uppercase">{{ ::"employees.HOME_PHONE" | translate }}</span></td>
+                      <td>
+                          <span ng-hide="profile.isEditing">
+                            {{ profile.employee.homePhone }}
+                          </span>
+                          <span ng-show="profile.isEditing">
+                            <input type="text" class="form-control" id="homePhone" placeholder="Enter phone" ng-model="profile.employeeForEdit.homePhone">
+                          </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><span class="text-uppercase">{{ ::"employees.MOBILE_PHONE" | translate }}</span></td>
+                      <td>
+                          <span ng-hide="profile.isEditing">
+                            {{ profile.employee.mobilePhone }}
+                          </span>
+                          <span ng-show="profile.isEditing">
+                            <input type="text" class="form-control" id="mobilePhone" placeholder="Enter phone" ng-model="profile.employeeForEdit.mobilePhone">
+                          </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><span class="text-uppercase">{{ ::"employees.HOME_EMAIL" | translate }}</span></td>
+                      <td>
+                          <span ng-hide="profile.isEditing">
+                            <a href="mailto:{{ profile.employee.homeEmail }}">{{ profile.employee.homeEmail }}</a>
+                          </span>
+                          <span ng-show="profile.isEditing">
+                            <input type="text" class="form-control" id="homeEmail" placeholder="Enter email" ng-model="profile.employeeForEdit.homeEmail">
+                          </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><span class="text-uppercase">{{ ::"employees.WORK_EMAIL" | translate }}</span></td>
+                      <td>
+                          <span ng-hide="profile.isEditing">
+                            <a href="mailto:{{ profile.employee.homeEmail }}">{{ profile.employee.workEmail }}</a>
+                          </span>
+                          <span ng-show="profile.isEditing">
+                            <input type="text" class="form-control" id="workEmail" placeholder="Enter email" ng-model="profile.employeeForEdit.workEmail">
+                          </span>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="col-md-3 no-left-padding">
+                  <table class="table table-mid">
+                    <tbody>
+                    <tr class="">
+                      <td><span class="text-uppercase">{{ ::"employees.EMPLOYEE_TYPE" | translate }}</span></td>
+                      <td>
+                        <span>
+                          {{ profile.employee.employeeType | employeeType | translate }}
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><span class="text-uppercase">{{ ::"employees.HIRE_DATE" | translate }}</span></td>
+                      <td>
+                        <span>
+                          {{ profile.employee.hireDate | date }}
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><span class="text-uppercase">{{ ::"employees.START_DATE" | translate }}</span></td>
+                      <td>
+                        <span>{{ profile.employee.startDate | date }}</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><span class="text-uppercase">{{ ::"employees.END_DATE" | translate }}</span></td>
+                      <td>
+                        <span>{{ profile.employee.endDate | date }}</span>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+              <div class="col-md-4 no-left-padding">
+                <table class="table table-right">
+                  <tbody>
+                  <tr>
+                    <td><span class="text-uppercase">{{ ::"employees.HOURLY_WAGE" | translate }}</span></td>
+                    <td>
+                    <span id="eml-hidden-wage"
+                        ng-show="!profile.hasWagePermission() || ( profile.isWageClosed && !profile.isEditing )"
+                        ng-click="profile.hasWagePermission() && profile.displayWage()">{{ ::"employees.HIDDEN" | translate }}</span>
+
+                    <span ng-show="profile.hasWagePermission()">
+                      <span ng-hide="profile.isEditing || profile.isWageClosed">
+                        {{ profile.employee.hourlyRate }}
+                      </span>
+                      <span ng-show="profile.isEditing">
+                        <input type="text"
+                               class="form-control"
+                               id="hourlyRate"
+                               placeholder="Enter rate"
+                               ng-model="profile.employeeForEdit.hourlyRate">
+                      </span>
+                    </span>
+                    </td>
+                  </tr>
+                  <tr class="text-uppercase">
+                    <td><span>{{ ::"employees.HOME_SITE" | translate }}</span></td>
+                    <td>{{ profile.employee.siteInfo.siteName }}</td>
+                  </tr>
+                  <tr class="text-uppercase">
+                    <td><span>{{ ::"employees.HOME_TEAM" | translate }}</span></td>
+                    <td>
+                      <span>{{ profile.employee.homeTeam.name }}</span>
+                    </td>
+                  </tr>
+                  <tr >
+                    <td class="text-uppercase"><span>{{ ::"employees.LOGIN_ID" | translate }}</span></td>
+                    <td>
+                      <span>
+                        {{ profile.employee.userAccountDto.login }}
+                      </span>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              </div>
+            </form>
+          </section> <!-- end of Employee profile -->
+
+        </div>
+      </section>
+      <!-- Employee profile top ends -->
+
+      <!-- Employee profile setting starts -->
+      <section class="profile-settings row">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div collapsable-panel
+                   is-collapsable="false"
+                   is-collapsed="false">
+                <div transclude-to="panel-head">
+                  <h4 class="panel-title">{{ ::"employees.tabs.hours.HOURS" | translate }}</h4>
+                </div>
+
+                <div transclude-to="panel-body">
+                  <!--Hours-->
+                  <div class="row">
+                    <div class="col-md-2">
+                      <table class="hours">
+                        <tr>
+                          <td></td>
+                          <td>{{::'employees.tabs.hours.MIN' | translate}}</td>
+                          <td>{{::'employees.tabs.hours.MAX' | translate}}</td>
+                        </tr>
+                        <tr>
+                          <td style="width: 120px;">{{::'employees.tabs.hours.HOURS_PER_DAY' | translate }}</td>
+                          <td>{{settings.minHoursPerDay}}</td>
+                          <td>{{settings.maxHoursPerDay}}</td>
+                        </tr>
+                      </table>
+
+                    </div>
+                    <div class="col-md-3">
+                      <table class="hours">
+                        <tr>
+                          <td></td>
+                          <td>{{::'employees.tabs.hours.MIN' | translate}}</td>
+                          <td>{{::'employees.tabs.hours.MAX' | translate}}</td>
+                        </tr>
+                        <tr>
+                          <td style="width: 120px;">{{::'employees.tabs.hours.HOURS_PER_WEEK' | translate }}</td>
+                          <td>{{settings.minHoursPerWeek}}</td>
+                          <td>{{settings.maxHoursPerWeek}}</td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="col-md-2">
+                      <table class="hours">
+                        <tr>
+                          <td colspan="2">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td class="key">{{::'employees.tabs.hours.DAYS_PER_WEEK' | translate }}</td>
+                          <td>{{settings.daysPerWeek}}</td>
+                        </tr>
+                      </table>
+
+                    </div>
+                    <div class="col-md-2">
+                      <table class="hours">
+                        <tr>
+                          <td colspan="2">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td class="key">{{::'employees.tabs.hours.CONSECUTIVE_DAYS' | translate }}</td>
+                          <td>{{settings.consecutiveDays}}</td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="col-md-2">
+                      <table class="hours">
+                        <tr>
+                          <td colspan="2">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td class="key">{{::'employees.tabs.hours.PRIMARY_SKILL_HOURS' | translate }}</td>
+                          <td>{{settings.primarySkillHours}}</td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+
+                  <!--Overtimes-->
+                  <div class="row">
+                    <div class="col-md-2">
+                      <table class="hours">
+                        <tr>
+                          <td colspan="2">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td class="key">{{::'employees.tabs.hours.OVERTIME' | translate }}</td>
+                          <td>{{options.overtimeType.name}}</td>
+                        </tr>
+                      </table>
+
+                      <!--weeklyOvertimeStarts:   $filter('translate')("employees.tabs.hours.WEEKLY_OVERTIME_STARTS"),-->
+                      <!--beweeklyOvertimeStarts: $filter('translate')("employees.tabs.hours.BIWEEKLY_OVERTIME_STARTS"),-->
+                      <!--beweeklyMinHours:       $filter('translate')("employees.tabs.hours.BIWEEKLY_MIN_HOURS"),-->
+                      <!--na:                     $filter('translate')("employees.tabs.hours.NA")-->
+
+
+                    </div>
+                    <div class="col-md-3">
+                      <table class="hours">
+                        <tr>
+                          <td colspan="2">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td class="key">{{::'employees.tabs.hours.DAILY_OVERTIME_STARTS' | translate }}</td>
+                          <td>{{settings.overtimeDto.dailyOvertimeMins}}</td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="col-md-2">
+                      <table class="hours">
+                        <tr>
+                          <td colspan="2">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td class="key">{{::'employees.tabs.hours.WEEKLY_OVERTIME_STARTS' | translate }}</td>
+                          <td>{{settings.overtimeDto.weeklyOvertimeMins}}</td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="col-md-2">
+                      <table class="hours">
+                        <tr>
+                          <td colspan="2">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td class="key">{{::'employees.tabs.hours.BIWEEKLY_OVERTIME_STARTS' | translate }}</td>
+                          <td class="value">{{settings.overtimeDto.biweeklyOvertimeMins}}</td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="col-md-2">
+                      <table class="hours">
+                        <tr>
+                          <td colspan="2">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td class="key">{{::'employees.tabs.hours.BIWEEKLY_MIN_HOURS' | translate }}</td>
+                          <td class="value">
+                            <span ng-if="settings.overtimeDto.biweeklyMinHours">{{settings.overtimeDto.biweeklyMinHours}}</span>
+                            <span ng-if="!settings.overtimeDto.biweeklyMinHours">..</span>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Employee profile setting ends -->
+    </section>
+    <!-- Profile Main ends -->
+
+    <!-- Sidebar starts -->
+    <section class="profile-sidebar">
+      <div class="container-fluid">
+        <h4>{{ ::"employees.SUMMARY" | translate }}</h4>
+
+        <!-- LOGIN ACCOUNT -->
+        <div class="panel panel-default">
+          <div class="panel-heading text-uppercase">Emlogis</div>
+          <table class="table table-condensed">
+            <tbody>
+            <tr>
+              <td>{{ ::"employees.ROLES" | translate }}:</td>
+              <td class="eml-strong text-capitalize">
+                <span ng-repeat="role in profile.employee.roleInfo">{{ role.roleName }}<span ng-show="profile.employee.roleInfo.length > $index+1">, </span></span>
+              </td>
+            </tr>
+            <tr>
+              <td>{{ ::"app.STATUS" | translate }}:</td>
+              <td class="eml-strong text-capitalize">{{ profile.employee.userAccountDto.status }}</td>
+            </tr>
+            <!-- Automatically approvals -->
+            <tr>
+              <td colspan="2">{{ ::"employees.AUTO_APPROVALS" | translate }}</td>
+            </tr>
+            <tr>
+              <td style="border-top:none;" colspan="2">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox"
+                           id="employee-availability"
+                           ng-model="profile.employee.autoApprovalsSettingDto.availAutoApprove"
+                           ng-checked="profile.employee.autoApprovalsSettingDto.availAutoApprove"
+                           ng-change="profile.updateEditingApprovals()" disabled> {{ ::"employees.AVAILABILITY" | translate }}
+                  </label>
+                </div>
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox"
+                           id="employee-wip"
+                           ng-model="profile.employee.autoApprovalsSettingDto.wipAutoApprove"
+                           ng-checked="profile.employee.autoApprovalsSettingDto.wipAutoApprove"
+                           ng-change="profile.updateEditingApprovals()" disabled> {{ ::"employees.WIP" | translate }}
+                  </label>
+                </div>
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox"
+                           id="employee-swap"
+                           ng-model="profile.employee.autoApprovalsSettingDto.swapAutoApprove"
+                           ng-checked="profile.employee.autoApprovalsSettingDto.swapAutoApprove"
+                           ng-change="profile.updateEditingApprovals()" disabled> {{ ::"employees.SWAP" | translate }}
+                  </label>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+          <!-- SKILLS -->
+        <div class="panel panel-default">
+          <table class="table table-condensed">
+            <thead>
+            <tr>
+              <th>{{ ::"nav.SKILLS" | translate }}</th>
+              <th>{{ ::"employees.SCORE" | translate }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="skill in profile.employee.skillInfo"
+                ng-class="{ 'eml-strong' : skill.isPrimarySkill }"> <!-- TODO add prop when API is ready -->
+              <td><i class="fa fa-briefcase" ng-show="skill.isPrimarySkill"></i> {{ skill.name }}</td>
+              <td>{{ skill.skillScore }}</td>
+            </tr>
+            </tbody>
+          </table>
+
+        </div>
+
+        <!-- TEAMS -->
+        <div class="panel panel-default">
+          <table class="table table-condensed">
+            <thead>
+            <tr>
+              <th class="text-uppercase">{{ ::"nav.TEAMS" | translate }}</th>
+              <th>{{ ::"nav.SETTINGS" | translate }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- display Home Team -->
+            <tr class="eml-strong">
+              <td><i class="fa fa-home"></i> {{ profile.employee.homeTeam.name }}</td>
+              <td>{{ ::"nav.HOME" | translate }}</td>
+            </tr>
+
+            <!-- list all Teams Employee belongs to -->
+            <tr ng-repeat="team in profile.employee.teamInfo">
+              <td>{{ team.name }}</td>
+              <td>
+                <span translate>{{ team.isFloating ? "employees.FLOAT" : "employees.ON" }}</span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- LICENSES / CERTIFICATIONS TODO implement when/if API is ready-->
+        <!--<div class="panel panel-default">
+          <table class="table table-condensed">
+            <thead>
+            <tr>
+              <th>LICENSES & CERTIFICATIONS</th>
+              <th>Expires</th>
+            </tr>
+            </thead>
+            <tbody>
+            &lt;!&ndash;<tr>
+        <td>Vacation</td>
+        <td>5 days</td>
+      </tr>&ndash;&gt;
+      </tbody>
+    </table>
+    <div class="panel-footer"><a href>+ Add LICENSES/CERTIFICATIONS</a></div>
+  </div>-->
+      </div>
+    </section> <!-- Sidebar ends -->
+  </div>
+</main>
+<!--Profile Detail page End -->

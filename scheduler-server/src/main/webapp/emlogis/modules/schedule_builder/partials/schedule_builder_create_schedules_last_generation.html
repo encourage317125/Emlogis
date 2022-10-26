@@ -1,0 +1,53 @@
+<div class="last-generation">
+    <div class="">
+        <h4 data-ng-show="schedule.shiftGenerationDuration != -1">
+            {{'schedule_builder.LAST_GENERATION' | translate }}:
+            {{schedule.executionEndDate | date:'MM/dd/yyyy h:mma'}}
+            ({{'schedule_builder.EXECUTED_IN' | translate }} {{executionDuration | date:'m'}}min,
+            {{executionDuration | date:'s'}}sec)
+        </h4>
+    </div>
+    <div class="row">
+        <div data-ng-show="isValid()">
+
+            <div class="col-xs-4">
+                <table>
+                    <tr>
+                        <td class="left-col-table">Resources:</td>
+                        <td>{{schedule.scheduledEmployeeCount}} {{'schedule_builder.EMPLOYEES' | translate }}<br>
+                            {{schedule.scheduledTeamCount}} {{'schedule_builder.TEAMS' | translate }}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-xs-4">
+                <table>
+                    <tr>
+                        <td class="left-col-table">Score:</td>
+                        <td>
+                            {{'schedule_builder.HARD_CONSTRAINT_SCORE' | translate }} <span class='{{extScope.isHard(schedule.hardScore, "")}}'>{{schedule.hardScore}}</span> <br>
+                            {{'schedule_builder.MEDIUM_CONSTRAINT_SCORE' | translate }} <span class='{{extScope.isHard(schedule.mediumScore, "mediumScore")}}'>{{schedule.mediumScore}}</span> <br>
+                            {{'schedule_builder.SOFT_CONSTRAINT_SCORE' | translate }} {{schedule.softScore}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-xs-4">
+                <table>
+                    <tr>
+                        <td class="left-col-table">Shifts:</td>
+                        <td>
+                            <span data-ng-hide="schedule.returnedAssignedShifts < 0">
+                                {{schedule.returnedAssignedShifts}} {{'schedule_builder.ASSIGNED' | translate }} {{'schedule_builder.SHIFTS' | translate }}
+                            </span> <br>
+                            <span data-ng-hide="schedule.returnedOpenShifts < 0">
+                                <span class='{{extScope.isHard(schedule.hardScore, "")}}'>{{schedule.returnedOpenShifts}}</span> {{'app.OPEN' | translate }} {{'schedule_builder.SHIFTS' | translate }}
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
